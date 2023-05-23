@@ -17,6 +17,7 @@ class NewPasswordScreen extends StatefulWidget {
 
 class _NewPasswordScreenState extends State<NewPasswordScreen> {
   bool _isVisible = false;
+  bool _isNewVisible = false;
   bool isActive = false;
   late TextEditingController _newPassword;
   @override
@@ -68,6 +69,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               obscureText: !_isVisible,
               decoration: InputDecoration(
                 prefix: const SizedBox(width: 12),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 suffixIcon: GestureDetector(
                   onTap: () {
                     setState(() {
@@ -108,19 +111,21 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
             ),
             TextFormField(
               controller: null,
-              obscureText: !_isVisible,
+              obscureText: !_isNewVisible,
               decoration: InputDecoration(
                 prefix: const SizedBox(width: 12),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 suffixIcon: GestureDetector(
                   onTap: () {
                     setState(() {
-                      _isVisible = !_isVisible;
+                      _isNewVisible = !_isNewVisible;
                     });
                   },
                   child: SizedBox(
                     width: 60,
                     child: Icon(
-                      _isVisible ? Icons.visibility : Icons.visibility_off,
+                      _isNewVisible ? Icons.visibility : Icons.visibility_off,
                       color: const Color.fromRGBO(150, 152, 156, 1),
                     ),
                   ),

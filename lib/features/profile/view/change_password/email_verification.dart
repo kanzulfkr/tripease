@@ -18,7 +18,7 @@ class EmailVerification extends StatefulWidget {
 }
 
 class _EmailVerificationState extends State<EmailVerification> {
-  int start = 10;
+  int start = 59;
   bool isActive = false;
   bool textIsActive = false;
 
@@ -26,18 +26,7 @@ class _EmailVerificationState extends State<EmailVerification> {
   void initState() {
     // startCountDown();
     super.initState();
-    // otpController = TextEditingController();
-    // otpController.addListener(() {
-    //   final isActive = otpController.text.isNotEmpty;
-    //   setState(() => this.isActive = isActive);
-    // });
   }
-
-  // @override
-  // void dispose() {
-  // otpController.dispose();
-  //   super.dispose();
-  // }
 
   void startCountDown() {
     const onSec = Duration(seconds: 1);
@@ -82,7 +71,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                 ),
               ),
-
               OTPTextField(
                 length: 4,
                 width: 250,
@@ -107,127 +95,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                   final isActive = value.contains('1111');
                   setState(() => this.isActive = isActive);
                 },
+                onChanged: null,
               ),
-
-              // SizedBox(
-              //   width: 220,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //     children: [
-              //       SizedBox(
-              //         width: 40,
-              //         height: 40,
-              //         child: TextFormField(
-              //           style: const TextStyle(
-              //               fontSize: 16, fontWeight: FontWeight.w700),
-              //           keyboardType: TextInputType.number,
-              //           textAlign: TextAlign.center,
-              //           inputFormatters: [
-              //             LengthLimitingTextInputFormatter(1),
-              //             FilteringTextInputFormatter.digitsOnly,
-              //           ],
-              //           decoration: const InputDecoration(
-              //             filled: true, //<-- SEE HERE
-              //             fillColor: Color.fromRGBO(225, 228, 234, 1),
-              //             contentPadding: EdgeInsets.all(10),
-              //             border:
-              //                 OutlineInputBorder(borderSide: BorderSide.none),
-              //           ),
-              //           onChanged: (value) {
-              //             if (value.length == 1) {
-              //               FocusScope.of(context).nextFocus();
-              //             }
-              //           },
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         width: 40,
-              //         height: 40,
-              //         child: TextFormField(
-              //           style: const TextStyle(
-              //               fontSize: 16, fontWeight: FontWeight.w700),
-              //           keyboardType: TextInputType.number,
-              //           textAlign: TextAlign.center,
-              //           inputFormatters: [
-              //             LengthLimitingTextInputFormatter(1),
-              //             FilteringTextInputFormatter.digitsOnly,
-              //           ],
-              //           decoration: const InputDecoration(
-              //             filled: true, //<-- SEE HERE
-              //             fillColor: Color.fromRGBO(225, 228, 234, 1),
-              //             contentPadding: EdgeInsets.all(10),
-              //             border:
-              //                 OutlineInputBorder(borderSide: BorderSide.none),
-              //           ),
-              //           onChanged: (value) {
-              //             if (value.length == 1) {
-              //               FocusScope.of(context).nextFocus();
-              //             } else {
-              //               FocusScope.of(context).previousFocus();
-              //             }
-              //           },
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         width: 40,
-              //         height: 40,
-              //         child: TextFormField(
-              //           style: const TextStyle(
-              //               fontSize: 16, fontWeight: FontWeight.w700),
-              //           keyboardType: TextInputType.number,
-              //           textAlign: TextAlign.center,
-              //           inputFormatters: [
-              //             LengthLimitingTextInputFormatter(1),
-              //             FilteringTextInputFormatter.digitsOnly,
-              //           ],
-              //           decoration: const InputDecoration(
-              //             filled: true, //<-- SEE HERE
-              //             fillColor: Color.fromRGBO(225, 228, 234, 1),
-              //             contentPadding: EdgeInsets.all(10),
-              //             border:
-              //                 OutlineInputBorder(borderSide: BorderSide.none),
-              //           ),
-              //           onChanged: (value) {
-              //             if (value.length == 1) {
-              //               FocusScope.of(context).nextFocus();
-              //             } else {
-              //               FocusScope.of(context).previousFocus();
-              //             }
-              //           },
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         width: 40,
-              //         height: 40,
-              //         child: TextFormField(
-              //           style: const TextStyle(
-              //               fontSize: 16, fontWeight: FontWeight.w700),
-              //           keyboardType: TextInputType.number,
-              //           textAlign: TextAlign.center,
-              //           inputFormatters: [
-              //             LengthLimitingTextInputFormatter(1),
-              //             FilteringTextInputFormatter.digitsOnly,
-              //           ],
-              //           decoration: const InputDecoration(
-              //             filled: true, //<-- SEE HERE
-              //             fillColor: Color.fromRGBO(225, 228, 234, 1),
-              //             contentPadding: EdgeInsets.all(10),
-              //             border:
-              //                 OutlineInputBorder(borderSide: BorderSide.none),
-              //           ),
-              //           onChanged: (value) {
-              //             if (value.length == 1) {
-              //               FocusScope.of(context).nextFocus();
-              //             } else {
-              //               FocusScope.of(context).previousFocus();
-              //             }
-              //           },
-              //         ),
-              //       ),
-              // ],
-              // ),
-              // ),
-
               Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 7),
                 child: Row(
@@ -285,7 +154,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                   ],
                 ),
               ),
-
               isActive
                   ? ButtonActive(
                       text: 'Verifikasi',

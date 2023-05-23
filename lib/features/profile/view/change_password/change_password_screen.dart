@@ -69,6 +69,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               obscureText: !_isVisible,
               decoration: InputDecoration(
                 prefix: const SizedBox(width: 12),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 suffixIcon: GestureDetector(
                   onTap: () {
                     setState(() {

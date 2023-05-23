@@ -2,15 +2,25 @@ import 'package:capstone_project_tripease/features/profile/view/component/button
 import 'package:capstone_project_tripease/features/profile/view/component/button_inactive.dart';
 import 'package:flutter/material.dart';
 
-class DialogLogout extends StatelessWidget {
-  const DialogLogout({
+class CustomDialog extends StatelessWidget {
+  const CustomDialog({
     super.key,
+    required this.title,
+    required this.content,
+    required this.btnActive,
+    required this.btnInactive,
+    required this.onTapActive,
   });
+  final String title;
+  final String content;
+  final String btnActive;
+  final String btnInactive;
+  final VoidCallback onTapActive;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Keluar dari akun'),
+      title: Text(title),
       titleTextStyle: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
@@ -19,9 +29,9 @@ class DialogLogout extends StatelessWidget {
       content: SingleChildScrollView(
         child: Column(
           children: [
-            const Text(
-              'Sayang sekali, banyak keuntungan yang anda lewatkan. Apakah anda yakin untuk keluar?',
-              style: TextStyle(
+            Text(
+              content,
+              style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
@@ -29,16 +39,14 @@ class DialogLogout extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ButtonActive(
-              text: 'Ya',
-              // colorText: Colors.white,
-              // colorButton: const Color.fromRGBO(0, 128, 255, 1),
+              text: btnActive,
               onTap: () {
-                Navigator.of(context).pop();
+                onTapActive();
               },
             ),
             const SizedBox(height: 12),
             ButtonInactive(
-              text: 'Tidak',
+              text: btnInactive,
               onTap: () {
                 Navigator.of(context).pop();
               },

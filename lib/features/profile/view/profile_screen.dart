@@ -1,5 +1,5 @@
 import 'package:capstone_project_tripease/features/profile/view/change_password/change_password_screen.dart';
-import 'package:capstone_project_tripease/features/profile/view/component/dialog_logout.dart';
+import 'package:capstone_project_tripease/features/profile/view/component/custom_dialog.dart';
 import 'package:capstone_project_tripease/features/profile/view/component/menu_profile.dart';
 import 'package:capstone_project_tripease/features/profile/view/edit_profile/edit_profile_screen.dart';
 import 'package:capstone_project_tripease/features/profile/view/help_center/help_center_screen.dart';
@@ -81,14 +81,11 @@ class ProfileScreen extends StatelessWidget {
                             width: 40,
                             child: InkWell(
                               onTap: () {
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const EditProfileScreen(
-                                        title: 'Ubah Profile',
-                                      ),
-                                    ))
-                                    .then((value) {});
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const EditProfileScreen(
+                                    title: 'Ubah Profile',
+                                  ),
+                                ));
                               },
                               child: const Icon(
                                 Icons.edit_outlined,
@@ -113,13 +110,11 @@ class ProfileScreen extends StatelessWidget {
                         name: 'Ubah Profile',
                         description: 'Ubah profile Anda',
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                builder: (context) => const EditProfileScreen(
-                                  title: 'Ubah Profile',
-                                ),
-                              ))
-                              .then((value) {});
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const EditProfileScreen(
+                              title: 'Ubah Profile',
+                            ),
+                          ));
                         },
                       ),
                       MenuProfile(
@@ -127,14 +122,11 @@ class ProfileScreen extends StatelessWidget {
                         name: 'Ubah Kata Sandi',
                         description: 'Ubah kata sandi Anda',
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const ChangePasswordScreen(
-                                  title: 'Ubah Kata Sandi',
-                                ),
-                              ))
-                              .then((value) {});
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const ChangePasswordScreen(
+                              title: 'Ubah Kata Sandi',
+                            ),
+                          ));
                         },
                       ),
                       MenuProfile(
@@ -145,7 +137,16 @@ class ProfileScreen extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) {
-                              return const DialogLogout();
+                              return CustomDialog(
+                                title: 'Keluar dari akun',
+                                content:
+                                    'Sayang sekali, banyak keuntungan yang anda lewatkan. Apakah anda yakin untuk keluar?',
+                                btnActive: 'Ya',
+                                btnInactive: 'Tidak',
+                                onTapActive: () {
+                                  Navigator.of(context).pop();
+                                },
+                              );
                             },
                           );
                         },
@@ -171,13 +172,11 @@ class ProfileScreen extends StatelessWidget {
                         name: 'Pusat Bantuan',
                         description: 'Temukan jawaban terbaik Anda',
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                builder: (context) => const HelpCenterScreen(
-                                  title: 'Pusat Bantuan',
-                                ),
-                              ))
-                              .then((value) {});
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const HelpCenterScreen(
+                              title: 'Pusat Bantuan',
+                            ),
+                          ));
                         },
                       ),
                       MenuProfile(
@@ -185,13 +184,11 @@ class ProfileScreen extends StatelessWidget {
                         name: 'Bahasa / Language',
                         description: 'Pilih bahasa yang Anda inginkan',
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                builder: (context) => const LanguageScreen(
-                                  title: 'Bahasa',
-                                ),
-                              ))
-                              .then((value) {});
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const LanguageScreen(
+                              title: 'Bahasa',
+                            ),
+                          ));
                         },
                       ),
                     ],
