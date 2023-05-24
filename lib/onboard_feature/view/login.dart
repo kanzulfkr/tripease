@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/onboard_feature/view/home.dart';
 import '/onboard_feature/view/register.dart';
 import '/onboard_feature/view_model/login_provider.dart';
@@ -208,9 +210,9 @@ class _LoginPageState extends State<LoginPage> {
                             //         const HomePage(),
                             //   ),
                             // );
-                            // final SharedPreferences prefs =
-                            //     await SharedPreferences.getInstance();
-                            // await prefs.setBool('isLogin', true);
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setBool('isLogin', true);
                             String email = _emailController.text;
                             String password = _passwordController.text;
                             if (_formKey.currentState!.validate()) {
