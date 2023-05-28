@@ -1,6 +1,6 @@
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_inactive.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/change_password/email_verification.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_inactive.dart';
+import 'package:capstone_project_tripease/features_profile/view/change_password/email_verification.dart';
 import 'package:flutter/material.dart';
 
 class NewPasswordScreen extends StatefulWidget {

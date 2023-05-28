@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_close.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_inactive.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/custom_dialog.dart';
-// import 'package:capstone_project_tripease/features/profile/view/edit_profile/edit_picture_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_close.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_inactive.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';

@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_profile/profile/view/help_center/detail_topic.dart';
+import 'package:capstone_project_tripease/features_profile/view/help_center/detail_topic.dart';
 import 'package:flutter/material.dart';
 
 class HelpCenterScreen extends StatefulWidget {

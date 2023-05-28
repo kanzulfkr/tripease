@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

@@ -1,5 +1,5 @@
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_inactive.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/button_inactive.dart';
 import 'package:flutter/material.dart';
 
 class CustomDialog extends StatelessWidget {

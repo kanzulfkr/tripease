@@ -1,14 +1,9 @@
-import 'package:capstone_project_tripease/features_profile/profile/view/agungs_fiture/check_in.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/agungs_fiture/check_out.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/agungs_fiture/reviews.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/change_password/change_password_screen.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/custom_dialog.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/component/menu_profile.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/edit_profile/edit_profile_screen.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/help_center/help_center_screen.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/language/language_screen.dart';
-import 'package:capstone_project_tripease/features_profile/profile/view/radio_btmsht.dart';
+import 'package:capstone_project_tripease/features_profile/view/change_password/change_password_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/custom_dialog.dart';
+import 'package:capstone_project_tripease/features_profile/view/component/menu_profile.dart';
+import 'package:capstone_project_tripease/features_profile/view/edit_profile/edit_profile_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view/help_center/help_center_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view/language/language_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,7 +18,8 @@ class ProfileScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
-          child: ListView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Profile',
@@ -191,52 +187,6 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              const Text(
-                'Fitur Agung',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 10),
-              ButtonActive(
-                text: 'Go to Check-In',
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const CheckIn(
-                      title: 'Shibuya Shabu',
-                    ),
-                  ));
-                },
-              ),
-              const SizedBox(height: 10),
-              ButtonActive(
-                text: 'Go to Check-Out',
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const CheckOut(
-                      title: 'Shibuya Shabu',
-                    ),
-                  ));
-                },
-              ),
-              const SizedBox(height: 10),
-              ButtonActive(
-                text: 'Go to Reviews',
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Reviews(
-                      title: 'Shibuya Shabu',
-                    ),
-                  ));
-                },
-              ),
-              const SizedBox(height: 10),
-              ButtonActive(
-                text: 'Go to Bottom sheet radio',
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const RadioBottomSheet(),
-                  ));
-                },
               ),
             ],
           ),
