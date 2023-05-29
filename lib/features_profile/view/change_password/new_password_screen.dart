@@ -1,7 +1,9 @@
-import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/button_inactive.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
 import 'package:capstone_project_tripease/features_profile/view/change_password/email_verification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   const NewPasswordScreen({
@@ -44,7 +46,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(
           widget.title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: GoogleFonts.openSans(
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -53,22 +56,24 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Kata Sandi baru anda harus berbeda dari Kata Sandi yang digunakan sebelumnya.',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+              style: GoogleFonts.openSans(
+                  fontSize: 14.sp, fontWeight: FontWeight.w400),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 30, bottom: 12),
+            Padding(
+              padding: EdgeInsets.only(top: 30.h, bottom: 12.h),
               child: Text(
                 'Kata Sandi Baru',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
             TextFormField(
               controller: _newPassword,
               obscureText: !_isVisible,
               decoration: InputDecoration(
-                prefix: const SizedBox(width: 12),
+                prefix: SizedBox(width: 12.w),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 suffixIcon: GestureDetector(
@@ -78,7 +83,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     });
                   },
                   child: SizedBox(
-                    width: 60,
+                    width: 60.w,
                     child: Icon(
                       _isVisible ? Icons.visibility : Icons.visibility_off,
                       color: const Color.fromRGBO(150, 152, 156, 1),
@@ -86,34 +91,39 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ),
                 ),
                 hintText: 'Masukkan kata sandi baru',
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                  color: Color.fromRGBO(150, 152, 156, 1),
+                hintStyle: GoogleFonts.openSans(
+                  fontSize: 14.sp,
+                  color: const Color.fromRGBO(150, 152, 156, 1),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
+                  borderSide: BorderSide(
+                    width: 1.w,
+                    color: const Color.fromRGBO(210, 215, 224, 1),
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
+                  borderSide: BorderSide(
+                    width: 1.w,
+                    color: const Color.fromRGBO(210, 215, 224, 1),
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 30, bottom: 12),
+            Padding(
+              padding: EdgeInsets.only(top: 30.h, bottom: 12.h),
               child: Text(
                 'Konfirmasi Kata Sandi Baru',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
             TextFormField(
               controller: null,
               obscureText: !_isNewVisible,
               decoration: InputDecoration(
-                prefix: const SizedBox(width: 12),
+                prefix: SizedBox(width: 12.w),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 suffixIcon: GestureDetector(
@@ -123,7 +133,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     });
                   },
                   child: SizedBox(
-                    width: 60,
+                    width: 60.w,
                     child: Icon(
                       _isNewVisible ? Icons.visibility : Icons.visibility_off,
                       color: const Color.fromRGBO(150, 152, 156, 1),
@@ -131,23 +141,27 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ),
                 ),
                 hintText: 'Masukkan ulang kata sandi baru',
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                  color: Color.fromRGBO(150, 152, 156, 1),
+                hintStyle: GoogleFonts.openSans(
+                  fontSize: 14.sp,
+                  color: const Color.fromRGBO(150, 152, 156, 1),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
+                  borderSide: BorderSide(
+                    width: 1.w,
+                    color: const Color.fromRGBO(210, 215, 224, 1),
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
+                  borderSide: BorderSide(
+                    width: 1.w,
+                    color: const Color.fromRGBO(210, 215, 224, 1),
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
-            const SizedBox(height: 75),
+            SizedBox(height: 75.h),
             isActive
                 ? ButtonActive(
                     text: 'Selanjutnya',

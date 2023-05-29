@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -36,7 +37,7 @@ void _showDateBottomSheet(BuildContext context) {
                     padding: const EdgeInsets.only(left: 24, top: 16),
                     child: Text(
                       'Pilih Tanggal',
-                      style: TextStyle(
+                      style: GoogleFonts.openSans(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -48,7 +49,7 @@ void _showDateBottomSheet(BuildContext context) {
                       children: [
                         Text(
                           '${DateFormat('EEEE, dd MMMM', 'id_ID').format(selectedDate)}',
-                          style: TextStyle(
+                          style: GoogleFonts.openSans(
                             fontSize: 32,
                             fontWeight: FontWeight.w500,
                           ),
@@ -83,11 +84,11 @@ void _showDateBottomSheet(BuildContext context) {
                       focusedDay: selectedDate,
                       locale: 'id_ID', // Set locale ke Indonesia
                       calendarFormat: calendarFormat,
-                      headerStyle: const HeaderStyle(
+                      headerStyle: HeaderStyle(
                         formatButtonTextStyle:
-                            TextStyle(color: Colors.transparent),
+                            GoogleFonts.openSans(color: Colors.transparent),
                         formatButtonDecoration:
-                            BoxDecoration(color: Colors.transparent),
+                            const BoxDecoration(color: Colors.transparent),
                       ),
                     ),
                   ),
@@ -103,7 +104,7 @@ void _showDateBottomSheet(BuildContext context) {
                           },
                           child: Text(
                             'Batal',
-                            style: TextStyle(
+                            style: GoogleFonts.openSans(
                                 fontWeight: FontWeight.w500, fontSize: 14),
                           ),
                         ),
@@ -115,7 +116,7 @@ void _showDateBottomSheet(BuildContext context) {
                         },
                         child: Text(
                           'OK',
-                          style: TextStyle(
+                          style: GoogleFonts.openSans(
                               fontWeight: FontWeight.w500, fontSize: 14),
                         ),
                       ),

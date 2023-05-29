@@ -1,6 +1,8 @@
-import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/button_inactive.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomDialog extends StatelessWidget {
   const CustomDialog({
@@ -21,8 +23,8 @@ class CustomDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(title),
-      titleTextStyle: const TextStyle(
-        fontSize: 14,
+      titleTextStyle: GoogleFonts.openSans(
+        fontSize: 14.sp,
         fontWeight: FontWeight.w600,
         color: Colors.black,
       ),
@@ -31,20 +33,20 @@ class CustomDialog extends StatelessWidget {
           children: [
             Text(
               content,
-              style: const TextStyle(
-                fontSize: 12,
+              style: GoogleFonts.openSans(
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ButtonActive(
               text: btnActive,
               onTap: () {
                 onTapActive();
               },
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             ButtonInactive(
               text: btnInactive,
               onTap: () {

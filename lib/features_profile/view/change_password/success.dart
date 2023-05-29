@@ -1,7 +1,9 @@
-import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/view/profile_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
+import 'package:capstone_project_tripease/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Success extends StatelessWidget {
   const Success({super.key});
@@ -11,29 +13,31 @@ class Success extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20.r),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 'assets/svg/undraw_success.svg',
               ),
-              const SizedBox(height: 32),
-              const Text(
+              SizedBox(height: 32.h),
+              Text(
                 'Sukses mengubah Kata Sandi',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                style: GoogleFonts.openSans(
+                    fontSize: 16.sp, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 10),
-              const Text(
+              SizedBox(height: 10.h),
+              Text(
                 'Kata Sandi telah diubah',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                style: GoogleFonts.openSans(
+                    fontSize: 12.sp, fontWeight: FontWeight.w400),
               ),
-              const SizedBox(height: 64),
+              SizedBox(height: 64.h),
               ButtonActive(
                 text: 'Selesai',
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
+                    builder: (context) => const MainPage(),
                   ));
                 },
               )

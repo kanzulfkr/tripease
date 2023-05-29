@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/button_inactive.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
 import 'package:capstone_project_tripease/features_profile/view/change_password/success.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -53,30 +55,32 @@ class _EmailVerificationState extends State<EmailVerification> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 70, bottom: 20),
+                padding: EdgeInsets.only(top: 70.h, bottom: 20.h),
                 child: SvgPicture.asset('assets/svg/undraw_mail_sent.svg'),
               ),
-              const Text(
+              Text(
                 'Email Verifikasi',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                style: GoogleFonts.openSans(
+                    fontSize: 16.sp, fontWeight: FontWeight.w700),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 7, bottom: 48),
+              Padding(
+                padding: EdgeInsets.only(top: 7.h, bottom: 48.h),
                 child: Text(
                   'Masukkan kode OTP yang dikirimkan ke email anda ',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.openSans(
+                      fontSize: 12.sp, fontWeight: FontWeight.w400),
                 ),
               ),
               OTPTextField(
                 length: 4,
-                width: 250,
-                fieldWidth: 47,
-                style: const TextStyle(
-                  fontSize: 16,
+                width: 250.w,
+                fieldWidth: 47.w,
+                style: GoogleFonts.openSans(
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                 ),
                 textFieldAlignment: MainAxisAlignment.spaceEvenly,
@@ -86,7 +90,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                   disabledBorderColor: const Color.fromRGBO(225, 228, 234, 1),
                   backgroundColor: const Color.fromRGBO(225, 228, 234, 1),
                   enabledBorderColor: const Color.fromRGBO(225, 228, 234, 1),
-                  // focusBorderColor: Colors.green,
                 ),
                 inputFormatter: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -98,38 +101,38 @@ class _EmailVerificationState extends State<EmailVerification> {
                 onChanged: null,
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 24, bottom: 7),
+                padding: EdgeInsets.only(top: 24.h, bottom: 7.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Akan kadaluarsa pada ',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w400),
                     ),
                     Text(
                       '00:$start',
-                      style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w700),
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w700),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 64),
+                padding: EdgeInsets.only(bottom: 64.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Tidak menerima kode OTP?',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w400),
                     ),
                     textIsActive
-                        ? const Text(
+                        ? Text(
                             ' Kirim Ulang',
-                            style: TextStyle(
-                                fontSize: 14,
+                            style: GoogleFonts.openSans(
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.grey
                                 // color: Color.fromRGBO(0, 128, 255, 1),
@@ -142,12 +145,12 @@ class _EmailVerificationState extends State<EmailVerification> {
                                 startCountDown();
                               });
                             },
-                            child: const Text(
+                            child: Text(
                               ' Kirim Ulang',
-                              style: TextStyle(
-                                fontSize: 14,
+                              style: GoogleFonts.openSans(
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
-                                color: Color.fromRGBO(0, 128, 255, 1),
+                                color: const Color.fromRGBO(0, 128, 255, 1),
                               ),
                             ),
                           ),

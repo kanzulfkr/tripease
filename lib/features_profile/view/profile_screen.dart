@@ -1,11 +1,12 @@
 import 'package:capstone_project_tripease/features_profile/view/change_password/change_password_screen.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/custom_dialog.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/menu_profile.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/custom_dialog.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/menu_profile.dart';
 import 'package:capstone_project_tripease/features_profile/view/edit_profile/edit_profile_screen.dart';
-import 'package:capstone_project_tripease/features_profile/view/help_center/help_center_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view/help_center/help_screen.dart';
 import 'package:capstone_project_tripease/features_profile/view/language/language_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -23,7 +24,8 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Text(
                 'Profile',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
               Container(
                 height: 84.h,
@@ -58,16 +60,16 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Sekar Mauliyah',
-                              style: TextStyle(
-                                  fontSize: 14,
+                              style: GoogleFonts.openSans(
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white),
                             ),
                             SizedBox(height: 3.h),
                             Text(
                               'sekarm13@gmail.com',
-                              style: TextStyle(
-                                  fontSize: 12,
+                              style: GoogleFonts.openSans(
+                                  fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.white),
                             ),
@@ -150,13 +152,14 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Text(
+              Text(
                 'Lainnya',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
               Container(
                 width: double.maxFinite,
-                height: 152,
+                height: 152.h,
                 color: Colors.white,
                 margin: EdgeInsets.only(top: 20.h, bottom: 20.h),
                 child: Column(
@@ -167,7 +170,7 @@ class ProfileScreen extends StatelessWidget {
                       description: 'Temukan jawaban terbaik Anda',
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const HelpCenterScreen(
+                          builder: (context) => const HelpScreen(
                             title: 'Pusat Bantuan',
                           ),
                         ));

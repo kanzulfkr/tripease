@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class ButtonInactive extends StatelessWidget {
-  const ButtonInactive({
+class ButtonClose extends StatelessWidget {
+  const ButtonClose({
     super.key,
     required this.text,
+    // required this.colorText,
+    // required this.colorButton,
     required this.onTap,
   });
 
   final String text;
+  // final Color colorText;
+  // final Color colorButton;
   final VoidCallback onTap;
 
   @override
@@ -16,17 +21,17 @@ class ButtonInactive extends StatelessWidget {
       height: 40,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(240, 240, 248, 1),
+        color: const Color.fromRGBO(197, 41, 32, 1),
         borderRadius: BorderRadius.circular(5),
       ),
       child: InkWell(
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
+            style: GoogleFonts.openSans(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color.fromRGBO(139, 146, 156, 1),
+              color: Colors.white,
             ),
           ),
         ),

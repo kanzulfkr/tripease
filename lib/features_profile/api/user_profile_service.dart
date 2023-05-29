@@ -9,7 +9,7 @@ class UserProfileService {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODUzNzA4NTMsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo1fQ.aUK7WYvOQn2UQiihHUYUuwd2WhKM9qR9NjXz6LmDC0A";
 
   // fetch data using Dio()
-  Future<void> getDataWithDio() async {
+  Future<void> getUserDetailWithDio() async {
     try {
       final response = await Dio().post(
         "http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/user",
@@ -32,7 +32,7 @@ class UserProfileService {
   }
 
   // fetch data using http
-  Future<Map<String, dynamic>> getDataWithHttp() async {
+  Future<Map<String, dynamic>> getUserDetailWithHttp() async {
     try {
       var baseUrl =
           "http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/user";

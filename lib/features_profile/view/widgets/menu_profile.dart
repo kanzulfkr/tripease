@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuProfile extends StatelessWidget {
   const MenuProfile({
@@ -43,7 +44,7 @@ class MenuProfile extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: const TextStyle(
+                    style: GoogleFonts.openSans(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Colors.black),
@@ -51,10 +52,10 @@ class MenuProfile extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     description,
-                    style: const TextStyle(
+                    style: GoogleFonts.openSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color.fromRGBO(150, 152, 156, 1),
+                      color: const Color.fromRGBO(150, 152, 156, 1),
                     ),
                   ),
                 ],

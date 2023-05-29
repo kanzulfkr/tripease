@@ -1,51 +1,56 @@
-import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Future<dynamic> bottomSheetReviews(BuildContext context) {
   return showModalBottomSheet(
     context: context,
     builder: (builder) {
       return Container(
-        height: 390,
+        height: 405.h,
         width: double.maxFinite,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Divider(
-              color: Color.fromRGBO(150, 152, 156, 1),
-              height: 30,
+            Divider(
+              color: const Color.fromRGBO(150, 152, 156, 1),
+              height: 30.h,
               thickness: 6,
               endIndent: 170,
               indent: 170,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 15, bottom: 10),
+            Padding(
+              padding: EdgeInsets.only(top: 15.h, bottom: 10.h),
               child: Text(
                 'Terima kasih atas masukan Anda!',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
             ),
-            const Divider(
+            Divider(
               color: Colors.black,
-              height: 10,
+              height: 10.h,
               thickness: 0.3,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32),
-              child: SvgPicture.asset('assets/svg/emoji_pray.svg'),
+              padding: EdgeInsets.symmetric(vertical: 32.h),
+              child: SvgPicture.asset('assets/icons/emoji_pray.svg'),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 50),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50.w),
               child: Text(
                 'Masukan dan saran yang Anda berikan akan membantu pengembangan layanan kami.',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w400),
+                textAlign: TextAlign.center,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: ButtonActive(
                 text: 'Tutup',
                 onTap: () => Navigator.of(context).pop(),

@@ -1,10 +1,11 @@
-import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
 import 'package:capstone_project_tripease/features_profile/view/edit_profile/detail_picture_screen.dart';
 import 'package:capstone_project_tripease/features_profile/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-// import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -41,12 +42,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(
           widget.title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: GoogleFonts.openSans(
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,109 +64,115 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ));
                   },
-                  child: const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Color.fromRGBO(210, 215, 224, 1),
+                  child: CircleAvatar(
+                    radius: 50.r,
+                    backgroundColor: const Color.fromRGBO(210, 215, 224, 1),
                     child: CircleAvatar(
-                      radius: 47,
+                      radius: 47.r,
                       backgroundImage: AssetImage('assets/images/user.jfif'),
                     ),
                   ),
                 ),
               ),
             ),
-            const Center(
+            Center(
               child: Text(
                 'Sekar Mauliyah',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
             ),
-            const Center(
+            Center(
               child: Text(
                 'sekarm13@gmail.com',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w400),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 40, bottom: 12),
+            Padding(
+              padding: EdgeInsets.only(top: 40.h, bottom: 12.h),
               child: Text(
                 'Nama Lengkap',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
             TextFormField(
               controller: null,
               initialValue: 'Sekar Mauliyah',
               keyboardType: TextInputType.text,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
+              style: GoogleFonts.openSans(fontSize: 14.sp, color: Colors.black),
               decoration: InputDecoration(
                 contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 12, bottom: 12),
+            Padding(
+              padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
               child: Text(
                 'Nomor Telepon',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
             TextFormField(
               controller: null,
               initialValue: '85792057054',
               keyboardType: TextInputType.phone,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
+              style: GoogleFonts.openSans(fontSize: 14, color: Colors.black),
               decoration: InputDecoration(
                 contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                 prefixText: '+62 | ',
-                prefixStyle: const TextStyle(color: Colors.black),
+                prefixStyle: GoogleFonts.openSans(color: Colors.black),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 12, bottom: 12),
+            Padding(
+              padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
               child: Text(
                 'Tanggal Lahir',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
             TextFormField(
               controller: null,
               initialValue: '01 - Agustus 2001',
               keyboardType: TextInputType.text,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
+              style:
+                  GoogleFonts.openSans(fontSize: 14.sp.sp, color: Colors.black),
               decoration: InputDecoration(
                 contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                 suffixIcon: InkWell(
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
-                      shape: const RoundedRectangleBorder(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(28),
-                          topRight: Radius.circular(28),
+                          topLeft: Radius.circular(28.r),
+                          topRight: Radius.circular(28.r),
                         ),
                       ),
                       builder: (BuildContext context) {
@@ -173,12 +181,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               (BuildContext context, StateSetter setState) {
                             DateTime selectedDate = DateTime.now();
                             return Container(
-                              decoration: const BoxDecoration(
-                                color: Color(
-                                    0xFFF0F0F8), // Ubah warna latar belakang sesuai dengan #F0F0F8
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF0F0F8),
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(28),
-                                  topRight: Radius.circular(28),
+                                  topLeft: Radius.circular(28.r),
+                                  topRight: Radius.circular(28.r),
                                 ),
                               ),
                               child: SingleChildScrollView(
@@ -186,32 +193,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 24, top: 16),
+                                      padding: EdgeInsets.only(
+                                          left: 24.h, top: 16.h),
                                       child: Text(
                                         'Pilih Tanggal',
-                                        style: TextStyle(
-                                          fontSize: 14,
+                                        style: GoogleFonts.openSans(
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 24, top: 36),
+                                      padding: EdgeInsets.only(
+                                          left: 24.w, top: 36.h),
                                       child: Row(
                                         children: [
                                           Text(
                                             '${DateFormat('EEEE, dd MMMM', 'id_ID').format(selectedDate)}',
-                                            style: TextStyle(
-                                              fontSize: 32,
+                                            style: GoogleFonts.openSans(
+                                              fontSize: 32.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 118,
+                                          SizedBox(
+                                            width: 118.w,
                                           ),
-                                          Icon(Icons.edit),
+                                          const Icon(Icons.edit),
                                         ],
                                       ),
                                     ),
@@ -221,9 +228,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       indent: 0,
                                       endIndent: 0,
                                     ),
-                                    Container(
-                                      height: 524,
-                                      width: 380,
+                                    SizedBox(
+                                      height: 524.h,
+                                      width: 380.w,
                                       child: TableCalendar(
                                         selectedDayPredicate: (day) {
                                           return isSameDay(selectedDate, day);
@@ -240,11 +247,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         locale:
                                             'id_ID', // Set locale ke Indonesia
                                         calendarFormat: calendarFormat,
-                                        headerStyle: const HeaderStyle(
-                                          formatButtonTextStyle: TextStyle(
-                                              color: Colors.transparent),
-                                          formatButtonDecoration: BoxDecoration(
-                                              color: Colors.transparent),
+                                        headerStyle: HeaderStyle(
+                                          formatButtonTextStyle:
+                                              GoogleFonts.openSans(
+                                                  color: Colors.transparent),
+                                          formatButtonDecoration:
+                                              const BoxDecoration(
+                                                  color: Colors.transparent),
                                         ),
                                       ),
                                     ),
@@ -253,32 +262,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 252),
+                                          padding: EdgeInsets.only(left: 252.w),
                                           child: TextButton(
                                             onPressed: () {
-                                              // Tombol Batal
                                               Navigator.of(context).pop();
                                             },
                                             child: Text(
                                               'Batal',
-                                              style: TextStyle(
+                                              style: GoogleFonts.openSans(
                                                   fontWeight: FontWeight.w500,
-                                                  fontSize: 14),
+                                                  fontSize: 14.sp),
                                             ),
                                           ),
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            // Tombol Kirim
                                             Navigator.of(context)
                                                 .pop(selectedDated);
                                           },
                                           child: Text(
                                             'OK',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14),
+                                            style: GoogleFonts.openSans(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14.sp,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -297,37 +304,39 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 12, bottom: 12),
+            Padding(
+              padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
               child: Text(
                 'Kewarganegaraan',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                style: GoogleFonts.openSans(
+                    fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
             Container(
-              height: 45,
+              height: 45.h,
               width: double.maxFinite,
-              padding: const EdgeInsets.only(left: 16, right: 12),
+              padding: EdgeInsets.only(left: 16.w, right: 12.w),
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(8),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8.r),
                 ),
                 border:
                     Border.all(color: const Color.fromRGBO(210, 215, 224, 1)),
               ),
               child: DropdownButton<String>(
-                hint: const Text(
+                hint: Text(
                   'Indonesia',
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  style: GoogleFonts.openSans(
+                      fontSize: 14.sp, color: Colors.black),
                 ),
                 value: null,
                 icon: const Icon(Icons.arrow_drop_down),
@@ -340,13 +349,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     value: value,
                     child: Text(
                       value,
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, color: Colors.black),
                     ),
                   );
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             ButtonActive(
               text: 'Simpan',
               onTap: () {

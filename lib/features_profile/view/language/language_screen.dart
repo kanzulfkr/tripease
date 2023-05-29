@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LanguageScreen extends StatefulWidget {
   const LanguageScreen({
@@ -42,7 +44,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
         backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(
           widget.title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: GoogleFonts.openSans(
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -54,8 +57,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
               _isIdActive ? null : selectId();
             },
             child: Container(
-              height: 60,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              height: 60.h,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
@@ -69,7 +72,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 children: [
                   Text(
                     'Indonesia',
-                    style: TextStyle(
+                    style: GoogleFonts.openSans(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: _isIdActive
@@ -92,8 +95,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
               _isEnActive ? null : selectId();
             },
             child: Container(
-              height: 60,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              height: 60.h,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
@@ -107,8 +110,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 children: [
                   Text(
                     'English',
-                    style: TextStyle(
-                      fontSize: 16,
+                    style: GoogleFonts.openSans(
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w400,
                       color: _isEnActive
                           ? const Color.fromRGBO(0, 128, 255, 1)

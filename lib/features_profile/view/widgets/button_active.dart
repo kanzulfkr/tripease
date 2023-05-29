@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ButtonActive extends StatelessWidget {
   const ButtonActive({
@@ -17,18 +19,18 @@ class ButtonActive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 40.h,
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: const Color.fromRGBO(0, 128, 255, 1),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(5.r),
       ),
       child: InkWell(
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 14,
+            style: GoogleFonts.openSans(
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               color: Colors.white,
             ),

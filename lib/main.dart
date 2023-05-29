@@ -32,22 +32,3 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
-// {
-//   "status_code": 200,
-//   "message": "Successfully logged in",
-//   "data": {
-//     "id": 5,
-//     "full_name": "Kanzul f",
-//     "email": "kanzul@gmail.com",
-//     "phone_number": "0811111111111",
-//     "gender": null,
-//     "birth_date": "",
-//     "profile_picture_url": "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg",
-//     "citizen": "Indonesia",
-//     "role": "user",
-//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODUyODkwMTIsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo1fQ.JiVK41dKb6oFD9Pd5LrcJ2CVtEuSkgZLrpmQ-j6UsXE",
-//     "created_at": "2023-05-27T15:49:42.259Z",
-//     "updated_at": "2023-05-27T15:49:42.259Z"
-//   }
-// }

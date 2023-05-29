@@ -1,6 +1,6 @@
 import 'package:capstone_project_tripease/features_pesanan/pesanan_screen.dart';
 import 'package:capstone_project_tripease/features_profile/view/profile_screen.dart';
-import 'package:capstone_project_tripease/home_page.dart';
+import 'package:capstone_project_tripease/features_home/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {

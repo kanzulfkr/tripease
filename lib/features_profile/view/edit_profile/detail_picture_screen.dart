@@ -1,11 +1,13 @@
 import 'dart:io';
 
-import 'package:capstone_project_tripease/features_profile/view/component/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/button_close.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/button_inactive.dart';
-import 'package:capstone_project_tripease/features_profile/view/component/custom_dialog.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_close.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
+import 'package:capstone_project_tripease/features_profile/view/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -50,27 +52,28 @@ class _DetailPictureScreenState extends State<DetailPictureScreen> {
         backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(
           widget.title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: GoogleFonts.openSans(
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.w),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _image == null
-                  ? const CircleAvatar(
-                      radius: 140,
+                  ? CircleAvatar(
+                      radius: 140.r,
                       backgroundImage: AssetImage('assets/images/user.jfif'),
                     )
                   : CircleAvatar(
                       backgroundImage: FileImage(_image!),
-                      radius: 140,
+                      radius: 140.r,
                     ),
               Padding(
-                padding: const EdgeInsets.only(top: 100, bottom: 8),
+                padding: EdgeInsets.only(top: 100.h, bottom: 8.h),
                 child: ButtonActive(
                   text: 'Ubah',
                   onTap: () {
@@ -81,7 +84,7 @@ class _DetailPictureScreenState extends State<DetailPictureScreen> {
                       builder: (context) => SizedBox(
                         height: 250,
                         child: Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20.h),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -131,7 +134,7 @@ class _DetailPictureScreenState extends State<DetailPictureScreen> {
                                 },
                               ),
                               SizedBox(
-                                width: 200,
+                                width: 200.w,
                                 child: ButtonInactive(
                                   text: 'Tutup',
                                   onTap: () => Navigator.of(context).pop(),
