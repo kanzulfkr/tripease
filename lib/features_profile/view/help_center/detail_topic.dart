@@ -20,7 +20,7 @@ class _DetailTopicState extends State<DetailTopic> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color.fromRGBO(240, 240, 248, 1),
+      backgroundColor: const Color.fromRGBO(240, 240, 248, 1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(

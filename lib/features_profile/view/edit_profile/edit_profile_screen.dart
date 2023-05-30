@@ -1,6 +1,7 @@
 import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
 import 'package:capstone_project_tripease/features_profile/view/edit_profile/detail_picture_screen.dart';
 import 'package:capstone_project_tripease/features_profile/view/profile_screen.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  List<String> list = <String>[
+  List<String> listCountry = <String>[
     'Afghanistan',
     'Brunei Darussalam',
     'Canada',
@@ -29,7 +30,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     'Indonesia',
     'Netherlands'
   ];
-
+  String? selectedValue;
   DateTime today = DateTime.now();
   CalendarFormat calendarFormat = CalendarFormat.month;
   DateTime? selectedDated;
@@ -211,7 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           Text(
                                             '${DateFormat('EEEE, dd MMMM', 'id_ID').format(selectedDate)}',
                                             style: GoogleFonts.openSans(
-                                              fontSize: 32.sp,
+                                              fontSize: 28.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -229,8 +230,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       endIndent: 0,
                                     ),
                                     SizedBox(
-                                      height: 524.h,
-                                      width: 380.w,
+                                      // height: 524.h,
+                                      // width: 380.w,
                                       child: TableCalendar(
                                         selectedDayPredicate: (day) {
                                           return isSameDay(selectedDate, day);
@@ -258,21 +259,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       ),
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 252.w),
-                                          child: TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text(
-                                              'Batal',
-                                              style: GoogleFonts.openSans(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 14.sp),
-                                            ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text(
+                                            'Batal',
+                                            style: GoogleFonts.openSans(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14.sp),
                                           ),
                                         ),
                                         TextButton(
@@ -321,39 +318,91 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
+            // Container(
+            //   height: 45.h,
+            //   width: double.maxFinite,
+            //   padding: EdgeInsets.only(left: 16.w, right: 12.w),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.all(
+            //       Radius.circular(8.r),
+            //     ),
+            //     border:
+            //         Border.all(color: const Color.fromRGBO(210, 215, 224, 1)),
+            //   ),
+            //   child: DropdownButton<String>(
+            //     hint: Text(
+            //       'Indonesia',
+            //       style: GoogleFonts.openSans(
+            //           fontSize: 14.sp, color: Colors.black),
+            //     ),
+            //     value: null,
+            //     icon: const Icon(Icons.arrow_drop_down),
+            //     elevation: 16,
+            //     isExpanded: true,
+            //     underline: const SizedBox(),
+            //     onChanged: (String? value) {},
+            //     items:
+            //         listCountry.map<DropdownMenuItem<String>>((String value) {
+            //       return DropdownMenuItem<String>(
+            //         value: value,
+            //         child: Text(
+            //           value,
+            //           style: GoogleFonts.openSans(
+            //               fontSize: 14.sp, color: Colors.black),
+            //         ),
+            //       );
+            //     }).toList(),
+            //   ),
+            // ),
             Container(
-              height: 45.h,
-              width: double.maxFinite,
-              padding: EdgeInsets.only(left: 16.w, right: 12.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(8.r),
                 ),
-                border:
-                    Border.all(color: const Color.fromRGBO(210, 215, 224, 1)),
+                border: Border.all(color: Colors.grey.shade300),
               ),
-              child: DropdownButton<String>(
-                hint: Text(
-                  'Indonesia',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, color: Colors.black),
-                ),
-                value: null,
-                icon: const Icon(Icons.arrow_drop_down),
-                elevation: 16,
-                isExpanded: true,
-                underline: const SizedBox(),
-                onChanged: (String? value) {},
-                items: list.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton2<String>(
+                  hint: Padding(
+                    padding: EdgeInsets.only(left: 10.w),
                     child: Text(
-                      value,
+                      'Pilih',
                       style: GoogleFonts.openSans(
-                          fontSize: 14.sp, color: Colors.black),
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 2,
                     ),
-                  );
-                }).toList(),
+                  ),
+                  value: selectedValue,
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                    ),
+                    openMenuIcon: Icon(Icons.arrow_drop_up),
+                  ),
+                  isExpanded: true,
+                  underline: const SizedBox(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedValue = value;
+                    });
+                  },
+                  items:
+                      listCountry.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: GoogleFonts.openSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
             SizedBox(height: 30.h),
