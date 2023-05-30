@@ -2,6 +2,7 @@ import '/onboard_feature/view/login.dart';
 import '/onboard_feature/view_model/register_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Stack(
               children: [
                 SizedBox(
-                  height: 200,
+                  height: 200.h,
                   width: double.maxFinite,
                   child: Image.asset(
                     'assets/images/around-the-world.png',
@@ -53,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     const SizedBox(height: 180),
                     Container(
-                      height: 524,
+                      height: 524.h,
                       width: double.infinity,
                       padding: const EdgeInsets.all(20),
                       decoration: const BoxDecoration(

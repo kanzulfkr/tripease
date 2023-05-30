@@ -1,5 +1,3 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '/onboard_feature/view/home.dart';
 import '/onboard_feature/view/register.dart';
 import '/onboard_feature/view_model/login_provider.dart';
@@ -203,26 +201,34 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute<void>(
-                            //     builder: (BuildContext context) =>
-                            //         const HomePage(),
-                            //   ),
-                            // );
-                            final SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            await prefs.setBool('isLogin', true);
                             String email = _emailController.text;
                             String password = _passwordController.text;
                             if (_formKey.currentState!.validate()) {
                               await value.login(email, password);
-                              if (context.mounted) {
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => HomePage(),
+                              if (value.loginStatus == LoginStatus.loading) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Loading'),
                                   ),
                                 );
+                              } else if (value.loginStatus ==
+                                  LoginStatus.success) {
+                                if (context.mounted) {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomePage(),
+                                    ),
+                                  );
+                                }
+                              } else if (value.loginStatus ==
+                                  LoginStatus.error) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(value.message),
+                                    ),
+                                  );
+                                }
                               }
                             }
                           },

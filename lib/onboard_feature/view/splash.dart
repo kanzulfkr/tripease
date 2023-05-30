@@ -1,5 +1,4 @@
-import 'package:capstone_project_tripease/onboard_feature/view/home.dart';
-
+import '/onboard_feature/view/home.dart';
 import '/onboard_feature/view/login.dart';
 import '/onboard_feature/view/onboarding_page.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
     final bool isLogin = prefs.getBool('isLogin') ?? false;
     if (context.mounted) {
-      // Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => isOnboardingComplete
-      //             ? const DashboardPage()
-      //             : const IntroductionPage()));
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => isLogin
-                  ? HomePage()
+                  ? const HomePage()
                   : (isOnboardingComplete
                       ? const LoginPage()
                       : const OnboardPage())));

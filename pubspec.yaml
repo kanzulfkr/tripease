@@ -17,17 +17,19 @@ dependencies:
   image_cropper: ^4.0.1
   image_picker: ^0.8.5+3
   table_calendar: ^3.0.9
-  flutter_localization: ^0.1.11
-  flutter_localizations:
-    sdk: flutter
+
   flutter_rating_bar: ^4.0.1
   flutter_datetime_picker: ^1.5.1
   shared_preferences: ^2.1.1
-  intl: ^0.18.1
+
   dropdown_button2: ^2.1.2
   dio: ^5.1.2
   provider: ^6.0.5
-  
+  flutter_localization: ^0.1.11
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.18.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -36,6 +38,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    
-assets/icons/
-assets/images/
+    - assets/icons/
+    - assets/images/

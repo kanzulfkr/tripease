@@ -9,6 +9,8 @@ class UserApi {
   String urlRegister =
       'http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/register';
 
+  var error = '';
+  var message = '';
   // how to login and get token
 
   Future<UserResponseModel> login(String email, String password) async {
@@ -26,6 +28,12 @@ class UserApi {
       final token = response.data['data']['token'];
       TokenManager.saveToken(token);
       print('token: $token');
+      return UserResponseModel.fromJson(response.data);
+    } else if (response.statusCode == 400) {
+      error = response.statusMessage.toString();
+
+      print('error: $error');
+
       return UserResponseModel.fromJson(response.data);
     } else {
       throw Exception('Failed to login');

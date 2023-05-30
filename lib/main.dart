@@ -2,6 +2,7 @@ import '/onboard_feature/view/splash.dart';
 import '/onboard_feature/view_model/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'onboard_feature/view_model/login_provider.dart';
@@ -23,8 +24,15 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => RegisterProvider())
       ],
-      child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: SplashScreen()),
+      child: ScreenUtilInit(
+        builder: (BuildContext context, Widget? child) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: SplashScreen(),
+          );
+        },
+        designSize: const Size(360, 800),
+      ),
     );
   }
 }
