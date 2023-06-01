@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../features_rincian_pesanan_hotel/view/pesanan_batal.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/fonts.dart';
-
 
 class CardCanceledHotel extends StatelessWidget {
   CardCanceledHotel({
@@ -41,6 +40,7 @@ class CardCanceledHotel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -52,47 +52,50 @@ class CardCanceledHotel extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.w), // Use ScreenUtil for padding
             child: Container(
               decoration: BoxDecoration(
                 color: background,
                 boxShadow: [
                   BoxShadow(
                     color: grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: const Offset(1, 1),
+                    spreadRadius: 1.w, // Use ScreenUtil for spreadRadius
+                    blurRadius: 3.w, // Use ScreenUtil for blurRadius
+                    offset: Offset(1.w, 1.w), // Use ScreenUtil for offset
                   ),
                 ],
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(
+                    8.w), // Use ScreenUtil for borderRadius
               ),
-              height: 205,
-              width: 350,
+              height: 205.h, // Use ScreenUtil for height
+              width: 350.w, // Use ScreenUtil for width
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.w), // Use ScreenUtil for padding
                 child: Column(
                   children: [
                     Row(
                       children: [
                         icon,
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5.w), // Use ScreenUtil for width
                         Text(
                           title,
                           style: myTextTheme.titleMedium,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 19),
+                    SizedBox(height: 19.h), // Use ScreenUtil for height
                     Row(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(4), // Image border
+                          borderRadius: BorderRadius.circular(
+                              4.w), // Use ScreenUtil for borderRadius
                           child: SizedBox.fromSize(
-                            size: const Size.fromRadius(48), // Image radius
+                            size: Size.fromRadius(
+                                48.w), // Use ScreenUtil for size
                             child: image,
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        SizedBox(width: 10.w), // Use ScreenUtil for width
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,14 +104,16 @@ class CardCanceledHotel extends StatelessWidget {
                                 name,
                                 style: myTextTheme.displayMedium,
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(
+                                  height: 10.h), // Use ScreenUtil for height
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       iconLocation,
-                                      const SizedBox(width: 3),
+                                      SizedBox(
+                                          width: 3), // Use ScreenUtil for width
                                       Text(
                                         titleLocation,
                                         style: myTextTheme.headlineSmall,
@@ -118,7 +123,9 @@ class CardCanceledHotel extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconBed,
-                                      const SizedBox(width: 5),
+                                      SizedBox(
+                                          width:
+                                              5.w), // Use ScreenUtil for width
                                       Text(
                                         titleBed,
                                         style: myTextTheme.headlineSmall,
@@ -128,7 +135,9 @@ class CardCanceledHotel extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconBedTime,
-                                      const SizedBox(width: 5),
+                                      SizedBox(
+                                          width:
+                                              5.w), // Use ScreenUtil for width
                                       Text(
                                         titleBedTime,
                                         style: myTextTheme.headlineSmall,
@@ -138,7 +147,9 @@ class CardCanceledHotel extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconDate,
-                                      const SizedBox(width: 5),
+                                      SizedBox(
+                                          width:
+                                              5.w), // Use ScreenUtil for width
                                       Text(
                                         titleDate,
                                         style: myTextTheme.headlineSmall,
@@ -152,8 +163,8 @@ class CardCanceledHotel extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5),
-                    const Divider(
+                    SizedBox(height: 5.h), // Use ScreenUtil for height
+                    Divider(
                       color: black,
                     ),
                     Align(
@@ -164,7 +175,7 @@ class CardCanceledHotel extends StatelessWidget {
                             'Nomor Pesanan :',
                             style: myTextTheme.bodySmall,
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: 5.w), // Use ScreenUtil for width
                           Text(
                             nomorPesanan,
                             style: myTextTheme.bodySmall,

@@ -3,6 +3,7 @@ import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/fonts.dart';
@@ -45,7 +46,7 @@ class _PesananScreenState extends State<PesananScreen> {
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
-          height: 464,
+          height: 464.h,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -87,7 +88,7 @@ class _PesananScreenState extends State<PesananScreen> {
                         'Nama Hotel',
                         style: myTextTheme.labelSmall,
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       TextFormField(
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
@@ -98,12 +99,12 @@ class _PesananScreenState extends State<PesananScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       Text(
                         'Lokasi Hotel',
                         style: myTextTheme.labelSmall,
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       TextFormField(
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
@@ -114,12 +115,12 @@ class _PesananScreenState extends State<PesananScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       Text(
                         'Tanggal Pesanan Hotel',
                         style: myTextTheme.labelSmall,
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       TextFormField(
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
@@ -134,7 +135,7 @@ class _PesananScreenState extends State<PesananScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                     ],
                   ),
                 ),
@@ -143,12 +144,12 @@ class _PesananScreenState extends State<PesananScreen> {
                     'Terapkan',
                     style: myTextTheme.headlineMedium,
                   ),
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
+                  style: ButtonStyle(
+                    backgroundColor: const MaterialStatePropertyAll(
                       mainBlue,
                     ),
                     fixedSize: MaterialStatePropertyAll(
-                      Size(252, 40),
+                      Size(252.w, 40.h),
                     ),
                   ),
                   onPressed: () {},
@@ -166,7 +167,7 @@ class _PesananScreenState extends State<PesananScreen> {
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
-          height: 320,
+          height: 320.h,
           child: Column(
             children: [
               Container(
@@ -230,12 +231,12 @@ class _PesananScreenState extends State<PesananScreen> {
                         'Terapkan',
                         style: myTextTheme.headlineMedium,
                       ),
-                      style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
+                      style: ButtonStyle(
+                        backgroundColor: const MaterialStatePropertyAll(
                           mainBlue,
                         ),
                         fixedSize: MaterialStatePropertyAll(
-                          Size(252, 40),
+                          Size(252.w, 40.h),
                         ),
                       ),
                       onPressed: () {},
@@ -271,7 +272,7 @@ class _PesananScreenState extends State<PesananScreen> {
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
-          height: 320,
+          height: 320.h,
           child: Column(
             children: [
               Container(
@@ -329,18 +330,18 @@ class _PesananScreenState extends State<PesananScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     ElevatedButton(
                       child: Text(
                         'Terapkan',
                         style: myTextTheme.headlineMedium,
                       ),
-                      style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
+                      style: ButtonStyle(
+                        backgroundColor: const MaterialStatePropertyAll(
                           mainBlue,
                         ),
                         fixedSize: MaterialStatePropertyAll(
-                          Size(252, 40),
+                          Size(252.w, 40.h),
                         ),
                       ),
                       onPressed: () {},
@@ -360,7 +361,7 @@ class _PesananScreenState extends State<PesananScreen> {
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
-          height: 560,
+          height: 560.h,
           child: Column(
             children: [
               Container(
@@ -401,7 +402,7 @@ class _PesananScreenState extends State<PesananScreen> {
                       'Jenis Kereta Api',
                       style: myTextTheme.labelSmall,
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -477,12 +478,12 @@ class _PesananScreenState extends State<PesananScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Text(
                       'Nama Kereta Api',
                       style: myTextTheme.labelSmall,
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     DropdownButtonFormField(
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
@@ -503,7 +504,7 @@ class _PesananScreenState extends State<PesananScreen> {
                         _selectedTrain = newValue!;
                       },
                     ),
-                    const SizedBox(height: 10),
+                     SizedBox(height: 10.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -665,12 +666,12 @@ class _PesananScreenState extends State<PesananScreen> {
                   'Terapkan',
                   style: myTextTheme.headlineMedium,
                 ),
-                style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
+                style:  ButtonStyle(
+                  backgroundColor: const MaterialStatePropertyAll(
                     mainBlue,
                   ),
                   fixedSize: MaterialStatePropertyAll(
-                    Size(252, 40),
+                    Size(252.w, 40.h),
                   ),
                 ),
                 onPressed: () {},
@@ -692,7 +693,7 @@ class _PesananScreenState extends State<PesananScreen> {
           style: myTextTheme.headlineLarge,
         ),
         bottom: PreferredSize(
-          preferredSize: const Size(360, 60),
+          preferredSize: Size(360.w, 60.h),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 10,

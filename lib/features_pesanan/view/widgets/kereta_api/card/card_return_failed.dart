@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../features_rincian_pesanan_hotel/view/pesanan_kembali_berhasil.dart';
@@ -52,48 +53,47 @@ class CardReturnKAFailed extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.w),
             child: Container(
               decoration: BoxDecoration(
                 color: background,
                 boxShadow: [
                   BoxShadow(
                     color: grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: const Offset(1, 1),
+                    spreadRadius: 1.w,
+                    blurRadius: 3.w,
+                    offset: Offset(1.w, 1.w),
                   ),
                 ],
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.w),
               ),
-              height: 205,
-              width: 350,
+              height: 215.h,
+              width: 350.w,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.w),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         icon,
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5.w),
                         Text(
                           title,
                           style: myTextTheme.titleMedium,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 19),
+                    SizedBox(height: 19.h),
                     Row(
                       children: [
                         ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(4), // Image border
+                          borderRadius: BorderRadius.circular(4.w),
                           child: SizedBox.fromSize(
-                            size: const Size.fromRadius(48), // Image radius
+                            size: Size.fromRadius(48.w),
                             child: image,
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        SizedBox(width: 20.w),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,14 +111,14 @@ class CardReturnKAFailed extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: 10.h),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       iconTrain,
-                                      const SizedBox(width: 4),
+                                      SizedBox(width: 4.w),
                                       Text(
                                         titleTrain,
                                         style: myTextTheme.headlineSmall,
@@ -128,7 +128,7 @@ class CardReturnKAFailed extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconSeat,
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text(
                                         titleSeat,
                                         style: myTextTheme.headlineSmall,
@@ -138,7 +138,7 @@ class CardReturnKAFailed extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconDate,
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text(
                                         titleDate,
                                         style: myTextTheme.headlineSmall,
@@ -146,16 +146,14 @@ class CardReturnKAFailed extends StatelessWidget {
                                     ],
                                   ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5),
-                    const Divider(
-                      color: black,
-                    ),
+                    SizedBox(height: 5.h),
+                    const Divider(color: black),
                     Align(
                       alignment: Alignment.topLeft,
                       child: Row(
@@ -164,14 +162,14 @@ class CardReturnKAFailed extends StatelessWidget {
                             'Nomor Pesanan :',
                             style: myTextTheme.bodySmall,
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: 5.w),
                           Text(
                             nomorPesanan,
                             style: myTextTheme.bodySmall,
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

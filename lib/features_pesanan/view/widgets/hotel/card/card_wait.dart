@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../features_rincian_pesanan_hotel/view/pesanan_menunggu.dart';
@@ -53,7 +54,7 @@ class CardWaitHotel extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(16.0)),
             child: Container(
               decoration: BoxDecoration(
                 color: background,
@@ -67,10 +68,10 @@ class CardWaitHotel extends StatelessWidget {
                 ],
                 borderRadius: BorderRadius.circular(8),
               ),
-              height: 205,
-              width: 350,
+              height: ScreenUtil().setHeight(205),
+              width: ScreenUtil().setWidth(350),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(ScreenUtil().setWidth(20.0)),
                 child: Column(
                   children: [
                     Row(
@@ -91,10 +92,9 @@ class CardWaitHotel extends StatelessWidget {
                     Row(
                       children: [
                         ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(4), // Image border
+                          borderRadius: BorderRadius.circular(4),
                           child: SizedBox.fromSize(
-                            size: const Size.fromRadius(48), // Image radius
+                            size: Size.fromRadius(ScreenUtil().setWidth(48)),
                             child: image,
                           ),
                         ),
@@ -152,7 +152,7 @@ class CardWaitHotel extends StatelessWidget {
                                     ],
                                   ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -177,7 +177,7 @@ class CardWaitHotel extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -187,4 +187,5 @@ class CardWaitHotel extends StatelessWidget {
       ),
     );
   }
+
 }

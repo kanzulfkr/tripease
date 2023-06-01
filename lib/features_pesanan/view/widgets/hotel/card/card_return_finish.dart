@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,7 +52,7 @@ class CardReturnFinishHotel extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(16)),
             child: Container(
               decoration: BoxDecoration(
                 color: background,
@@ -66,10 +66,10 @@ class CardReturnFinishHotel extends StatelessWidget {
                 ],
                 borderRadius: BorderRadius.circular(8),
               ),
-              height: 205,
-              width: 350,
+              height: ScreenUtil().setHeight(205),
+              width: ScreenUtil().setWidth(350),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(ScreenUtil().setWidth(20)),
                 child: Column(
                   children: [
                     Row(
@@ -82,18 +82,17 @@ class CardReturnFinishHotel extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 19),
+                    SizedBox(height: ScreenUtil().setHeight(19)),
                     Row(
                       children: [
                         ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(4), // Image border
+                          borderRadius: BorderRadius.circular(4),
                           child: SizedBox.fromSize(
-                            size: const Size.fromRadius(48), // Image radius
+                            size: Size.fromRadius(ScreenUtil().setWidth(48)),
                             child: image,
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        SizedBox(width: ScreenUtil().setWidth(10)),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,14 +101,14 @@ class CardReturnFinishHotel extends StatelessWidget {
                                 name,
                                 style: myTextTheme.displayMedium,
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: ScreenUtil().setHeight(10)),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       iconLocation,
-                                      const SizedBox(width: 4),
+                                      SizedBox(width: ScreenUtil().setWidth(4)),
                                       Text(
                                         titleLocation,
                                         style: myTextTheme.headlineSmall,
@@ -119,7 +118,7 @@ class CardReturnFinishHotel extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconBed,
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: ScreenUtil().setWidth(5)),
                                       Text(
                                         titleBed,
                                         style: myTextTheme.headlineSmall,
@@ -129,7 +128,7 @@ class CardReturnFinishHotel extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconBedTime,
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: ScreenUtil().setWidth(5)),
                                       Text(
                                         titleBedTime,
                                         style: myTextTheme.headlineSmall,
@@ -139,7 +138,7 @@ class CardReturnFinishHotel extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconDate,
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: ScreenUtil().setWidth(5)),
                                       Text(
                                         titleDate,
                                         style: myTextTheme.headlineSmall,
@@ -153,7 +152,7 @@ class CardReturnFinishHotel extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5),
+                    SizedBox(height: ScreenUtil().setHeight(5)),
                     const Divider(
                       color: black,
                     ),
@@ -165,7 +164,7 @@ class CardReturnFinishHotel extends StatelessWidget {
                             'Nomor Pesanan :',
                             style: myTextTheme.bodySmall,
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: ScreenUtil().setWidth(5)),
                           Text(
                             nomorPesanan,
                             style: myTextTheme.bodySmall,

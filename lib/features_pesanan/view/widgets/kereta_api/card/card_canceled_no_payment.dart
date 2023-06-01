@@ -1,6 +1,7 @@
 import 'package:capstone_project_tripease/features_rincian_pesanan_ka/view/order_kai_cancelled.dart';
 import 'package:capstone_project_tripease/features_rincian_pesanan_ka/view/order_kai_failed_no_payment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../features_rincian_pesanan_hotel/view/pesanan_batal.dart';
@@ -52,48 +53,48 @@ class CardCanceledNoPaymentKA extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0.w),
             child: Container(
               decoration: BoxDecoration(
                 color: background,
                 boxShadow: [
                   BoxShadow(
                     color: grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 3,
+                    spreadRadius: 1.w,
+                    blurRadius: 3.w,
                     offset: const Offset(1, 1),
                   ),
                 ],
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
-              height: 205,
-              width: 350,
+              height: 215.h,
+              width: 350.w,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.0.w),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         icon,
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5.w),
                         Text(
                           title,
                           style: myTextTheme.titleMedium,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 19),
+                    SizedBox(height: 19.h),
                     Row(
                       children: [
                         ClipRRect(
                           borderRadius:
-                              BorderRadius.circular(4), // Image border
+                              BorderRadius.circular(4.r), // Image border
                           child: SizedBox.fromSize(
-                            size: const Size.fromRadius(48), // Image radius
+                            size: Size.fromRadius(48.r), // Image radius
                             child: image,
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        SizedBox(width: 20.w),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,14 +112,14 @@ class CardCanceledNoPaymentKA extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: 10.h),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       iconTrain,
-                                      const SizedBox(width: 3),
+                                      SizedBox(width: 3.w),
                                       Text(
                                         titleTrain,
                                         style: myTextTheme.headlineSmall,
@@ -128,7 +129,7 @@ class CardCanceledNoPaymentKA extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconSeat,
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text(
                                         titleSeats,
                                         style: myTextTheme.headlineSmall,
@@ -138,7 +139,7 @@ class CardCanceledNoPaymentKA extends StatelessWidget {
                                   Row(
                                     children: [
                                       iconDate,
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Text(
                                         titleDate,
                                         style: myTextTheme.headlineSmall,
@@ -152,7 +153,7 @@ class CardCanceledNoPaymentKA extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5),
+                    SizedBox(height: 5.h),
                     const Divider(
                       color: black,
                     ),
@@ -164,7 +165,7 @@ class CardCanceledNoPaymentKA extends StatelessWidget {
                             'Nomor Pesanan :',
                             style: myTextTheme.bodySmall,
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: 5.w),
                           Text(
                             nomorPesanan,
                             style: myTextTheme.bodySmall,
