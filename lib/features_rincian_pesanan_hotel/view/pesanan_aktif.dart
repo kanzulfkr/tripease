@@ -3,6 +3,7 @@ import 'package:capstone_project_tripease/features_pesanan/utils/icons.dart';
 import 'package:capstone_project_tripease/features_pesanan/utils/images.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../features_checkout_checkin/component/button_active.dart';
@@ -19,6 +20,7 @@ class PesananAktif extends StatefulWidget {
 
 class _PesananAktifState extends State<PesananAktif> {
   void _showAlertDialog() {
+    ScreenUtil.init(context);
     showDialog(
       context: context,
       builder: (context) {
@@ -27,8 +29,8 @@ class _PesananAktifState extends State<PesananAktif> {
             'Apakah Anda yakin ingin membatalkan pesanan?',
             textAlign: TextAlign.center,
           ),
-          titleTextStyle: const TextStyle(
-            fontSize: 14,
+          titleTextStyle: TextStyle(
+            fontSize: 14.sp,
             fontWeight: FontWeight.w700,
             color: Colors.black,
           ),
@@ -36,19 +38,21 @@ class _PesananAktifState extends State<PesananAktif> {
             child: Column(
               children: [
                 SizedBox(
-                  width: 132,
+                  width: 132.w,
                   child: ButtonClose(
                     text: 'Ya',
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const Home(),
-                      ));
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const Home(),
+                        ),
+                      );
                     },
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 SizedBox(
-                  width: 132,
+                  width: 132.w,
                   child: ButtonActive(
                     text: 'Tidak',
                     onTap: () {
@@ -66,8 +70,10 @@ class _PesananAktifState extends State<PesananAktif> {
   }
 
   late bool _customIcon = false;
+
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -85,11 +91,11 @@ class _PesananAktifState extends State<PesananAktif> {
                   top: 20,
                 ),
                 child: Container(
-                  width: 350,
-                  height: 50,
+                  width: 350.w,
+                  height: 50.h,
                   decoration: BoxDecoration(
                     color: success,
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(8.0.r),
                     border: Border.all(color: green),
                   ),
                   child: Padding(
@@ -97,11 +103,11 @@ class _PesananAktifState extends State<PesananAktif> {
                     child: Row(
                       children: [
                         iconSuccess,
-                        const SizedBox(width: 10),
+                        SizedBox(width: 10.w),
                         Text(
                           'Pesananmu Sudah Bayar',
                           style: GoogleFonts.openSans(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             color: green,
                           ),
@@ -121,7 +127,7 @@ class _PesananAktifState extends State<PesananAktif> {
                 semanticContainer: true,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 color: background,
                 child: Column(
@@ -164,11 +170,11 @@ class _PesananAktifState extends State<PesananAktif> {
                             child: Row(
                               children: [
                                 iconStar,
-                                const SizedBox(width: 5),
+                                SizedBox(width: 5.w),
                                 iconStar,
-                                const SizedBox(width: 5),
+                                SizedBox(width: 5.w),
                                 iconStar,
-                                const SizedBox(width: 5),
+                                SizedBox(width: 5.w),
                                 iconStar,
                               ],
                             ),
@@ -181,16 +187,16 @@ class _PesananAktifState extends State<PesananAktif> {
               ),
             ),
             Container(
-              width: 350,
-              height: 60,
+              width: 350.w,
+              height: 60.h,
               decoration: BoxDecoration(
                 color: background,
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(8.0.r),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 1,
+                    spreadRadius: 1.w,
+                    blurRadius: 1.w,
                     offset: const Offset(0, 1),
                   ),
                 ],
@@ -200,11 +206,11 @@ class _PesananAktifState extends State<PesananAktif> {
                 child: Row(
                   children: [
                     iconMaps,
-                    const SizedBox(width: 40),
+                    SizedBox(width: 40.w),
                     Text(
                       'Lihat Di Map',
                       style: GoogleFonts.openSans(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: mainBlue,
                       ),
@@ -213,17 +219,17 @@ class _PesananAktifState extends State<PesananAktif> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(10.0.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 1,
+                      spreadRadius: 1.w,
+                      blurRadius: 1.w,
                       offset: const Offset(1, 1),
                     ),
                   ],
@@ -232,7 +238,7 @@ class _PesananAktifState extends State<PesananAktif> {
                   color: background,
                   shadowColor: grey,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10.0.r),
                   ),
                   margin: EdgeInsets.zero,
                   child: ExpansionTile(
@@ -240,7 +246,7 @@ class _PesananAktifState extends State<PesananAktif> {
                     title: Text(
                       'Informasi Pesanan',
                       style: GoogleFonts.openSans(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: mainBlue,
                       ),
@@ -259,8 +265,8 @@ class _PesananAktifState extends State<PesananAktif> {
                         _customIcon = value;
                       });
                     },
-                    children: const [
-                      Padding(
+                    children: [
+                      const Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 10,
                         ),
@@ -272,9 +278,9 @@ class _PesananAktifState extends State<PesananAktif> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
+                      SizedBox(height: 5.h),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 10,
                         ),
                         child: Row(
@@ -285,9 +291,9 @@ class _PesananAktifState extends State<PesananAktif> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
+                      SizedBox(height: 5.h),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 10,
                         ),
                         child: Row(
@@ -298,9 +304,9 @@ class _PesananAktifState extends State<PesananAktif> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
+                      SizedBox(height: 5.h),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 10,
                         ),
                         child: Row(
@@ -311,18 +317,18 @@ class _PesananAktifState extends State<PesananAktif> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 5.h),
                     ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(10.0.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -336,7 +342,7 @@ class _PesananAktifState extends State<PesananAktif> {
                   color: background,
                   shadowColor: grey,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10.0.r),
                   ),
                   margin: EdgeInsets.zero,
                   child: ExpansionTile(
@@ -344,7 +350,7 @@ class _PesananAktifState extends State<PesananAktif> {
                     title: Text(
                       'Permintaan Khusus',
                       style: GoogleFonts.openSans(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: mainBlue,
                       ),
@@ -363,8 +369,8 @@ class _PesananAktifState extends State<PesananAktif> {
                         _customIcon = value;
                       });
                     },
-                    children: const [
-                      Align(
+                    children: [
+                      const Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -373,23 +379,23 @@ class _PesananAktifState extends State<PesananAktif> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 5.h),
                     ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(10.0.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 1,
+                      spreadRadius: 1.w,
+                      blurRadius: 1.w,
                       offset: const Offset(1, 1),
                     ),
                   ],
@@ -398,14 +404,14 @@ class _PesananAktifState extends State<PesananAktif> {
                   color: background,
                   shadowColor: grey,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10.0.r),
                   ),
                   margin: EdgeInsets.zero,
                   child: ExpansionTile(
                     title: Text(
                       'Detail Pesanan',
                       style: GoogleFonts.openSans(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: mainBlue,
                       ),
@@ -436,48 +442,47 @@ class _PesananAktifState extends State<PesananAktif> {
                                   bottom: 20,
                                 ),
                                 child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(10), // Image border
+                                  borderRadius: BorderRadius.circular(
+                                      10.r), // Image border
                                   child: SizedBox.fromSize(
-                                    size: const Size.fromRadius(
-                                        35), // Image radius
+                                    size: Size.fromRadius(35.r), // Image radius
                                     child: Image.asset(
                                         'assets/images/shibuya.png',
                                         fit: BoxFit.cover),
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
+                              SizedBox(width: 10.w),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Shibuya Shabu',
                                     style: GoogleFonts.openSans(
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   Text(
                                     'Street View | No Smoking | 2',
                                     style: GoogleFonts.openSans(
-                                      fontSize: 12,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   Text(
                                     'Single Bed',
                                     style: GoogleFonts.openSans(
-                                      fontSize: 12,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  const SizedBox(height: 30),
+                                  SizedBox(height: 30.h),
                                 ],
                               )
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -488,7 +493,7 @@ class _PesananAktifState extends State<PesananAktif> {
                                 child: Text(
                                   'Benefits :',
                                   style: GoogleFonts.openSans(
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -501,7 +506,7 @@ class _PesananAktifState extends State<PesananAktif> {
                                 child: Text(
                                   'Free Wifi, Air Mineral, Snack',
                                   style: GoogleFonts.openSans(
-                                    fontSize: 12,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -515,17 +520,17 @@ class _PesananAktifState extends State<PesananAktif> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(10.0.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 1,
+                      spreadRadius: 1.w,
+                      blurRadius: 1.w,
                       offset: const Offset(1, 1),
                     ),
                   ],
@@ -534,14 +539,14 @@ class _PesananAktifState extends State<PesananAktif> {
                   color: background,
                   shadowColor: grey,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10.0.r),
                   ),
                   margin: EdgeInsets.zero,
                   child: ExpansionTile(
                     title: Text(
                       'Informasi Pembayaran',
                       style: GoogleFonts.openSans(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: mainBlue,
                       ),
@@ -573,7 +578,7 @@ class _PesananAktifState extends State<PesananAktif> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: 5.h),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 10,
@@ -586,7 +591,7 @@ class _PesananAktifState extends State<PesananAktif> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: 5.h),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
@@ -596,13 +601,13 @@ class _PesananAktifState extends State<PesananAktif> {
                           children: [
                             const Text("Metode Pembayaran"),
                             SizedBox(
-                              width: 50,
+                              width: 50.w,
                               child: Image.asset('assets/images/logo_ovo.png'),
                             )
                           ],
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: 5.h),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
@@ -627,17 +632,17 @@ class _PesananAktifState extends State<PesananAktif> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: 5.h),
                     ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             ElevatedButton(
-              style: const ButtonStyle(
+              style: ButtonStyle(
                 fixedSize: MaterialStatePropertyAll(
-                  Size(350, 50),
+                  Size(350.w, 50.h),
                 ),
               ),
               child: Text(
@@ -646,47 +651,47 @@ class _PesananAktifState extends State<PesananAktif> {
               ),
               onPressed: () {},
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             ElevatedButton(
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
+              style: ButtonStyle(
+                backgroundColor: const MaterialStatePropertyAll(
                   buttons,
                 ),
                 fixedSize: MaterialStatePropertyAll(
-                  Size(350, 50),
+                  Size(350.w, 50.h),
                 ),
               ),
               child: Text(
                 'Batalkan Pesanan',
                 style: GoogleFonts.openSans(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                   color: mainBlue,
                 ),
               ),
               onPressed: _showAlertDialog,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             ElevatedButton(
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
+              style: ButtonStyle(
+                backgroundColor: const MaterialStatePropertyAll(
                   buttons,
                 ),
                 fixedSize: MaterialStatePropertyAll(
-                  Size(350, 50),
+                  Size(350.w, 50.h),
                 ),
               ),
               child: Text(
                 'Kembali ke Beranda',
                 style: GoogleFonts.openSans(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                   color: mainBlue,
                 ),
               ),
               onPressed: () {},
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
           ],
         ),
       ),

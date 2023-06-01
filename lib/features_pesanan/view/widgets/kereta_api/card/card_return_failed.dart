@@ -42,6 +42,7 @@ class CardReturnKAFailed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(

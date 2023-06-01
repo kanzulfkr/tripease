@@ -43,6 +43,7 @@ class CardActiveKA extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -68,7 +69,7 @@ class CardActiveKA extends StatelessWidget {
                 ],
                 borderRadius: BorderRadius.circular(8.w),
               ),
-              height: 215.h,
+              height: 205.h,
               width: 350.w,
               child: Padding(
                 padding: EdgeInsets.all(20.w),
