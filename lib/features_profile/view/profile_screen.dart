@@ -4,15 +4,30 @@ import 'package:capstone_project_tripease/features_profile/view/widgets/menu_pro
 import 'package:capstone_project_tripease/features_profile/view/edit_profile/edit_profile_screen.dart';
 import 'package:capstone_project_tripease/features_profile/view/help_center/help_screen.dart';
 import 'package:capstone_project_tripease/features_profile/view/language/language_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view_model/user_profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final user = Provider.of<UserProfileProvider>(context, listen: false);
+    user.getUserProfile();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProfileProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromRGBO(240, 240, 248, 1),
@@ -23,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Profile',
+                'Profil',
                 style: GoogleFonts.openSans(
                     fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
@@ -43,14 +58,20 @@ class ProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        radius: 30.r,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 29.r,
-                          backgroundImage:
-                              const AssetImage('assets/images/user.jfif'),
-                        ),
-                      ),
+                          radius: 30.r,
+                          backgroundColor: Colors.white,
+                          child: user.loading
+                              ? CircleAvatar(
+                                  radius: 29.r,
+                                  backgroundImage: const AssetImage(
+                                      'assets/images/user.jfif'),
+                                )
+                              : CircleAvatar(
+                                  radius: 29.r,
+                                  backgroundImage: NetworkImage(
+                                    user.result!.profilePictureUrl ?? '',
+                                  ),
+                                )),
                       Container(
                         width: 170.h,
                         margin: EdgeInsets.only(left: 14.h, right: 26.h),
@@ -59,7 +80,9 @@ class ProfileScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Sekar Mauliyah',
+                              user.loading
+                                  ? 'User name'
+                                  : user.result!.fullName ?? '',
                               style: GoogleFonts.openSans(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
@@ -67,7 +90,9 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 3.h),
                             Text(
-                              'sekarm13@gmail.com',
+                              user.loading
+                                  ? 'me@email.com'
+                                  : user.result!.email ?? '',
                               style: GoogleFonts.openSans(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
@@ -159,9 +184,9 @@ class ProfileScreen extends StatelessWidget {
               ),
               Container(
                 width: double.maxFinite,
-                height: 152.h,
+                height: 155.h,
                 color: Colors.white,
-                margin: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                margin: EdgeInsets.only(top: 20.h),
                 child: Column(
                   children: [
                     MenuProfile(

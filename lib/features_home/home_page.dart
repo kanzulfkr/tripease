@@ -1,7 +1,6 @@
 import 'package:capstone_project_tripease/features_home/widgets/for_you.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_saw.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_search.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,27 +15,33 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool popUpNotification = true;
 
-  Future<void> getDataWithDio() async {
-    try {
-      final response = await Dio().post(
-        "http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/user",
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODUzNzA4NTMsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo1fQ.aUK7WYvOQn2UQiihHUYUuwd2WhKM9qR9NjXz6LmDC0A',
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        print(response.data);
-        print("${response.data['message']}");
-      } else {
-        print("${response.data['message']}");
-      }
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  // @override
+  // void initState() {
+  //   final userData = Provider.of<UserProfileProvider>(context, listen: false);
+  //   userData.getUserDetail();
+  //   super.initState();
+  // }
+  // Future<void> getDataWithDio() async {
+  //   try {
+  //     final response = await Dio().post(
+  //       "http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/user",
+  //       options: Options(
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization':
+  //               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODU1NDk4MzIsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo1fQ.WMAMesW4jzF9uH9MnaFsFV7o7U4FqsV2JAAykd9ZYuc',
+  //         },
+  //       ),
+  //     );
+  //     if (response.statusCode == 200) {
+  //       print(response.data["data"]);
+  //     } else {
+  //       print("${response.data['message']}");
+  //     }
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    getDataWithDio();
+                    // getDataWithDio();
                   },
                   child: Container(
                     height: 40.h,

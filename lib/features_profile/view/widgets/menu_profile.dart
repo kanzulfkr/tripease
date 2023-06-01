@@ -22,7 +22,7 @@ class MenuProfile extends StatelessWidget {
       },
       child: Container(
         height: 72.h,
-        padding: EdgeInsets.fromLTRB(15.h, 20.h, 15.h, 12.h),
+        padding: EdgeInsets.fromLTRB(15.w, 20.h, 15.w, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -36,8 +36,8 @@ class MenuProfile extends StatelessWidget {
             ),
             SizedBox(width: 12.h),
             Container(
-              width: 180.h,
-              margin: EdgeInsets.only(right: 48.h),
+              width: 200.h,
+              margin: EdgeInsets.only(right: 28.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,18 +45,21 @@ class MenuProfile extends StatelessWidget {
                   Text(
                     name,
                     style: GoogleFonts.openSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                    maxLines: 1,
                   ),
-                  const SizedBox(height: 4),
+                  // SizedBox(height: 3.h),
                   Text(
                     description,
                     style: GoogleFonts.openSans(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: const Color.fromRGBO(150, 152, 156, 1),
                     ),
+                    maxLines: 1,
                   ),
                 ],
               ),
