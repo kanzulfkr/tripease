@@ -69,13 +69,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     final user = Provider.of<UserProfileProvider>(context, listen: false);
     user.getUserProfile();
-    if (user.loading == true) {
-    } else {
-      fullNameController.text = user.result!.fullName ?? '';
-      phoneNumberController.text = user.result!.phoneNumber ?? '';
-      birthDateController.text = user.result!.birthDate ?? '';
-      citizenController.text = user.result!.citizen ?? '';
-    }
+
+    fullNameController.text = user.result!.fullName ?? '';
+    phoneNumberController.text = user.result!.phoneNumber ?? '';
+    birthDateController.text = user.result!.birthDate ?? '';
+    citizenController.text = user.result!.citizen ?? '';
   }
 
   @override
@@ -203,7 +201,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
     }
 
-    return Consumer<UserUpdateProvider>(
+    return Consumer<UserProfileProvider>(
       builder: (context, value, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -249,13 +247,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               child: user.loading
                                   ? CircleAvatar(
                                       radius: 47.r,
-                                      backgroundImage:
-                                          AssetImage('assets/images/user.jfif'),
+                                      backgroundImage: const NetworkImage(
+                                        'https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg',
+                                      ),
                                     )
                                   : CircleAvatar(
                                       radius: 47.r,
                                       backgroundImage:
                                           // AssetImage('assets/images/user.jfif'),
+
                                           NetworkImage(
                                         user.result!.profilePictureUrl ?? '',
                                       ),
@@ -281,18 +281,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   Center(
                     child: Text(
-                      user.loading
-                          ? 'Sekar Mauliyah'
-                          : user.result!.fullName ?? '',
+                      user.loading ? '' : user.result!.fullName ?? '',
                       style: GoogleFonts.openSans(
                           fontSize: 16.sp, fontWeight: FontWeight.w600),
                     ),
                   ),
                   Center(
                     child: Text(
-                      user.loading
-                          ? 'sekarm13@gmail.com'
-                          : user.result!.email ?? '',
+                      user.loading ? '' : user.result!.email ?? '',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w400),
                     ),
@@ -522,7 +518,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             String citizen = citizenController.text;
 
                             if (_formKey.currentState!.validate()) {
-                              await value.updateUser(
+                              await value.updateUserProfile(
                                   fullName, phoneNumber, birthDate, citizen);
                               if (value.updateStatus == UpdateStatus.success) {
                                 if (context.mounted) {
@@ -537,7 +533,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(value.message),
+                                      content: Text(
+                                          'Profil telah berhasil di simpan'),
                                     ),
                                   );
                                 }

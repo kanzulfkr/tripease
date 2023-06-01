@@ -7,10 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:capstone_project_tripease/features_profile/model/user_profile.dart';
 
 class UserProfileService {
-  final baseUrl =
-      'http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1';
+  final baseUrl = 'https://capstone.hanifz.com/api/v1';
   final token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODU3MDA4NDAsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoyMX0.BQIHnQeO1bDt6ySiPginrKv4TlKvoUZri5GlRYFLYlI';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODU3MjE4OTUsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo1fQ.aFpSyArgRdgqYZ1iXsPRF_UfK4wZoOGhnbYq0xIgha4';
 
   String _message = '';
   String get message => _message;
@@ -120,33 +119,8 @@ class UserProfileService {
 
   Future<void> updatePassword(
       String oldPassword, String newPassword, String confirmPassword) async {
-    // final response = await http.put(
-    //   Uri.parse('$baseUrl/user/update-password'),
-    //   headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
-    //   body: {
-    //     'confirm_password': confirmPassword,
-    //     'new_password': newPassword,
-    //     'old_password': oldPassword,
-    //   },
-    // );
-
     Dio dio = Dio();
-    // final response = await dio.post(
-    //   '$baseUrl/user/update-password',
-    //   data: {
-    //     'confirm_password': confirmPassword,
-    //     'new_password': newPassword,
-    //     'old_password': oldPassword,
-    //   },
-    //   options: Options(
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Authorization': 'Bearer $token',
-    //     },
-    //   ),
-    // );
 
-    // try {
     dio.options.headers['Authorization'] = 'Bearer $token';
     final response = await dio.put(
       '$baseUrl/user/update-password',

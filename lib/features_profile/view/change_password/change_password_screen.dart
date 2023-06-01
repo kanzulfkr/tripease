@@ -3,6 +3,7 @@
 import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
 import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
 import 'package:capstone_project_tripease/features_profile/view_model/user_profile_provider.dart';
+import 'package:capstone_project_tripease/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -300,9 +301,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               newPasswordController.text,
                               confirmPasswordController.text,
                             );
-                            if (value.statusCode == '200') {
-                              print('200 ok pak bro');
+                            if (value.statusCode == '400') {
+                              print('400 erorr');
+                            } else {
                               if (context.mounted) {
+                                print('200 ok');
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Center(
@@ -310,37 +313,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                             'Kata sandi berhasil diperbarui.')),
                                   ),
                                 );
-                              }
-                            } else if (value.statusCode == '400') {
-                              print('400 dah lah');
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Center(
-                                        child: Text('Kata sandi lama salah.')),
-                                  ),
-                                );
-                              }
-                            } else {
-                              print('400 bro, dah lah');
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Center(
-                                        child: Text('Server sedang error.')),
-                                  ),
-                                );
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                      builder: (context) => const MainPage(),
+                                    ))
+                                    .then((value) {});
                               }
                             }
                           }
                         },
-                        // Navigator.of(context)
-                        //     .push(MaterialPageRoute(
-                        //       builder: (context) => const NewPasswordScreen(
-                        //         title: 'Ubah Kata Sandi',
-                        //       ),
-                        //     ))
-                        //     .then((value) {});
                       )
                     : ButtonInactive(
                         text: 'Selanjutnya',
