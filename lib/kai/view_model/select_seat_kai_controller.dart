@@ -18,9 +18,7 @@ class SelectSeatKaiController extends GetxController {
   void reset() {
     gerbong.forEach((element) {
       element.forEach((element) {
-        if (element["status"] != "filled") {
-          element.update("status", (value) => "available");
-        }
+        element.update("status", (value) => "available");
       });
     });
   }
@@ -30,14 +28,24 @@ class SelectSeatKaiController extends GetxController {
     gerbong.refresh();
   }
 
-  void selectKursi(int indexKursiTerpilih) {
-    print(gerbong[indexGerbong.value][indexKursiTerpilih]);
-    if (gerbong[indexGerbong.value][indexKursiTerpilih]["status"] ==
-        "available") {
-      reset();
-      gerbong[indexGerbong.value][indexKursiTerpilih]
-          .update("status", (value) => "selected");
+  RxList<int> selectedSeatIndices =
+      RxList<int>([]); // Daftar indeks kursi yang dipilih
+
+  List<int> previouslySelectedSeatIndices =
+      []; // Daftar indeks kursi yang dipilih sebelumnya
+
+  void selectKursi(int index) {
+    if (selectedSeatIndices.length == 1) {
+      previouslySelectedSeatIndices = List.from(
+          selectedSeatIndices); // Menyimpan kursi yang dipilih sebelumnya
     }
+
+    if (selectedSeatIndices.contains(index)) {
+      selectedSeatIndices.remove(index);
+    } else {
+      selectedSeatIndices.add(index);
+    }
+
     gerbong.refresh();
   }
 
@@ -46,38 +54,10 @@ class SelectSeatKaiController extends GetxController {
     (indexG) => List<Map<String, dynamic>>.generate(
       105,
       (indexK) {
-        if (indexG == 0) {
-          // gerbong ke 1
-          if (indexK >= 24 && indexK <= 26 || indexK >= 40 && indexK <= 44) {
-            return {
-              "id": "ID-${indexG + 1}-${indexK + 1}",
-              "status": "filled",
-            };
-          } else {
-            return {
-              "id": "ID-${indexG + 1}-${indexK + 1}",
-              "status": "available",
-            };
-          }
-        } else if (indexG == 1) {
-          // gerbong ke 2
-          if (indexK >= 5 && indexK <= 35) {
-            return {
-              "id": "ID-${indexG + 1}-${indexK + 1}",
-              "status": "filled",
-            };
-          } else {
-            return {
-              "id": "ID-${indexG + 1}-${indexK + 1}",
-              "status": "available",
-            };
-          }
-        } else {
-          return {
-            "id": "ID-${indexG + 1}-${indexK + 1}",
-            "status": "available",
-          };
-        }
+        return {
+          "id": "ID-${indexG + 1}-${indexK + 1}",
+          "status": "available",
+        };
       },
     ),
   ).obs;

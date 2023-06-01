@@ -45,8 +45,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                       _showFilterBottomSheet(context);
                     },
                     child: Container(
-                      height: 40,
-                      width: 100,
+                      height: 40.h,
+                      width: 100.w,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(5),
@@ -75,12 +75,12 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 55),
+                  SizedBox(width: 40.w),
                   const Text('Urut'),
-                  SizedBox(width: 18),
+                  SizedBox(width: 18.w),
                   Container(
-                    height: 40,
-                    width: 160,
+                    height: 40.h,
+                    width: 135.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8.r),
@@ -133,10 +133,10 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                   )
                 ],
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               Container(
                 width: double.maxFinite,
-                height: 92,
+                height: 92.h,
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(210, 215, 224, 1),
@@ -149,19 +149,22 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                   children: [
                     Row(
                       children: [
-                        const SizedBox(
-                          width: 35,
-                          child: Text('Filter'),
-                        ),
-                        const SizedBox(width: 12),
                         SizedBox(
-                          height: 32,
-                          width: 255,
+                          width: 35.w,
+                          child: Text(
+                            'Filter',
+                            style: GoogleFonts.openSans(
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 32.h,
+                          width: 235.w,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
                               Container(
-                                height: 32,
+                                height: 32.h,
                                 // width: 135,
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
@@ -184,9 +187,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 12),
+                              SizedBox(width: 12.w),
                               Container(
-                                height: 32,
+                                height: 32.h,
                                 // width: 135,
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
@@ -212,7 +215,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: 5.w,
+                        ),
                         const Icon(
                           Icons.close,
                           size: 20,
@@ -220,22 +225,21 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Row(
                       children: [
-                        const SizedBox(
-                          width: 35,
+                        SizedBox(
+                          width: 35.w,
                           child: Text('Urut'),
                         ),
-                        const SizedBox(width: 12),
                         SizedBox(
-                          height: 32,
-                          width: 255,
+                          height: 32.h,
+                          width: 235.w,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
                               Container(
-                                height: 32,
+                                height: 32.h,
                                 // width: 135,
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
@@ -261,7 +265,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: 5.w,
+                        ),
                         const Icon(
                           Icons.close,
                           size: 20,
@@ -272,7 +278,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Row(
                 children: [
                   Column(

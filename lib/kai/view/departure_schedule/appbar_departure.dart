@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BuildAppbar extends StatelessWidget {
@@ -11,7 +12,7 @@ class BuildAppbar extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 260,
+          width: 260.w,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -21,15 +22,15 @@ class BuildAppbar extends StatelessWidget {
                   Text(
                     'Bandung',
                     style: GoogleFonts.openSans(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 3),
+                  SizedBox(height: 3.h),
                   Text(
                     'BD',
                     style: GoogleFonts.openSans(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -48,15 +49,15 @@ class BuildAppbar extends StatelessWidget {
                   Text(
                     'Cicalengka',
                     style: GoogleFonts.openSans(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 3),
+                  SizedBox(height: 3.h),
                   Text(
                     'CLK',
                     style: GoogleFonts.openSans(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),

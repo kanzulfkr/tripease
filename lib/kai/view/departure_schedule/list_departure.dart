@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/kai/view/input_data.dart';
+import 'package:capstone_project_tripease/kai/view/input_data/input_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
