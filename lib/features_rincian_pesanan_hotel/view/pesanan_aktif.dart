@@ -87,8 +87,10 @@ class _PesananAktifState extends State<PesananAktif> {
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 20,
+                padding: EdgeInsets.only(
+                  top: 20.h,
+                  left: 20.w,
+                  right: 20.w,
                 ),
                 child: Container(
                   width: 350.w,
@@ -119,9 +121,9 @@ class _PesananAktifState extends State<PesananAktif> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 20,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 20.h,
               ),
               child: Card(
                 semanticContainer: true,
@@ -135,16 +137,17 @@ class _PesananAktifState extends State<PesananAktif> {
                   children: [
                     shibuya,
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                        left: 10,
+                      padding: EdgeInsets.only(
+                        top: 10.h,
+                        left: 10.w,
+                        right: 10.w,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(
-                              left: 10,
+                            padding: EdgeInsets.only(
+                              left: 10.w,
                             ),
                             child: Text(
                               'Shibuya Shabu',
@@ -152,9 +155,9 @@ class _PesananAktifState extends State<PesananAktif> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                              top: 5,
-                              left: 10,
+                            padding: EdgeInsets.only(
+                              top: 5.h,
+                              left: 10.w,
                             ),
                             child: Text(
                               'Thonglor Soi 20, Bangkok Thailand',
@@ -162,10 +165,10 @@ class _PesananAktifState extends State<PesananAktif> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 10,
-                              bottom: 10,
+                            padding: EdgeInsets.only(
+                              top: 10.h,
+                              left: 10.w,
+                              bottom: 10.h,
                             ),
                             child: Row(
                               children: [
@@ -186,42 +189,45 @@ class _PesananAktifState extends State<PesananAktif> {
                 ),
               ),
             ),
-            Container(
-              width: 350.w,
-              height: 60.h,
-              decoration: BoxDecoration(
-                color: background,
-                borderRadius: BorderRadius.circular(8.0.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1.w,
-                    blurRadius: 1.w,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    iconMaps,
-                    SizedBox(width: 40.w),
-                    Text(
-                      'Lihat Di Map',
-                      style: GoogleFonts.openSans(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: mainBlue,
-                      ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Container(
+                width: 350.w,
+                height: 60.h,
+                decoration: BoxDecoration(
+                  color: background,
+                  borderRadius: BorderRadius.circular(8.0.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1.w,
+                      blurRadius: 1.w,
+                      offset: const Offset(0, 1),
                     ),
                   ],
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: Row(
+                    children: [
+                      iconMaps,
+                      SizedBox(width: 40.w),
+                      Text(
+                        'Lihat Di Map',
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: mainBlue,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 16.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0.r),
@@ -266,11 +272,11 @@ class _PesananAktifState extends State<PesananAktif> {
                       });
                     },
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10,
+                          horizontal: 10.w,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Nomor Pesanan"),
@@ -279,11 +285,11 @@ class _PesananAktifState extends State<PesananAktif> {
                         ),
                       ),
                       SizedBox(height: 5.h),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10,
+                          horizontal: 10.w,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Nama Pemesan"),
@@ -292,11 +298,11 @@ class _PesananAktifState extends State<PesananAktif> {
                         ),
                       ),
                       SizedBox(height: 5.h),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10,
+                          horizontal: 10.w,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Jenis Kamar"),
@@ -305,11 +311,11 @@ class _PesananAktifState extends State<PesananAktif> {
                         ),
                       ),
                       SizedBox(height: 5.h),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10,
+                          horizontal: 10.w,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Email"),
@@ -325,15 +331,15 @@ class _PesananAktifState extends State<PesananAktif> {
             ),
             SizedBox(height: 16.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 1,
+                      spreadRadius: 1.w,
+                      blurRadius: 1.w,
                       offset: const Offset(1, 1),
                     ),
                   ],
@@ -370,11 +376,11 @@ class _PesananAktifState extends State<PesananAktif> {
                       });
                     },
                     children: [
-                      const Align(
+                      Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: const Text(
                             'Terdapat bathub jacuzzi, kasur dengan bed king, makanan vegetarian, ramah untuk pengguna kursi roda',
                           ),
                         ),
@@ -387,7 +393,7 @@ class _PesananAktifState extends State<PesananAktif> {
             ),
             SizedBox(height: 16.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0.r),
@@ -437,9 +443,9 @@ class _PesananAktifState extends State<PesananAktif> {
                           Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 20,
-                                  bottom: 20,
+                                padding: EdgeInsets.only(
+                                  left: 20.w,
+                                  bottom: 20.h,
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(
@@ -487,8 +493,8 @@ class _PesananAktifState extends State<PesananAktif> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 20,
+                                padding: EdgeInsets.only(
+                                  left: 20.w,
                                 ),
                                 child: Text(
                                   'Benefits :',
@@ -499,9 +505,9 @@ class _PesananAktifState extends State<PesananAktif> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 20,
-                                  bottom: 10,
+                                padding: EdgeInsets.only(
+                                  left: 20.w,
+                                  bottom: 10.h,
                                 ),
                                 child: Text(
                                   'Free Wifi, Air Mineral, Snack',
@@ -522,7 +528,7 @@ class _PesananAktifState extends State<PesananAktif> {
             ),
             SizedBox(height: 16.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0.r),
@@ -579,11 +585,11 @@ class _PesananAktifState extends State<PesananAktif> {
                         ),
                       ),
                       SizedBox(height: 5.h),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10,
+                          horizontal: 10.w,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Promo"),
@@ -593,8 +599,8 @@ class _PesananAktifState extends State<PesananAktif> {
                       ),
                       SizedBox(height: 5.h),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -609,8 +615,8 @@ class _PesananAktifState extends State<PesananAktif> {
                       ),
                       SizedBox(height: 5.h),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -618,14 +624,14 @@ class _PesananAktifState extends State<PesananAktif> {
                             Text(
                               "Total Harga",
                               style: GoogleFonts.openSans(
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               "Rp. 480.000",
                               style: GoogleFonts.openSans(
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -639,57 +645,66 @@ class _PesananAktifState extends State<PesananAktif> {
               ),
             ),
             SizedBox(height: 16.h),
-            ElevatedButton(
-              style: ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(
-                  Size(350.w, 50.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  fixedSize: MaterialStatePropertyAll(
+                    Size(350.w, 50.h),
+                  ),
                 ),
+                child: Text(
+                  'Dapatkan Konfirmasi Pesanan',
+                  style: myTextTheme.headlineMedium,
+                ),
+                onPressed: () {},
               ),
-              child: Text(
-                'Dapatkan Konfirmasi Pesanan',
-                style: myTextTheme.headlineMedium,
-              ),
-              onPressed: () {},
             ),
             SizedBox(height: 16.h),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: const MaterialStatePropertyAll(
-                  buttons,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: const MaterialStatePropertyAll(
+                    buttons,
+                  ),
+                  fixedSize: MaterialStatePropertyAll(
+                    Size(350.w, 50.h),
+                  ),
                 ),
-                fixedSize: MaterialStatePropertyAll(
-                  Size(350.w, 50.h),
+                child: Text(
+                  'Batalkan Pesanan',
+                  style: GoogleFonts.openSans(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: mainBlue,
+                  ),
                 ),
+                onPressed: _showAlertDialog,
               ),
-              child: Text(
-                'Batalkan Pesanan',
-                style: GoogleFonts.openSans(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: mainBlue,
-                ),
-              ),
-              onPressed: _showAlertDialog,
             ),
             SizedBox(height: 16.h),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: const MaterialStatePropertyAll(
-                  buttons,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: const MaterialStatePropertyAll(
+                    buttons,
+                  ),
+                  fixedSize: MaterialStatePropertyAll(
+                    Size(350.w, 50.h),
+                  ),
                 ),
-                fixedSize: MaterialStatePropertyAll(
-                  Size(350.w, 50.h),
+                child: Text(
+                  'Kembali ke Beranda',
+                  style: GoogleFonts.openSans(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: mainBlue,
+                  ),
                 ),
+                onPressed: () {},
               ),
-              child: Text(
-                'Kembali ke Beranda',
-                style: GoogleFonts.openSans(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: mainBlue,
-                ),
-              ),
-              onPressed: () {},
             ),
             SizedBox(height: 30.h),
           ],

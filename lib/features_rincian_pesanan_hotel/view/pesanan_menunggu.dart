@@ -22,441 +22,444 @@ class PesananMenunggu extends StatelessWidget {
         centerTitle: false,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 20.h,
-                ),
-                child: Container(
-                  width: 350.w,
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                    color: wait,
-                    borderRadius: BorderRadius.circular(8.0.r),
-                    border: Border.all(
-                      color: kuning,
-                    ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+          child: Column(
+            children: [
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 20.h,
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0.w),
-                    child: Row(
-                      children: [
-                        iconWait,
-                        SizedBox(width: 10.w),
-                        Text(
-                          'Menunggu Pembayaran',
-                          style: GoogleFonts.openSans(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: kuning,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16.h),
-            Container(
-              decoration: BoxDecoration(
-                color: background,
-                boxShadow: [
-                  BoxShadow(
-                    color: grey.withOpacity(0.5),
-                    spreadRadius: 1.w,
-                    blurRadius: 3.w,
-                    offset: const Offset(1, 1),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              width: 350.w,
-              height: 180.h,
-              child: Padding(
-                padding: EdgeInsets.all(20.0.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Detail Pesanan',
-                      style: GoogleFonts.openSans(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: mainBlue,
+                  child: Container(
+                    width: 350.w,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      color: wait,
+                      borderRadius: BorderRadius.circular(8.0.r),
+                      border: Border.all(
+                        color: kuning,
                       ),
                     ),
-                    SizedBox(height: 19.h),
-                    Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(4.r), // Image border
-                          child: SizedBox.fromSize(
-                            size: Size.fromRadius(48.r), // Image radius
-                            child: everyday,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0.w),
+                      child: Row(
+                        children: [
+                          iconWait,
+                          SizedBox(width: 10.w),
+                          Text(
+                            'Menunggu Pembayaran',
+                            style: GoogleFonts.openSans(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: kuning,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 20.w),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Everyday',
-                                style: myTextTheme.displayMedium,
-                              ),
-                              SizedBox(height: 10.h),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      iconLocation,
-                                      SizedBox(width: 4.w),
-                                      Text(
-                                        'Jl. Soekarno Hatta, Malang',
-                                        style: myTextTheme.headlineSmall,
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      iconBed,
-                                      SizedBox(width: 5.w),
-                                      Text(
-                                        'Standard Room',
-                                        style: myTextTheme.headlineSmall,
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      iconBedTime,
-                                      SizedBox(width: 5.w),
-                                      Text(
-                                        '2 Night',
-                                        style: myTextTheme.headlineSmall,
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      iconDate,
-                                      SizedBox(width: 5.w),
-                                      Text(
-                                        '05 Mei 2023 - 07 Mei 2023',
-                                        style: myTextTheme.headlineSmall,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5.h),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 16.h),
-            Container(
-              decoration: BoxDecoration(
-                color: background,
-                boxShadow: [
-                  BoxShadow(
-                    color: grey.withOpacity(0.5),
-                    spreadRadius: 1.w,
-                    blurRadius: 3.w,
-                    offset: const Offset(1, 1),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              width: 350.w,
-              height: 100.h,
-              child: Padding(
-                padding: EdgeInsets.all(20.0.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Selesaikan Pembayaran',
-                      style: GoogleFonts.openSans(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: mainBlue,
+                        ],
                       ),
                     ),
-                    SizedBox(height: 10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Jum'at, 28 April 2023",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          "38:24",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 16.h),
-            Container(
-              decoration: BoxDecoration(
-                color: background,
-                boxShadow: [
-                  BoxShadow(
-                    color: grey.withOpacity(0.5),
-                    spreadRadius: 1.w,
-                    blurRadius: 3.w,
-                    offset: const Offset(1, 1),
                   ),
-                ],
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              width: 350.w,
-              height: 148.h,
-              child: Padding(
-                padding: EdgeInsets.all(20.0.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Metode Pembayaran',
-                      style: GoogleFonts.openSans(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: mainBlue,
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Virtual Account BRI',
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 30.w,
-                          child: Image.asset('assets/images/bri.png'),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Nomor Rekening',
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          '084 999 1100',
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Nama Penerima',
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          'PT.Tripease',
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ),
-            ),
-            SizedBox(height: 16.h),
-            Container(
-              decoration: BoxDecoration(
-                color: background,
-                boxShadow: [
-                  BoxShadow(
-                    color: grey.withOpacity(0.5),
-                    spreadRadius: 1.w,
-                    blurRadius: 3.w,
-                    offset: const Offset(1, 1),
+              SizedBox(height: 16.h),
+              Container(
+                decoration: BoxDecoration(
+                  color: background,
+                  boxShadow: [
+                    BoxShadow(
+                      color: grey.withOpacity(0.5),
+                      spreadRadius: 1.w,
+                      blurRadius: 3.w,
+                      offset: const Offset(1, 1),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                width: 350.w,
+                height: 180.h,
+                child: Padding(
+                  padding: EdgeInsets.all(20.0.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Detail Pesanan',
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: mainBlue,
+                        ),
+                      ),
+                      SizedBox(height: 19.h),
+                      Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius:
+                                BorderRadius.circular(4.r), // Image border
+                            child: SizedBox.fromSize(
+                              size: Size.fromRadius(48.r), // Image radius
+                              child: everyday,
+                            ),
+                          ),
+                          SizedBox(width: 20.w),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Everyday',
+                                  style: myTextTheme.displayMedium,
+                                ),
+                                SizedBox(height: 10.h),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        iconLocation,
+                                        SizedBox(width: 4.w),
+                                        Text(
+                                          'Jl. Soekarno Hatta, Malang',
+                                          style: myTextTheme.headlineSmall,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        iconBed,
+                                        SizedBox(width: 5.w),
+                                        Text(
+                                          'Standard Room',
+                                          style: myTextTheme.headlineSmall,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        iconBedTime,
+                                        SizedBox(width: 5.w),
+                                        Text(
+                                          '2 Night',
+                                          style: myTextTheme.headlineSmall,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        iconDate,
+                                        SizedBox(width: 5.w),
+                                        Text(
+                                          '05 Mei 2023 - 07 Mei 2023',
+                                          style: myTextTheme.headlineSmall,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5.h),
+                    ],
                   ),
-                ],
-                borderRadius: BorderRadius.circular(8.r),
+                ),
               ),
-              width: 350.w,
-              height: 165.h,
-              child: Padding(
-                padding: EdgeInsets.all(20.0.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Informasi Pembayaran',
-                      style: GoogleFonts.openSans(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: mainBlue,
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "(x1) Standard Room (1 malam)",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          "Rp  480.000",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Promo",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          "-Rp  5.000",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Pajak",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          "Rp  38.924",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      color: black,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Jumlah Transfer : ",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          "Rp  513.924",
-                          style: GoogleFonts.openSans(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+              SizedBox(height: 16.h),
+              Container(
+                decoration: BoxDecoration(
+                  color: background,
+                  boxShadow: [
+                    BoxShadow(
+                      color: grey.withOpacity(0.5),
+                      spreadRadius: 1.w,
+                      blurRadius: 3.w,
+                      offset: const Offset(1, 1),
                     ),
                   ],
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                width: 350.w,
+                height: 100.h,
+                child: Padding(
+                  padding: EdgeInsets.all(20.0.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Selesaikan Pembayaran',
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: mainBlue,
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Jum'at, 28 April 2023",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            "38:24",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 16.h),
-            ElevatedButton(
-              style: ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(
-                  Size(350.w, 50.h),
+              SizedBox(height: 16.h),
+              Container(
+                decoration: BoxDecoration(
+                  color: background,
+                  boxShadow: [
+                    BoxShadow(
+                      color: grey.withOpacity(0.5),
+                      spreadRadius: 1.w,
+                      blurRadius: 3.w,
+                      offset: const Offset(1, 1),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                width: 350.w,
+                height: 148.h,
+                child: Padding(
+                  padding: EdgeInsets.all(20.0.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Metode Pembayaran',
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: mainBlue,
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Virtual Account BRI',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 30.w,
+                            child: Image.asset('assets/images/bri.png'),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Nomor Rekening',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            '084 999 1100',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Nama Penerima',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            'PT.Tripease',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              child: Text(
-                'Mulai Pembayaran',
-                style: myTextTheme.headlineMedium,
-              ),
-              onPressed: () {},
-            ),
-            SizedBox(height: 16.h),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: const MaterialStatePropertyAll(
-                  buttons,
+              SizedBox(height: 16.h),
+              Container(
+                decoration: BoxDecoration(
+                  color: background,
+                  boxShadow: [
+                    BoxShadow(
+                      color: grey.withOpacity(0.5),
+                      spreadRadius: 1.w,
+                      blurRadius: 3.w,
+                      offset: const Offset(1, 1),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
-                fixedSize: MaterialStatePropertyAll(
-                  Size(350.w, 50.h),
+                width: 350.w,
+                height: 165.h,
+                child: Padding(
+                  padding: EdgeInsets.all(20.0.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Informasi Pembayaran',
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: mainBlue,
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "(x1) Standard Room (1 malam)",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            "Rp  480.000",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Promo",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            "-Rp  5.000",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Pajak",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            "Rp  38.924",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(
+                        color: black,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Jumlah Transfer : ",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            "Rp  513.924",
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              child: Text(
-                'Hubungi Bantuan',
-                style: GoogleFonts.openSans(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: mainBlue,
+              SizedBox(height: 16.h),
+              ElevatedButton(
+                style: ButtonStyle(
+                  fixedSize: MaterialStatePropertyAll(
+                    Size(350.w, 50.h),
+                  ),
                 ),
+                child: Text(
+                  'Mulai Pembayaran',
+                  style: myTextTheme.headlineMedium,
+                ),
+                onPressed: () {},
               ),
-              onPressed: () {},
-            ),
-            SizedBox(height: 16.h),
-          ],
+              SizedBox(height: 16.h),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: const MaterialStatePropertyAll(
+                    buttons,
+                  ),
+                  fixedSize: MaterialStatePropertyAll(
+                    Size(350.w, 50.h),
+                  ),
+                ),
+                child: Text(
+                  'Hubungi Bantuan',
+                  style: GoogleFonts.openSans(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: mainBlue,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+              SizedBox(height: 16.h),
+            ],
+          ),
         ),
       ),
     );
