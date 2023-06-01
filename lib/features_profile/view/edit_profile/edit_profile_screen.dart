@@ -1,15 +1,14 @@
+// ignore: depend_on_referenced_packages
 import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
 import 'package:capstone_project_tripease/features_profile/view/edit_profile/edit_photo_screen.dart';
 import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
 import 'package:capstone_project_tripease/features_profile/view_model/user_profile_provider.dart';
-import 'package:capstone_project_tripease/features_profile/view_model/user_update_provider.dart';
 import 'package:capstone_project_tripease/main_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -245,17 +244,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               backgroundColor:
                                   const Color.fromARGB(255, 224, 226, 231),
                               child: user.loading
-                                  ? CircleAvatar(
-                                      radius: 47.r,
-                                      backgroundImage: const NetworkImage(
-                                        'https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg',
-                                      ),
-                                    )
+                                  ? SizedBox(
+                                      height: 100.h,
+                                      width: 100.w,
+                                      child: const CircularProgressIndicator())
                                   : CircleAvatar(
                                       radius: 47.r,
                                       backgroundImage:
                                           // AssetImage('assets/images/user.jfif'),
-
                                           NetworkImage(
                                         user.result!.profilePictureUrl ?? '',
                                       ),

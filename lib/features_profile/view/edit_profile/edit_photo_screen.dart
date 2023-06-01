@@ -26,7 +26,7 @@ class EditPhotoScreen extends StatefulWidget {
 
 class _EditPhotoScreenState extends State<EditPhotoScreen> {
   File? _imageFile;
-  bool showSpinner = false;
+  bool isImageNew = false;
 
   Future _pickImage(ImageSource source) async {
     try {
@@ -36,6 +36,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
       img = await _cropImage(imageFile: img);
       setState(() {
         _imageFile = img;
+        isImageNew = true;
         Navigator.of(context).pop();
       });
     } on PlatformException catch (e) {
@@ -79,22 +80,32 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
               children: [
                 _imageFile == null
                     ? value.loading
-                        ? CircleAvatar(
-                            radius: 150.r,
-                            backgroundImage:
-                                AssetImage('assets/images/user.jfif'),
-                          )
+                        ? SizedBox(
+                            height: 250.h,
+                            width: 250.w,
+                            child: const CircularProgressIndicator())
+                        // CircleAvatar(
+                        //     radius: 150.r,
+                        //     backgroundImage: const NetworkImage(
+                        //       'https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg',
+                        //     ),
+                        //   )
                         : CircleAvatar(
                             radius: 150.r,
                             backgroundImage: NetworkImage(
                               value.result!.profilePictureUrl ?? '',
                             ),
                           )
-                    : CircleAvatar(
-                        backgroundImage: FileImage(_imageFile!),
-                        radius: 150.r,
-                      ),
-                _imageFile == null
+                    : value.loading
+                        ? SizedBox(
+                            height: 250.h,
+                            width: 250.w,
+                            child: const CircularProgressIndicator())
+                        : CircleAvatar(
+                            backgroundImage: FileImage(_imageFile!),
+                            radius: 150.r,
+                          ),
+                !isImageNew
                     ? Container(
                         padding: EdgeInsets.only(top: 90.h),
                         child: Column(
@@ -141,10 +152,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
                                                     onTapActive: () async {
                                                       await value
                                                           .deleteProfilePicture();
-                                                      await value
-                                                          .getUserProfile();
-                                                      Navigator.of(context)
-                                                          .pop();
+                                                      value.getUserProfile();
                                                       Navigator.of(context)
                                                           .pop();
                                                     },
@@ -198,7 +206,10 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                Navigator.of(context).pop();
+                                await value.getUserProfile();
+                                setState(() {
+                                  isImageNew = false;
+                                });
                               },
                             ),
                             SizedBox(height: 10.h),

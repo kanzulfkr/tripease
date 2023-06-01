@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 enum UpdateStatus { empty, loading, success, error }
-// enum UpdatePassword { empty, loading, success, error }
 
 class UserProfileProvider extends ChangeNotifier {
   Data? result;
@@ -50,7 +49,6 @@ class UserProfileProvider extends ChangeNotifier {
     try {
       await UserProfileService()
           .updateUser(fullName, phoneNumber, birthDate, citizen);
-
       _updateStatus = UpdateStatus.success;
       notifyListeners();
     } on DioError catch (e) {
@@ -63,18 +61,16 @@ class UserProfileProvider extends ChangeNotifier {
   Future<void> updateUserPassword(
       String oldPassword, String newPassword, String confirmPassword) async {
     try {
-      await UserProfileService()
+      final response = await UserProfileService()
           .updatePassword(oldPassword, newPassword, confirmPassword);
+      _statusCode = response.toString();
+      print("kalo 200 disini : $_statusCode");
       notifyListeners();
     } on DioError catch (e) {
-      print('Error : $e');
-      if (e.response != null && e.response!.statusCode == 400) {
-        final statusCode = e.response!.data[
-            'status_code']; // Assuming the response body contains a 'message' field
-
-        _statusCode = statusCode.toString();
-        notifyListeners();
-      }
+      final code = e.response!.data['status_code'];
+      print("kalo 400 disini : ${e.response!.data['status_code']}");
+      _statusCode = code.toString();
+      notifyListeners();
     }
   }
 }

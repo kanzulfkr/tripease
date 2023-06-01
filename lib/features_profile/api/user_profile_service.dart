@@ -1,7 +1,5 @@
-// ignore_for_file: avoid_print
 import 'dart:convert';
 import 'dart:io';
-import 'package:capstone_project_tripease/features_profile/model/response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:capstone_project_tripease/features_profile/model/user_profile.dart';
@@ -16,7 +14,6 @@ class UserProfileService {
 
   Future<Data?> getUser() async {
     Data? result;
-
     try {
       var response = await http.post(
         Uri.parse('$baseUrl/user'),
@@ -38,9 +35,9 @@ class UserProfileService {
     return result;
   }
 
-  Future<ResponseModel> updateUser(String fullName, String phoneNumber,
+  Future<String> updateUser(String fullName, String phoneNumber,
       String birthDate, String citizen) async {
-    ResponseModel responseModel = ResponseModel();
+    // ResponseModel responseModel = ResponseModel();
 
     final response = await http.put(
       Uri.parse('$baseUrl/user/update-profile'),
@@ -52,23 +49,22 @@ class UserProfileService {
         'phone_number': phoneNumber,
       },
     );
-    final item = json.decode(response.body);
-    switch (response.statusCode) {
-      case 200:
-        print(item["message"]);
-        break;
-      case 400:
-        print(item["message"]);
-        break;
-      default:
-        print(response.body);
-        break;
-    }
-    return responseModel;
+    // final item = json.decode(response.body);
+    // switch (response.statusCode) {
+    //   case 200:
+    //     print(item["message"]);
+    //     break;
+    //   case 400:
+    //     print(item["message"]);
+    //     break;
+    //   default:
+    //     print(response.body);
+    //     break;
+    // }
+    return response.statusCode.toString();
   }
 
-  Future<ResponseModel> deletePicture() async {
-    ResponseModel responseModel = ResponseModel();
+  Future<String> deletePicture() async {
     final response = await http.delete(
       Uri.parse('$baseUrl/user/delete-photo-profile'),
       headers: {
@@ -76,19 +72,19 @@ class UserProfileService {
         'Authorization': 'Bearer $token',
       },
     );
-    final item = json.decode(response.body);
-    switch (response.statusCode) {
-      case 200:
-        print(item["message"]);
-        break;
-      case 400:
-        print(item["message"]);
-        break;
-      default:
-        print(response.body);
-        break;
-    }
-    return responseModel;
+    // final item = json.decode(response.body);
+    // switch (response.statusCode) {
+    //   case 200:
+    //     print(item["message"]);
+    //     break;
+    //   case 400:
+    //     print(item["message"]);
+    //     break;
+    //   default:
+    //     print(response.body);
+    //     break;
+    // }
+    return response.statusCode.toString();
   }
 
   Future<int> updatePhoto(File file, String filename) async {
@@ -117,10 +113,9 @@ class UserProfileService {
     return res.statusCode;
   }
 
-  Future<void> updatePassword(
+  Future<String> updatePassword(
       String oldPassword, String newPassword, String confirmPassword) async {
     Dio dio = Dio();
-
     dio.options.headers['Authorization'] = 'Bearer $token';
     final response = await dio.put(
       '$baseUrl/user/update-password',
@@ -130,22 +125,20 @@ class UserProfileService {
         'old_password': oldPassword,
       },
     );
-    // print('Password berhasil diperbarui');
-    // switch (response.statusCode) {
-    //   case 200:
-    //     // final item = json.decode(response.statusMessage.toString());
-    //     print('200000');
-    //     break;
-    //   case 400:
-    //     print('4000000');
-    //     break;
-    //   default:
-    //     print(response.data);
-    //     break;
+
+    // if (response.statusCode == 200) {
+    //   final item = json.decode(response.data);
+    //   responseModel = ResponseModel.fromJson(item['statusCode']);
+    // } else if (response.statusCode == 400) {
+    //   final item = json.decode(response.data);
+    //   responseModel = ResponseModel.fromJson(item['statusCode']);
     // }
-    // } catch (error) {
-    //   // Jika terjadi kesalahan saat mengirim permintaan, Anda dapat menangani kesalahan di sini
-    //   print('Terjadi kesalahan saat memperbarui password: $error');
+    // } catch (e) {
+    //   print('asdasdasd');
+    //   // print(e.toString());
     // }
+    // print('${response.statusCode.toString()}');
+
+    return response.statusCode.toString();
   }
 }

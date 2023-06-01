@@ -1,10 +1,10 @@
-import 'package:capstone_project_tripease/features_profile/api/user_profile_service.dart';
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+// import 'package:capstone_project_tripease/features_profile/api/user_profile_service.dart';
+// import 'package:flutter/material.dart';
+// import 'package:dio/dio.dart';
 
 // enum UpdateStatus { empty, loading, success, error }
 
-class UserUpdateProvider extends ChangeNotifier {
+// class UserUpdateProvider extends ChangeNotifier {
   // UpdateStatus _updateStatus = UpdateStatus.empty;
   // UpdateStatus get updateStatus => _updateStatus;
 
@@ -33,4 +33,4 @@ class UserUpdateProvider extends ChangeNotifier {
   //     notifyListeners();
   //   }
   // }
-}
+// }

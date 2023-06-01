@@ -294,23 +294,46 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 isActive
                     ? ButtonActive(
                         text: 'Selanjutnya',
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            value.updateUserPassword(
+                            await value.updateUserPassword(
                               oldPasswordController.text,
                               newPasswordController.text,
                               confirmPasswordController.text,
                             );
-                            if (value.statusCode == '400') {
-                              print('400 erorr');
-                            } else {
+                            // switch (value.message) {
+                            //   case '200':
+                            //     if (context.mounted) {
+                            //       print('200 ok');
+                            //       ScaffoldMessenger.of(context).showSnackBar(
+                            //         const SnackBar(
+                            //           content: Text(
+                            //               'Kata sandi berhasil diperbarui.'),
+                            //         ),
+                            //       );
+                            //       Navigator.of(context)
+                            //           .push(MaterialPageRoute(
+                            //             builder: (context) => const MainPage(),
+                            //           ))
+                            //           .then((value) {});
+                            //     }
+                            //     break;
+                            //   case '400':
+                            //     print('400 erorr');
+                            //     break;
+                            //   case '401':
+                            //     print('401 erorr');
+                            //     break;
+                            //   default:
+                            // }
+                            if (value.statusCode == '200') {
                               if (context.mounted) {
-                                print('200 ok');
+                                print('success ${value.statusCode}');
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Center(
-                                        child: Text(
-                                            'Kata sandi berhasil diperbarui.')),
+                                    content: Text(
+                                      'Kata sandi berhasil diperbarui.',
+                                    ),
                                   ),
                                 );
                                 Navigator.of(context)
@@ -318,6 +341,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                       builder: (context) => const MainPage(),
                                     ))
                                     .then((value) {});
+                              }
+                            } else if (value.statusCode == '400') {
+                              print('failed ${value.statusCode}');
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Kata sandi lama salah, harap masukan yang benar.',
+                                    ),
+                                  ),
+                                );
+                              }
+                            } else if (value.statusCode == '500') {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Server error.',
+                                    ),
+                                  ),
+                                );
                               }
                             }
                           }
