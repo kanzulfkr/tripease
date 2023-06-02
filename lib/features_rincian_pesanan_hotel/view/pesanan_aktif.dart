@@ -1,6 +1,7 @@
 import 'package:capstone_project_tripease/features_pesanan/utils/colors.dart';
 import 'package:capstone_project_tripease/features_pesanan/utils/icons.dart';
 import 'package:capstone_project_tripease/features_pesanan/utils/images.dart';
+import 'package:capstone_project_tripease/features_rincian_pesanan_hotel/view/pesanan_batal.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../features_checkout_checkin/component/button_active.dart';
 import '../../../../features_checkout_checkin/component/button_close.dart';
 import '../../../../home.dart';
+import '../../features_checkout_checkin/check_in.dart';
 import '../../features_pesanan/utils/fonts.dart';
 
 class PesananAktif extends StatefulWidget {
@@ -44,7 +46,7 @@ class _PesananAktifState extends State<PesananAktif> {
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const Home(),
+                          builder: (context) => const PesananBatal(),
                         ),
                       );
                     },
@@ -69,7 +71,10 @@ class _PesananAktifState extends State<PesananAktif> {
     );
   }
 
-  late bool _customIcon = false;
+  late bool _customIcon1 = false;
+  late bool _customIcon2 = false;
+  late bool _customIcon3 = false;
+  late bool _customIcon4 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +106,7 @@ class _PesananAktifState extends State<PesananAktif> {
                     border: Border.all(color: green),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(10.0.w),
                     child: Row(
                       children: [
                         iconSuccess,
@@ -257,7 +262,7 @@ class _PesananAktifState extends State<PesananAktif> {
                         color: mainBlue,
                       ),
                     ),
-                    trailing: _customIcon
+                    trailing: _customIcon1
                         ? const Icon(
                             Icons.expand_less_rounded,
                             color: mainBlue,
@@ -268,7 +273,7 @@ class _PesananAktifState extends State<PesananAktif> {
                           ),
                     onExpansionChanged: (bool value) {
                       setState(() {
-                        _customIcon = value;
+                        _customIcon1 = value;
                       });
                     },
                     children: [
@@ -361,7 +366,7 @@ class _PesananAktifState extends State<PesananAktif> {
                         color: mainBlue,
                       ),
                     ),
-                    trailing: _customIcon
+                    trailing: _customIcon2
                         ? const Icon(
                             Icons.expand_less_rounded,
                             color: mainBlue,
@@ -372,7 +377,7 @@ class _PesananAktifState extends State<PesananAktif> {
                           ),
                     onExpansionChanged: (bool value) {
                       setState(() {
-                        _customIcon = value;
+                        _customIcon2 = value;
                       });
                     },
                     children: [
@@ -422,7 +427,7 @@ class _PesananAktifState extends State<PesananAktif> {
                         color: mainBlue,
                       ),
                     ),
-                    trailing: _customIcon
+                    trailing: _customIcon3
                         ? const Icon(
                             Icons.expand_less_rounded,
                             color: mainBlue,
@@ -433,7 +438,7 @@ class _PesananAktifState extends State<PesananAktif> {
                           ),
                     onExpansionChanged: (bool value) {
                       setState(() {
-                        _customIcon = value;
+                        _customIcon3 = value;
                       });
                     },
                     children: [
@@ -557,7 +562,7 @@ class _PesananAktifState extends State<PesananAktif> {
                         color: mainBlue,
                       ),
                     ),
-                    trailing: _customIcon
+                    trailing: _customIcon4
                         ? const Icon(
                             Icons.expand_less_rounded,
                             color: mainBlue,
@@ -568,7 +573,7 @@ class _PesananAktifState extends State<PesananAktif> {
                           ),
                     onExpansionChanged: (bool value) {
                       setState(() {
-                        _customIcon = value;
+                        _customIcon4 = value;
                       });
                     },
                     children: [
@@ -657,7 +662,13 @@ class _PesananAktifState extends State<PesananAktif> {
                   'Dapatkan Konfirmasi Pesanan',
                   style: myTextTheme.headlineMedium,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CheckIn(
+                      title: 'Shibuya Shabu',
+                    ),
+                  ));
+                },
               ),
             ),
             SizedBox(height: 16.h),
@@ -706,7 +717,7 @@ class _PesananAktifState extends State<PesananAktif> {
                 onPressed: () {},
               ),
             ),
-            SizedBox(height: 30.h),
+            SizedBox(height: 20.h),
           ],
         ),
       ),

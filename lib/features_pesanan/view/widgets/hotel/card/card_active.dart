@@ -40,7 +40,7 @@ class CardActiveHotel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context); // Initialize ScreenUtil
+    ScreenUtil.init(context);
 
     return InkWell(
       onTap: () {

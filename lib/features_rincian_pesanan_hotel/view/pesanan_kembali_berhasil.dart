@@ -29,7 +29,7 @@ class PesananKembaliBerhasil extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: 2.0.h,
+                    top: 20.0.h,
                   ),
                   child: Container(
                     width: 350.w,
@@ -145,7 +145,7 @@ class PesananKembaliBerhasil extends StatelessWidget {
                                     Row(
                                       children: [
                                         iconDate,
-                                        SizedBox(width: 5.w),
+                                        SizedBox(width: 4.w),
                                         Text(
                                           '26 April 2023 - 27 April 2023',
                                           style: myTextTheme.headlineSmall,
@@ -360,6 +360,7 @@ class PesananKembaliBerhasil extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
+              SizedBox(height: 10.h),
             ],
           ),
         ),

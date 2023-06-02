@@ -1,3 +1,4 @@
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +21,14 @@ class PesananBatal extends StatelessWidget {
           style: myTextTheme.headlineLarge,
         ),
         centerTitle: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const Home(),
+            ));
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -360,6 +369,7 @@ class PesananBatal extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
+              SizedBox(height: 10.h),
             ],
           ),
         ),

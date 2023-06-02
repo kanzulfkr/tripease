@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../features_pesanan/view/screens/pesanan_screen.dart';
@@ -18,32 +19,38 @@ class CheckInQrcode extends StatefulWidget {
 class _CheckInQrcodeState extends State<CheckInQrcode> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(
           widget.title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.w),
         child: Column(
           children: [
             Container(
-              height: 90,
+              height: 90.h,
               width: double.maxFinite,
-              margin: const EdgeInsets.only(top: 20),
-              padding: const EdgeInsets.all(12),
+              margin: EdgeInsets.only(top: 20.h),
+              padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8.r),
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 0.2,
-                    blurRadius: 0.5,
+                    spreadRadius: 0.2.w,
+                    blurRadius: 0.5.w,
                     offset: const Offset(0.5, 0.5),
                   ),
                 ],
@@ -52,38 +59,46 @@ class _CheckInQrcodeState extends State<CheckInQrcode> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'QR Code Anda',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(0, 128, 255, 1),
+                      color: const Color.fromRGBO(0, 128, 255, 1),
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Arahkan QR Code ini dengan benar ke  pemindai. Pastikan untuk meningkatkan kecerahan layar ponsel Anda agar QR Code mudah dibaca.',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ],
               ),
             ),
             Center(
               child: Container(
-                margin: const EdgeInsets.only(top: 58, bottom: 56),
-                padding: const EdgeInsets.all(16),
+                margin: EdgeInsets.only(
+                  top: 58.h,
+                  bottom: 56.h,
+                ),
+                padding: EdgeInsets.all(16.w),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.r),
+                  ),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0.2,
-                      blurRadius: 0.5,
+                      spreadRadius: 0.2.w,
+                      blurRadius: 0.5.w,
                       offset: const Offset(0.5, 0.5),
                     ),
                   ],
                 ),
-                child: SvgPicture.asset('assets/svg/qr.svg'),
+                child: Image.asset('assets/images/qr_code.png'),
               ),
             ),
             ButtonActive(

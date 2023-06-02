@@ -1,3 +1,4 @@
+import 'package:capstone_project_tripease/features_checkout_checkin/reviews.dart';
 import 'package:capstone_project_tripease/features_pesanan/view_model/provider/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +40,6 @@ class MainApp extends StatelessWidget {
               textTheme: myTextTheme,
             ),
             home: const Home(),
-            // home: const PesananMenunggu(),
           );
         },
       ),

@@ -113,7 +113,8 @@ class CardCanceledHotel extends StatelessWidget {
                                     children: [
                                       iconLocation,
                                       SizedBox(
-                                          width: 3), // Use ScreenUtil for width
+                                          width:
+                                              2.w), // Use ScreenUtil for width
                                       Text(
                                         titleLocation,
                                         style: myTextTheme.headlineSmall,

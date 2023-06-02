@@ -2,6 +2,7 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:capstone_project_tripease/features_pesanan/view/widgets/hotel/card/card_return_canceled.dart';
 import 'package:capstone_project_tripease/features_pesanan/view/widgets/hotel/card/card_return_finish.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/fonts.dart';
@@ -39,24 +40,24 @@ class FilterHotel extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               color: grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
+                              spreadRadius: 1.w,
+                              blurRadius: 5.w,
                               offset: const Offset(0, 1),
                             ),
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(10.0.w),
                           child: ButtonsTabBar(
-                            radius: 50.0,
+                            radius: 50.0.r,
                             contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 20),
+                                EdgeInsets.symmetric(horizontal: 20.w),
                             backgroundColor: mainBlue,
                             unselectedBackgroundColor: background,
                             labelStyle: myTextTheme.labelLarge,
                             unselectedLabelStyle: myTextTheme.labelMedium,
                             borderColor: grey,
-                            borderWidth: .3,
+                            borderWidth: .3.w,
                             tabs: const [
                               Tab(text: 'Semua'),
                               Tab(text: 'Menunggu'),
@@ -109,10 +110,10 @@ class FilterHotel extends StatelessWidget {
                           CardReturnFinishHotel(
                             icon: iconCheck,
                             title: 'BERHASIL DIKEMBALIKAN',
-                            name: 'Shangri-La',
+                            name: 'Shibuya Shabu',
                             image: shibuya,
                             iconLocation: iconLocation,
-                            titleLocation: 'Jl. Mayjend Sungkono, Surabaya',
+                            titleLocation: 'Bangkok - Thailand',
                             iconBed: iconBed,
                             titleBed: 'Exclusive Room',
                             iconBedTime: iconBedTime,
