@@ -1,4 +1,7 @@
-import '/onboard_feature/view/home.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../main_page.dart';
+import '../utils/token_manager.dart';
 import '/onboard_feature/view/register.dart';
 import '/onboard_feature/view_model/login_provider.dart';
 import 'package:email_validator/email_validator.dart';
@@ -35,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Stack(
             children: [
               SizedBox(
-                height: 200,
+                height: 200.h,
                 width: double.maxFinite,
                 child: Image.asset(
                   'assets/images/around-the-world.png',
@@ -47,28 +50,28 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const SizedBox(height: 180),
                   Container(
-                    height: 524,
+                    height: 524.h,
                     width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: const BoxDecoration(
+                    padding: EdgeInsets.all(20.sp),
+                    decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(25),
+                        top: Radius.circular(25.r),
                       ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Masuk',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(0, 128, 255, 1),
+                            color: const Color.fromRGBO(0, 128, 255, 1),
                             letterSpacing: 0.15,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         Form(
                             key: _formKey,
                             child: Column(
@@ -77,13 +80,13 @@ class _LoginPageState extends State<LoginPage> {
                                 Text(
                                   'Email',
                                   style: GoogleFonts.openSans(
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                const SizedBox(height: 12),
+                                SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                                   validator: (email) {
                                     if (email == null &&
                                         !EmailValidator.validate(email!)) {
@@ -92,44 +95,47 @@ class _LoginPageState extends State<LoginPage> {
                                     return null;
                                   },
                                   controller: _emailController,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
-                                        Radius.circular(5),
+                                        Radius.circular(5.r),
                                       ),
                                     ),
                                     prefixIcon: Padding(
                                       padding: EdgeInsets.only(
-                                          left: 8.0, right: 8.0, bottom: 5.0),
-                                      child: Icon(Icons.person_outline),
+                                          left: 8.0.sp,
+                                          right: 8.0.sp,
+                                          bottom: 5.0.sp),
+                                      child: const Icon(Icons.person_outline),
                                     ),
                                     prefixIconConstraints: BoxConstraints(
-                                        minHeight: 8, minWidth: 8),
-                                    suffixIcon: Icon(
+                                        minHeight: 8.h, minWidth: 8.w),
+                                    suffixIcon: const Icon(
                                         Icons.check_circle_outline_outlined),
                                     hintText: 'Masukkan Email',
                                     hintStyle: TextStyle(
-                                        fontSize: 12,
-                                        color:
-                                            Color.fromRGBO(139, 146, 156, 1)),
+                                        fontSize: 12.sp,
+                                        color: const Color.fromRGBO(
+                                            139, 146, 156, 1)),
                                     helperStyle: TextStyle(
-                                      fontSize: 10,
-                                      color: Color.fromRGBO(0, 128, 255, 1),
-                                      letterSpacing: 0.15,
+                                      fontSize: 10.sp,
+                                      color:
+                                      const Color.fromRGBO(0, 128, 255, 1),
+                                      letterSpacing: 0.15.sp,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 12),
+                                SizedBox(height: 12.h),
                                 Text(
                                   'Kata Sandi',
                                   style: GoogleFonts.openSans(
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                const SizedBox(height: 12),
+                                SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Tolong masukkan kata sandi';
@@ -142,18 +148,20 @@ class _LoginPageState extends State<LoginPage> {
                                   controller: _passwordController,
                                   obscureText: !_isVisible,
                                   decoration: InputDecoration(
-                                    border: const OutlineInputBorder(
+                                    border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
-                                        Radius.circular(5),
+                                        Radius.circular(5.r),
                                       ),
                                     ),
-                                    prefixIcon: const Padding(
+                                    prefixIcon: Padding(
                                       padding: EdgeInsets.only(
-                                          left: 8.0, right: 8.0, bottom: 5.0),
-                                      child: Icon(Icons.lock_outline),
+                                          left: 8.0.sp,
+                                          right: 8.0.sp,
+                                          bottom: 5.0.sp),
+                                      child: const Icon(Icons.lock_outline),
                                     ),
                                     prefixIconConstraints:
-                                        const BoxConstraints(minHeight: 0),
+                                    BoxConstraints(minHeight: 0.h),
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -162,42 +170,43 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                       icon: _isVisible
                                           ? const Icon(
-                                              Icons.visibility,
-                                              color: Colors.grey,
-                                            )
+                                        Icons.visibility,
+                                        color: Colors.grey,
+                                      )
                                           : const Icon(
-                                              Icons.visibility_off,
-                                              color: Colors.grey,
-                                            ),
+                                        Icons.visibility_off,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                     hintText: 'Masukkan Kata Sandi',
-                                    hintStyle: const TextStyle(
-                                      fontSize: 12,
-                                      color: Color.fromRGBO(139, 146, 156, 1),
+                                    hintStyle: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: const Color.fromRGBO(
+                                          139, 146, 156, 1),
                                     ),
                                   ),
                                 )
                               ],
                             )),
-                        const SizedBox(height: 12),
-                        const Row(
+                        SizedBox(height: 12.h),
+                        Row(
                           children: [
                             Icon(Icons.lock_outline),
-                            SizedBox(width: 5),
+                            SizedBox(width: 5.w),
                             Text(
                               'Kami akan melindungi data anda.',
-                              style: TextStyle(fontSize: 10),
+                              style: TextStyle(fontSize: 10.sp),
                             )
                           ],
                         ),
-                        const SizedBox(height: 6),
+                        SizedBox(height: 6.h),
                         TextButton(
                             onPressed: () {},
                             child: const Text(
                               'Forget Password ?',
                             )),
-                        const SizedBox(
-                          height: 6,
+                        SizedBox(
+                          height: 6.h,
                         ),
                         GestureDetector(
                           onTap: () async {
@@ -206,17 +215,20 @@ class _LoginPageState extends State<LoginPage> {
                             if (_formKey.currentState!.validate()) {
                               await value.login(email, password);
                               if (value.loginStatus == LoginStatus.loading) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Loading'),
-                                  ),
-                                );
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Loading'),
+                                    ),
+                                  );
+                                }
                               } else if (value.loginStatus ==
                                   LoginStatus.success) {
                                 if (context.mounted) {
+                                  LoginManager.saveLogin(true);
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                      builder: (context) => const HomePage(),
+                                      builder: (context) => const MainPage(),
                                     ),
                                   );
                                 }
@@ -233,22 +245,22 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           },
                           child: Container(
-                            height: 40,
-                            width: double.maxFinite,
-                            decoration: const BoxDecoration(
-                              color: Color.fromRGBO(0, 128, 255, 1),
+                            height: 40.h,
+                            width: double.maxFinite.w,
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(0, 128, 255, 1),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(5),
+                                Radius.circular(5.r),
                               ),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 'Masuk',
                                 style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,
-                                    letterSpacing: 0.0125),
+                                    letterSpacing: 0.0125.sp),
                               ),
                             ),
                           ),
@@ -257,11 +269,11 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Tidak memiliki Akun?',
                               style: TextStyle(
-                                fontSize: 12,
-                                letterSpacing: 0.0125,
+                                fontSize: 12.sp,
+                                letterSpacing: 0.0125.sp,
                               ),
                             ),
                             TextButton(
@@ -270,16 +282,16 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute<void>(
                                     builder: (BuildContext context) =>
-                                        const RegisterPage(),
+                                    const RegisterPage(),
                                   ),
                                 );
                               },
-                              child: const Text(
+                              child: Text(
                                 'Daftar sekarang',
                                 style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color.fromRGBO(0, 128, 255, 1),
-                                  letterSpacing: 0.0125,
+                                  fontSize: 12.sp,
+                                  color: const Color.fromRGBO(0, 128, 255, 1),
+                                  letterSpacing: 0.0125.sp,
                                 ),
                               ),
                             )
