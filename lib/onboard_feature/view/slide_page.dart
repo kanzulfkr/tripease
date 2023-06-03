@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SlidePage extends StatelessWidget {
@@ -8,35 +9,39 @@ class SlidePage extends StatelessWidget {
 
   const SlidePage(
       {super.key,
-      required this.title,
-      required this.description,
-      required this.image});
+        required this.title,
+        required this.description,
+        required this.image});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 130),
+      padding: EdgeInsets.only(
+          left: 20.sp, right: 20.sp, top: 30.sp, bottom: 130.sp),
       color: Colors.white,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(image),
-        const SizedBox(
-          height: 60,
+        Image.asset(
+          image,
+          width: 320.w,
+        ),
+        SizedBox(
+          height: 60.h,
         ),
         Text(
           title,
           style: GoogleFonts.openSans(
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               color: const Color(0xEE262627)),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: 20.h,
         ),
         Text(
           description,
           style: GoogleFonts.openSans(
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w400,
               color: const Color(0xEE262627)),
           textAlign: TextAlign.center,
