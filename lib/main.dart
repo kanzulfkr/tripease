@@ -1,5 +1,4 @@
-import 'package:capstone_project_tripease/features_home/home_page.dart';
-import 'package:capstone_project_tripease/features_profile/view/profile_screen.dart';
+import 'package:capstone_project_tripease/features_profile/view_model/article_provider.dart';
 
 import '/onboard_feature/view/splash.dart';
 import '/onboard_feature/view_model/register_provider.dart';
@@ -28,6 +27,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => RegisterProvider()),
         ChangeNotifierProvider(create: (_) => UserProfileProvider()),
+        ChangeNotifierProvider(create: (_) => ArticleProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -35,19 +35,18 @@ class MainApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (BuildContext context, Widget? child) {
           return const MaterialApp(
-            supportedLocales:  [
+            supportedLocales: [
               Locale('id', 'ID'),
             ],
-            localizationsDelegates:  [
+            localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
             ],
             debugShowCheckedModeBanner: false,
-            home:  SplashScreen(),
+            home: SplashScreen(),
           );
         },
       ),
     );
   }
 }
-

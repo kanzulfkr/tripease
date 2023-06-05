@@ -142,7 +142,7 @@ class _EditPhotoScreenState extends State<EditPhotoScreen> {
                                               showDialog(
                                                 context: context,
                                                 builder: (context) {
-                                                  return CustomDialog(
+                                                  return LogoutDialog(
                                                     title:
                                                         'Apakah Anda yakin untuk menghapus foto profil Anda?',
                                                     content:

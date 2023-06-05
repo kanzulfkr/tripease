@@ -122,7 +122,6 @@ class UserProfileService {
   Future<String> updatePassword(
       String oldPassword, String newPassword, String confirmPassword) async {
     String? tokens = await TokenManager.getToken();
-    ;
     Dio dio = Dio();
     dio.options.headers['Authorization'] = 'Bearer $tokens';
     final response = await dio.put(
