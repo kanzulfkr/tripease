@@ -46,53 +46,102 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(18.h),
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-            width: double.infinity,
-            height: 72.h,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 233.h,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.h),
+        child: AppBar(
+          actions: [
+            IconButton(
+              padding: EdgeInsets.only(top: 12.sp, bottom: 8.sp),
+              icon: const Icon(Icons.notifications),
+              onPressed: () {
+                // Add your notification button action here
+              },
+            ),
+            SizedBox(
+              width: 30.25.w,
+            ),
+            IconButton(
+              padding: EdgeInsets.only(top: 12.sp, bottom: 8.sp),
+              icon: const Icon(Icons.chat),
+              onPressed: () {
+                // Add your chat button action here
+              },
+            ),
+            SizedBox(
+              width: 18.96.w,
+            ),
+          ],
+          title: PreferredSize(
+            preferredSize: Size.fromHeight(48.0.h),
+            child: Padding(
+              padding: EdgeInsets.only(top: 12.sp, right: 19.75.sp),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Pencarian',
+                  hintStyle: GoogleFonts.openSans(
+                      fontSize: 14.sp, fontWeight: FontWeight.w400),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                    borderSide: BorderSide.none,
                   ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search for something',
-                      hintStyle: GoogleFonts.openSans(
-                          fontSize: 14.sp, fontWeight: FontWeight.w400),
-                      contentPadding: EdgeInsets.symmetric(vertical: 8.h),
-                      prefixIcon: const Icon(Icons.search),
-                      prefixIconColor: const Color.fromRGBO(150, 152, 156, 1),
-                    ),
-                  ),
+                  contentPadding: EdgeInsets.symmetric(vertical: 4.sp),
+                  prefixIcon: const Icon(Icons.search),
                 ),
-                SizedBox(
-                  width: 40.h,
-                  child: const Icon(
-                    Icons.notifications_none,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(
-                  width: 40.h,
-                  child: const Icon(
-                    Icons.chat,
-                    color: Colors.white,
-                  ),
-                )
-              ],
+              ),
             ),
           ),
         ),
       ),
+
+      // AppBar(
+      //   backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
+      //   bottom: PreferredSize(
+      //     preferredSize: Size.fromHeight(20.h),
+      //     child: Container(
+      //       padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+      //       width: double.infinity,
+      //       height: 72.h,
+      //       child: Row(
+      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //         children: [
+      //           Container(
+      //             width: 233.h,
+      //             decoration: const BoxDecoration(
+      //               color: Colors.white,
+      //               borderRadius: BorderRadius.all(Radius.circular(8)),
+      //             ),
+      //             child: TextField(
+      //               decoration: InputDecoration(
+      //                 hintText: 'Search for something',
+      //                 hintStyle: GoogleFonts.openSans(
+      //                     fontSize: 14.sp, fontWeight: FontWeight.w400),
+      //                 contentPadding: EdgeInsets.symmetric(vertical: 8.h),
+      //                 prefixIcon: const Icon(Icons.search),
+      //                 prefixIconColor: const Color.fromRGBO(150, 152, 156, 1),
+      //               ),
+      //             ),
+      //           ),
+      //           SizedBox(
+      //             width: 40.h,
+      //             child: const Icon(
+      //               Icons.notifications_none,
+      //               color: Colors.white,
+      //             ),
+      //           ),
+      //           SizedBox(
+      //             width: 40.h,
+      //             child: const Icon(
+      //               Icons.chat,
+      //               color: Colors.white,
+      //             ),
+      //           )
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
       body: ListView(
         children: [
           Padding(
@@ -158,65 +207,65 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           popUpNotification
               ? Container(
-                  height: 79.h,
-                  margin: EdgeInsets.symmetric(horizontal: 20.w),
-                  padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(255, 231, 153, 1),
-                    borderRadius: BorderRadius.circular(8.r),
+            height: 79.h,
+            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(255, 231, 153, 1),
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Image.asset(
+                    'assets/images/pop_up_notification.png',
+                    width: 40.w,
+                    height: 40.h,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                ),
+                SizedBox(
+                  width: 236.w,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(
-                        child: Image.asset(
-                          'assets/images/pop_up_notification.png',
-                          width: 40.w,
-                          height: 40.h,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 236.w,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Peringatan keamanan hilang, pembaruan pemesanan, dan balasan obrolan.',
-                              style: GoogleFonts.openSans(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                'Check notification settings',
-                                style: GoogleFonts.openSans(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color.fromRGBO(0, 128, 255, 1),
-                                ),
-                              ),
-                            ),
-                          ],
+                      Text(
+                        'Peringatan keamanan hilang, pembaruan pemesanan, dan balasan obrolan.',
+                        style: GoogleFonts.openSans(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          setState(() {
-                            popUpNotification = !popUpNotification;
-                          });
-                        },
-                        child: const Icon(
-                          Icons.cancel_outlined,
-                          color: Color.fromRGBO(113, 114, 117, 1),
+                        onTap: () {},
+                        child: Text(
+                          'Check notification settings',
+                          style: GoogleFonts.openSans(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(0, 128, 255, 1),
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      popUpNotification = !popUpNotification;
+                    });
+                  },
+                  child: const Icon(
+                    Icons.cancel_outlined,
+                    color: Color.fromRGBO(113, 114, 117, 1),
+                  ),
                 )
+              ],
+            ),
+          )
               : const SizedBox(),
           Padding(
             padding: EdgeInsets.only(

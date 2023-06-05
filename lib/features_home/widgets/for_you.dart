@@ -10,14 +10,14 @@ class ForYou extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 212.h,
+      height: 223.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 5,
         itemBuilder: (context, index) {
           return Container(
+
             width: 150.w,
-            height: 212.h,
             margin: EdgeInsets.fromLTRB(20.w, 0, 0, 1.h),
             decoration: BoxDecoration(
               color: const Color.fromRGBO(249, 250, 251, 1),
@@ -36,7 +36,7 @@ class ForYou extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(5.r)),
+                  BorderRadius.vertical(top: Radius.circular(5.r)),
                   child: Image.asset(
                     'assets/images/hotel.png',
                     fit: BoxFit.cover,

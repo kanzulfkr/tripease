@@ -18,3 +18,18 @@ class TokenManager {
     await prefs.remove(_tokenKey);
   }
 }
+
+// final prefs = await SharedPreferences.getInstance();
+//       final tokenSaved = prefs.getString('bearer_token');
+
+class LoginManager {
+  static Future<void> saveLogin(bool isLogin) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLogin', isLogin);
+  }
+
+  static Future<bool?> removeLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.remove('isLogin');
+  }
+}

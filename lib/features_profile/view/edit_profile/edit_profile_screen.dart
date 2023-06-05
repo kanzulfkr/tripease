@@ -94,24 +94,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               return Wrap(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 16.h, left: 24.w, bottom: 24),
+                    padding: EdgeInsets.only(top: 16.sp, left: 24.sp, bottom: 24.sp),
                     child: Text(
                       'Pilih Tanggal',
                       style: GoogleFonts.openSans(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 24.w),
+                    padding: EdgeInsets.only(left: 24.sp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           DateFormat('EEEE, dd MMMM', 'id_ID').format(today),
                           style: GoogleFonts.openSans(
-                            fontSize: 25,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -137,9 +137,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     calendarFormat: CalendarFormat.month,
                     headerStyle: const HeaderStyle(
                       formatButtonTextStyle:
-                          TextStyle(color: Colors.transparent),
+                      TextStyle(color: Colors.transparent),
                       formatButtonDecoration:
-                          BoxDecoration(color: Colors.transparent),
+                      BoxDecoration(color: Colors.transparent),
                     ),
                     calendarStyle: CalendarStyle(
                       isTodayHighlighted: true,
@@ -156,7 +156,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: const Color.fromRGBO(0, 128, 255, 1),
-                          width: 2.0,
+                          width: 2.0.w,
                         ),
                       ),
                     ),
@@ -176,7 +176,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: Text(
                           'Batal',
                           style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w500, fontSize: 14),
+                              fontWeight: FontWeight.w500, fontSize: 14.sp),
                         ),
                       ),
                       TextButton(
@@ -187,7 +187,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: Text(
                           'OK',
                           style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w500, fontSize: 14),
+                              fontWeight: FontWeight.w500, fontSize: 14.sp),
                         ),
                       ),
                     ],
@@ -214,7 +214,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(20.w),
+            padding: EdgeInsets.all(20.sp),
             child: Form(
               key: _formKey,
               onChanged: () {
@@ -228,7 +228,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10.h, bottom: 20.w),
+                      padding: EdgeInsets.only(top: 10.sp, bottom: 20.sp),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -242,28 +242,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             CircleAvatar(
                               radius: 50.r,
                               backgroundColor:
-                                  const Color.fromARGB(255, 224, 226, 231),
+                              const Color.fromARGB(255, 224, 226, 231),
                               child: user.loading
                                   ? SizedBox(
-                                      height: 100.h,
-                                      width: 100.w,
-                                      child: const CircularProgressIndicator())
+                                  height: 100.h,
+                                  width: 100.w,
+                                  child: const CircularProgressIndicator())
                                   : CircleAvatar(
-                                      radius: 47.r,
-                                      backgroundImage:
-                                          // AssetImage('assets/images/user.jfif'),
-                                          NetworkImage(
-                                        user.result!.profilePictureUrl ?? '',
-                                      ),
-                                    ),
+                                radius: 47.r,
+                                backgroundImage:
+                                // AssetImage('assets/images/user.jfif'),
+                                NetworkImage(
+                                  user.result!.profilePictureUrl ?? '',
+                                ),
+                              ),
                             ),
                             Positioned(
-                              bottom: 0.h,
-                              right: 0.w,
+                              bottom: 0.sp,
+                              right: 0.sp,
                               child: CircleAvatar(
                                 radius: 15.r,
                                 backgroundColor:
-                                    const Color.fromRGBO(240, 240, 248, 1),
+                                const Color.fromRGBO(240, 240, 248, 1),
                                 child: const Icon(
                                   Icons.border_color_outlined,
                                   color: Colors.black,
@@ -290,7 +290,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 40.h, bottom: 12.h),
+                    padding: EdgeInsets.only(top: 40.sp, bottom: 12.sp),
                     child: Text(
                       'Nama Lengkap',
                       style: GoogleFonts.openSans(
@@ -361,7 +361,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     controller: phoneNumberController,
                     keyboardType: TextInputType.phone,
                     style:
-                        GoogleFonts.openSans(fontSize: 14, color: Colors.black),
+                    GoogleFonts.openSans(fontSize: 14.sp, color: Colors.black),
                     decoration: InputDecoration(
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
@@ -467,7 +467,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           controller: citizenController,
                           readOnly: true,
                           style: GoogleFonts.openSans(
-                              fontSize: 14.sp.sp, color: Colors.black),
+                              fontSize: 14.sp, color: Colors.black),
                           decoration: InputDecoration(
                             hintText: 'Pilih Negara',
                             hintStyle: GoogleFonts.openSans(color: Colors.grey),
@@ -506,55 +506,51 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SizedBox(height: 30.h),
                   isActive
                       ? ButtonActive(
-                          text: 'Simpan',
-                          onTap: () async {
-                            String fullName = fullNameController.text;
-                            String phoneNumber = phoneNumberController.text;
-                            String birthDate = birthDateController.text;
-                            String citizen = citizenController.text;
+                    text: 'Simpan',
+                    onTap: () async {
+                      String fullName = fullNameController.text;
+                      String phoneNumber = phoneNumberController.text;
+                      String birthDate = birthDateController.text;
+                      String citizen = citizenController.text;
 
-                            if (_formKey.currentState!.validate()) {
-                              await value.updateUserProfile(
-                                  fullName, phoneNumber, birthDate, citizen);
-                              if (value.updateStatus == UpdateStatus.success) {
-                                if (context.mounted) {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) => const MainPage(),
-                                    ),
-                                  );
-                                }
-                              } else if (value.updateStatus ==
-                                  UpdateStatus.error) {
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          'Profil telah berhasil di simpan'),
-                                    ),
-                                  );
-                                }
-                              }
+                      if (_formKey.currentState!.validate()) {
+                        await value.updateUserProfile(
+                            fullName, phoneNumber, birthDate, citizen);
+                        if (value.updateStatus == UpdateStatus.success) {
+                          if (context.mounted) {
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+                          }
+                        } else if (value.updateStatus ==
+                            UpdateStatus.error) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    'Profil telah berhasil di simpan'),
+                              ),
+                            );
+                          }
+                        }
 
-                              const snackBar = SnackBar(
-                                content: Center(
-                                  child: Text(
-                                    'Profil telah berhasil di simpan',
-                                  ),
-                                ),
-                                backgroundColor: Color.fromRGBO(61, 175, 29, 1),
-                                showCloseIcon: true,
-                                closeIconColor: Colors.white,
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
-                          },
-                        )
+                        const snackBar = SnackBar(
+                          content: Center(
+                            child: Text(
+                              'Profil telah berhasil di simpan',
+                            ),
+                          ),
+                          backgroundColor: Color.fromRGBO(61, 175, 29, 1),
+                          showCloseIcon: true,
+                          closeIconColor: Colors.white,
+                        );
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBar);
+                      }
+                    },
+                  )
                       : ButtonInactive(
-                          text: 'Simpan',
-                          onTap: () {},
-                        )
+                    text: 'Simpan',
+                    onTap: () {},
+                  )
                 ],
               ),
             ),

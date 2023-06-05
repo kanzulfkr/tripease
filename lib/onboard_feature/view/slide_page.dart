@@ -22,6 +22,7 @@ class SlidePage extends StatelessWidget {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Image.asset(
           image,
+          height: 218.h,
           width: 320.w,
         ),
         SizedBox(

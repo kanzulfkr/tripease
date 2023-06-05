@@ -36,7 +36,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   void initState() {
     Future.microtask(
-        () => Provider.of<UserProfileProvider>(context, listen: false));
+            () => Provider.of<UserProfileProvider>(context, listen: false));
     super.initState();
   }
 
@@ -106,7 +106,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   decoration: InputDecoration(
                     prefix: SizedBox(width: 12.w),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                    EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                     suffixIcon: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -293,84 +293,80 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 SizedBox(height: 50.h),
                 isActive
                     ? ButtonActive(
-                        text: 'Selanjutnya',
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            await value.updateUserPassword(
-                              oldPasswordController.text,
-                              newPasswordController.text,
-                              confirmPasswordController.text,
-                            );
-                            // switch (value.message) {
-                            //   case '200':
-                            //     if (context.mounted) {
-                            //       print('200 ok');
-                            //       ScaffoldMessenger.of(context).showSnackBar(
-                            //         const SnackBar(
-                            //           content: Text(
-                            //               'Kata sandi berhasil diperbarui.'),
-                            //         ),
-                            //       );
-                            //       Navigator.of(context)
-                            //           .push(MaterialPageRoute(
-                            //             builder: (context) => const MainPage(),
-                            //           ))
-                            //           .then((value) {});
-                            //     }
-                            //     break;
-                            //   case '400':
-                            //     print('400 erorr');
-                            //     break;
-                            //   case '401':
-                            //     print('401 erorr');
-                            //     break;
-                            //   default:
-                            // }
-                            if (value.statusCode == '200') {
-                              if (context.mounted) {
-                                print('success ${value.statusCode}');
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Kata sandi berhasil diperbarui.',
-                                    ),
-                                  ),
-                                );
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                      builder: (context) => const MainPage(),
-                                    ))
-                                    .then((value) {});
-                              }
-                            } else if (value.statusCode == '400') {
-                              print('failed ${value.statusCode}');
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Kata sandi lama salah, harap masukan yang benar.',
-                                    ),
-                                  ),
-                                );
-                              }
-                            } else if (value.statusCode == '500') {
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Server error.',
-                                    ),
-                                  ),
-                                );
-                              }
-                            }
-                          }
-                        },
-                      )
+                  text: 'Selanjutnya',
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await value.updateUserPassword(
+                        oldPasswordController.text,
+                        newPasswordController.text,
+                        confirmPasswordController.text,
+                      );
+                      // switch (value.message) {
+                      //   case '200':
+                      //     if (context.mounted) {
+                      //       print('200 ok');
+                      //       ScaffoldMessenger.of(context).showSnackBar(
+                      //         const SnackBar(
+                      //           content: Text(
+                      //               'Kata sandi berhasil diperbarui.'),
+                      //         ),
+                      //       );
+                      //       Navigator.of(context)
+                      //           .push(MaterialPageRoute(
+                      //             builder: (context) => const MainPage(),
+                      //           ))
+                      //           .then((value) {});
+                      //     }
+                      //     break;
+                      //   case '400':
+                      //     print('400 erorr');
+                      //     break;
+                      //   case '401':
+                      //     print('401 erorr');
+                      //     break;
+                      //   default:
+                      // }
+                      if (value.statusCode == '200') {
+                        if (context.mounted) {
+                          print('success ${value.statusCode}');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Kata sandi berhasil diperbarui.',
+                              ),
+                            ),
+                          );
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+                        }
+                      } else if (value.statusCode == '400') {
+                        print('failed ${value.statusCode}');
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Kata sandi lama salah, harap masukan yang benar.',
+                              ),
+                            ),
+                          );
+                        }
+                      } else if (value.statusCode == '500') {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Server error.',
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                    }
+                  },
+                )
                     : ButtonInactive(
-                        text: 'Selanjutnya',
-                        onTap: () {},
-                      ),
+                  text: 'Selanjutnya',
+                  onTap: () {},
+                ),
               ],
             ),
           ),

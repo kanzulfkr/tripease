@@ -21,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
     // TODO: implement initState
     super.initState();
     Future.microtask(
-            () => Provider.of<RegisterProvider>(context, listen: false));
+        () => Provider.of<RegisterProvider>(context, listen: false));
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -91,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     SizedBox(height: 12.h),
                                     TextFormField(
                                       autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode.onUserInteraction,
                                       controller: _nameController,
                                       validator: (name) {
                                         if (name == null || name.isEmpty) {
@@ -137,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     SizedBox(height: 12.h),
                                     TextFormField(
                                       autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode.onUserInteraction,
                                       controller: _emailController,
                                       validator: (email) {
                                         if (email == null || email.isEmpty) {
@@ -186,7 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     SizedBox(height: 12.h),
                                     TextFormField(
                                       autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode.onUserInteraction,
                                       controller: _phoneController,
                                       validator: (phone) {
                                         if (phone == null || phone.isEmpty) {
@@ -235,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     SizedBox(height: 12.h),
                                     TextFormField(
                                       autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode.onUserInteraction,
                                       controller: _passwordController,
                                       validator: (password) {
                                         if (password == null ||
@@ -261,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           child: const Icon(Icons.lock),
                                         ),
                                         prefixIconConstraints:
-                                        BoxConstraints(minHeight: 0.h),
+                                            BoxConstraints(minHeight: 0.h),
                                         suffixIcon: IconButton(
                                           onPressed: () {
                                             setState(() {
@@ -270,13 +270,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                           },
                                           icon: _isVisible
                                               ? const Icon(
-                                            Icons.visibility,
-                                            color: Colors.grey,
-                                          )
+                                                  Icons.visibility,
+                                                  color: Colors.grey,
+                                                )
                                               : const Icon(
-                                            Icons.visibility_off,
-                                            color: Colors.grey,
-                                          ),
+                                                  Icons.visibility_off,
+                                                  color: Colors.grey,
+                                                ),
                                         ),
                                         hintText: 'Masukkan Kata Sandi',
                                         hintStyle: TextStyle(
@@ -296,7 +296,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     SizedBox(height: 12.h),
                                     TextFormField(
                                       autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode.onUserInteraction,
                                       controller: _confirmPasswordController,
                                       validator: (password) {
                                         if (password == null ||
@@ -325,7 +325,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           child: const Icon(Icons.lock),
                                         ),
                                         prefixIconConstraints:
-                                        BoxConstraints(minHeight: 0.h),
+                                            BoxConstraints(minHeight: 0.h),
                                         suffixIcon: IconButton(
                                           onPressed: () {
                                             setState(() {
@@ -334,13 +334,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                           },
                                           icon: _isVisible
                                               ? const Icon(
-                                            Icons.visibility,
-                                            color: Colors.grey,
-                                          )
+                                                  Icons.visibility,
+                                                  color: Colors.grey,
+                                                )
                                               : const Icon(
-                                            Icons.visibility_off,
-                                            color: Colors.grey,
-                                          ),
+                                                  Icons.visibility_off,
+                                                  color: Colors.grey,
+                                                ),
                                         ),
                                         hintText: 'Masukkan Ulang Kata Sandi',
                                         hintStyle: TextStyle(
@@ -388,13 +388,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                       '\nConfirm Password: ${registerProvider.confirmPassword}');
 
                                   UserRegisterResponseModel userRegister =
-                                  UserRegisterResponseModel(
+                                      UserRegisterResponseModel(
                                     email: registerProvider.email,
                                     fullName: registerProvider.fullName,
                                     phoneNumber: registerProvider.phoneNumber,
                                     password: registerProvider.password,
                                     confirmPassword:
-                                    registerProvider.confirmPassword,
+                                        registerProvider.confirmPassword,
                                   );
                                   await registerProvider.register(userRegister);
                                   const snackBar = SnackBar(
@@ -409,7 +409,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            const LoginPage()));
+                                                const LoginPage()));
                                   }
                                 }
                               },
@@ -451,7 +451,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                        const LoginPage(),
+                                            const LoginPage(),
                                       ),
                                     );
                                   },
@@ -460,7 +460,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       color:
-                                      const Color.fromRGBO(0, 128, 255, 1),
+                                          const Color.fromRGBO(0, 128, 255, 1),
                                       letterSpacing: 0.0125.sp,
                                     ),
                                   ),

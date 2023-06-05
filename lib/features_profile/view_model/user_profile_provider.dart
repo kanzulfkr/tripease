@@ -19,7 +19,7 @@ class UserProfileProvider extends ChangeNotifier {
 
   Future<void> getUserProfile() async {
     loading = true;
-    notifyListeners();
+
     result = (await UserProfileService().getUser())!;
     loading = false;
     notifyListeners();

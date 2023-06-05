@@ -10,6 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../onboard_feature/utils/token_manager.dart';
+import '../../onboard_feature/view/login.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -34,8 +37,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            shrinkWrap: true,
+
             children: [
               Text(
                 'Profil',
@@ -53,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 12.h, vertical: 12.h),
+                  EdgeInsets.symmetric(horizontal: 12.h, vertical: 12.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -62,16 +66,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           backgroundColor: Colors.white,
                           child: user.loading
                               ? CircleAvatar(
-                                  radius: 29.r,
-                                  backgroundImage: const AssetImage(
-                                      'assets/images/user.jfif'),
-                                )
+                            radius: 29.r,
+                            backgroundImage: const AssetImage(
+                                'assets/images/user.jfif'),
+                          )
                               : CircleAvatar(
-                                  radius: 29.r,
-                                  backgroundImage: NetworkImage(
-                                    user.result!.profilePictureUrl ?? '',
-                                  ),
-                                )),
+                            radius: 29.r,
+                            backgroundImage: NetworkImage(
+                              user.result!.profilePictureUrl ?? '',
+                            ),
+                          )),
                       Container(
                         width: 170.h,
                         margin: EdgeInsets.only(left: 14.h, right: 26.h),
@@ -163,11 +167,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             return CustomDialog(
                               title: 'Keluar dari akun',
                               content:
-                                  'Sayang sekali, banyak keuntungan yang anda lewatkan. Apakah anda yakin untuk keluar?',
+                              'Sayang sekali, banyak keuntungan yang anda lewatkan. Apakah anda yakin untuk keluar?',
                               btnActive: 'Ya',
                               btnInactive: 'Tidak',
                               onTapActive: () {
-                                Navigator.of(context).pop();
+                                TokenManager.removeToken();
+                                LoginManager.removeLogin();
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
                               },
                             );
                           },

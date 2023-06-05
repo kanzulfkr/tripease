@@ -25,14 +25,14 @@ class UserResponseModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
-        "message": message,
-        "status_code": statusCode,
-      };
+    "data": data?.toJson(),
+    "message": message,
+    "status_code": statusCode,
+  };
 }
 
 class Data {
-  DateTime? birthDate;
+
   String? citizen;
   DateTime? createdAt;
   String? email;
@@ -46,7 +46,7 @@ class Data {
   DateTime? updatedAt;
 
   Data({
-    this.birthDate,
+
     this.citizen,
     this.createdAt,
     this.email,
@@ -61,39 +61,36 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        birthDate: json["birth_date"] == null
-            ? null
-            : DateTime.parse(json["birth_date"]),
-        citizen: json["citizen"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        email: json["email"],
-        fullName: json["full_name"],
-        gender: json["gender"],
-        id: json["id"],
-        phoneNumber: json["phone_number"],
-        profilePicture: json["profile_picture"],
-        role: json["role"],
-        token: json["token"],
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-      );
+
+    citizen: json["citizen"],
+    createdAt: json["created_at"] == null
+        ? null
+        : DateTime.parse(json["created_at"]),
+    email: json["email"],
+    fullName: json["full_name"],
+    gender: json["gender"],
+    id: json["id"],
+    phoneNumber: json["phone_number"],
+    profilePicture: json["profile_picture"],
+    role: json["role"],
+    token: json["token"],
+    updatedAt: json["updated_at"] == null
+        ? null
+        : DateTime.parse(json["updated_at"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "birth_date":
-            "${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}",
-        "citizen": citizen,
-        "created_at": createdAt?.toIso8601String(),
-        "email": email,
-        "full_name": fullName,
-        "gender": gender,
-        "id": id,
-        "phone_number": phoneNumber,
-        "profile_picture": profilePicture,
-        "role": role,
-        "token": token,
-        "updated_at": updatedAt?.toIso8601String(),
-      };
+
+    "citizen": citizen,
+    "created_at": createdAt?.toIso8601String(),
+    "email": email,
+    "full_name": fullName,
+    "gender": gender,
+    "id": id,
+    "phone_number": phoneNumber,
+    "profile_picture": profilePicture,
+    "role": role,
+    "token": token,
+    "updated_at": updatedAt?.toIso8601String(),
+  };
 }

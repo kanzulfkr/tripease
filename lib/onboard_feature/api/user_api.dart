@@ -1,13 +1,12 @@
+
 import '/onboard_feature/model/register_model.dart';
 import '/onboard_feature/model/user_model.dart';
 import '/onboard_feature/utils/token_manager.dart';
 import 'package:dio/dio.dart';
 
 class UserApi {
-  String urlLogin =
-      'http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/login';
-  String urlRegister =
-      'http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/register';
+  String urlLogin = 'https://capstone.hanifz.com/api/v1/login';
+  String urlRegister = 'https://capstone.hanifz.com/api/v1/register';
 
   var error = '';
   var message = '';
@@ -27,7 +26,7 @@ class UserApi {
 
       final token = response.data['data']['token'];
       TokenManager.saveToken(token);
-      print('token: $token');
+
       return UserResponseModel.fromJson(response.data);
     } else if (response.statusCode == 400) {
       error = response.statusMessage.toString();
@@ -41,8 +40,8 @@ class UserApi {
   }
 
   Future<UserRegisterResponseModel> register(
-    UserRegisterResponseModel registerData,
-  ) async {
+      UserRegisterResponseModel registerData,
+      ) async {
     final response = await Dio().post(
       urlRegister,
       data: registerData.toJson(),

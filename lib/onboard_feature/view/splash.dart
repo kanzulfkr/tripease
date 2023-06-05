@@ -1,4 +1,7 @@
-import '/onboard_feature/view/home.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../main_page.dart';
+
 import '/onboard_feature/view/login.dart';
 import '/onboard_feature/view/onboarding_page.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigateToPage() async {
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 2500));
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final bool isOnboardingComplete =
         prefs.getBool('isOnboardingComplete') ?? false;
@@ -31,10 +34,10 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           MaterialPageRoute(
               builder: (context) => isLogin
-                  ? const HomePage()
+                  ? const MainPage()
                   : (isOnboardingComplete
-                      ? const LoginPage()
-                      : const OnboardPage())));
+                  ? const LoginPage()
+                  : const OnboardPage())));
     }
   }
 
@@ -46,11 +49,15 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset('assets/images/Logo.png'),
+            Image.asset(
+              'assets/images/Logo.png',
+              width: 100.w,
+              height: 115.38.h,
+            ),
             Text(
               'Tripease',
               style: GoogleFonts.openSans(
-                  fontSize: 24, fontWeight: FontWeight.w600),
+                  fontSize: 24.sp, fontWeight: FontWeight.w600),
             )
           ],
         ),
