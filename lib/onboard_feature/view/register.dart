@@ -36,33 +36,33 @@ class _RegisterPageState extends State<RegisterPage> {
     return Consumer<RegisterProvider>(
       builder: (context, registerProvider, child) => Scaffold(
         resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: 200.h,
-                  width: double.maxFinite.w,
-                  child: Image.asset(
-                    'assets/images/around-the-world.png',
-                    scale: 1,
-                    fit: BoxFit.cover,
+        body: SafeArea(
+          child: ListView(
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                    height: 200.h,
+                    width: double.maxFinite.w,
+                    child: Image.asset(
+                      'assets/images/around-the-world.png',
+                      scale: 1,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                    SizedBox(height: 180.h),
-                    Container(
-                      height: 615.h,
-                      width: double.infinity.w,
-                      padding: EdgeInsets.all(20.sp),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(25.r),
+                  Column(
+                    children: [
+                      SizedBox(height: 180.h),
+                      Container(
+                        // height: 615.h,
+                        width: double.infinity.w,
+                        padding: EdgeInsets.all(20.sp),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(25.r),
+                          ),
                         ),
-                      ),
-                      child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -469,11 +469,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
