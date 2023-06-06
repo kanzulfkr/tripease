@@ -20,23 +20,18 @@ class _PaymentTimerState extends State<PaymentTimer> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: 12.h, left: 20.w, bottom: 9.h),
-          child: Text(
-            'Waktu Pembayaran',
+        Text(
+          'Waktu Pembayaran',
+          style: GoogleFonts.openSans(
+              fontSize: 12.sp, fontWeight: FontWeight.w600),
+        ),
+        Obx(
+          () => Text(
+            widget.timerText.timer.value,
             style: GoogleFonts.openSans(
                 fontSize: 12.sp, fontWeight: FontWeight.w600),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 12.h, left: 220.w),
-          child: Obx(
-            () => Text(
-              widget.timerText.timer.value,
-              style: GoogleFonts.openSans(
-                  fontSize: 12.sp, fontWeight: FontWeight.w600),
-            ),
           ),
         ),
       ],

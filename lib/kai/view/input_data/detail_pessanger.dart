@@ -38,6 +38,7 @@ class BodyDetailPessanger extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Penumpang $passengerNumber', // Label penumpang
@@ -46,7 +47,6 @@ class BodyDetailPessanger extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(width: 175),
                         TextButton(
                           onPressed: () {
                             Navigator.push(

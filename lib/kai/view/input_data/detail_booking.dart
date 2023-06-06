@@ -168,13 +168,12 @@ class BodyDetailBooking extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            Center(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: ElevatedButton(
-                onPressed: () {
-                  // Aksi yang ingin dilakukan saat tombol ditekan
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(252, 40), // Ukuran tombol
+                    fixedSize: Size(double.maxFinite, 45.h), // Ukuran tombol
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                           5), // Sudut melengkung dengan jari-jari 5

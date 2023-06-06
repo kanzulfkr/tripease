@@ -41,71 +41,66 @@ class _PaymentVAState extends State<PaymentVA> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.w),
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Waktu Pembayaran',
                   style: GoogleFonts.openSans(
                       fontSize: 12.sp, fontWeight: FontWeight.w600),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 12.h, left: 200.w),
-                  child: Obx(
-                    () => Text(
-                      widget.timerText.timer.value,
-                      style: GoogleFonts.openSans(
-                          fontSize: 12.sp, fontWeight: FontWeight.w600),
-                    ),
+                Obx(
+                  () => Text(
+                    widget.timerText.timer.value,
+                    style: GoogleFonts.openSans(
+                        fontSize: 12.sp, fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                color: const Color(0xFFF5F6F8),
-                height: 51.h,
-                width: 280.w,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 8.h),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/mandiri.png',
-                        height: 35.h,
-                        width: 55.w,
-                      ),
-                      SizedBox(width: 12.w),
-                      Column(
-                        children: [
-                          Text(
-                            'Nomor Virtual Account',
-                            style: GoogleFonts.openSans(
-                                fontSize: 14.sp, fontWeight: FontWeight.w600),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '89310390132980329',
-                                style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              const Icon(
-                                Icons.content_copy,
-                                size: 13,
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+            Container(
+              color: const Color(0xFFF5F6F8),
+              height: 51.h,
+              width: 280.w,
+              margin: const EdgeInsets.all(20.0),
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.w, top: 8.h),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      'assets/images/mandiri.png',
+                      height: 35.h,
+                      width: 55.w,
+                    ),
+                    SizedBox(width: 12.w),
+                    Column(
+                      children: [
+                        Text(
+                          'Nomor Virtual Account',
+                          style: GoogleFonts.openSans(
+                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '89310390132980329',
+                              style: GoogleFonts.openSans(
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
+                            ),
+                            const Icon(
+                              Icons.content_copy,
+                              size: 13,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),
@@ -118,12 +113,10 @@ class _PaymentVAState extends State<PaymentVA> {
                   isDropdownOpened = !isDropdownOpened;
                 });
               },
-              child: Container(
+              child: SizedBox(
                 height: 40.h,
-                width: 500.w,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Cara Pembayaran',
@@ -133,12 +126,11 @@ class _PaymentVAState extends State<PaymentVA> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
-                      width: 200.w,
+                    Icon(
+                      isDropdownOpened
+                          ? Icons.arrow_drop_up
+                          : Icons.arrow_drop_down,
                     ),
-                    Icon(isDropdownOpened
-                        ? Icons.arrow_drop_up
-                        : Icons.arrow_drop_down)
                   ],
                 ),
               ),

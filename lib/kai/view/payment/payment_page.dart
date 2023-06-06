@@ -32,6 +32,7 @@ class _PaymentPageState extends State<PaymentPage> {
       body: Container(
         height: 800.h,
         width: double.maxFinite,
+        padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(0),
           color: Colors.white,
@@ -40,70 +41,94 @@ class _PaymentPageState extends State<PaymentPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PaymentTimer(timerText: timerText),
-            Padding(
-              padding: EdgeInsets.only(left: 56.w),
+            SizedBox(
+              height: 82.h,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Tiket',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w600),
+                  SizedBox(
+                    width: 70.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10.h),
+                          height: 20.h,
+                        ),
+                        Checkbox(
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(width: 200.w),
-                  Text(
-                    '8 x Rp. 15.000',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w600),
+                  SizedBox(
+                    width: 150.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10.h),
+                          child: Text(
+                            'Tiket',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        Text(
+                          'Asuransi',
+                          style: GoogleFonts.openSans(
+                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10.h),
+                          child: Text(
+                            '8 x Rp. 15.000',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        Text(
+                          '8 x Rp. 3.000',
+                          style: GoogleFonts.openSans(
+                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 7.w),
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: isChecked,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isChecked = value!;
-                      });
-                    },
-                  ),
-                  Text(
-                    'Asuransi',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(width: 185.w),
-                  Text(
-                    '8 x Rp. 3.000',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                width: 400.w,
-                height: 1.h,
-                color: Colors.black,
-              ),
+            Divider(
+              height: 5.h,
+              thickness: 1.4,
+              color: Colors.black,
             ),
             SizedBox(height: 12.h),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 56.w),
-                  child: Text(
-                    'Subtotal',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w600),
+                Text(
+                  'Subtotal',
+                  style: GoogleFonts.openSans(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(width: 190.w),
                 Text(
                   'Rp. 144.000',
                   style: GoogleFonts.openSans(
@@ -112,26 +137,20 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             ),
             SizedBox(height: 12.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                width: 400.w,
-                height: 1.h,
-                color: Colors.black,
-              ),
+            Divider(
+              height: 5.h,
+              thickness: 1.4,
+              color: Colors.black,
             ),
-            SizedBox(height: 12.h),
+            SizedBox(height: 15.h),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 56.w),
-                  child: Text(
-                    'Total',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w600),
-                  ),
+                Text(
+                  'Total',
+                  style: GoogleFonts.openSans(
+                      fontSize: 14.sp, fontWeight: FontWeight.w600),
                 ),
-                SizedBox(width: 210.w),
                 Text(
                   'Rp. 144.000',
                   style: GoogleFonts.openSans(
@@ -139,8 +158,9 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               ],
             ),
+            SizedBox(height: 15.h),
             const SelectPayment(),
-            SizedBox(height: 20.h),
+            SizedBox(height: 15.h),
             const ButtonPayment(),
           ],
         ),
@@ -159,14 +179,6 @@ class ButtonPayment extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          // String orderNumber = randomAlphaNumeric(8);
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => InvoicePage(orderNumber: orderNumber),
-          //   ),
-          // );
-
           Navigator.push(
             context,
             MaterialPageRoute(

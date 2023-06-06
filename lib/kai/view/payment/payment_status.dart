@@ -34,14 +34,13 @@ class PaymentStatus extends StatelessWidget {
             height: 20.h,
           ),
           Center(
-            child: Container(
-              width: 100.w,
+            child: SizedBox(
+              width: 130.w,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Icon(Icons.train),
-                  SizedBox(
-                    width: 24.w,
-                  ),
+                  SizedBox(width: 30.w),
                   Text(
                     'Turangga',
                     style: GoogleFonts.openSans(
@@ -55,14 +54,13 @@ class PaymentStatus extends StatelessWidget {
             height: 20.h,
           ),
           Center(
-            child: Container(
-              width: 100.w,
+            child: SizedBox(
+              width: 130.w,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Icon(Icons.person),
-                  SizedBox(
-                    width: 24.w,
-                  ),
+                  SizedBox(width: 30.w),
                   Text(
                     '4 Orang',
                     style: GoogleFonts.openSans(
@@ -76,14 +74,13 @@ class PaymentStatus extends StatelessWidget {
             height: 20.h,
           ),
           Center(
-            child: Container(
-              width: 100.w,
+            child: SizedBox(
+              width: 130.w,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Icon(Icons.payments),
-                  SizedBox(
-                    width: 24.w,
-                  ),
+                  SizedBox(width: 30.w),
                   Text(
                     'Rp. ',
                     style: GoogleFonts.openSans(

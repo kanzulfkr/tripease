@@ -595,17 +595,17 @@ class _KaPageState extends State<KaPage> {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('yeayyyyy')),
-                          );
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const DepartureSchedule(),
-                            ),
-                          );
-                        }
+                        // if (_formKey.currentState!.validate()) {
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(content: Text('yeayyyyy')),
+                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DepartureSchedule(),
+                          ),
+                        );
+                        // }
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
