@@ -1,5 +1,4 @@
 import 'package:capstone_project_tripease/kai/view/invoice_page/code_payment.dart';
-import 'package:capstone_project_tripease/kai/view/invoice_page/print_barcode.dart';
 import 'package:capstone_project_tripease/kai/view/invoice_page/ticket_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

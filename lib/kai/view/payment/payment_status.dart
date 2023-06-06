@@ -45,7 +45,7 @@ class PaymentStatus extends StatelessWidget {
                   Text(
                     'Turangga',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w400),
+                        fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -66,7 +66,7 @@ class PaymentStatus extends StatelessWidget {
                   Text(
                     '4 Orang',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w400),
+                        fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -87,7 +87,7 @@ class PaymentStatus extends StatelessWidget {
                   Text(
                     'Rp. ',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w400),
+                        fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),

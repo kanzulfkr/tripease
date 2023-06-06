@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BodyDetailBooking extends StatelessWidget {
@@ -9,9 +10,8 @@ class BodyDetailBooking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 480,
+      height: 480.h,
       width: double.maxFinite,
-      margin: const EdgeInsets.only(left: 0, top: 0),
       decoration: BoxDecoration(
         color: const Color(0xF9FAFBFB),
         boxShadow: [
@@ -31,12 +31,12 @@ class BodyDetailBooking extends StatelessWidget {
             Text(
               'Nama',
               style: GoogleFonts.openSans(
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Container(
               decoration: BoxDecoration(
@@ -52,18 +52,18 @@ class BodyDetailBooking extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Text(
               'Nomor Telepon',
               style: GoogleFonts.openSans(
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Container(
               decoration: BoxDecoration(
@@ -79,18 +79,18 @@ class BodyDetailBooking extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Text(
               'Email',
               style: GoogleFonts.openSans(
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Container(
               decoration: BoxDecoration(
@@ -106,13 +106,12 @@ class BodyDetailBooking extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Container(
-              height: 150,
+              height: 150.h,
               width: double.maxFinite,
-              margin: const EdgeInsets.only(left: 0, top: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Color.fromARGB(255, 219, 215, 215),
@@ -126,7 +125,7 @@ class BodyDetailBooking extends StatelessWidget {
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+                padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 25.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -139,20 +138,20 @@ class BodyDetailBooking extends StatelessWidget {
                         Text(
                           "Info",
                           style: GoogleFonts.openSans(
-                              fontSize: 14, fontWeight: FontWeight.w600),
+                              fontSize: 14.sp, fontWeight: FontWeight.w600),
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     LayoutBuilder(
                       builder:
                           (BuildContext context, BoxConstraints constraints) {
-                        return const Text(
+                        return Text(
                           'Data Pemesan hanya digunakan untuk mengirim invoice melalui email dan segala yang berhubungan dengan transaksi. Privasi data tetap terjaga',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                           ),
                           maxLines:
@@ -166,8 +165,8 @@ class BodyDetailBooking extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Center(
               child: ElevatedButton(
@@ -188,7 +187,7 @@ class BodyDetailBooking extends StatelessWidget {
                 child: Text(
                   'Tambahkan sebagai Penumpang',
                   style: GoogleFonts.openSans(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: Colors.white, // Warna teks putih
                   ),

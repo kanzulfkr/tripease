@@ -1,7 +1,7 @@
 import 'package:capstone_project_tripease/kai/view/invoice_page/invoice_page.dart';
 import 'package:capstone_project_tripease/kai/view/invoice_page/ticket_booking.dart';
 import 'package:capstone_project_tripease/kai/view/payment/payment_status.dart';
-import 'package:capstone_project_tripease/kai/view_model/time_payment.dart';
+import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ import 'package:random_string/random_string.dart';
 class PaymentVA extends StatefulWidget {
   const PaymentVA({super.key, required this.timerText});
 
-  final TimerPayment timerText;
+  final TimerPaymentProvider timerText;
   @override
   State<PaymentVA> createState() => _PaymentVAState();
 }
@@ -52,7 +52,7 @@ class _PaymentVAState extends State<PaymentVA> {
                       fontSize: 12.sp, fontWeight: FontWeight.w600),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 12, left: 200),
+                  padding: EdgeInsets.only(top: 12.h, left: 200.w),
                   child: Obx(
                     () => Text(
                       widget.timerText.timer.value,
@@ -70,7 +70,7 @@ class _PaymentVAState extends State<PaymentVA> {
                 height: 51.h,
                 width: 280.w,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 8),
+                  padding: EdgeInsets.only(left: 20.w, top: 8.h),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,

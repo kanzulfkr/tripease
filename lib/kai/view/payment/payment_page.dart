@@ -1,8 +1,9 @@
 import 'package:capstone_project_tripease/kai/view/payment/payment_va.dart';
 import 'package:capstone_project_tripease/kai/view/payment/payment_timer.dart';
 import 'package:capstone_project_tripease/kai/view/payment/select_payment.dart';
-import 'package:capstone_project_tripease/kai/view_model/time_payment.dart';
+import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +15,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  TimerPayment timerText = Get.put(TimerPayment());
+  TimerPaymentProvider timerText = Get.put(TimerPaymentProvider());
   int selectedRadio = 0;
   bool isChecked = false;
   @override
@@ -23,13 +24,13 @@ class _PaymentPageState extends State<PaymentPage> {
       appBar: AppBar(
         title: Text(
           'Pembayaran',
-          style:
-              GoogleFonts.openSans(fontSize: 16, fontWeight: FontWeight.w600),
+          style: GoogleFonts.openSans(
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
       body: Container(
-        height: 800,
+        height: 800.h,
         width: double.maxFinite,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(0),
@@ -40,25 +41,25 @@ class _PaymentPageState extends State<PaymentPage> {
           children: [
             PaymentTimer(timerText: timerText),
             Padding(
-              padding: const EdgeInsets.only(left: 56),
+              padding: EdgeInsets.only(left: 56.w),
               child: Row(
                 children: [
                   Text(
                     'Tiket',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                        fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(width: 200),
+                  SizedBox(width: 200.w),
                   Text(
                     '8 x Rp. 15.000',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                        fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 7.w),
               child: Row(
                 children: [
                   Checkbox(
@@ -72,13 +73,13 @@ class _PaymentPageState extends State<PaymentPage> {
                   Text(
                     'Asuransi',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                        fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(width: 185),
+                  SizedBox(width: 185.w),
                   Text(
                     '8 x Rp. 3.000',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                        fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -86,60 +87,60 @@ class _PaymentPageState extends State<PaymentPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
-                width: 400,
-                height: 1,
+                width: 400.w,
+                height: 1.h,
                 color: Colors.black,
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 56),
+                  padding: EdgeInsets.only(left: 56.w),
                   child: Text(
                     'Subtotal',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                        fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
                 ),
-                const SizedBox(width: 190),
+                SizedBox(width: 190.w),
                 Text(
                   'Rp. 144.000',
                   style: GoogleFonts.openSans(
-                      fontSize: 14, fontWeight: FontWeight.w600),
+                      fontSize: 14.sp, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
-                width: 400,
-                height: 1,
+                width: 400.w,
+                height: 1.h,
                 color: Colors.black,
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 56),
+                  padding: EdgeInsets.only(left: 56.w),
                   child: Text(
                     'Total',
                     style: GoogleFonts.openSans(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                        fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
                 ),
-                const SizedBox(width: 210),
+                SizedBox(width: 210.w),
                 Text(
                   'Rp. 144.000',
                   style: GoogleFonts.openSans(
-                      fontSize: 14, fontWeight: FontWeight.w600),
+                      fontSize: 14.sp, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
             const SelectPayment(),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             const ButtonPayment(),
           ],
         ),
@@ -169,7 +170,8 @@ class ButtonPayment extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PaymentVA(timerText: TimerPayment()),
+              builder: (context) =>
+                  PaymentVA(timerText: TimerPaymentProvider()),
             ),
           );
         },
@@ -186,7 +188,7 @@ class ButtonPayment extends StatelessWidget {
         child: Text(
           'Lanjut',
           style: GoogleFonts.openSans(
-            fontSize: 14,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             color: Colors.white, // Warna teks putih
           ),

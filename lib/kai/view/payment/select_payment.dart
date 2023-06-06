@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SelectPayment extends StatefulWidget {
@@ -25,8 +26,8 @@ class _SelectPaymentState extends State<SelectPayment> {
     return Center(
       child: Container(
         height: containerHeight,
-        width: 340,
-        margin: EdgeInsets.only(top: 28.5),
+        width: 340.w,
+        margin: EdgeInsets.only(top: 28.5.h),
         padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -43,7 +44,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     Text(
                       "Kartu Kredit/Debit",
                       style: GoogleFonts.openSans(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     const Icon(
                       Icons.credit_card,
@@ -68,7 +69,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                       Text(
                         "Virtual Account",
                         style: GoogleFonts.openSans(
-                            fontSize: 14, fontWeight: FontWeight.w600),
+                            fontSize: 14.sp, fontWeight: FontWeight.w600),
                       ),
                       Image.asset('assets/images/bank-account.png'),
                     ],
@@ -79,13 +80,13 @@ class _SelectPaymentState extends State<SelectPayment> {
                     setState(() {
                       selectedRadio = value as int;
                       showContainer = true;
-                      containerHeight = showContainer ? 378.0 : 240.0;
+                      containerHeight = showContainer ? 378.0.h : 240.0.h;
                     });
                   }),
             ),
             if (selectedRadio == 2)
               Padding(
-                padding: const EdgeInsets.only(left: 66, top: 10),
+                padding: EdgeInsets.only(left: 66.w, top: 10.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -97,8 +98,8 @@ class _SelectPaymentState extends State<SelectPayment> {
                         });
                       },
                       child: Container(
-                        width: 254,
-                        height: 42,
+                        width: 254.w,
+                        height: 42.h,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
@@ -113,21 +114,22 @@ class _SelectPaymentState extends State<SelectPayment> {
                           child: Row(
                             children: [
                               Image.asset('assets/images/bca.png'),
-                              const SizedBox(
-                                width: 12,
+                              SizedBox(
+                                width: 12.w,
                               ),
                               Text(
                                 'BCA Virtual Account',
                                 style: GoogleFonts.openSans(
-                                    fontSize: 12, fontWeight: FontWeight.w600),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 2,
+                    SizedBox(
+                      height: 2.h,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -136,15 +138,15 @@ class _SelectPaymentState extends State<SelectPayment> {
                         });
                       },
                       child: Container(
-                        width: 254,
-                        height: 42,
+                        width: 254.w,
+                        height: 42.h,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
                             color: selectedContainer == 2
                                 ? Colors.blue
                                 : Colors.transparent,
-                            width: 2.0,
+                            width: 2.0.w,
                           ),
                         ),
                         child: Padding(
@@ -152,21 +154,22 @@ class _SelectPaymentState extends State<SelectPayment> {
                           child: Row(
                             children: [
                               Image.asset('assets/images/bri.png'),
-                              const SizedBox(
-                                width: 12,
+                              SizedBox(
+                                width: 12.w,
                               ),
                               Text(
                                 'BRI Virtual Account',
                                 style: GoogleFonts.openSans(
-                                    fontSize: 12, fontWeight: FontWeight.w600),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 2,
+                    SizedBox(
+                      height: 2.h,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -175,8 +178,8 @@ class _SelectPaymentState extends State<SelectPayment> {
                         });
                       },
                       child: Container(
-                        width: 254,
-                        height: 42,
+                        width: 254.w,
+                        height: 42.h,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
@@ -191,13 +194,14 @@ class _SelectPaymentState extends State<SelectPayment> {
                           child: Row(
                             children: [
                               Image.asset('assets/images/mandiri.png'),
-                              const SizedBox(
-                                width: 12,
+                              SizedBox(
+                                width: 12.w,
                               ),
                               Text(
                                 'Mandiri Virtual Account',
                                 style: GoogleFonts.openSans(
-                                    fontSize: 12, fontWeight: FontWeight.w600),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -215,7 +219,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     Text(
                       "Ovo",
                       style: GoogleFonts.openSans(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Image.asset('assets/images/logo-ovo-pay.png')
                   ],
@@ -237,7 +241,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     Text(
                       "Gopay",
                       style: GoogleFonts.openSans(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Image.asset('assets/images/gopay.png'),
                   ],
@@ -259,7 +263,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     Text(
                       "Minimarket",
                       style: GoogleFonts.openSans(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Image.asset('assets/images/storefront.png'),
                   ],
@@ -281,7 +285,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     Text(
                       "Bayar di Loket",
                       style: GoogleFonts.openSans(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Image.asset('assets/images/ticket_office.png'),
                   ],

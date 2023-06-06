@@ -14,7 +14,7 @@ class BodyDetailPessanger extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(4, (index) {
-        int passengerNumber = index + 1; // Nomor penumpang
+        int passengerNumber = index + 1;
         return Column(
           children: [
             Container(

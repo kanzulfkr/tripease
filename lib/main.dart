@@ -1,10 +1,24 @@
+import 'package:capstone_project_tripease/kai/view_model/select_seat_kai_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/timer_seat_provider.dart';
 import 'package:capstone_project_tripease/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TimerSeatProvider>(
+            create: (_) => TimerSeatProvider()),
+        ChangeNotifierProvider<SelectSeatKaiProvider>(
+          create: (_) => SelectSeatKaiProvider(),
+        ),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:capstone_project_tripease/kai/view/invoice_page/ticket_booking.dart';
 import 'package:capstone_project_tripease/kai/view/payment/payment_status.dart';
-import 'package:capstone_project_tripease/kai/view_model/time_payment.dart';
+import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 class OtherPayment extends StatefulWidget {
   const OtherPayment({super.key, required this.timerText});
 
-  final TimerPayment timerText;
+  final TimerPaymentProvider timerText;
   @override
   State<OtherPayment> createState() => _OtherPaymentState();
 }
@@ -29,8 +29,8 @@ class _OtherPaymentState extends State<OtherPayment> {
       appBar: AppBar(
         title: Text(
           'Pembayaran',
-          style:
-              GoogleFonts.openSans(fontSize: 16, fontWeight: FontWeight.w600),
+          style: GoogleFonts.openSans(
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -46,7 +46,7 @@ class _OtherPaymentState extends State<OtherPayment> {
                       fontSize: 12.sp, fontWeight: FontWeight.w600),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 12, left: 200),
+                  padding: EdgeInsets.only(top: 12.h, left: 200.w),
                   child: Obx(
                     () => Text(
                       widget.timerText.timer.value,
@@ -64,7 +64,7 @@ class _OtherPaymentState extends State<OtherPayment> {
                 height: 51.h,
                 width: 280.w,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 8),
+                  padding: EdgeInsets.only(left: 20.w, top: 8.h),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -196,7 +196,7 @@ class _OtherPaymentState extends State<OtherPayment> {
               child: Text(
                 'Bayar',
                 style: GoogleFonts.openSans(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.white, // Warna teks putih
                 ),

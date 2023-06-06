@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CodePayment extends StatelessWidget {
@@ -13,7 +14,7 @@ class CodePayment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'No.$orderNumber',
-      style: GoogleFonts.openSans(fontSize: 14, fontWeight: FontWeight.w600),
+      style: GoogleFonts.openSans(fontSize: 14.sp, fontWeight: FontWeight.w600),
     );
   }
 }

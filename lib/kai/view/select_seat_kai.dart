@@ -1,9 +1,12 @@
-import 'package:capstone_project_tripease/kai/view_model/select_seat_kai_controller.dart';
-import 'package:capstone_project_tripease/kai/view_model/timer_select_seat.dart';
+import 'dart:async';
+
+import 'package:capstone_project_tripease/kai/view_model/select_seat_kai_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/timer_seat_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:provider/provider.dart';
 
 class SelectSeatKai extends StatefulWidget {
   @override
@@ -11,13 +14,34 @@ class SelectSeatKai extends StatefulWidget {
 }
 
 class _SelectSeatKaiState extends State<SelectSeatKai> {
-  final SelectSeatKaiController controller = Get.put(SelectSeatKaiController());
-  TimerText timerText = Get.put(TimerText());
-
   RxBool isDropdownKereta = false.obs;
+  TimerSeatProvider timerText = TimerSeatProvider();
+  Timer? countdownTimer;
+  @override
+  void initState() {
+    super.initState();
+    TimerSeatProvider timerSeat =
+        Provider.of<TimerSeatProvider>(context, listen: false);
+    timerSeat.startCountDown(context);
+    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (timerSeat.isTimeUp()) {
+        countdownTimer?.cancel();
+        Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    countdownTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final SelectSeatKaiProvider controller =
+        Provider.of<SelectSeatKaiProvider>(context, listen: false);
+
     return DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -57,14 +81,14 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Obx(
-                                      () => Container(
+                                    Consumer<SelectSeatKaiProvider>(
+                                      builder: (context, controller, _) =>
+                                          Container(
                                         height: 40,
                                         width: 250,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(8),
-                                          ),
+                                              Radius.circular(8)),
                                           border:
                                               Border.all(color: Colors.grey),
                                         ),
@@ -114,15 +138,13 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                               ),
                             ),
                             Center(
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.only(top: 20, left: 57),
-                                child: Obx(
-                                  () => Text(
-                                    timerText.timer.value,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
+                              child: Consumer<TimerSeatProvider>(
+                                builder: (context, timerSeat, _) {
+                                  return Text(
+                                    timerSeat.timer,
+                                    style: TextStyle(fontSize: 20),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -260,9 +282,13 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                                                     const SizedBox(
                                               height: 0,
                                             ),
-                                            itemCount: (controller
-                                                        .gerbong[controller
-                                                            .indexGerbong.value]
+                                            itemCount: (Provider.of<
+                                                                SelectSeatKaiProvider>(
+                                                            context)
+                                                        .gerbong[Provider.of<
+                                                                    SelectSeatKaiProvider>(
+                                                                context)
+                                                            .indexGerbong]
                                                         .length /
                                                     7)
                                                 .ceil(),
@@ -294,8 +320,9 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                                   child: Container(
                                     width: 100,
                                     margin: const EdgeInsets.only(right: 20),
-                                    child: Obx(
-                                      () => GridView.builder(
+                                    child: Consumer<SelectSeatKaiProvider>(
+                                      builder: (context, controller, _) =>
+                                          GridView.builder(
                                         padding: const EdgeInsets.only(
                                             left: 20, top: 10),
                                         gridDelegate:
@@ -304,19 +331,16 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                                           crossAxisSpacing: 10,
                                           crossAxisCount: 7,
                                         ),
-                                        itemCount: (controller
-                                                .gerbong[controller
-                                                    .indexGerbong.value]
-                                                .length)
-                                            .ceil(),
+                                        itemCount: controller
+                                            .gerbong[controller.indexGerbong]
+                                            .length,
                                         itemBuilder: (context, index) {
                                           if (index % 7 == 3 ||
                                               index % 7 == 4) {
                                             return const SizedBox(width: 3);
                                           } else {
                                             final seat = controller.gerbong[
-                                                controller
-                                                    .indexGerbong.value][index];
+                                                controller.indexGerbong][index];
                                             final isAvailable =
                                                 seat["status"] == "available";
                                             final isSelected = controller
@@ -350,38 +374,38 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                             ),
                           ),
                         ),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              for (int index
+                                  in controller.selectedSeatIndices) {
+                                controller.gerbong[controller.indexGerbong]
+                                    [index]["status"] = "disabled";
+                              }
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(252, 40), // Ukuran tombol
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      5), // Sudut melengkung dengan jari-jari 5
+                                ),
+                                padding: const EdgeInsets.fromLTRB(
+                                    24, 0, 24, 0), // Padding di kiri dan kanan
+                                primary: const Color(
+                                    0XFF0080FF) // Warna latar belakang biru
+                                ),
+                            child: Text(
+                              'Konfirmasi',
+                              style: GoogleFonts.openSans(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white, // Warna teks putih
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
-                    ),
-                  ),
-                ),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      for (int index in controller.selectedSeatIndices) {
-                        controller.gerbong[controller.indexGerbong.value][index]
-                                ["status"] =
-                            "disabled"; // Mengubah status kursi menjadi "disabled"
-                      }
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(252, 40), // Ukuran tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              5), // Sudut melengkung dengan jari-jari 5
-                        ),
-                        padding: const EdgeInsets.fromLTRB(
-                            24, 0, 24, 0), // Padding di kiri dan kanan
-                        primary:
-                            const Color(0XFF0080FF) // Warna latar belakang biru
-                        ),
-                    child: Text(
-                      'Konfirmasi',
-                      style: GoogleFonts.openSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white, // Warna teks putih
-                      ),
                     ),
                   ),
                 ),

@@ -1,5 +1,6 @@
-import 'package:capstone_project_tripease/kai/view_model/time_payment.dart';
+import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,7 +10,7 @@ class PaymentTimer extends StatefulWidget {
     required this.timerText,
   });
 
-  final TimerPayment timerText;
+  final TimerPaymentProvider timerText;
 
   @override
   State<PaymentTimer> createState() => _PaymentTimerState();
@@ -21,20 +22,20 @@ class _PaymentTimerState extends State<PaymentTimer> {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 12, left: 20, bottom: 9),
+          padding: EdgeInsets.only(top: 12.h, left: 20.w, bottom: 9.h),
           child: Text(
             'Waktu Pembayaran',
-            style:
-                GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w600),
+            style: GoogleFonts.openSans(
+                fontSize: 12.sp, fontWeight: FontWeight.w600),
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(top: 12, left: 220),
+          padding: EdgeInsets.only(top: 12.h, left: 220.w),
           child: Obx(
             () => Text(
               widget.timerText.timer.value,
               style: GoogleFonts.openSans(
-                  fontSize: 12, fontWeight: FontWeight.w600),
+                  fontSize: 12.sp, fontWeight: FontWeight.w600),
             ),
           ),
         ),

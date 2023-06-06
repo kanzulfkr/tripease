@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TimerText extends GetxController {
+class TimerPaymentProvider extends GetxController {
   RxString timer = '03:00'.obs;
   Timer? countdownTimer;
 
@@ -14,7 +14,7 @@ class TimerText extends GetxController {
 
   void startCountDown() {
     const oneSec = Duration(seconds: 1);
-    int totalSeconds = 180; // Total duration in seconds (3 minutes)
+    int totalSeconds = 300; // Total duration in seconds (3 minutes)
 
     countdownTimer = Timer.periodic(oneSec, (timer) {
       if (totalSeconds <= 0) {
