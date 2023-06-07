@@ -1,34 +1,35 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
-import 'package:capstone_project_tripease/features_pesanan/view/widgets/hotel/card/card_return_canceled.dart';
-import 'package:capstone_project_tripease/features_pesanan/view/widgets/hotel/card/card_return_finish.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/card_train.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/card/card_active.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/card/card_finished.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/card/card_return_pending.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/card/card_return_success.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/card/card_wait.dart';
+import 'package:capstone_project_tripease/features_pesanan/view_model/provider/data_provider.dart';
+import 'package:capstone_project_tripease/features_rincian_pesanan_ka/view/order_kai_done.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import '../../../../features_rincian_pesanan_hotel/view/pesanan_kembali_berhasil.dart';
+
 import '../../../utils/colors.dart';
 import '../../../utils/fonts.dart';
 import '../../../utils/icons.dart';
 import '../../../utils/images.dart';
-import '../../../view_model/provider/data_provider.dart';
-import 'card/card_active.dart';
 import 'card/card_canceled.dart';
-import 'card/card_finished.dart';
-import 'card/card_return_proses.dart';
-import 'card/card_wait.dart';
-import '../card_hotel.dart';
+import 'card/card_canceled_no_payment.dart';
+import 'card/card_return_failed.dart';
 
-class Hotel extends StatelessWidget {
-  const Hotel({
+class KeretaApi extends StatelessWidget {
+  const KeretaApi({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     final tabProvider = Provider.of<TabProvider>(context, listen: false);
-    tabProvider.setActiveTabIndex(0);
+    tabProvider.setActiveTabIndex(1);
 
     ScreenUtil.init(context);
-
     return Container(
       color: background,
       child: DefaultTabController(
@@ -61,7 +62,7 @@ class Hotel extends StatelessWidget {
                         labelStyle: myTextTheme.labelLarge,
                         unselectedLabelStyle: myTextTheme.labelMedium,
                         borderColor: grey,
-                        borderWidth: .3.w,
+                        borderWidth: .3,
                         tabs: const [
                           Tab(text: 'Semua'),
                           Tab(text: 'Menunggu'),
@@ -80,14 +81,13 @@ class Hotel extends StatelessWidget {
               child: TabBarView(
                 children: [
                   ListView.builder(
-                    itemCount: CardHotel.cardHotel.length,
+                    itemCount: CardTrain.cardTrain.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const PesananKembaliBerhasil(),
+                              builder: (context) => const OrderKaiDonePage(),
                             ),
                           );
                         },
@@ -116,10 +116,10 @@ class Hotel extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          CardHotel.cardHotel[index].icon,
+                                          CardTrain.cardTrain[index].icon,
                                           SizedBox(width: 5.w),
                                           Text(
-                                            CardHotel.cardHotel[index].title,
+                                            CardTrain.cardTrain[index].title,
                                             style: myTextTheme.titleLarge,
                                           ),
                                         ],
@@ -132,8 +132,8 @@ class Hotel extends StatelessWidget {
                                                 BorderRadius.circular(4.r),
                                             child: SizedBox.fromSize(
                                               size: Size.fromRadius(48.r),
-                                              child: CardHotel
-                                                  .cardHotel[index].image,
+                                              child: CardTrain
+                                                  .cardTrain[index].image,
                                             ),
                                           ),
                                           SizedBox(width: 20.w),
@@ -142,11 +142,32 @@ class Hotel extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  CardHotel
-                                                      .cardHotel[index].name,
-                                                  style:
-                                                      myTextTheme.displayMedium,
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      CardTrain.cardTrain[index]
+                                                          .nameStart,
+                                                      style: myTextTheme
+                                                          .displayMedium,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                    ),
+                                                    CardTrain.cardTrain[index]
+                                                        .forward,
+                                                    Expanded(
+                                                      child: Text(
+                                                        CardTrain
+                                                            .cardTrain[index]
+                                                            .nameFinish,
+                                                        style: myTextTheme
+                                                            .displayMedium,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                                 SizedBox(height: 10.h),
                                                 Column(
@@ -155,16 +176,16 @@ class Hotel extends StatelessWidget {
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        CardHotel
-                                                            .cardHotel[index]
-                                                            .location,
-                                                        SizedBox(width: 10.w),
+                                                        CardTrain
+                                                            .cardTrain[index]
+                                                            .train,
+                                                        SizedBox(width: 5.w),
                                                         Expanded(
                                                           child: Text(
-                                                            CardHotel
-                                                                .cardHotel[
+                                                            CardTrain
+                                                                .cardTrain[
                                                                     index]
-                                                                .nameLocation,
+                                                                .nameTrain,
                                                             style: myTextTheme
                                                                 .headlineSmall,
                                                             overflow:
@@ -177,16 +198,16 @@ class Hotel extends StatelessWidget {
                                                     ),
                                                     Row(
                                                       children: [
-                                                        CardHotel
-                                                            .cardHotel[index]
-                                                            .bed,
-                                                        SizedBox(width: 10.w),
+                                                        CardTrain
+                                                            .cardTrain[index]
+                                                            .seat,
+                                                        SizedBox(width: 5.w),
                                                         Expanded(
                                                           child: Text(
-                                                            CardHotel
-                                                                .cardHotel[
+                                                            CardTrain
+                                                                .cardTrain[
                                                                     index]
-                                                                .nameBed,
+                                                                .nameSeat,
                                                             style: myTextTheme
                                                                 .headlineSmall,
                                                             overflow:
@@ -199,36 +220,14 @@ class Hotel extends StatelessWidget {
                                                     ),
                                                     Row(
                                                       children: [
-                                                        CardHotel
-                                                            .cardHotel[index]
-                                                            .bedTime,
-                                                        SizedBox(width: 10.w),
-                                                        Expanded(
-                                                          child: Text(
-                                                            CardHotel
-                                                                .cardHotel[
-                                                                    index]
-                                                                .nameBedTime,
-                                                            style: myTextTheme
-                                                                .headlineSmall,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        CardHotel
-                                                            .cardHotel[index]
+                                                        CardTrain
+                                                            .cardTrain[index]
                                                             .dateTime,
-                                                        SizedBox(width: 10.w),
+                                                        SizedBox(width: 5.w),
                                                         Expanded(
                                                           child: Text(
-                                                            CardHotel
-                                                                .cardHotel[
+                                                            CardTrain
+                                                                .cardTrain[
                                                                     index]
                                                                 .nameDateTime,
                                                             style: myTextTheme
@@ -262,8 +261,8 @@ class Hotel extends StatelessWidget {
                                             ),
                                             SizedBox(width: 5.w),
                                             Text(
-                                              CardHotel
-                                                  .cardHotel[index].noPesanan,
+                                              CardTrain
+                                                  .cardTrain[index].noPesanan,
                                               style: myTextTheme.bodySmall,
                                             ),
                                           ],
@@ -279,67 +278,113 @@ class Hotel extends StatelessWidget {
                       );
                     },
                     // children: [
-                    // CardActiveHotel(
-                    //   icon: iconCheck,
-                    //   title: 'SUDAH BAYAR',
-                    //   name: 'Shibuya Shabu',
-                    //   image: shibuya,
-                    //   iconLocation: iconLocation,
-                    //   titleLocation: 'Bangkok - Thailand',
-                    //   iconBed: iconBed,
-                    //   titleBed: 'Exclusive Room',
-                    //   iconBedTime: iconBedTime,
-                    //   titleBedTime: '1 Night',
+                    // CardFinishKA(
+                    //   icon: iconPesananSelesai,
+                    //   title: 'PESANAN SELESAI',
+                    //   nameStart: 'Malang',
+                    //   iconForward: iconForward,
+                    //   nameFinish: 'Sidoarjo',
+                    //   image: kereta1,
+                    //   iconTrain: iconTrain,
+                    //   titleTrain: 'Jayabaya',
+                    //   iconSeat: iconSeat,
+                    //   titleSeat: 'Ekonomi(P)',
                     //   iconDate: iconDate,
                     //   titleDate: '26 April 2023 - 22 April 2023',
                     //   nomorPesanan: '60985827',
                     // ),
-                    // CardCanceledHotel(
-                    //   icon: iconCencel,
-                    //   title: 'PESANAN DIBATALKAN',
-                    //   name: 'Everyday',
-                    //   image: everyday,
-                    //   iconLocation: iconLocation,
-                    //   titleLocation: 'Jl. Soekarno Hatta, Malang',
-                    //   iconBed: iconBed,
-                    //   titleBed: 'Standard Room',
-                    //   iconBedTime: iconBedTime,
-                    //   titleBedTime: '2 Night',
+                    // CardActiveKA(
+                    //   icon: iconCheck,
+                    //   title: 'SUDAH DIBAYAR',
+                    //   nameStart: 'Surabaya',
+                    //   iconForward: iconForward,
+                    //   nameFinish: 'Jakarta',
+                    //   image: kereta1,
+                    //   iconTrain: iconTrain,
+                    //   titleTrain: 'Argo Bromo',
+                    //   iconSeat: iconSeat,
+                    //   titleSeat: 'Ekonomi(E)',
+                    //   iconDate: iconDate,
+                    //   titleDate: '29 April 2023 - 29 April 2023',
+                    //   nomorPesanan: '2041720011',
+                    // ),
+                    // CardWaitKA(
+                    //   icon: iconSchedule,
+                    //   title: 'MENUNGGU PEMBAYARAN - ',
+                    //   time: '42:25',
+                    //   nameStart: 'Malang',
+                    //   iconForward: iconForward,
+                    //   nameFinish: 'Sidoarjo',
+                    //   image: kereta2,
+                    //   iconLocation: iconTrain,
+                    //   titleLocation: 'Jayabaya',
+                    //   iconSeat: iconSeat,
+                    //   titleSeat: 'Ekonomi(P)',
                     //   iconDate: iconDate,
                     //   titleDate: '05 Mei 2023 - 07 Mei 2023',
                     //   nomorPesanan: '53243434',
                     // ),
-                    // CardReturnFinishHotel(
+                    // CardReturnKASuccess(
+                    //   icon: iconSchedule,
+                    //   title: 'DALAMA PROSES PENGEMBALIAN',
+                    //   nameStart: 'Surabaya',
+                    //   iconForward: iconForward,
+                    //   nameFinish: 'Jakarta',
+                    //   image: kereta2,
+                    //   iconTrain: iconTrain,
+                    //   titleTrain: 'Argo Bromo',
+                    //   iconSeat: iconSeat,
+                    //   titleSeat: 'Eksekutif(E)',
+                    //   iconDate: iconDate,
+                    //   titleDate: '05 Mei 2023 - 07 Mei 2023',
+                    //   nomorPesanan: '60985827',
+                    // ),
+                    // CardActiveKA(
                     //   icon: iconCheck,
                     //   title: 'BERHASIL DIKEMBALIKAN',
-                    //   name: 'Shibuya Shabu',
-                    //   image: shibuya,
-                    //   iconLocation: iconLocation,
-                    //   titleLocation: 'Bangkok - Thailand',
-                    //   iconBed: iconBed,
-                    //   titleBed: 'Exclusive Room',
-                    //   iconBedTime: iconBedTime,
-                    //   titleBedTime: '1 Night',
+                    //   nameStart: 'Malang',
+                    //   iconForward: iconForward,
+                    //   nameFinish: 'Sidoarjo',
+                    //   image: kereta1,
+                    //   iconTrain: iconTrain,
+                    //   titleTrain: 'Jayabaya',
+                    //   iconSeat: iconSeat,
+                    //   titleSeat: 'Ekonomi(P)',
                     //   iconDate: iconDate,
                     //   titleDate: '26 April 2023 - 22 April 2023',
                     //   nomorPesanan: '60985827',
+                    // ),
+                    // CardCanceledKA(
+                    //   icon: iconCencel,
+                    //   title: 'GAGAL DIKEMBALIKAN',
+                    //   nameStrat: 'Surabaya',
+                    //   iconForward: iconForward,
+                    //   nameFinish: 'Jakarta',
+                    //   image: kereta1,
+                    //   iconTrain: iconTrain,
+                    //   titleTrain: 'Argo Bromo',
+                    //   iconSeat: iconSeat,
+                    //   titleSeats: 'Eksekutif(e)',
+                    //   iconDate: iconDate,
+                    //   titleDate: '05 Mei 2023 - 07 Mei 2023',
+                    //   nomorPesanan: '53243434',
                     // ),
                     // ],
                   ),
                   ListView(
                     children: [
-                      // CardWaitHotel(
+                      // CardWaitKA(
                       //   icon: iconSchedule,
                       //   title: 'MENUNGGU PEMBAYARAN - ',
-                      //   time: '38:24',
-                      //   name: 'Everyday',
-                      //   image: everyday,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Jl. Soekarno Hatta, Malang',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Standard Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '2 Night',
+                      //   time: '42:25',
+                      //   nameStart: 'Malang',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Sidoarjo',
+                      //   image: kereta2,
+                      //   iconLocation: iconTrain,
+                      //   titleLocation: 'Jayabaya',
+                      //   iconSeat: iconSeat,
+                      //   titleSeat: 'Ekonomi(P)',
                       //   iconDate: iconDate,
                       //   titleDate: '05 Mei 2023 - 07 Mei 2023',
                       //   nomorPesanan: '53243434',
@@ -348,17 +393,17 @@ class Hotel extends StatelessWidget {
                   ),
                   ListView(
                     children: [
-                      // CardActiveHotel(
+                      // CardActiveKA(
                       //   icon: iconCheck,
-                      //   title: 'Sudah Bayar',
-                      //   name: 'Shibuya Shabu',
-                      //   image: shibuya,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Bangkok - Thailand',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Exclusive Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '1 Night',
+                      //   title: 'SUDAH DIBAYAR',
+                      //   nameStart: 'Malang',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Sidoarjo',
+                      //   image: kereta1,
+                      //   iconTrain: iconTrain,
+                      //   titleTrain: 'Jayabaya',
+                      //   iconSeat: iconSeat,
+                      //   titleSeat: 'Ekonomi(P)',
                       //   iconDate: iconDate,
                       //   titleDate: '26 April 2023 - 22 April 2023',
                       //   nomorPesanan: '60985827',
@@ -367,17 +412,17 @@ class Hotel extends StatelessWidget {
                   ),
                   ListView(
                     children: [
-                      // CardFinishedHotel(
+                      // CardFinishKA(
                       //   icon: iconPesananSelesai,
                       //   title: 'PESANAN SELESAI',
-                      //   name: 'Shibuya Shabu',
-                      //   image: shibuya,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Bangkok - Thailand',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Exclusive Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '1 Night',
+                      //   nameStart: 'Malang',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Sidoarjo',
+                      //   image: kereta1,
+                      //   iconTrain: iconTrain,
+                      //   titleTrain: 'Jayabaya',
+                      //   iconSeat: iconSeat,
+                      //   titleSeat: 'Ekonomi(P)',
                       //   iconDate: iconDate,
                       //   titleDate: '26 April 2023 - 22 April 2023',
                       //   nomorPesanan: '60985827',
@@ -386,84 +431,84 @@ class Hotel extends StatelessWidget {
                   ),
                   ListView(
                     children: [
-                      // CardCanceledHotel(
+                      // CardCanceledKA(
                       //   icon: iconCencel,
                       //   title: 'PESANAN DIBATALKAN',
-                      //   name: 'Everyday',
-                      //   image: everyday,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Jl. Soekarno Hatta, Malang',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Standard Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '2 Night',
+                      //   nameStrat: 'Surabaya',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Jakarta',
+                      //   image: kereta2,
+                      //   iconTrain: iconTrain,
+                      //   titleTrain: 'Argo Bromo',
+                      //   iconSeat: iconSeat,
+                      //   titleSeats: 'Eksekutif(e)',
                       //   iconDate: iconDate,
                       //   titleDate: '05 Mei 2023 - 07 Mei 2023',
                       //   nomorPesanan: '53243434',
                       // ),
-                      // CardCanceledHotel(
+                      // CardCanceledNoPaymentKA(
                       //   icon: iconCencel,
                       //   title: 'MELEWATI BATAS WAKTU PEMBAYARAN',
-                      //   name: 'Shangri-La',
-                      //   image: shibuya,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Jl. Mayjend Sungkono, Surabaya',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Exclusive Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '1 Night',
+                      //   nameStrat: 'Surabaya',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Jakarta',
+                      //   image: kereta1,
+                      //   iconTrain: iconTrain,
+                      //   titleTrain: 'Argo Bromo',
+                      //   iconSeat: iconSeat,
+                      //   titleSeats: 'Eksekutif(e)',
                       //   iconDate: iconDate,
-                      //   titleDate: '26 April 2023 - 22 April 2023',
-                      //   nomorPesanan: '60985827',
+                      //   titleDate: '05 Mei 2023 - 07 Mei 2023',
+                      //   nomorPesanan: '53243434',
                       // ),
                     ],
                   ),
                   ListView(
                     children: [
-                      // CardReturnProsesHotel(
+                      // CardReturnKAPending(
                       //   icon: iconSchedule,
-                      //   title: 'DALAM PROSES PENGEMBALIAN',
-                      //   name: 'Everyday',
-                      //   image: everyday,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Jl. Soekarno Hatta, Malang',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Standard Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '2 Night',
+                      //   title: 'DALAMA PROSES PENGEMBALIAN',
+                      //   nameStrat: 'Surabaya',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Jakarta',
+                      //   image: kereta2,
+                      //   iconTrain: iconTrain,
+                      //   titleTrain: 'Argo Bromo',
+                      //   iconSeat: iconSeat,
+                      //   titleSeats: 'Eksekutif(E)',
                       //   iconDate: iconDate,
                       //   titleDate: '05 Mei 2023 - 07 Mei 2023',
                       //   nomorPesanan: '60985827',
                       // ),
-                      // CardReturnFinishHotel(
+                      // CardReturnKASuccess(
                       //   icon: iconCheck,
                       //   title: 'BERHASIL DIKEMBALIKAN',
-                      //   name: 'Shangri-La',
-                      //   image: shibuya,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Jl. Mayjend Sungkono, Surabaya',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Exclusive Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '1 Night',
+                      //   nameStart: 'Malang',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Sidoarjo',
+                      //   image: kereta1,
+                      //   iconTrain: iconTrain,
+                      //   titleTrain: 'Jayabaya',
+                      //   iconSeat: iconSeat,
+                      //   titleSeat: 'Ekonomi(P)',
                       //   iconDate: iconDate,
                       //   titleDate: '26 April 2023 - 22 April 2023',
                       //   nomorPesanan: '60985827',
                       // ),
-                      // CardReturnCanceledHotel(
+                      // CardReturnKAFailed(
                       //   icon: iconCencel,
                       //   title: 'GAGAL DIKEMBALIKAN',
-                      //   name: 'Shibuya Shabu',
-                      //   image: shibuya,
-                      //   iconLocation: iconLocation,
-                      //   titleLocation: 'Bangkok - Thailand',
-                      //   iconBed: iconBed,
-                      //   titleBed: 'Exclusive Room',
-                      //   iconBedTime: iconBedTime,
-                      //   titleBedTime: '1 Night',
+                      //   nameStart: 'Surabaya',
+                      //   iconForward: iconForward,
+                      //   nameFinish: 'Jakarta',
+                      //   image: kereta1,
+                      //   iconTrain: iconTrain,
+                      //   titleTrain: 'Argo Bromo',
+                      //   iconSeat: iconSeat,
+                      //   titleSeat: 'Eksekutif(E)',
                       //   iconDate: iconDate,
-                      //   titleDate: '26 April 2023 - 22 April 2023',
-                      //   nomorPesanan: '60985827',
+                      //   titleDate: '05 Mei 2023 - 07 Mei 2023',
+                      //   nomorPesanan: '53243434',
                       // ),
                     ],
                   ),

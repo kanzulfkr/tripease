@@ -41,6 +41,7 @@ class CardReturnFinishHotel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -52,43 +53,43 @@ class CardReturnFinishHotel extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(ScreenUtil().setWidth(16)),
+            padding: EdgeInsets.all(16.w),
             child: Container(
               decoration: BoxDecoration(
                 color: background,
                 boxShadow: [
                   BoxShadow(
                     color: grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 3,
+                    spreadRadius: 1.w,
+                    blurRadius: 3.w,
                     offset: const Offset(1, 1),
                   ),
                 ],
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
-              height: ScreenUtil().setHeight(205),
-              width: ScreenUtil().setWidth(350),
+              // height:205.h,
+              width: 350.w,
               child: Padding(
-                padding: EdgeInsets.all(ScreenUtil().setWidth(20)),
+                padding: EdgeInsets.all(20.w),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         icon,
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5.w),
                         Text(
                           title,
                           style: myTextTheme.titleLarge,
                         ),
                       ],
                     ),
-                    SizedBox(height: ScreenUtil().setHeight(19)),
+                    SizedBox(height: 19.h),
                     Row(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(4.r),
                           child: SizedBox.fromSize(
-                            size: Size.fromRadius(ScreenUtil().setWidth(48)),
+                            size: Size.fromRadius(48.r),
                             child: image,
                           ),
                         ),
@@ -109,9 +110,13 @@ class CardReturnFinishHotel extends StatelessWidget {
                                     children: [
                                       iconLocation,
                                       SizedBox(width: ScreenUtil().setWidth(4)),
-                                      Text(
-                                        titleLocation,
-                                        style: myTextTheme.headlineSmall,
+                                      Expanded(
+                                        child: Text(
+                                          titleLocation,
+                                          style: myTextTheme.headlineSmall,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
                                       ),
                                     ],
                                   ),

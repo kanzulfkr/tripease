@@ -1,5 +1,5 @@
 import 'package:capstone_project_tripease/features_pesanan/view/widgets/bottom_sheet/urutkan_kereta_api.dart';
-import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/filter_kereta_api.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/filter_train.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,7 +34,7 @@ class _PesananScreenState extends State<PesananScreen> {
     );
   }
 
-  void showBottomSheetShortHotel(BuildContext context) {
+  void showBottomSheetSortHotel(BuildContext context) {
     showBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -68,7 +68,7 @@ class _PesananScreenState extends State<PesananScreen> {
     );
   }
 
-  void showBottomSheetShortKA(BuildContext context) {
+  void showBottomSheetSortKA(BuildContext context) {
     showBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -116,31 +116,30 @@ class _PesananScreenState extends State<PesananScreen> {
                   ),
                 ),
                 Consumer<TabProvider>(
-                  builder: (context, tabProvider, child) {
+                  builder: (context, tabProvider, _) {
                     return IconButton(
                       onPressed: () {
-                        if (tabProvider.isHotelView) {
+                        final activeTabIndex = tabProvider.activeTabIndex;
+                        if (activeTabIndex == 0) {
                           showBottomSheetFilterHotel(context);
-                        } else if (tabProvider.isKeretaApiView) {
+                        } else if (activeTabIndex == 1) {
                           showBottomSheetFilterKA(context);
                         }
-                        tabProvider.toggleView();
                       },
                       icon: iconFilter,
                     );
                   },
                 ),
                 Consumer<TabProvider>(
-                  builder: (context, tabProvider, child) {
+                  builder: (context, tabProvider, _) {
                     return IconButton(
                       onPressed: () {
-                        if (tabProvider.isHotelView) {
-                          // showBottomSheetUrutkanHotel(context);
-                          showBottomSheetShortHotel(context);
-                        } else if (tabProvider.isKeretaApiView) {
-                          showBottomSheetShortKA(context);
+                        final activeTabIndex = tabProvider.activeTabIndex;
+                        if (activeTabIndex == 0) {
+                          showBottomSheetSortHotel(context);
+                        } else if (activeTabIndex == 1) {
+                          showBottomSheetSortKA(context);
                         }
-                        tabProvider.toggleView();
                       },
                       icon: iconSort,
                     );
@@ -162,8 +161,8 @@ class _PesananScreenState extends State<PesananScreen> {
           Text('Kereta Api'),
         ],
         views: const [
-          FilterHotel(),
-          FilterKeretaApi(),
+          Hotel(),
+          KeretaApi(),
         ],
       ),
     );

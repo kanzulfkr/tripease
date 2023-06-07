@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TabProvider extends ChangeNotifier {
-  bool isHotelView = true;
-  bool isKeretaApiView = false;
+  int _activeTabIndex = 0;
 
-  void toggleView() {
-    if (isHotelView) {
-      isHotelView = false;
-      isKeretaApiView = true;
-    } else {
-      isHotelView = true;
-      isKeretaApiView = false;
-    }
-    notifyListeners();
+  int get activeTabIndex => _activeTabIndex;
+
+  void setActiveTabIndex(int index) {
+    _activeTabIndex = index;
   }
+
+  @override
+  notifyListeners();
 }

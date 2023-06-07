@@ -13,5 +13,11 @@ Image shangrila = Image.asset(
   fit: BoxFit.cover,
 );
 
-Image kereta1 = Image.asset('assets/images/kereta1.png');
-Image kereta2 = Image.asset('assets/images/kereta2.png');
+Image train1 = Image.asset(
+  'assets/images/train1.png',
+  fit: BoxFit.cover,
+);
+Image train2 = Image.asset(
+  'assets/images/train2.png',
+  fit: BoxFit.cover,
+);

@@ -92,7 +92,7 @@ class OrderKaiFailedPaymentPage extends StatelessWidget {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(4.r),
-                                    child: kereta2,
+                                    child: train2,
                                   ),
                                 ),
                                 Column(

@@ -92,7 +92,7 @@ class OrderKaiDonePage extends StatelessWidget {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(4.r),
-                                    child: kereta1,
+                                    child: train1,
                                   ),
                                 ),
                                 Column(
