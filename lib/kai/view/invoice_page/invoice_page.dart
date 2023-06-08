@@ -1,6 +1,5 @@
 import 'package:capstone_project_tripease/kai/view/invoice_page/code_payment.dart';
 import 'package:capstone_project_tripease/kai/view/invoice_page/ticket_booking.dart';
-import 'package:capstone_project_tripease/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,19 +20,24 @@ class InvoicePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // PrintBarcode(orderNumber: orderNumber),
-            CodePayment(orderNumber: orderNumber),
-            SizedBox(height: 16.h),
-            const TicketBooking(),
-            SizedBox(
-              height: 25.h,
-            ),
-            Row(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // PrintBarcode(orderNumber: orderNumber),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, top: 18.h),
+            child: CodePayment(orderNumber: orderNumber),
+          ),
+          SizedBox(
+            height: 16.h,
+          ),
+          const TicketBooking(),
+          SizedBox(
+            height: 25.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -48,8 +52,11 @@ class InvoicePage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 17.h),
-            Row(
+          ),
+          SizedBox(height: 17.h),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -64,31 +71,44 @@ class InvoicePage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
 
-            SizedBox(height: 17.h),
-            Container(
+          SizedBox(height: 17.h),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
               width: 400.w,
               height: 1.h,
               color: Colors.black,
             ),
-            SizedBox(height: 17.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          SizedBox(height: 17.h),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            child: Column(
               children: [
-                Text(
-                  'Total',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  'Rp. 144.000',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w600),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total',
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Rp. 144.000',
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
               ],
             ),
-            SizedBox(height: 17.h),
-            Row(
+          ),
+          SizedBox(height: 17.h),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -103,41 +123,34 @@ class InvoicePage extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 60.h),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MainPage(),
-                    ),
-                    (route) => false,
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(252, 40), // Ukuran tombol
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          5), // Sudut melengkung dengan jari-jari 5
-                    ),
-                    padding: const EdgeInsets.fromLTRB(
-                        24, 0, 24, 0), // Padding di kiri dan kanan
-                    primary:
-                        const Color(0XFF0080FF) // Warna latar belakang biru
-                    ),
-                child: Text(
-                  'Cek Pesanan',
-                  style: GoogleFonts.openSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white, // Warna teks putih
+          ),
+          SizedBox(
+            height: 96.h,
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(252, 40), // Ukuran tombol
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        5), // Sudut melengkung dengan jari-jari 5
                   ),
+                  padding: const EdgeInsets.fromLTRB(
+                      24, 0, 24, 0), // Padding di kiri dan kanan
+                  primary: const Color(0XFF0080FF) // Warna latar belakang biru
+                  ),
+              child: Text(
+                'Cek Pesanan',
+                style: GoogleFonts.openSans(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white, // Warna teks putih
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

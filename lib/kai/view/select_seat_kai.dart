@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:capstone_project_tripease/kai/view_model/select_seat_kai_provider.dart';
 import 'package:capstone_project_tripease/kai/view_model/timer_seat_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -17,6 +18,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
   RxBool isDropdownKereta = false.obs;
   TimerSeatProvider timerText = TimerSeatProvider();
   Timer? countdownTimer;
+
   @override
   void initState() {
     super.initState();
@@ -68,77 +70,84 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                       ),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 20),
-                              child: GestureDetector(
-                                onTap: () {
-                                  isDropdownKereta.toggle();
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Consumer<SelectSeatKaiProvider>(
-                                      builder: (context, controller, _) =>
-                                          Container(
-                                        height: 40,
-                                        width: 250,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8)),
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                        ),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton2<String>(
-                                            hint: Text(
-                                              'Pilih',
-                                              style: GoogleFonts.openSans(
-                                                color: Colors.grey,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                            value: controller.selectedValue[0],
-                                            iconStyleData: const IconStyleData(
-                                              icon: Icon(Icons.arrow_drop_down),
-                                              openMenuIcon:
-                                                  Icon(Icons.arrow_drop_up),
-                                            ),
-                                            isExpanded: true,
-                                            underline: const SizedBox(),
-                                            onChanged: (String? newValue) {
-                                              controller.selectedValue[0] =
-                                                  newValue!;
-                                            },
-                                            items: controller.stringList
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(
-                                                  value,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 20.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 20),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    isDropdownKereta.toggle();
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Consumer<SelectSeatKaiProvider>(
+                                        builder: (context, controller, _) =>
+                                            Container(
+                                          height: 40,
+                                          width: 250,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            border:
+                                                Border.all(color: Colors.grey),
+                                          ),
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton2<String>(
+                                              hint: Text(
+                                                'Pilih',
+                                                style: GoogleFonts.openSans(
+                                                  color: Colors.grey,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
-                                              );
-                                            }).toList(),
+                                                maxLines: 2,
+                                              ),
+                                              value:
+                                                  controller.selectedValue[0],
+                                              iconStyleData:
+                                                  const IconStyleData(
+                                                icon:
+                                                    Icon(Icons.arrow_drop_down),
+                                                openMenuIcon:
+                                                    Icon(Icons.arrow_drop_up),
+                                              ),
+                                              isExpanded: true,
+                                              underline: const SizedBox(),
+                                              onChanged: (String? newValue) {
+                                                controller.selectedValue[0] =
+                                                    newValue!;
+                                              },
+                                              items: controller.stringList.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: GoogleFonts.openSans(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Center(
-                              child: Consumer<TimerSeatProvider>(
+                              Consumer<TimerSeatProvider>(
                                 builder: (context, timerSeat, _) {
                                   return Text(
                                     timerSeat.timer,
@@ -146,8 +155,8 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                                   );
                                 },
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 12, left: 20),
@@ -411,43 +420,50 @@ class _SelectSeatKaiState extends State<SelectSeatKai> {
                 ),
               ],
             ),
+            Positioned(
+              top: 5,
+              right: 5,
+              child: Obx(
+                () => Visibility(
+                  visible: isDropdownKereta.value,
+                  child: Container(
+                    width: 150,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView.builder(
+                        itemCount: controller.stringList.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(controller.stringList[index]),
+                            onTap: () {
+                              controller.selectedValue[0] =
+                                  controller.stringList[index];
+                              isDropdownKereta.toggle();
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class ItemStatus extends StatelessWidget {
-  ItemStatus({
-    Key? key,
-    required this.status,
-    required this.color,
-  }) : super(key: key);
-
-  final String status;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          height: 25,
-          width: 25,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        SizedBox(width: 7),
-        Text(
-          status,
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        ),
-      ],
     );
   }
 }

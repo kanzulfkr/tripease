@@ -34,13 +34,12 @@ class PaymentStatus extends StatelessWidget {
             height: 20.h,
           ),
           Center(
-            child: SizedBox(
-              width: 130.w,
+            child: Container(
+              width: 100.w,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Icon(Icons.train),
-                  SizedBox(width: 30.w),
                   Text(
                     'Turangga',
                     style: GoogleFonts.openSans(
@@ -54,15 +53,14 @@ class PaymentStatus extends StatelessWidget {
             height: 20.h,
           ),
           Center(
-            child: SizedBox(
-              width: 130.w,
+            child: Container(
+              width: 100.w,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Icon(Icons.person),
-                  SizedBox(width: 30.w),
                   Text(
-                    '4 Orang',
+                    '4 Orang  ',
                     style: GoogleFonts.openSans(
                         fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),
@@ -74,15 +72,14 @@ class PaymentStatus extends StatelessWidget {
             height: 20.h,
           ),
           Center(
-            child: SizedBox(
-              width: 130.w,
+            child: Container(
+              width: 100.w,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Icon(Icons.payments),
-                  SizedBox(width: 30.w),
                   Text(
-                    'Rp. ',
+                    'Rp. 80.000',
                     style: GoogleFonts.openSans(
                         fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),

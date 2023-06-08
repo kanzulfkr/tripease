@@ -168,21 +168,14 @@ class BodyDetailBooking extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+            Center(
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                    fixedSize: Size(double.maxFinite, 45.h), // Ukuran tombol
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          5), // Sudut melengkung dengan jari-jari 5
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    padding: const EdgeInsets.fromLTRB(
-                        24, 0, 24, 0), // Padding di kiri dan kanan
-                    primary:
-                        const Color(0XFF0080FF) // Warna latar belakang biru
-                    ),
+                    primary: const Color(0XFF0080FF)),
                 child: Text(
                   'Tambahkan sebagai Penumpang',
                   style: GoogleFonts.openSans(

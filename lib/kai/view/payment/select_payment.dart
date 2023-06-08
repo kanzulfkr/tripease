@@ -27,7 +27,8 @@ class _SelectPaymentState extends State<SelectPayment> {
       child: Container(
         height: containerHeight,
         width: 340.w,
-        padding: EdgeInsets.symmetric(vertical: 10.h),
+        margin: EdgeInsets.only(top: 28.5.h),
+        padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Color(0xFFF0F0F8),
