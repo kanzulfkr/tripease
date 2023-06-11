@@ -97,6 +97,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Kata Sandi lama tidak boleh kosong';
+                    } else if (value.length < 8) {
+                      return 'Kata Sandi lama minimal 8 karakter';
                     }
                     return null;
                   },
@@ -162,6 +164,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Kata Sandi baru tidak boleh kosong';
+                    } else if (value.length < 8) {
+                      return 'Kata Sandi baru minimal 8 karakter';
+                    } else if (value == oldPasswordController.text) {
+                      return 'Kata Sandi baru tidak boleh sama dengan Kata Sandi lama';
                     }
                     return null;
                   },
@@ -232,7 +238,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Kata Sandi baru tidak boleh kosong';
                     } else if (value != newPasswordController.text) {
-                      return 'Kata Sandi baru tidak cocok';
+                      return 'Kata Sandi konfirmasi tidak cocok';
+                    } else if (value == oldPasswordController.text) {
+                      return 'Kata Sandi baru tidak boleh sama dengan Kata Sandi lama';
                     }
                     return null;
                   },
@@ -336,7 +344,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               ),
                             ),
                           );
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MainPage()),
+                                  (route) => false);
                         }
                       } else if (value.statusCode == '400') {
                         print('failed ${value.statusCode}');

@@ -74,131 +74,134 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     birthDateController.text = user.result!.birthDate ?? '';
     citizenController.text = user.result!.citizen ?? '';
   }
+  void _showDateBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(28.r),
+          topRight: Radius.circular(28.r),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Wrap(
+              children: [
+                Padding(
+                  padding:
+                  EdgeInsets.only(top: 16.sp, left: 24.sp, bottom: 24.sp),
+                  child: Text(
+                    'Pilih Tanggal',
+                    style: GoogleFonts.openSans(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 24.sp),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        DateFormat('EEEE, dd MMMM', 'id_ID').format(today),
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(width: 50.w, child: const Icon(Icons.edit)),
+                    ],
+                  ),
+                ),
+                TableCalendar(
+                  selectedDayPredicate: (day) {
+                    return isSameDay(today, day);
+                  },
+                  firstDay: DateTime.utc(1900, 10, 16),
+                  lastDay: DateTime.utc(2030, 3, 14),
+                  onDaySelected: (selectedDay, focusedDay) {
+                    setState(() {
+                      today = selectedDay;
+                      confirmDated = selectedDay;
+                      print(confirmDated);
+                    });
+                  },
+                  focusedDay: today,
+                  locale: 'id_ID', // Set locale ke Indonesia
+                  calendarFormat: CalendarFormat.month,
+                  headerStyle: const HeaderStyle(
+                    formatButtonTextStyle: TextStyle(color: Colors.transparent),
+                    formatButtonDecoration:
+                    BoxDecoration(color: Colors.transparent),
+                  ),
+                  calendarStyle: CalendarStyle(
+                    isTodayHighlighted: true,
+                    todayTextStyle: GoogleFonts.roboto(
+                      fontSize: 14.sp,
+                      color: const Color.fromRGBO(0, 128, 255, 1),
+                    ),
+                    selectedDecoration: const BoxDecoration(
+                      color: Color.fromRGBO(0, 128, 255, 1),
+                      shape: BoxShape.circle,
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: Colors.transparent,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color.fromRGBO(0, 128, 255, 1),
+                        width: 2.0.w,
+                      ),
+                    ),
+                  ),
+                  onPageChanged: (focusedDay) {
+                    setState(() {
+                      today = focusedDay;
+                    });
+                  },
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Batal',
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w500, fontSize: 14.sp),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        isSelectedDay();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'OK',
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w500, fontSize: 14.sp),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProfileProvider>(context);
-    void _showDateBottomSheet() {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(28.r),
-            topRight: Radius.circular(28.r),
-          ),
-        ),
-        builder: (BuildContext context) {
-          return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-              return Wrap(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 16.sp, left: 24.sp, bottom: 24.sp),
-                    child: Text(
-                      'Pilih Tanggal',
-                      style: GoogleFonts.openSans(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 24.sp),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          DateFormat('EEEE, dd MMMM', 'id_ID').format(today),
-                          style: GoogleFonts.openSans(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(width: 50.w, child: const Icon(Icons.edit)),
-                      ],
-                    ),
-                  ),
-                  TableCalendar(
-                    selectedDayPredicate: (day) {
-                      return isSameDay(today, day);
-                    },
-                    firstDay: DateTime.utc(1900, 10, 16),
-                    lastDay: DateTime.utc(2030, 3, 14),
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        today = selectedDay;
-                        confirmDated = selectedDay;
-                        print(confirmDated);
-                      });
-                    },
-                    focusedDay: today,
-                    locale: 'id_ID', // Set locale ke Indonesia
-                    calendarFormat: CalendarFormat.month,
-                    headerStyle: const HeaderStyle(
-                      formatButtonTextStyle:
-                      TextStyle(color: Colors.transparent),
-                      formatButtonDecoration:
-                      BoxDecoration(color: Colors.transparent),
-                    ),
-                    calendarStyle: CalendarStyle(
-                      isTodayHighlighted: true,
-                      todayTextStyle: GoogleFonts.roboto(
-                        fontSize: 14.sp,
-                        color: const Color.fromRGBO(0, 128, 255, 1),
-                      ),
-                      selectedDecoration: const BoxDecoration(
-                        color: Color.fromRGBO(0, 128, 255, 1),
-                        shape: BoxShape.circle,
-                      ),
-                      todayDecoration: BoxDecoration(
-                        color: Colors.transparent,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color.fromRGBO(0, 128, 255, 1),
-                          width: 2.0.w,
-                        ),
-                      ),
-                    ),
-                    onPageChanged: (focusedDay) {
-                      setState(() {
-                        today = focusedDay;
-                      });
-                    },
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'Batal',
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w500, fontSize: 14.sp),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          isSelectedDay();
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'OK',
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w500, fontSize: 14.sp),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            },
-          );
-        },
-      );
-    }
+
+
 
     return Consumer<UserProfileProvider>(
       builder: (context, value, child) => Scaffold(
@@ -360,8 +363,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: phoneNumberController,
                     keyboardType: TextInputType.phone,
-                    style:
-                    GoogleFonts.openSans(fontSize: 14.sp, color: Colors.black),
+                    style: GoogleFonts.openSans(
+                        fontSize: 14.sp, color: Colors.black),
                     decoration: InputDecoration(
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
@@ -412,7 +415,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     readOnly: true,
                     controller: birthDateController,
                     style: GoogleFonts.openSans(
-                        fontSize: 14.sp.sp, color: Colors.black),
+                        fontSize: 14.sp, color: Colors.black),
                     decoration: InputDecoration(
                       hintText: 'dd-mm-yyyy',
                       hintStyle: GoogleFonts.openSans(color: Colors.grey),
@@ -518,7 +521,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             fullName, phoneNumber, birthDate, citizen);
                         if (value.updateStatus == UpdateStatus.success) {
                           if (context.mounted) {
-                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const MainPage()),
+                                    (route) => false);
                           }
                         } else if (value.updateStatus ==
                             UpdateStatus.error) {
