@@ -86,15 +86,17 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
+                                  controller: _emailController,
                                   validator: (email) {
-                                    if (email == null &&
-                                        !EmailValidator.validate(email!)) {
-                                      return 'Please enter valid Email';
+                                    if (email == null || email.isEmpty) {
+                                      return 'Email tidak boleh kosong';
+                                    } else if (!EmailValidator.validate(
+                                        email)) {
+                                      return 'Format Email tidak valid';
                                     }
                                     return null;
                                   },
-                                  controller: _emailController,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
@@ -106,13 +108,11 @@ class _LoginPageState extends State<LoginPage> {
                                           left: 8.0.sp,
                                           right: 8.0.sp,
                                           bottom: 5.0.sp),
-                                      child: const Icon(Icons.person_outline),
+                                      child: const Icon(Icons.person),
                                     ),
                                     prefixIconConstraints: BoxConstraints(
                                         minHeight: 8.h, minWidth: 8.w),
-                                    suffixIcon: const Icon(
-                                        Icons.check_circle_outline_outlined),
-                                    hintText: 'Masukkan Email',
+                                    hintText: 'yourname@email.com',
                                     hintStyle: TextStyle(
                                         fontSize: 12.sp,
                                         color: const Color.fromRGBO(
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                                     helperStyle: TextStyle(
                                       fontSize: 10.sp,
                                       color:
-                                          const Color.fromRGBO(0, 128, 255, 1),
+                                      const Color.fromRGBO(0, 128, 255, 1),
                                       letterSpacing: 0.15.sp,
                                     ),
                                   ),
@@ -135,12 +135,12 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Tolong masukkan kata sandi';
-                                    } else if (value.length < 6) {
-                                      return 'Kata sandi tidak boleh kurang dari 6 karakter';
+                                    } else if (value.length < 8) {
+                                      return 'Kata sandi tidak boleh kurang dari 8 karakter';
                                     }
 
                                     return null;
@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                                       child: const Icon(Icons.lock_outline),
                                     ),
                                     prefixIconConstraints:
-                                        BoxConstraints(minHeight: 0.h),
+                                    BoxConstraints(minHeight: 0.h),
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -170,13 +170,13 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                       icon: _isVisible
                                           ? const Icon(
-                                              Icons.visibility,
-                                              color: Colors.grey,
-                                            )
+                                        Icons.visibility,
+                                        color: Colors.grey,
+                                      )
                                           : const Icon(
-                                              Icons.visibility_off,
-                                              color: Colors.grey,
-                                            ),
+                                        Icons.visibility_off,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                     hintText: 'Masukkan Kata Sandi',
                                     hintStyle: TextStyle(
@@ -191,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(height: 12.h),
                         Row(
                           children: [
-                            Icon(Icons.lock_outline),
+                            const Icon(Icons.lock_outline),
                             SizedBox(width: 5.w),
                             Text(
                               'Kami akan melindungi data anda.',
@@ -210,9 +210,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            String email = _emailController.text;
-                            String password = _passwordController.text;
                             if (_formKey.currentState!.validate()) {
+                              String email = _emailController.text;
+                              String password = _passwordController.text;
                               await value.login(email, password);
                               if (value.loginStatus == LoginStatus.loading) {
                                 if (context.mounted) {
@@ -230,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                                     MaterialPageRoute(
                                       builder: (context) => const MainPage(),
                                     ),
-                                    (route) => false,
+                                        (route) => false,
                                   );
                                 }
                               } else if (value.loginStatus ==
@@ -283,7 +283,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute<void>(
                                     builder: (BuildContext context) =>
-                                        const RegisterPage(),
+                                    const RegisterPage(),
                                   ),
                                 );
                               },
