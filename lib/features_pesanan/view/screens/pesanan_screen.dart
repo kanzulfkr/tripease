@@ -1,5 +1,5 @@
 import 'package:capstone_project_tripease/features_pesanan/view/widgets/bottom_sheet/urutkan_kereta_api.dart';
-import 'package:capstone_project_tripease/features_pesanan/view/widgets/kereta_api/filter_train.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/filter_train.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,7 +13,7 @@ import '../../view_model/provider/data_provider.dart';
 import '../widgets/bottom_sheet/filter_hotel.dart';
 import '../widgets/bottom_sheet/filter_kereta_api.dart';
 import '../widgets/bottom_sheet/urutkan_hotel.dart';
-import '../widgets/hotel/filter_hotel.dart';
+import '../widgets/filter_hotel.dart';
 
 class PesananScreen extends StatefulWidget {
   const PesananScreen({super.key});
@@ -111,7 +111,11 @@ class _PesananScreenState extends State<PesananScreen> {
                       ),
                       prefixIcon: iconSearch,
                       hintText: 'Cari pesananmu disini',
-                      hintStyle: myTextTheme.displayMedium,
+                      hintStyle: GoogleFonts.openSans(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        color: grey,
+                      ),
                     ),
                   ),
                 ),

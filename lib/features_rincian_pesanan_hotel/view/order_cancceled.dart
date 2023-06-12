@@ -8,8 +8,8 @@ import '../../features_pesanan/utils/fonts.dart';
 import '../../features_pesanan/utils/icons.dart';
 import '../../features_pesanan/utils/images.dart';
 
-class PesananBatal extends StatelessWidget {
-  const PesananBatal({super.key});
+class OrderCanccel extends StatelessWidget {
+  const OrderCanccel({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,8 +7,8 @@ import '../../features_pesanan/utils/fonts.dart';
 import '../../features_pesanan/utils/icons.dart';
 import '../../features_pesanan/utils/images.dart';
 
-class PesananMenunggu extends StatelessWidget {
-  const PesananMenunggu({super.key});
+class OrderRefundCanccel extends StatelessWidget {
+  const OrderRefundCanccel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,24 +35,22 @@ class PesananMenunggu extends StatelessWidget {
                     width: 350.w,
                     height: 50.h,
                     decoration: BoxDecoration(
-                      color: wait,
+                      color: canceled,
                       borderRadius: BorderRadius.circular(8.0.r),
-                      border: Border.all(
-                        color: kuning,
-                      ),
+                      border: Border.all(color: red),
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(10.0.w),
                       child: Row(
                         children: [
-                          iconWait,
+                          iconCanceled,
                           SizedBox(width: 10.w),
                           Text(
-                            'Menunggu Pembayaran',
+                            'Pesananmu Gagal Dikembalikan',
                             style: GoogleFonts.openSans(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: kuning,
+                              color: red,
                             ),
                           ),
                         ],
@@ -98,7 +96,7 @@ class PesananMenunggu extends StatelessWidget {
                                 BorderRadius.circular(4.r), // Image border
                             child: SizedBox.fromSize(
                               size: Size.fromRadius(48.r), // Image radius
-                              child: everyday,
+                              child: shibuya,
                             ),
                           ),
                           SizedBox(width: 20.w),
@@ -107,7 +105,7 @@ class PesananMenunggu extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Everyday',
+                                  'Shibuya Shabu',
                                   style: myTextTheme.displayMedium,
                                 ),
                                 SizedBox(height: 10.h),
@@ -119,7 +117,7 @@ class PesananMenunggu extends StatelessWidget {
                                         iconLocation,
                                         SizedBox(width: 4.w),
                                         Text(
-                                          'Jl. Soekarno Hatta, Malang',
+                                          'Bangkok, Thailand',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -129,7 +127,7 @@ class PesananMenunggu extends StatelessWidget {
                                         iconBed,
                                         SizedBox(width: 5.w),
                                         Text(
-                                          'Standard Room',
+                                          'Exclusive Room',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -139,7 +137,7 @@ class PesananMenunggu extends StatelessWidget {
                                         iconBedTime,
                                         SizedBox(width: 5.w),
                                         Text(
-                                          '2 Night',
+                                          '1 Night',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -149,7 +147,7 @@ class PesananMenunggu extends StatelessWidget {
                                         iconDate,
                                         SizedBox(width: 5.w),
                                         Text(
-                                          '05 Mei 2023 - 07 Mei 2023',
+                                          '26 April 2023 - 27 April 2023',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -188,59 +186,6 @@ class PesananMenunggu extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Selesaikan Pembayaran',
-                        style: GoogleFonts.openSans(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: mainBlue,
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Jum'at, 28 April 2023",
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            "38:24",
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              Container(
-                decoration: BoxDecoration(
-                  color: background,
-                  boxShadow: [
-                    BoxShadow(
-                      color: grey.withOpacity(0.5),
-                      spreadRadius: 1.w,
-                      blurRadius: 3.w,
-                      offset: const Offset(1, 1),
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                width: 350.w,
-                height: 148.h,
-                child: Padding(
-                  padding: EdgeInsets.all(20.0.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
                         'Metode Pembayaran',
                         style: GoogleFonts.openSans(
                           fontSize: 14.sp,
@@ -265,46 +210,6 @@ class PesananMenunggu extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(height: 8.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Nomor Rekening',
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            '084 999 1100',
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Nama Penerima',
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'PT.Tripease',
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
@@ -324,14 +229,14 @@ class PesananMenunggu extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 width: 350.w,
-                height: 165.h,
+                height: 145.h,
                 child: Padding(
                   padding: EdgeInsets.all(20.0.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Informasi Pembayaran',
+                        'Informasi Pengembalian Dana',
                         style: GoogleFonts.openSans(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
@@ -343,34 +248,14 @@ class PesananMenunggu extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "(x1) Standard Room (1 malam)",
+                            'Dikembalikan ke',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            "Rp  480.000",
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Promo",
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            "-Rp  5.000",
+                            'Bank BRI',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -378,19 +263,19 @@ class PesananMenunggu extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8.h),
+                      SizedBox(height: 4.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Pajak",
+                            'Jumlah Pengembalian',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            "Rp  38.924",
+                            'Rp. 400.000',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -398,24 +283,42 @@ class PesananMenunggu extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Divider(
-                        color: black,
-                      ),
+                      SizedBox(height: 4.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Jumlah Transfer : ",
+                            'Dikembalikan Pada',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            "Rp  513.924",
+                            '23-04-2023, 18:54',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 4.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Alasan Pembatalan',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            'Double Booking',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -432,7 +335,7 @@ class PesananMenunggu extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Mulai Pembayaran',
+                  'Ajukan Kembalian',
                   style: myTextTheme.headlineMedium,
                 ),
                 onPressed: () {},
@@ -457,7 +360,6 @@ class PesananMenunggu extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
-              SizedBox(height: 16.h),
             ],
           ),
         ),

@@ -1,10 +1,10 @@
-
+import 'package:capstone_project_tripease/features_pesanan/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../features_pesanan/view/screens/pesanan_screen.dart';
 import 'component/button_active.dart';
 import 'component/button_inactive.dart';
-
 
 class Reviews extends StatefulWidget {
   const Reviews({
@@ -77,10 +77,14 @@ class _ReviewsState extends State<Reviews> {
                           width: 79,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
-                          child: Image.asset(
-                            'assets/images/hotel.png',
-                            fit: BoxFit.cover,
-                          ),
+                          child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(4.r),
+                                        child: SizedBox.fromSize(
+                                          size: Size.fromRadius(48.r),
+                                          child: everyday
+                                        ),
+                                      ),
                         ),
                         const SizedBox(width: 16),
                         const Column(

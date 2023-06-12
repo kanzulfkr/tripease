@@ -1,3 +1,5 @@
+import 'package:capstone_project_tripease/features_checkout_checkin/reviews.dart';
+import 'package:capstone_project_tripease/features_pesanan/view/widgets/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,10 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../features_pesanan/utils/colors.dart';
 import '../../features_pesanan/utils/fonts.dart';
 import '../../features_pesanan/utils/icons.dart';
-import '../../features_pesanan/utils/images.dart';
 
-class PesananKembaliBerhasil extends StatelessWidget {
-  const PesananKembaliBerhasil({super.key});
+class OrderSucces extends StatelessWidget {
+  const OrderSucces({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,138 +30,33 @@ class PesananKembaliBerhasil extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: 20.0.h,
+                    top: 20.h,
                   ),
                   child: Container(
                     width: 350.w,
                     height: 50.h,
                     decoration: BoxDecoration(
-                      color: success,
+                      color: finish,
                       borderRadius: BorderRadius.circular(8.0.r),
-                      border: Border.all(color: green),
+                      border: Border.all(color: orange),
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(10.0.w),
                       child: Row(
                         children: [
-                          iconSuccess,
+                          iconFinish,
                           SizedBox(width: 10.w),
                           Text(
-                            'Pesananmu Berhasil DiKembalikan',
+                            'Pesanan Selesai',
                             style: GoogleFonts.openSans(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: green,
+                              color: orange,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              Container(
-                decoration: BoxDecoration(
-                  color: background,
-                  boxShadow: [
-                    BoxShadow(
-                      color: grey.withOpacity(0.5),
-                      spreadRadius: 1.w,
-                      blurRadius: 3.w,
-                      offset: const Offset(1, 1),
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                width: 350.w,
-                height: 180.h,
-                child: Padding(
-                  padding: EdgeInsets.all(20.0.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Detail Pesanan',
-                        style: GoogleFonts.openSans(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: mainBlue,
-                        ),
-                      ),
-                      SizedBox(height: 19.h),
-                      Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(4.r), // Image border
-                            child: SizedBox.fromSize(
-                              size: Size.fromRadius(48.r), // Image radius
-                              child: shibuya,
-                            ),
-                          ),
-                          SizedBox(width: 20.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Shibuya Shabu',
-                                  style: myTextTheme.displayMedium,
-                                ),
-                                SizedBox(height: 10.h),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        iconLocation,
-                                        SizedBox(width: 4.w),
-                                        Text(
-                                          'Bangkok, Thailand',
-                                          style: myTextTheme.headlineSmall,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        iconBed,
-                                        SizedBox(width: 5.w),
-                                        Text(
-                                          'Exclusive Room',
-                                          style: myTextTheme.headlineSmall,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        iconBedTime,
-                                        SizedBox(width: 5.w),
-                                        Text(
-                                          '1 Night',
-                                          style: myTextTheme.headlineSmall,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        iconDate,
-                                        SizedBox(width: 4.w),
-                                        Text(
-                                          '26 April 2023 - 27 April 2023',
-                                          style: myTextTheme.headlineSmall,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5.h),
-                    ],
                   ),
                 ),
               ),
@@ -200,7 +96,7 @@ class PesananKembaliBerhasil extends StatelessWidget {
                           Text(
                             'Virtual Account BRI',
                             style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
+                              fontSize: 12,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -236,7 +132,7 @@ class PesananKembaliBerhasil extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Informasi Pengembalian Dana',
+                        'Informasi Pesanan',
                         style: GoogleFonts.openSans(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
@@ -248,34 +144,14 @@ class PesananKembaliBerhasil extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dikembalikan ke',
+                            'Waktu Pemesanan',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            'Bank BRI',
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Jumlah Pengembalian',
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            'Rp. 400.000',
+                            '19-04-2023, 05:34',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -288,14 +164,14 @@ class PesananKembaliBerhasil extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dikembalikan Pada',
+                            'Waktu Pembayaran',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            '23-04-2023, 18:54',
+                            '24-04-2023, 21:36',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -308,14 +184,34 @@ class PesananKembaliBerhasil extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Alasan Pembatalan',
+                            'Waktu Check-in',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            'Double Booking',
+                            '26-04-2023, 14:00',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 4.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Waktu Check-out',
+                            style: GoogleFonts.openSans(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            '27-04-2023, 11:45',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -335,10 +231,14 @@ class PesananKembaliBerhasil extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Kembali Ke Beranda',
+                  'Beri Penilaian',
                   style: myTextTheme.headlineMedium,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>  const Reviews(title: 'Everyday'),
+                  ));
+                },
               ),
               SizedBox(height: 16.h),
               ElevatedButton(
@@ -360,7 +260,6 @@ class PesananKembaliBerhasil extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
-              SizedBox(height: 10.h),
             ],
           ),
         ),

@@ -3,46 +3,70 @@ import 'package:capstone_project_tripease/features_pesanan/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+
+enum TabStatusHotel {
+  SEMUA,
+  MENUNGGU,
+  AKTIF,
+  SELESAI,
+  DIBATALKAN,
+  PENGEMBALIAN,
+}
+
 class CardHotel {
-  SvgPicture icon;
-  String title;
-  String name;
+  SvgPicture? icon;
+  String? title;
+  String? name;
   Image image;
-  SvgPicture location;
-  String nameLocation;
-  SvgPicture bed;
-  String nameBed;
-  SvgPicture bedTime;
-  String nameBedTime;
-  SvgPicture dateTime;
-  String nameDateTime;
-  String noPesanan;
+  SvgPicture? location;
+  String? nameLocation;
+  SvgPicture? bed;
+  String? nameBed;
+  SvgPicture? bedTime;
+  String? nameBedTime;
+  SvgPicture? dateTime;
+  String? nameDateTime;
+  String? noPesanan;
 
   CardHotel({
-    required this.icon,
-    required this.title,
-    required this.name,
+    this.icon,
+    this.title,
+    this.name,
     required this.image,
-    required this.location,
-    required this.nameLocation,
-    required this.bed,
-    required this.nameBed,
-    required this.bedTime,
-    required this.nameBedTime,
-    required this.dateTime,
-    required this.nameDateTime,
-    required this.noPesanan,
+    this.location,
+    this.nameLocation,
+    this.bed,
+    this.nameBed,
+    this.bedTime,
+    this.nameBedTime,
+    this.dateTime,
+    this.nameDateTime,
+    this.noPesanan,
   });
 
   static final List<CardHotel> cardHotel = [
     CardHotel(
+      icon: iconSchedule,
+      title: 'MENUNGGU PEMBAYARAN - 38:24',
+      image: everyday,
+      name: 'Everyday',
+      location: iconLocation,
+      nameLocation: 'Jl.Soekarno Hatta, Malang ',
+      bed: iconBed,
+      nameBed: 'Standard Room',
+      bedTime: iconBedTime,
+      nameBedTime: '2 Night',
+      dateTime: iconDate,
+      nameDateTime: '05 Mei 2023 - 07 Mei 2023',
+      noPesanan: '2142412849721',
+    ),
+    CardHotel(
       icon: iconCheck,
-      title: 'SUDAH BAYAR',
+      title: 'SUDAH DIBAYAR',
       image: shibuya,
       name: 'Shibuya Shabu',
       location: iconLocation,
-      nameLocation:
-          'Bangkok - Thailand ',
+      nameLocation: 'Bangkok - Thailand ',
       bed: iconBed,
       nameBed: 'Exclusive Room',
       bedTime: iconBedTime,
@@ -50,6 +74,51 @@ class CardHotel {
       dateTime: iconDate,
       nameDateTime: '26 April 2023 - 27 April 2023',
       noPesanan: '8910781295185',
+    ),
+    CardHotel(
+      icon: iconPesananSelesai,
+      title: 'PESANAN SELESAI',
+      image: everyday,
+      name: 'Everyday',
+      location: iconLocation,
+      nameLocation: 'Jl.Soekarno Hatta, Malang ',
+      bed: iconBed,
+      nameBed: 'Standard Room',
+      bedTime: iconBedTime,
+      nameBedTime: '2 Night',
+      dateTime: iconDate,
+      nameDateTime: '05 Mei 2023 - 07 Mei 2023',
+      noPesanan: '2142412849721',
+    ),
+    CardHotel(
+      icon: iconCencel,
+      title: 'PESANAN DIBATALKAN',
+      image: everyday,
+      name: 'Everyday',
+      location: iconLocation,
+      nameLocation: 'Jl.Soekarno Hatta, Malang ',
+      bed: iconBed,
+      nameBed: 'Standard Room',
+      bedTime: iconBedTime,
+      nameBedTime: '2 Night',
+      dateTime: iconDate,
+      nameDateTime: '05 Mei 2023 - 07 Mei 2023',
+      noPesanan: '2142412849721',
+    ),
+    CardHotel(
+      icon: iconSchedule,
+      title: 'DALAM PROSES PENGEMBALIAN',
+      image: everyday,
+      name: 'Everyday',
+      location: iconLocation,
+      nameLocation: 'Jl.Soekarno Hatta, Malang ',
+      bed: iconBed,
+      nameBed: 'Standard Room',
+      bedTime: iconBedTime,
+      nameBedTime: '2 Night',
+      dateTime: iconDate,
+      nameDateTime: '05 Mei 2023 - 07 Mei 2023',
+      noPesanan: '2142412849721',
     ),
   ];
 }

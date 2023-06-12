@@ -1,6 +1,6 @@
+import 'package:capstone_project_tripease/features_checkout_checkin/check_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../features_pesanan/view/screens/pesanan_screen.dart';
 import 'component/button_active.dart';
@@ -29,6 +29,18 @@ class _CheckInQrcodeState extends State<CheckInQrcode> {
             fontSize: 16.sp,
             fontWeight: FontWeight.w600,
           ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CheckOut(
+                    title: 'Shibuya Shabu',
+                  ),
+                ));
+          },
+          icon: const Icon(Icons.arrow_back),
         ),
         centerTitle: true,
       ),

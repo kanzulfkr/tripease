@@ -1,7 +1,7 @@
 import 'package:capstone_project_tripease/features_pesanan/utils/colors.dart';
 import 'package:capstone_project_tripease/features_pesanan/utils/icons.dart';
 import 'package:capstone_project_tripease/features_pesanan/utils/images.dart';
-import 'package:capstone_project_tripease/features_rincian_pesanan_hotel/view/pesanan_batal.dart';
+import 'package:capstone_project_tripease/features_rincian_pesanan_hotel/view/order_cancceled.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,14 +13,14 @@ import '../../../../home.dart';
 import '../../features_checkout_checkin/check_in.dart';
 import '../../features_pesanan/utils/fonts.dart';
 
-class PesananAktif extends StatefulWidget {
-  const PesananAktif({super.key});
+class OrderActive extends StatefulWidget {
+  const OrderActive({super.key});
 
   @override
-  State<PesananAktif> createState() => _PesananAktifState();
+  State<OrderActive> createState() => _OrderActiveState();
 }
 
-class _PesananAktifState extends State<PesananAktif> {
+class _OrderActiveState extends State<OrderActive> {
   void _showAlertDialog() {
     ScreenUtil.init(context);
     showDialog(
@@ -46,7 +46,7 @@ class _PesananAktifState extends State<PesananAktif> {
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const PesananBatal(),
+                          builder: (context) => const OrderCanccel(),
                         ),
                       );
                     },
