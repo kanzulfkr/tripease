@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                      AutovalidateMode.onUserInteraction,
                                   controller: _emailController,
                                   validator: (email) {
                                     if (email == null || email.isEmpty) {
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                                     helperStyle: TextStyle(
                                       fontSize: 10.sp,
                                       color:
-                                      const Color.fromRGBO(0, 128, 255, 1),
+                                          const Color.fromRGBO(0, 128, 255, 1),
                                       letterSpacing: 0.15.sp,
                                     ),
                                   ),
@@ -135,11 +135,11 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                      AutovalidateMode.onUserInteraction,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Tolong masukkan kata sandi';
-                                    } else if (value.length < 8) {
+                                    } else if (value.length < 6) {
                                       return 'Kata sandi tidak boleh kurang dari 8 karakter';
                                     }
 
@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                                       child: const Icon(Icons.lock_outline),
                                     ),
                                     prefixIconConstraints:
-                                    BoxConstraints(minHeight: 0.h),
+                                        BoxConstraints(minHeight: 0.h),
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -170,13 +170,13 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                       icon: _isVisible
                                           ? const Icon(
-                                        Icons.visibility,
-                                        color: Colors.grey,
-                                      )
+                                              Icons.visibility,
+                                              color: Colors.grey,
+                                            )
                                           : const Icon(
-                                        Icons.visibility_off,
-                                        color: Colors.grey,
-                                      ),
+                                              Icons.visibility_off,
+                                              color: Colors.grey,
+                                            ),
                                     ),
                                     hintText: 'Masukkan Kata Sandi',
                                     hintStyle: TextStyle(
@@ -230,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                                     MaterialPageRoute(
                                       builder: (context) => const MainPage(),
                                     ),
-                                        (route) => false,
+                                    (route) => false,
                                   );
                                 }
                               } else if (value.loginStatus ==
@@ -283,7 +283,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute<void>(
                                     builder: (BuildContext context) =>
-                                    const RegisterPage(),
+                                        const RegisterPage(),
                                   ),
                                 );
                               },
