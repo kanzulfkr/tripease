@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'features_kai/view_model/select_seat_kai_provider.dart';
+import 'features_kai/view_model/timer_seat_provider.dart';
 import 'onboard_feature/view_model/login_provider.dart';
 import 'package:capstone_project_tripease/features_profile/view_model/user_profile_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -28,6 +30,10 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RegisterProvider()),
         ChangeNotifierProvider(create: (_) => UserProfileProvider()),
         ChangeNotifierProvider(create: (_) => ArticleProvider()),
+        ChangeNotifierProvider(create: (_) => TimerSeatProvider()),
+        ChangeNotifierProvider(
+          create: (_) => SelectSeatKaiProvider(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

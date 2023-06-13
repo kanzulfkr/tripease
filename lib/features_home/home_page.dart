@@ -1,6 +1,7 @@
 import 'package:capstone_project_tripease/features_home/widgets/for_you.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_saw.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_search.dart';
+import 'package:capstone_project_tripease/features_kai/view/ka_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,35 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool popUpNotification = true;
-
-  // @override
-  // void initState() {
-  //   final userData = Provider.of<UserProfileProvider>(context, listen: false);
-  //   userData.getUserDetail();
-  //   super.initState();
-  // }
-  // Future<void> getDataWithDio() async {
-  //   try {
-  //     final response = await Dio().post(
-  //       "http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/user",
-  //       options: Options(
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization':
-  //               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODU1NDk4MzIsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo1fQ.WMAMesW4jzF9uH9MnaFsFV7o7U4FqsV2JAAykd9ZYuc',
-  //         },
-  //       ),
-  //     );
-  //     if (response.statusCode == 200) {
-  //       print(response.data["data"]);
-  //     } else {
-  //       print("${response.data['message']}");
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,54 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-
-      // AppBar(
-      //   backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
-      //   bottom: PreferredSize(
-      //     preferredSize: Size.fromHeight(20.h),
-      //     child: Container(
-      //       padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-      //       width: double.infinity,
-      //       height: 72.h,
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           Container(
-      //             width: 233.h,
-      //             decoration: const BoxDecoration(
-      //               color: Colors.white,
-      //               borderRadius: BorderRadius.all(Radius.circular(8)),
-      //             ),
-      //             child: TextField(
-      //               decoration: InputDecoration(
-      //                 hintText: 'Search for something',
-      //                 hintStyle: GoogleFonts.openSans(
-      //                     fontSize: 14.sp, fontWeight: FontWeight.w400),
-      //                 contentPadding: EdgeInsets.symmetric(vertical: 8.h),
-      //                 prefixIcon: const Icon(Icons.search),
-      //                 prefixIconColor: const Color.fromRGBO(150, 152, 156, 1),
-      //               ),
-      //             ),
-      //           ),
-      //           SizedBox(
-      //             width: 40.h,
-      //             child: const Icon(
-      //               Icons.notifications_none,
-      //               color: Colors.white,
-      //             ),
-      //           ),
-      //           SizedBox(
-      //             width: 40.h,
-      //             child: const Icon(
-      //               Icons.chat,
-      //               color: Colors.white,
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: ListView(
         children: [
           Padding(
@@ -150,7 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    // getDataWithDio();
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const KaPage();
+                      },
+                    ));
                   },
                   child: Container(
                     height: 40.h,
@@ -207,65 +135,65 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           popUpNotification
               ? Container(
-            height: 79.h,
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
-            decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 231, 153, 1),
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/pop_up_notification.png',
-                    width: 40.w,
-                    height: 40.h,
+                  height: 79.h,
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(255, 231, 153, 1),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
-                ),
-                SizedBox(
-                  width: 236.w,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Peringatan keamanan hilang, pembaruan pemesanan, dan balasan obrolan.',
-                        style: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
+                      Center(
+                        child: Image.asset(
+                          'assets/images/pop_up_notification.png',
+                          width: 40.w,
+                          height: 40.h,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 236.w,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Peringatan keamanan hilang, pembaruan pemesanan, dan balasan obrolan.',
+                              style: GoogleFonts.openSans(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                'Check notification settings',
+                                style: GoogleFonts.openSans(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color.fromRGBO(0, 128, 255, 1),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
-                        child: Text(
-                          'Check notification settings',
-                          style: GoogleFonts.openSans(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: const Color.fromRGBO(0, 128, 255, 1),
-                          ),
+                        onTap: () {
+                          setState(() {
+                            popUpNotification = !popUpNotification;
+                          });
+                        },
+                        child: const Icon(
+                          Icons.cancel_outlined,
+                          color: Color.fromRGBO(113, 114, 117, 1),
                         ),
-                      ),
+                      )
                     ],
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      popUpNotification = !popUpNotification;
-                    });
-                  },
-                  child: const Icon(
-                    Icons.cancel_outlined,
-                    color: Color.fromRGBO(113, 114, 117, 1),
-                  ),
                 )
-              ],
-            ),
-          )
               : const SizedBox(),
           Padding(
             padding: EdgeInsets.only(
