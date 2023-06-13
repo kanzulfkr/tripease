@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:capstone_project_tripease/kai/view/invoice_page/ticket_booking.dart';
 import 'package:capstone_project_tripease/kai/view/payment/payment_status.dart';
 import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class OtherPayment extends StatefulWidget {
   const OtherPayment({super.key, required this.timerText});
@@ -16,6 +18,8 @@ class OtherPayment extends StatefulWidget {
 
 class _OtherPaymentState extends State<OtherPayment> {
   bool isDropdownOpened = false;
+  TimerPaymentProvider timerText = TimerPaymentProvider();
+  Timer? countdownTimer;
   List<String> dropdownItems = [
     '1. Pilih opsi pembayaran dengan OVO/Gopay/Minimarket dan lainnya pada halaman pembayaran.',
     '2. Setelah itu klik tombol bayar.',
@@ -23,6 +27,27 @@ class _OtherPaymentState extends State<OtherPayment> {
     '4. Jika akun dompet digital telah terhubung dengan benar, masukan PIN pada halaman pembayaran.',
     '5. Tunggu hingga muncul notifikasi yang mengkonfirmasi bahwa pembayaran telah berhasil dilakukan.',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    TimerPaymentProvider timerSeat =
+        Provider.of<TimerPaymentProvider>(context, listen: false);
+    timerSeat.startCountDown(context);
+    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (timerSeat.isTimeUp()) {
+        countdownTimer?.cancel();
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    countdownTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +62,10 @@ class _OtherPaymentState extends State<OtherPayment> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Waktu Pembayaran',
@@ -46,13 +73,13 @@ class _OtherPaymentState extends State<OtherPayment> {
                       fontSize: 12.sp, fontWeight: FontWeight.w600),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 12.h, left: 200.w),
-                  child: Obx(
-                    () => Text(
-                      widget.timerText.timer.value,
-                      style: GoogleFonts.openSans(
-                          fontSize: 12.sp, fontWeight: FontWeight.w600),
-                    ),
+                  child: Consumer<TimerPaymentProvider>(
+                    builder: (context, timerSeat, _) {
+                      return Text(
+                        timerSeat.timer,
+                        style: TextStyle(fontSize: 20),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -70,7 +97,7 @@ class _OtherPaymentState extends State<OtherPayment> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Image.asset(
-                        'assets/images/ovo.png',
+                        'assets/images/logo-ovo-pay.png',
                         height: 35.h,
                         width: 55.w,
                       ),
@@ -116,7 +143,7 @@ class _OtherPaymentState extends State<OtherPayment> {
                 height: 40.h,
                 width: 500.w,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
@@ -127,9 +154,9 @@ class _OtherPaymentState extends State<OtherPayment> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
-                      width: 200.w,
-                    ),
+                    // SizedBox(
+                    //   width: 200.w,
+                    // ),
                     Icon(isDropdownOpened
                         ? Icons.arrow_drop_up
                         : Icons.arrow_drop_down)
@@ -169,19 +196,12 @@ class _OtherPaymentState extends State<OtherPayment> {
               ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const PaymentStatus()),
+                  (route) => false,
                 );
-                Future.delayed(const Duration(seconds: 3), () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const TicketBooking()),
-                    (route) => false,
-                  );
-                });
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(252, 40), // Ukuran tombol

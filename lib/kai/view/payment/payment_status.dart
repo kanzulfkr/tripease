@@ -1,9 +1,32 @@
+import 'dart:async';
+
+import 'package:capstone_project_tripease/kai/view/invoice_page/invoice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:random_string/random_string.dart';
 
-class PaymentStatus extends StatelessWidget {
+class PaymentStatus extends StatefulWidget {
   const PaymentStatus({super.key});
+
+  @override
+  State<PaymentStatus> createState() => _PaymentStatusState();
+}
+
+class _PaymentStatusState extends State<PaymentStatus> {
+  void initState() {
+    Timer(
+      const Duration(seconds: 3),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => InvoicePage(
+                  orderNumber: randomAlphaNumeric(8),
+                )),
+      ),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

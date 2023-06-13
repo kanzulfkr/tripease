@@ -1,5 +1,6 @@
 import 'package:capstone_project_tripease/features_pesanan/widget/NotFoundKeywoard.dart';
 import 'package:capstone_project_tripease/kai/view/departure_schedule/departure_schedule.dart';
+import 'package:capstone_project_tripease/kai/view/select_seat/select_seat_kai.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,8 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class KaPage extends StatefulWidget {
-  const KaPage({Key? key}) : super(key: key);
+  final String jenisKA;
+  const KaPage({Key? key, required this.jenisKA}) : super(key: key);
 
   @override
   State<KaPage> createState() => _KaPageState();
@@ -602,9 +604,16 @@ class _KaPageState extends State<KaPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const DepartureSchedule(),
+                            builder: (context) => DepartureSchedule(
+                              jenisKA: jenisKAController.text,
+                            ),
                           ),
                         );
+                        SelectSeatKai(
+                          passengerNumber: 0,
+                          jenisKA: jenisKAController.text,
+                        );
+                        print('Jenis : ${jenisKAController.text}');
                         // }
                       },
                       style: ElevatedButton.styleFrom(
@@ -1128,4 +1137,6 @@ class _KaPageState extends State<KaPage> {
       },
     );
   }
+
+  // Anda dapat menggunakan objek selectSeatKai dengan cara yang sesuai, misalnya, menampilkannya di layar atau menyimpannya dalam variabel global.
 }

@@ -43,7 +43,7 @@ class TimerSeatProvider extends ChangeNotifier {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
-        return AlertDialog(
+        return const AlertDialog(
           title: Text('Time Up'),
           content: Text('The time has run out.'),
         );

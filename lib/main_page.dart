@@ -14,7 +14,9 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final _screens = [
-    const KaPage(),
+    const KaPage(
+      jenisKA: '',
+    ),
     const PesananScreen(),
     const ProfileScreen(),
   ];

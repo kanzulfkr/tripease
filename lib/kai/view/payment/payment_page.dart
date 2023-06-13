@@ -1,23 +1,47 @@
-import 'package:capstone_project_tripease/kai/view/payment/payment_va.dart';
+import 'dart:async';
+
 import 'package:capstone_project_tripease/kai/view/payment/payment_timer.dart';
 import 'package:capstone_project_tripease/kai/view/payment/select_payment.dart';
 import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class PaymentPage extends StatefulWidget {
-  const PaymentPage({super.key});
+  final SelectPayment selectPayment;
+  const PaymentPage({super.key, required this.selectPayment});
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  TimerPaymentProvider timerText = Get.put(TimerPaymentProvider());
+  TimerPaymentProvider timerText = TimerPaymentProvider();
+  Timer? countdownTimer;
   int selectedRadio = 0;
   bool isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    TimerPaymentProvider timerSeat =
+        Provider.of<TimerPaymentProvider>(context, listen: false);
+    timerSeat.startCountDown(context);
+    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (timerSeat.isTimeUp()) {
+        countdownTimer?.cancel();
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    countdownTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,8 +166,8 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ),
             const SelectPayment(),
-            SizedBox(height: 20.h),
-            const ButtonPayment(),
+            // SizedBox(height: 20.h),
+            // const ButtonPayment(),
           ],
         ),
       ),
@@ -151,51 +175,40 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 }
 
-class ButtonPayment extends StatelessWidget {
-  const ButtonPayment({
-    super.key,
-  });
+// class ButtonPayment extends StatefulWidget {
+//   const ButtonPayment({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          // String orderNumber = randomAlphaNumeric(8);
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => InvoicePage(orderNumber: orderNumber),
-          //   ),
-          // );
+//   @override
+//   State<ButtonPayment> createState() => _ButtonPaymentState();
+// }
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  PaymentVA(timerText: TimerPaymentProvider()),
-            ),
-          );
-        },
-        style: ElevatedButton.styleFrom(
-            fixedSize: const Size(252, 40), // Ukuran tombol
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  5), // Sudut melengkung dengan jari-jari 5
-            ),
-            padding: const EdgeInsets.fromLTRB(
-                24, 0, 24, 0), // Padding di kiri dan kanan
-            primary: const Color(0XFF0080FF) // Warna latar belakang biru
-            ),
-        child: Text(
-          'Lanjut',
-          style: GoogleFonts.openSans(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white, // Warna teks putih
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class _ButtonPaymentState extends State<ButtonPayment> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: ElevatedButton(
+//         onPressed: () {},
+//         style: ElevatedButton.styleFrom(
+//             fixedSize: const Size(252, 40), // Ukuran tombol
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(
+//                   5), // Sudut melengkung dengan jari-jari 5
+//             ),
+//             padding: const EdgeInsets.fromLTRB(
+//                 24, 0, 24, 0), // Padding di kiri dan kanan
+//             primary: const Color(0XFF0080FF) // Warna latar belakang biru
+//             ),
+//         child: Text(
+//           'Lanjut',
+//           style: GoogleFonts.openSans(
+//             fontSize: 14.sp,
+//             fontWeight: FontWeight.w600,
+//             color: Colors.white, // Warna teks putih
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

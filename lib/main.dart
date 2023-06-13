@@ -1,4 +1,5 @@
 import 'package:capstone_project_tripease/kai/view_model/select_seat_kai_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:capstone_project_tripease/kai/view_model/timer_seat_provider.dart';
 import 'package:capstone_project_tripease/main_page.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,12 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider<TimerPaymentProvider>(
+            create: (_) => TimerPaymentProvider()),
         ChangeNotifierProvider<TimerSeatProvider>(
             create: (_) => TimerSeatProvider()),
-        ChangeNotifierProvider<SelectSeatKaiProvider>(
-          create: (_) => SelectSeatKaiProvider(),
-        ),
+        ChangeNotifierProvider<SelectedSeatsProvider>(
+            create: (_) => SelectedSeatsProvider()),
       ],
       child: const MainApp(),
     ),

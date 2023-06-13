@@ -2,12 +2,15 @@ import 'package:capstone_project_tripease/kai/view/input_data/appbar_input_data.
 import 'package:capstone_project_tripease/kai/view/input_data/detail_booking.dart';
 import 'package:capstone_project_tripease/kai/view/input_data/detail_pessanger.dart';
 import 'package:capstone_project_tripease/kai/view/payment/payment_page.dart';
+import 'package:capstone_project_tripease/kai/view/payment/select_payment.dart';
+import 'package:capstone_project_tripease/kai/view/select_seat/select_seat_kai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InputDataKai extends StatefulWidget {
-  const InputDataKai({super.key});
+  final String jenisKA;
+  const InputDataKai({super.key, required this.jenisKA});
 
   @override
   State<InputDataKai> createState() => _InputDataKaiState();
@@ -18,6 +21,7 @@ class _InputDataKaiState extends State<InputDataKai> {
   bool isDropdownPenumpang = false;
   bool val = false;
   List<String> list = <String>['Tuan', 'Nyonya'];
+  int? passengerNumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -268,7 +272,11 @@ class _InputDataKaiState extends State<InputDataKai> {
                 ),
               ),
               if (isDropdownPenumpang) ...[
-                BodyDetailPessanger(list: list),
+                BodyDetailPessanger(
+                  list: list,
+                  passengerNumber: 1,
+                  jenisKA: widget.jenisKA,
+                ),
               ],
               const SizedBox(
                 height: 99,
@@ -364,7 +372,10 @@ class _InputDataKaiState extends State<InputDataKai> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const PaymentPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const PaymentPage(
+                            selectPayment: SelectPayment(),
+                          )),
                 );
               },
             ),

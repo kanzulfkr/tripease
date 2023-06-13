@@ -1,15 +1,24 @@
-import 'package:capstone_project_tripease/kai/view/select_seat_kai.dart';
+import 'package:capstone_project_tripease/kai/view/select_seat/select_seat_kai.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BodyDetailPessanger extends StatelessWidget {
+class BodyDetailPessanger extends StatefulWidget {
   const BodyDetailPessanger({
-    super.key,
+    Key? key,
     required this.list,
-  });
+    required this.passengerNumber,
+    required this.jenisKA,
+  }) : super(key: key);
 
   final List<String> list;
+  final int passengerNumber;
+  final String jenisKA;
 
+  @override
+  State<BodyDetailPessanger> createState() => _BodyDetailPessangerState();
+}
+
+class _BodyDetailPessangerState extends State<BodyDetailPessanger> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,11 +58,14 @@ class BodyDetailPessanger extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
+                            print('${widget.jenisKA}');
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SelectSeatKai()),
-                            );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SelectSeatKai(
+                                          passengerNumber: passengerNumber,
+                                          jenisKA: widget.jenisKA,
+                                        )));
                           },
                           child: Text(
                             'No.Kursi',
@@ -92,8 +104,8 @@ class BodyDetailPessanger extends StatelessWidget {
                         isExpanded: true,
                         underline: const SizedBox(),
                         onChanged: (String? value) {},
-                        items:
-                            list.map<DropdownMenuItem<String>>((String value) {
+                        items: widget.list
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(

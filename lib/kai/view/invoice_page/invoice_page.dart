@@ -1,5 +1,6 @@
 import 'package:capstone_project_tripease/kai/view/invoice_page/code_payment.dart';
 import 'package:capstone_project_tripease/kai/view/invoice_page/ticket_booking.dart';
+import 'package:capstone_project_tripease/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -129,17 +130,17 @@ class InvoicePage extends StatelessWidget {
           ),
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MainApp()));
+              },
               style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(252, 40), // Ukuran tombol
+                  fixedSize: const Size(252, 40),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        5), // Sudut melengkung dengan jari-jari 5
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  padding: const EdgeInsets.fromLTRB(
-                      24, 0, 24, 0), // Padding di kiri dan kanan
-                  primary: const Color(0XFF0080FF) // Warna latar belakang biru
-                  ),
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                  primary: const Color(0XFF0080FF)),
               child: Text(
                 'Cek Pesanan',
                 style: GoogleFonts.openSans(

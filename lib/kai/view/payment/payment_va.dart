@@ -1,21 +1,26 @@
+import 'dart:async';
+
 import 'package:capstone_project_tripease/kai/view/invoice_page/invoice_page.dart';
 import 'package:capstone_project_tripease/kai/view/payment/payment_status.dart';
 import 'package:capstone_project_tripease/kai/view_model/time_payment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:random_string/random_string.dart';
 
 class PaymentVA extends StatefulWidget {
-  const PaymentVA({super.key, required this.timerText});
+  const PaymentVA({Key? key, required this.timerText}) : super(key: key);
 
   final TimerPaymentProvider timerText;
+
   @override
-  State<PaymentVA> createState() => _PaymentVAState();
+  _PaymentVAState createState() => _PaymentVAState();
 }
 
 class _PaymentVAState extends State<PaymentVA> {
+  Timer? countdownTimer;
+  TimerPaymentProvider timerText = TimerPaymentProvider();
   bool isDropdownOpened = false;
   List<String> dropdownItems = [
     '1. Buka aplikasi perbankan Anda dan pilih menu pembayaran atau transfer.',
@@ -28,19 +33,38 @@ class _PaymentVAState extends State<PaymentVA> {
     '8. Tunggu beberapa saat hingga proses pembayaran selesai dan terkonfirmasi.',
     '9. Simpan bukti pembayaran sebagai referensi untuk memudahkan proses verifikasi pembayaran oleh platform pemesanan.'
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    widget.timerText.startCountDown(context);
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (widget.timerText.isTimeUp()) {
+        countdownTimer?.cancel();
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    countdownTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Pembayaran',
-          style:
-              GoogleFonts.openSans(fontSize: 16, fontWeight: FontWeight.w600),
+          style: GoogleFonts.openSans(
+              fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.w),
         child: Column(
           children: [
             Row(
@@ -52,18 +76,19 @@ class _PaymentVAState extends State<PaymentVA> {
                       fontSize: 12.sp, fontWeight: FontWeight.w600),
                 ),
                 Container(
-                  child: Obx(
-                    () => Text(
-                      widget.timerText.timer.value,
-                      style: GoogleFonts.openSans(
-                          fontSize: 12.sp, fontWeight: FontWeight.w600),
-                    ),
+                  child: Consumer<TimerPaymentProvider>(
+                    builder: (context, timerSeat, _) {
+                      return Text(
+                        timerSeat.timer,
+                        style: TextStyle(fontSize: 20.sp),
+                      );
+                    },
                   ),
                 ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(20.sp),
               child: Container(
                 color: const Color(0xFFF5F6F8),
                 height: 51.h,
@@ -134,7 +159,7 @@ class _PaymentVAState extends State<PaymentVA> {
                     ),
                     Icon(isDropdownOpened
                         ? Icons.arrow_drop_up
-                        : Icons.arrow_drop_down)
+                        : Icons.arrow_drop_down),
                   ],
                 ),
               ),
@@ -165,24 +190,24 @@ class _PaymentVAState extends State<PaymentVA> {
               ),
             ),
             if (isDropdownOpened)
-              const Divider(
-                thickness: 1,
-                color: Colors.black,
-              ),
+              const Divider(thickness: 1, color: Colors.black),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const PaymentStatus()),
+                    builder: (context) => const PaymentStatus(),
+                  ),
                 );
+
                 Future.delayed(const Duration(seconds: 3), () {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => InvoicePage(
-                              orderNumber: randomAlphaNumeric(8),
-                            )),
+                      builder: (context) => InvoicePage(
+                        orderNumber: randomAlphaNumeric(8),
+                      ),
+                    ),
                     (route) => false,
                   );
                 });
@@ -200,7 +225,7 @@ class _PaymentVAState extends State<PaymentVA> {
               child: Text(
                 'Bayar',
                 style: GoogleFonts.openSans(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.white, // Warna teks putih
                 ),

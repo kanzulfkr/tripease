@@ -1,25 +1,29 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class TimerPaymentProvider extends GetxController {
-  RxString timer = '03:00'.obs;
+class TimerPaymentProvider extends ChangeNotifier {
+  String timer = '03:00';
   Timer? countdownTimer;
-
-  @override
-  void onInit() {
-    super.onInit();
-    startCountDown();
+  bool isTimeUp() {
+    int totalSeconds = _calculateTotalSeconds(timer);
+    return totalSeconds <= 0;
   }
 
-  void startCountDown() {
+  int _calculateTotalSeconds(String timer) {
+    List<String> timeParts = timer.split(':');
+    int minutes = int.parse(timeParts[0]);
+    int seconds = int.parse(timeParts[1]);
+    return (minutes * 60) + seconds;
+  }
+
+  void startCountDown(BuildContext context) {
     const oneSec = Duration(seconds: 1);
-    int totalSeconds = 300; // Total duration in seconds (3 minutes)
+    int totalSeconds = 180; // Total duration in seconds (3 minutes)
 
     countdownTimer = Timer.periodic(oneSec, (timer) {
       if (totalSeconds <= 0) {
         timer.cancel();
-        showTimeUpDialog(); // Show the alert dialog when time is up
+        showTimeUpDialog(context); // Show the alert dialog when time is up
       } else {
         totalSeconds--;
         updateTimer(totalSeconds);
@@ -30,22 +34,30 @@ class TimerPaymentProvider extends GetxController {
   void updateTimer(int totalSeconds) {
     int minutes = totalSeconds ~/ 60;
     int seconds = totalSeconds % 60;
-    timer.value =
+    timer =
         '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    notifyListeners(); // Notify listeners about the updated timer value
   }
 
-  void showTimeUpDialog() {
-    Get.dialog(
-      const AlertDialog(
-        title: Text('Time Up'),
-        content: Text('The time has run out.'),
-      ),
+  void showTimeUpDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Time Up'),
+          content: Text('The time has run out.'),
+        );
+      },
     );
   }
 
-  @override
-  void onClose() {
+  void stopCountDown() {
     countdownTimer?.cancel();
-    super.onClose();
+  }
+
+  @override
+  void dispose() {
+    stopCountDown();
+    super.dispose();
   }
 }

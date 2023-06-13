@@ -10,7 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DepartureSchedule extends StatefulWidget {
-  const DepartureSchedule({super.key});
+  final String jenisKA;
+  const DepartureSchedule({super.key, required this.jenisKA});
 
   @override
   State<DepartureSchedule> createState() => _DepartureScheduleState();
@@ -361,9 +362,10 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const InputDataKai(),
+                                          InputDataKai(jenisKA: widget.jenisKA),
                                     ),
                                   );
+                                  print('${widget.jenisKA}');
                                 }
                               },
                               child: Container(
@@ -517,9 +519,12 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const InputDataKai(),
+                            builder: (context) => InputDataKai(
+                              jenisKA: widget.jenisKA,
+                            ),
                           ),
                         );
+                        print('${widget.jenisKA}');
                       },
                       child: Text('Jadwal Pulang'))
             ],
