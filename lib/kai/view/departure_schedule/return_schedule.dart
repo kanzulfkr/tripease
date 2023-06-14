@@ -1,7 +1,6 @@
 import 'package:capstone_project_tripease/kai/view/departure_schedule/appbar_departure.dart';
 import 'package:capstone_project_tripease/kai/view/input_data/input_data.dart';
-import 'package:capstone_project_tripease/kai/view/return.dart';
-import 'package:capstone_project_tripease/kai/view_model/departure_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/Return_provider.dart';
 import 'package:capstone_project_tripease/kai/view_model/station_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,16 +12,14 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../view_model/carriage_provider.dart';
-
-class DepartureSchedule extends StatefulWidget {
-  const DepartureSchedule({super.key});
+class ReturnSchedule extends StatefulWidget {
+  const ReturnSchedule({super.key});
 
   @override
-  State<DepartureSchedule> createState() => _DepartureScheduleState();
+  State<ReturnSchedule> createState() => _ReturnScheduleState();
 }
 
-class _DepartureScheduleState extends State<DepartureSchedule> {
+class _ReturnScheduleState extends State<ReturnSchedule> {
   DateTime today = DateTime.now();
   DateTime arrivalDated = DateTime.now();
   DateTime returnDated = DateTime.now();
@@ -50,32 +47,30 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
     tglPergiEditingController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(arrivalDated);
 
-    final departureProvider = Provider.of<DepartureViewModel>(context,
+    final returnProvider = Provider.of<ReturnProvider>(context,
         listen: false); // listen false agar tidak rebuild
 
-    departureProvider.setDepartureDate(arrivalDated);
+    returnProvider.setReturnDate(arrivalDated);
   }
 
   void returnDay() {
     tglKembaliEditingController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(returnDated);
 
-    final departureProvider =
-        Provider.of<DepartureViewModel>(context, listen: false);
+    final returnProvider = Provider.of<ReturnProvider>(context, listen: false);
 
-    departureProvider.setReturnDate(returnDated);
+    returnProvider.setReturnDate(returnDated);
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    final departureProvider =
-        Provider.of<DepartureViewModel>(context, listen: false);
+    final returnProvider = Provider.of<ReturnProvider>(context, listen: false);
 
     Provider.of<StationProvider>(context, listen: false);
 
-    tglPergiEditingController.text = departureProvider.departureDate;
+    tglKembaliEditingController.text = returnProvider.returnDate;
   }
 
   @override
@@ -85,8 +80,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
       appBar: AppBar(
         title: const BuildAppbar(),
       ),
-      body: Consumer<DepartureViewModel>(
-        builder: (context, departureProvider, child) {
+      body: Consumer<ReturnProvider>(
+        builder: (context, returnProvider, child) {
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -146,8 +141,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   ),
                                   border: Border.all(color: Colors.grey),
                                 ),
-                                child: Consumer<DepartureViewModel>(
-                                  builder: (context, departureProvider, child) {
+                                child: Consumer<ReturnProvider>(
+                                  builder: (context, returnProvider, child) {
                                     return DropdownButtonHideUnderline(
                                       child: DropdownButton2<SortingOption>(
                                         hint: Padding(
@@ -163,7 +158,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                             maxLines: 2,
                                           ),
                                         ),
-                                        value: departureProvider
+                                        value: returnProvider
                                             .selectedSortingOption,
                                         iconStyleData: const IconStyleData(
                                           icon: Icon(
@@ -175,15 +170,15 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                         isExpanded: true,
                                         underline: const SizedBox(),
                                         onChanged: (SortingOption? value) {
-                                          departureProvider
+                                          returnProvider
                                               .setSelectedSortingOption(value);
-                                          var sortPrice = departureProvider
+                                          var sortPrice = returnProvider
                                               .selectedSortingOption;
                                           var originId =
                                               stationProvider.idOrigin as int;
                                           var destinationId = stationProvider
                                               .idDestination as int;
-                                          departureProvider.fetchDepartures(
+                                          returnProvider.fetchDepartures(
                                               stationOriginId: originId,
                                               stationDestinationId:
                                                   destinationId,
@@ -588,226 +583,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                               height: 400.h,
                               width: double.maxFinite,
                               child: ListView.builder(
-                                itemCount: departureProvider.departure.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(1, 0, 1, 12),
-                                    child: InkWell(
-                                      onTap: () {
-                                        departureProvider
-                                            .setSelectedDepartIndex(index);
-
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const InputDataKai(),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        height: 160.h,
-                                        width: double.maxFinite,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 12, vertical: 8),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(8),
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 0.2,
-                                              blurRadius: 0.5,
-                                              offset: const Offset(0.5, 0.5),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                SvgPicture.asset(
-                                                  'assets/icons/logo_kai.svg',
-                                                  width: 24.w,
-                                                  height: 21.h,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  departureProvider
-                                                      .departure[index]
-                                                      .route[0]
-                                                      .station
-                                                      .origin,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Stasiun ${departureProvider.departure[index].route[0].station.name}',
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Rp ${departureProvider.departure[index].price},-',
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  departureProvider
-                                                      .departure[index]
-                                                      .datumClass,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                ),
-                                                departureProvider
-                                                            .departure[index]
-                                                            .status ==
-                                                        'available'
-                                                    ? Text(
-                                                        'Tersedia',
-                                                        style: GoogleFonts
-                                                            .openSans(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.green,
-                                                        ),
-                                                      )
-                                                    : Text(
-                                                        'Habis',
-                                                        style: GoogleFonts
-                                                            .openSans(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.red,
-                                                        ),
-                                                      ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  departureProvider
-                                                      .departure[index]
-                                                      .route[0]
-                                                      .arriveTime,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                  ),
-                                                ),
-                                                const Icon(Icons.arrow_forward),
-                                                Text(
-                                                  departureProvider
-                                                      .departure[index]
-                                                      .route[1]
-                                                      .arriveTime,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  tglPergiEditingController
-                                                              .text ==
-                                                          ''
-                                                      ? DateFormat(
-                                                              'EEEE, dd MMMM',
-                                                              'id_ID')
-                                                          .format(
-                                                              DateTime.now())
-                                                      : tglPergiEditingController
-                                                          .text,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '0 j 30 m',
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  tglPergiEditingController
-                                                              .text ==
-                                                          ''
-                                                      ? DateFormat(
-                                                              'EEEE, dd MMMM',
-                                                              'id_ID')
-                                                          .format(
-                                                              DateTime.now())
-                                                      : tglPergiEditingController
-                                                          .text,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          : SizedBox(
-                              height: 400.h,
-                              width: double.maxFinite,
-                              child: ListView.builder(
-                                itemCount: departureProvider.departure.length,
+                                itemCount: returnProvider.returnData.length,
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding:
@@ -831,7 +607,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const ReturnPage(),
+                                                const InputDataKai(),
                                           ),
                                         );
                                         // }
@@ -875,8 +651,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
+                                                  returnProvider
+                                                      .returnData[index]
                                                       .route[0]
                                                       .station
                                                       .origin,
@@ -893,14 +669,14 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Stasiun ${departureProvider.departure[index].route[0].station.name}',
+                                                  'Stasiun ${returnProvider.returnData[index].route[0].station.name}',
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ),
                                                 Text(
-                                                  'Rp ${departureProvider.departure[index].price},-',
+                                                  'Rp ${returnProvider.returnData[index].price},-',
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w600,
@@ -914,8 +690,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
+                                                  returnProvider
+                                                      .returnData[index]
                                                       .datumClass,
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
@@ -924,8 +700,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                         113, 114, 117, 1),
                                                   ),
                                                 ),
-                                                departureProvider
-                                                            .departure[index]
+                                                returnProvider.returnData[index]
                                                             .status ==
                                                         'available'
                                                     ? Text(
@@ -956,8 +731,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
+                                                  returnProvider
+                                                      .returnData[index]
                                                       .route[0]
                                                       .arriveTime,
                                                   style: GoogleFonts.openSans(
@@ -966,8 +741,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 ),
                                                 const Icon(Icons.arrow_forward),
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
+                                                  returnProvider
+                                                      .returnData[index]
                                                       .route[1]
                                                       .arriveTime,
                                                   style: GoogleFonts.openSans(
@@ -1033,6 +808,16 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                 },
                               ),
                             )
+                          : InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const InputDataKai(),
+                                  ),
+                                );
+                              },
+                              child: Text('Jadwal Pulang'))
                     ],
                   );
                 },
@@ -1169,8 +954,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                   ),
                 ),
               ),
-              Consumer<DepartureViewModel>(
-                builder: (context, departureProvider, child) {
+              Consumer<ReturnProvider>(
+                builder: (context, ReturnProvider, child) {
                   return Container(
                     margin: const EdgeInsets.only(top: 43),
                     padding: const EdgeInsets.all(20),
@@ -1201,7 +986,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
-                                    backgroundColor: departureProvider.filter1
+                                    backgroundColor: ReturnProvider.filter1
                                         ? Colors.blueAccent
                                         : const Color(0xFFE1E4EA),
                                     showCheckmark: false,
@@ -1210,27 +995,27 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                       style: GoogleFonts.openSans(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: departureProvider.filter1
+                                          color: ReturnProvider.filter1
                                               ? const Color(0xFFE1E4EA)
                                               : Colors.grey),
                                     ),
-                                    selected: departureProvider.filter1,
+                                    selected: ReturnProvider.filter1,
                                     onSelected: (value) {
-                                      departureProvider.setFilterOption1(value);
+                                      ReturnProvider.setFilterOption1(value);
                                       var originId =
                                           stationProvider.idOrigin as int;
                                       var destinationId =
                                           stationProvider.idDestination as int;
                                       var trainClass =
-                                          departureProvider.selectedClass;
+                                          ReturnProvider.selectedClass;
 
                                       if (trainClass == null) {
-                                        departureProvider.fetchDepartures(
+                                        ReturnProvider.fetchDepartures(
                                           stationOriginId: originId,
                                           stationDestinationId: destinationId,
                                         );
                                       } else {
-                                        departureProvider.fetchDepartures(
+                                        ReturnProvider.fetchDepartures(
                                             stationOriginId: originId,
                                             stationDestinationId: destinationId,
                                             trainClass: trainClass);
@@ -1243,7 +1028,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
-                                    backgroundColor: departureProvider.filter2
+                                    backgroundColor: ReturnProvider.filter2
                                         ? Colors.blueAccent
                                         : const Color(0xFFE1E4EA),
                                     showCheckmark: false,
@@ -1252,27 +1037,27 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                       style: GoogleFonts.openSans(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: departureProvider.filter2
+                                          color: ReturnProvider.filter2
                                               ? const Color(0xFFE1E4EA)
                                               : Colors.grey),
                                     ),
-                                    selected: departureProvider.filter2,
+                                    selected: ReturnProvider.filter2,
                                     onSelected: (value) {
-                                      departureProvider.setFilterOption2(value);
+                                      ReturnProvider.setFilterOption2(value);
                                       var originId =
                                           stationProvider.idOrigin as int;
                                       var destinationId =
                                           stationProvider.idDestination as int;
                                       var trainClass =
-                                          departureProvider.selectedClass;
+                                          ReturnProvider.selectedClass;
 
                                       if (trainClass == null) {
-                                        departureProvider.fetchDepartures(
+                                        ReturnProvider.fetchDepartures(
                                           stationOriginId: originId,
                                           stationDestinationId: destinationId,
                                         );
                                       } else {
-                                        departureProvider.fetchDepartures(
+                                        ReturnProvider.fetchDepartures(
                                             stationOriginId: originId,
                                             stationDestinationId: destinationId,
                                             trainClass: trainClass);
@@ -1285,7 +1070,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
-                                    backgroundColor: departureProvider.filter3
+                                    backgroundColor: ReturnProvider.filter3
                                         ? Colors.blueAccent
                                         : const Color(0xFFE1E4EA),
                                     showCheckmark: false,
@@ -1294,27 +1079,27 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                       style: GoogleFonts.openSans(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: departureProvider.filter3
+                                          color: ReturnProvider.filter3
                                               ? const Color(0xFFE1E4EA)
                                               : Colors.grey),
                                     ),
-                                    selected: departureProvider.filter3,
+                                    selected: ReturnProvider.filter3,
                                     onSelected: (value) {
-                                      departureProvider.setFilterOption3(value);
+                                      ReturnProvider.setFilterOption3(value);
                                       var originId =
                                           stationProvider.idOrigin as int;
                                       var destinationId =
                                           stationProvider.idDestination as int;
                                       var trainClass =
-                                          departureProvider.selectedClass;
+                                          ReturnProvider.selectedClass;
 
                                       if (trainClass == null) {
-                                        departureProvider.fetchDepartures(
+                                        ReturnProvider.fetchDepartures(
                                           stationOriginId: originId,
                                           stationDestinationId: destinationId,
                                         );
                                       } else {
-                                        departureProvider.fetchDepartures(
+                                        ReturnProvider.fetchDepartures(
                                             stationOriginId: originId,
                                             stationDestinationId: destinationId,
                                             trainClass: trainClass);

@@ -1,4 +1,8 @@
+import 'package:capstone_project_tripease/kai/view_model/carriage_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/departure_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/return_provider.dart';
 import 'package:capstone_project_tripease/kai/view_model/select_seat_kai_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/station_provider.dart';
 import 'package:capstone_project_tripease/kai/view_model/timer_seat_provider.dart';
 import 'package:capstone_project_tripease/main_page.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +19,15 @@ void main() {
         ChangeNotifierProvider<SelectSeatKaiProvider>(
           create: (_) => SelectSeatKaiProvider(),
         ),
+        ChangeNotifierProvider<StationProvider>(
+            create: (_) => StationProvider()),
+        ChangeNotifierProvider<DepartureViewModel>(
+            create: (_) => DepartureViewModel()),
+        ChangeNotifierProvider<ReturnProvider>(
+          create: (_) => ReturnProvider(),
+        ),
+        ChangeNotifierProvider<CarriageProvider>(
+            create: (_) => CarriageProvider())
       ],
       child: const MainApp(),
     ),

@@ -1,6 +1,9 @@
+import 'package:capstone_project_tripease/kai/view_model/departure_provider.dart';
+import 'package:capstone_project_tripease/kai/view_model/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class BuildAppbar extends StatelessWidget {
   const BuildAppbar({
@@ -9,64 +12,68 @@ class BuildAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 260.w,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+    return Consumer<StationProvider>(
+      builder: (context, stationProvider, child) {
+        return Row(
+          children: [
+            SizedBox(
+              width: 260.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Bandung',
-                    style: GoogleFonts.openSans(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        stationProvider.getNameOrigin!,
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 3.h),
+                      Text(
+                        stationProvider.getInitialOrigin!,
+                        style: GoogleFonts.openSans(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.black,
+                      size: 20,
                     ),
                   ),
-                  SizedBox(height: 3.h),
-                  Text(
-                    'BD',
-                    style: GoogleFonts.openSans(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  Column(
+                    children: [
+                      Text(
+                        stationProvider.getNameDestination!,
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 3.h),
+                      Text(
+                        stationProvider.getInitialDestination!,
+                        style: GoogleFonts.openSans(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Icon(
-                  Icons.arrow_forward,
-                  color: Colors.black,
-                  size: 20,
-                ),
-              ),
-              Column(
-                children: [
-                  Text(
-                    'Cicalengka',
-                    style: GoogleFonts.openSans(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 3.h),
-                  Text(
-                    'CLK',
-                    style: GoogleFonts.openSans(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }
