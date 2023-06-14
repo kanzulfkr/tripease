@@ -1,11 +1,11 @@
-import 'package:capstone_project_tripease/features_checkout_checkin/reviews.dart';
-import 'package:capstone_project_tripease/features_pesanan/view_model/provider/data_provider.dart';
+import 'package:capstone_project_tripease/features_checkin_checkout/reviews.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'features_pesanan/utils/colors.dart';
-import 'features_pesanan/utils/fonts.dart';
-import 'features_pesanan/view/widgets/home.dart';
+import 'features_order/utils/colors.dart';
+import 'features_order/utils/fonts.dart';
+import 'features_order/view/widgets/home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {

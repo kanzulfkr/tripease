@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'features_pesanan/view/screens/beranda_screen.dart';
-import 'features_pesanan/view/screens/pesanan_screen.dart';
-import 'features_pesanan/view/screens/profile_screen.dart';
-import 'features_pesanan/view/widgets/bottom_nav_bar.dart';
+import 'features_order/view/screens/beranda_screen.dart';
+import 'features_order/view/screens/pesanan_screen.dart';
+import 'features_order/view/screens/profile_screen.dart';
+import 'features_order/view/widgets/bottom_nav_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
