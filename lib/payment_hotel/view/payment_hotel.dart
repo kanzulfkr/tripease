@@ -32,6 +32,12 @@ class _AnotherPageState extends State<AnotherPage> {
   MinimarketOption? selectedMinimarketOption;
   late Timer _timer;
   int _secondsRemaining = 300;
+  String? getVirtualAccountOptionTitle() {
+    if (paymentMethod == 'Virtual Account' && selectedVirtualAccountOption != null) {
+      return selectedVirtualAccountOption!.title;
+    }
+    return '';
+  }
 
   @override
   void initState() {
@@ -53,34 +59,20 @@ class _AnotherPageState extends State<AnotherPage> {
   }
 
   void navigateToPaymentResultPage() {
-    if (paymentMethod == 'Virtual Account') {
-      VirtualAccountOption? selectedVirtualAccountOption;
-      for (VirtualAccountOption option in virtualAccountOptions) {
-        if (option.title == 'BCA Virtual Account' ) {
-          selectedVirtualAccountOption = option;
-          break;
-        } else if (option.title == 'BRI Virtual Account' ) {
-          selectedVirtualAccountOption = option;
-          break;
-        } else if (option.title == 'Mandiri Virtual Account' ) {
-          selectedVirtualAccountOption = option;
-          break;
-        }
-      }
+    String? virtualAccountOptionTitle = getVirtualAccountOptionTitle();
 
-      if (selectedVirtualAccountOption != null) {
-        final virtualAccountOption = selectedVirtualAccountOption!; // Use the non-null assertion operator to assert that the value is not null
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VirtualAccountPage(
-              virtualAccountOption: virtualAccountOption,
-              room: widget.room,
-              list: widget.list,
-            ),
+    if (paymentMethod == 'Virtual Account' && virtualAccountOptionTitle != '') {
+      final virtualAccountOption = selectedVirtualAccountOption!;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VirtualAccountPage(
+            virtualAccountOption: virtualAccountOption,
+            room: widget.room,
+            list: widget.list,
           ),
-        );
-      }
+        ),
+      );
     } else {
       PaymentMethod selectedPaymentMethod = paymentMethods.firstWhere(
         (method) => method.title == paymentMethod,
