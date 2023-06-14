@@ -4,6 +4,7 @@ import 'dart:async';
 import '../../detail_hotel/model/detail_hotel_model.dart';
 import '../../list_hotel/model/list_hotel_model.dart';
 import '../../payment_result/view/payment_result.dart';
+import '../../payment_result/view/va_result.dart';
 import '../model/payment_page_model.dart';
 import '../viewmodel/payment_hotel_viewmodel.dart';
 
@@ -20,12 +21,12 @@ class AnotherPage extends StatefulWidget {
 class _AnotherPageState extends State<AnotherPage> {
   String? paymentMethod;
   List<PaymentMethod> paymentMethods = [
-    PaymentMethod('Kartu Kredit', 'assets/images/CC.jpeg', ['A', 'B'], ),
-    PaymentMethod('Virtual Account', 'assets/images/VA.jpeg', ['C', 'D'],),
-    PaymentMethod('OVO', 'assets/images/OVO.jpeg', ['E', 'F']),
-    PaymentMethod('Gopay', 'assets/images/Gopay.jpeg', ['G', 'H']),
-    PaymentMethod('Minimarket', 'assets/images/Minimarket.jpeg', ['I', 'J']),
-    PaymentMethod('Bayar di Hotel', 'assets/images/Hotel.jpeg', ['K', 'L']),
+    PaymentMethod('Kartu Kredit', 'assets/images/CC.jpeg', ['A', 'B'], ''),
+    PaymentMethod('Virtual Account', 'assets/images/VA.jpeg', ['C', 'D'], ''),
+    PaymentMethod('OVO', 'assets/images/OVO.jpeg', ['E', 'F'], 'Total Biaya'),
+    PaymentMethod('Gopay', 'assets/images/Gopay.jpeg', ['G', 'H'], 'Total Biaya'),
+    PaymentMethod('Minimarket', 'assets/images/Minimarket.jpeg', ['I', 'J'], ''),
+    PaymentMethod('Bayar di Hotel', 'assets/images/Hotel.jpeg', ['K', 'L'], 'Total Biaya'),
   ];
   VirtualAccountOption? selectedVirtualAccountOption;
   MinimarketOption? selectedMinimarketOption;
@@ -52,24 +53,52 @@ class _AnotherPageState extends State<AnotherPage> {
   }
 
   void navigateToPaymentResultPage() {
-    PaymentMethod selectedPaymentMethod = paymentMethods.firstWhere(
-      (method) => method.title == paymentMethod,
-      orElse: () => PaymentMethod('', '', []),
-    );
+    if (paymentMethod == 'Virtual Account') {
+      VirtualAccountOption? selectedVirtualAccountOption;
+      for (VirtualAccountOption option in virtualAccountOptions) {
+        if (option.title == 'BCA Virtual Account' ) {
+          selectedVirtualAccountOption = option;
+          break;
+        } else if (option.title == 'BRI Virtual Account' ) {
+          selectedVirtualAccountOption = option;
+          break;
+        } else if (option.title == 'Mandiri Virtual Account' ) {
+          selectedVirtualAccountOption = option;
+          break;
+        }
+      }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PaymentResultPage(
-          paymentMethod: selectedPaymentMethod,
-          room: widget.room,
-          list: widget.list,
+      if (selectedVirtualAccountOption != null) {
+        final virtualAccountOption = selectedVirtualAccountOption!; // Use the non-null assertion operator to assert that the value is not null
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VirtualAccountPage(
+              virtualAccountOption: virtualAccountOption,
+              room: widget.room,
+              list: widget.list,
+            ),
+          ),
+        );
+      }
+    } else {
+      PaymentMethod selectedPaymentMethod = paymentMethods.firstWhere(
+        (method) => method.title == paymentMethod,
+        orElse: () => PaymentMethod('', '', [], ''),
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaymentResultPage(
+            paymentMethod: selectedPaymentMethod,
+            room: widget.room,
+            list: widget.list,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
-
-
 
   void showPopup() {
     showDialog(
@@ -83,8 +112,9 @@ class _AnotherPageState extends State<AnotherPage> {
             TextButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
-                Navigator.pop(context); // Go back to the previous page
+                Navigator.pop(context); 
+                Navigator.pop(context); 
+                Navigator.pop(context); 
               },
             ),
           ],
@@ -176,10 +206,10 @@ class _AnotherPageState extends State<AnotherPage> {
                           child: Row(
                             children: [
                               Checkbox(
-                                value: widget.room.isChecked, // Gunakan nilai isChecked sebagai nilai checkbox
+                                value: widget.room.isChecked,
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    widget.room.isChecked = value ?? false; // Update nilai isChecked saat checkbox berubah
+                                    widget.room.isChecked = value ?? false;
                                   });
                                 },
                               ),
@@ -195,15 +225,17 @@ class _AnotherPageState extends State<AnotherPage> {
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         letterSpacing: 0.025,
+                                        color: widget.room.isChecked ? Colors.black : Colors.grey[400], // Set color based on checkbox status
                                       ),
                                     ),
                                     Text(
-                                      widget.room.asuransi,
+                                      'Rp ${widget.room.asuransi}',
                                       style: TextStyle(
                                         fontFamily: 'Open Sans',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         letterSpacing: 0.025,
+                                        color: widget.room.isChecked ? Colors.black : Colors.grey[400], // Set color based on checkbox status
                                       ),
                                     )
                                   ],
@@ -369,8 +401,8 @@ class _AnotherPageState extends State<AnotherPage> {
                         ),
                         DividerTheme(
                           data: DividerThemeData(
-                            color: Colors.black,      // Set the color to black
-                            thickness: 1.0,           // Increase or decrease the thickness as desired
+                            color: Colors.black,      
+                            thickness: 1.0,           
                           ),
                           child: Divider(),
                         ),
@@ -412,7 +444,7 @@ class _AnotherPageState extends State<AnotherPage> {
                               return ExpansionTile(
                                 title: Row(
                                   children: [
-                                    Radio(
+                                    Radio(                                      
                                       value: method.title,
                                       groupValue: paymentMethod,
                                       onChanged: (value) {
@@ -569,7 +601,7 @@ class _AnotherPageState extends State<AnotherPage> {
                                             decoration: BoxDecoration(
                                               border: Border.all(
                                                 color: selectedMinimarketOption == option
-                                                    ? Colors.blue // Apply a different color for the selected option
+                                                    ? Colors.blue 
                                                     : Colors.grey,
                                                 width: 3.0,
                                               ),
@@ -616,13 +648,15 @@ class _AnotherPageState extends State<AnotherPage> {
                                     padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
                                     child: Column(
                                       children: [
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                             Text('kosong')
-                                            ],
-                                          ),
-                                        ),
+                                        for (PaymentMethod method in paymentMethods)
+                                          if (method.title == paymentMethod)
+                                            ...method.howTo.map((step) => 
+                                              Row(
+                                                children: [
+                                                  Text(step),
+                                                ],
+                                              ),
+                                            ),
                                         SizedBox(height: 6,)
                                       ],
                                     ),
@@ -647,9 +681,10 @@ class _AnotherPageState extends State<AnotherPage> {
           child: Container(
             height: 56.0,
             child: ElevatedButton(
-              onPressed: () {
-                navigateToPaymentResultPage();
-              },
+              onPressed: paymentMethod != null ? navigateToPaymentResultPage : null,
+              style: ElevatedButton.styleFrom(
+                primary: paymentMethod != null ? Colors.blue : Colors.grey,
+              ),
               child: Text(
                 'Lanjut',
                 style: TextStyle(fontSize: 18.0),

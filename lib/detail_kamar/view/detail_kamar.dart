@@ -4,11 +4,17 @@ import '../../detail_hotel/model/detail_hotel_model.dart';
 import '../../input_guest/view/input_guest_view.dart';
 import '../../list_hotel/model/list_hotel_model.dart';
 
-class RoomPage extends StatelessWidget {
+class RoomPage extends StatefulWidget {
   final Room room;
   final ListHotel list;
-  const RoomPage({required this.room, required this.list,});
 
+  const RoomPage({required this.room, required this.list});
+
+  @override
+  _RoomPageState createState() => _RoomPageState();
+}
+
+class _RoomPageState extends State<RoomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,18 +27,19 @@ class RoomPage extends StatelessWidget {
           children: [
             SizedBox(height: 12),
             Container(
-              child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: room.imageUrls.map((image) => 
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Container(                  
-                        child: Image.asset(image),
-                      ),
+              height: 192,
+              child: PageView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.room.imageUrls.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                    child: Image.asset(
+                      widget.room.imageUrls[index],
+                      fit: BoxFit.cover,
                     ),
-                  ).toList(),
-                ),
+                  );
+                },
               ),
             ),
             Container(
@@ -52,7 +59,7 @@ class RoomPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      room.name,
+                                      widget.room.name,
                                       style: TextStyle(
                                         fontFamily: 'Open Sans',
                                         fontWeight: FontWeight.w600,
@@ -61,7 +68,7 @@ class RoomPage extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      '${room.price}/Malam',
+                                      '${widget.room.price}/Malam',
                                       style: TextStyle(
                                         fontFamily: 'Open Sans',
                                         fontWeight: FontWeight.w600,
@@ -81,7 +88,7 @@ class RoomPage extends StatelessWidget {
                                         children: [
                                           Icon(Icons.person),
                                           SizedBox(width: 14,),
-                                          Text(room.capacity,
+                                          Text(widget.room.capacity,
                                             style: TextStyle(
                                               fontFamily: 'Open Sans',
                                             ),
@@ -95,7 +102,7 @@ class RoomPage extends StatelessWidget {
                                         children: [
                                           Icon(Icons.bed),
                                           SizedBox(width: 14,),
-                                          Text(room.bedType,
+                                          Text(widget.room.bedType,
                                             style: TextStyle(
                                               fontFamily: 'Open Sans',
                                             ),
@@ -113,7 +120,7 @@ class RoomPage extends StatelessWidget {
                                               children: [
                                                 Icon(Icons.restaurant),
                                                 SizedBox(width: 14,),
-                                                Text(room.breakfast,
+                                                Text(widget.room.breakfast,
                                                   style: TextStyle(
                                                     fontFamily: 'Open Sans',
                                                     fontWeight: FontWeight.w600,
@@ -129,7 +136,7 @@ class RoomPage extends StatelessWidget {
                                               children: [
                                                 Icon(Icons.credit_card),
                                                 SizedBox(width: 14,),
-                                                Text(room.refund,
+                                                Text(widget.room.refund,
                                                   style: TextStyle(
                                                     fontFamily: 'Open Sans',
                                                     fontWeight: FontWeight.w600,
@@ -153,7 +160,7 @@ class RoomPage extends StatelessWidget {
                                               children: [
                                                 Icon(Icons.wifi),
                                                 SizedBox(width: 14,),
-                                                Text(room.wifi,
+                                                Text(widget.room.wifi,
                                                   style: TextStyle(
                                                     fontFamily: 'Open Sans',
                                                     fontWeight: FontWeight.w600,
@@ -169,7 +176,7 @@ class RoomPage extends StatelessWidget {
                                               children: [
                                                 Icon(Icons.event_available),
                                                 SizedBox(width: 14,),
-                                                Text(room.reSchedule,
+                                                Text(widget.room.reSchedule,
                                                   style: TextStyle(
                                                     fontFamily: 'Open Sans',
                                                     fontWeight: FontWeight.w600,
@@ -189,7 +196,7 @@ class RoomPage extends StatelessWidget {
                                         children: [
                                           Icon(Icons.smoke_free),
                                           SizedBox(width: 14,),
-                                          Text(room.noSmoking,
+                                          Text(widget.room.noSmoking,
                                             style: TextStyle(
                                               fontFamily: 'Open Sans',
                                               fontWeight: FontWeight.w600,
@@ -233,7 +240,7 @@ class RoomPage extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Text(
-                                        room.deskripsi,
+                                        widget.room.deskripsi,
                                         style: TextStyle(
                                           fontFamily: 'Open Sans',
                                           fontWeight: FontWeight.w400,
@@ -274,7 +281,7 @@ class RoomPage extends StatelessWidget {
                                           mainAxisSpacing: 10,
                                           childAspectRatio: 3.5,
                                         ),
-                                        itemCount: room.fasilitas.length,
+                                        itemCount: widget.room.fasilitas.length,
                                         itemBuilder: (context, index) {
                                           return Container(
                                             child: Row(
@@ -282,7 +289,7 @@ class RoomPage extends StatelessWidget {
                                                 Icon(Icons.check_circle_sharp),
                                                 SizedBox(width: 6,),
                                                 Text(
-                                                  room.fasilitas[index],
+                                                  widget.room.fasilitas[index],
                                                   style: TextStyle(
                                                     fontFamily: 'Open Sans',
                                                     fontWeight: FontWeight.w600,
@@ -321,7 +328,7 @@ class RoomPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => InputGuestPage(room: room, list: list),
+                    builder: (context) => InputGuestPage(room: widget.room, list: widget.list),
                   ),
                 );
               },

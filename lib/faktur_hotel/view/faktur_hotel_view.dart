@@ -349,10 +349,146 @@ class _FakturHotelState extends State<FakturHotel> {
                       ),
                     )
                   ),
+                  SizedBox(height: 20,),
+                  Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Hotel',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                ),
+                              ),
+                              Text(
+                                widget.room.price,
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 17,),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Asuransi',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                ),
+                              ),
+                              Text(
+                                widget.room.asuransi,
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 17,),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Kupon',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                ),
+                              ),
+                              Text(
+                                '- Rp 50.000',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                  color: Colors.orange
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        DividerTheme(
+                          data: DividerThemeData(
+                            color: Colors.black,      // Set the color to black
+                            thickness: 1.0,           // Increase or decrease the thickness as desired
+                          ),
+                          child: Divider(),
+                        ),
+                        SizedBox(height: 5,),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                ),
+                              ),
+                              Text(
+                                widget.room.total,
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.025,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             )
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 20.0),
+          child: Container(
+            height: 56.0,
+            child: ElevatedButton(
+              onPressed: () {
+                
+              },
+              child: Text(
+                'Cek Pesanan',
+                style: TextStyle(fontSize: 18.0),
+              ),
+            ),
+          ),
         ),
       ),
     );

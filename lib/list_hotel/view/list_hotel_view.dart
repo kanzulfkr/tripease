@@ -23,9 +23,11 @@ class ListHotelView extends StatefulWidget {
 }
 
 class _ListHotelViewState extends State<ListHotelView> {
-  DateTime selectedDate = DateTime.now();
+  DateTime? checkInDate = DateTime.now();
+  DateTime? checkOutDate;
+
   void _showDateBottomSheet(BuildContext context) {
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: 1));
     final currentYear = now.year.toString();
 
     showModalBottomSheet(
@@ -66,16 +68,32 @@ class _ListHotelViewState extends State<ListHotelView> {
                       child: Row(
                         children: [
                           Text(
-                            '${DateFormat('EEEE, dd MMMM', 'id_ID').format(selectedDate)}',
+                            'Check In: ${checkInDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(checkInDate!) : 'Pilih tanggal'}',
                             style: GoogleFonts.openSans(
-                              fontSize: 32,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           const SizedBox(
                             width: 118,
                           ),
-                          Icon(Icons.edit),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24, top: 16),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Check Out: ${checkOutDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(checkOutDate!) : 'Pilih tanggal'}',
+                            style: GoogleFonts.openSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 118,
+                          ),
                         ],
                       ),
                     ),
@@ -86,20 +104,48 @@ class _ListHotelViewState extends State<ListHotelView> {
                       endIndent: 0,
                     ),
                     Container(
-                      height: 524,
-                      width: 380,
                       child: TableCalendar(
-                        selectedDayPredicate: (day) {
-                          return isSameDay(selectedDate, day);
-                        },
-                        firstDay: DateTime.utc(2010, 10, 16),
+                        firstDay: now,
                         lastDay: DateTime.utc(2030, 3, 14),
                         onDaySelected: (selectedDay, focusedDay) {
+                          if (selectedDay.isBefore(now)) {
+                            // Invalid selection, show error message or handle accordingly
+                            return;
+                          }
                           setState(() {
-                            selectedDate = selectedDay;
+                            if (checkInDate == null || checkOutDate != null) {
+                              checkInDate = selectedDay;
+                              checkOutDate = null;
+                            } else {
+                              if (selectedDay.isAfter(checkInDate!)) {
+                                checkOutDate = selectedDay;
+                              } else {                               
+                                checkInDate = selectedDay;
+                                checkOutDate = null;
+                              }
+                            }
                           });
                         },
-                        focusedDay: selectedDate,
+                        selectedDayPredicate: (day) {
+                          if (checkInDate == null || checkOutDate == null) {
+                            return day == checkInDate || day == checkOutDate;
+                          } else {
+                            return day == checkInDate || day == checkOutDate || (day.isAfter(checkInDate!) && day.isBefore(checkOutDate!));
+                          }
+                        },
+                        calendarStyle: CalendarStyle(
+                          selectedDecoration: BoxDecoration(
+                            color: Colors.blue, 
+                            shape: BoxShape.circle,
+                          ),
+                          selectedTextStyle: TextStyle(color: Colors.white),
+                          todayDecoration: BoxDecoration(
+                            color: Colors.transparent,
+                            shape: BoxShape.circle,
+                          ),
+                          todayTextStyle: TextStyle(color: Colors.black),
+                        ),
+                        focusedDay: checkInDate!,
                         locale: 'id_ID',
                         calendarFormat: CalendarFormat.month,
                         headerStyle: const HeaderStyle(
@@ -125,7 +171,13 @@ class _ListHotelViewState extends State<ListHotelView> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pop(selectedDate);
+                            // Validate selected dates and perform necessary actions
+                            if (checkInDate != null && checkOutDate != null) {
+                              // Both check-in and check-out dates are selected
+                              Navigator.of(context).pop([checkInDate, checkOutDate]);
+                            } else {
+                              // Invalid selection, show error message or handle accordingly
+                            }
                           },
                           child: Text(
                             'OK',
@@ -260,30 +312,42 @@ class _ListHotelViewState extends State<ListHotelView> {
                                     ),
                                   ),
                                   Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      hintText: selectedDate != null
-                                          ? DateFormat('dd MMMM yyyy', 'id_ID').format(selectedDate)
-                                          : 'Pilih tanggal',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                    children: [
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            _showDateBottomSheet(context);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.only(left: 16),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10.0),
+                                              border: Border.all(),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                                                  child: Text(
+                                                    checkInDate != null && checkOutDate != null
+                                                      ? '${DateFormat('dd MMMM yyyy', 'id_ID').format(checkInDate!)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(checkOutDate!)}'
+                                                      : '${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now())} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now().add(Duration(days: 1)))}',
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  icon: Icon(Icons.calendar_month),
+                                                  onPressed: () {
+                                                    _showDateBottomSheet(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      suffixIcon: IconButton(
-                                        icon: Icon(Icons.calendar_month),
-                                        onPressed: () {
-                                          _showDateBottomSheet(context);
-                                        },
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      // Handle date changes if needed
-                                    },
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
                                   SizedBox(height: 36),
                                   Column(
                                     children: [
@@ -306,7 +370,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                                                   contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                                                   hintText: '0',
                                                 ),
-                                                controller: TextEditingController(text: '0'),
+                                                controller: TextEditingController(text: ''),
                                                 onChanged: (value) {
                                                   _vModel.roomCount = int.parse(value);
                                                 },
@@ -337,7 +401,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                                                       contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                                                       hintText: '0',
                                                     ),
-                                                    controller: TextEditingController(text: '0'),
+                                                    controller: TextEditingController(text: ''),
                                                     onChanged: (value) {
                                                       _vModel.adultCount = int.parse(value);
                                                     },
@@ -361,7 +425,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                                                       contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                                                       hintText: '0',
                                                     ),
-                                                    controller: TextEditingController(text: '0'),
+                                                    controller: TextEditingController(text: ''),
                                                     onChanged: (value) {
                                                       _vModel.childCount = int.parse(value);
                                                     },
@@ -378,14 +442,11 @@ class _ListHotelViewState extends State<ListHotelView> {
                                                 child: Container(
                                                   child: ElevatedButton(
                                                     onPressed: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(builder: (context) => ListHotelView()),
-                                                      );
+                                                      Navigator.pop(context); 
                                                     },
                                                     child: Text('Perbarui'),
                                                   ),
-                                                ), 
+                                                ),
                                               )
                                             ],
                                           ),

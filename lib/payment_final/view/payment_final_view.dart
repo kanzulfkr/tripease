@@ -21,11 +21,10 @@ class _PaymentFinalState extends State<PaymentFinal> {
   @override
   void initState() {
     super.initState();
-    // Start a timer when the screen is built
     Timer(Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => FakturHotel(room: widget.room, list: widget.list, paymentMethod: widget.paymentMethod,),), // Replace YourNextPage() with the actual next page widget
+        MaterialPageRoute(builder: (context) => FakturHotel(room: widget.room, list: widget.list, paymentMethod: widget.paymentMethod,),), 
       );
     });
   }

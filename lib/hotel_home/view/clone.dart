@@ -29,12 +29,13 @@ bool isSarapanSelected = false;
 
 class _HotelHomeState extends State<HotelHome> {
   
-  DateTime selectedDate = DateTime.now();
-  
+  DateTime? checkInDate = DateTime.now();
+  DateTime? checkOutDate;
+
   void _showDateBottomSheet(BuildContext context) {
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: 1));
     final currentYear = now.year.toString();
-  
+
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -73,16 +74,32 @@ class _HotelHomeState extends State<HotelHome> {
                       child: Row(
                         children: [
                           Text(
-                            '${DateFormat('EEEE, dd MMMM', 'id_ID').format(selectedDate)}',
+                            'Check In: ${checkInDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(checkInDate!) : 'Pilih tanggal'}',
                             style: GoogleFonts.openSans(
-                              fontSize: 32,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           const SizedBox(
                             width: 118,
                           ),
-                          Icon(Icons.edit),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24, top: 16),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Check Out: ${checkOutDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(checkOutDate!) : 'Pilih tanggal'}',
+                            style: GoogleFonts.openSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 118,
+                          ),
                         ],
                       ),
                     ),
@@ -93,20 +110,48 @@ class _HotelHomeState extends State<HotelHome> {
                       endIndent: 0,
                     ),
                     Container(
-                      height: 524,
-                      width: 380,
                       child: TableCalendar(
-                        selectedDayPredicate: (day) {
-                          return isSameDay(selectedDate, day);
-                        },
-                        firstDay: DateTime.utc(2010, 10, 16),
+                        firstDay: now,
                         lastDay: DateTime.utc(2030, 3, 14),
                         onDaySelected: (selectedDay, focusedDay) {
+                          if (selectedDay.isBefore(now)) {
+                            // Invalid selection, show error message or handle accordingly
+                            return;
+                          }
                           setState(() {
-                            selectedDate = selectedDay;
+                            if (checkInDate == null || checkOutDate != null) {
+                              checkInDate = selectedDay;
+                              checkOutDate = null;
+                            } else {
+                              if (selectedDay.isAfter(checkInDate!)) {
+                                checkOutDate = selectedDay;
+                              } else {                               
+                                checkInDate = selectedDay;
+                                checkOutDate = null;
+                              }
+                            }
                           });
                         },
-                        focusedDay: selectedDate,
+                        selectedDayPredicate: (day) {
+                          if (checkInDate == null || checkOutDate == null) {
+                            return day == checkInDate || day == checkOutDate;
+                          } else {
+                            return day == checkInDate || day == checkOutDate || (day.isAfter(checkInDate!) && day.isBefore(checkOutDate!));
+                          }
+                        },
+                        calendarStyle: CalendarStyle(
+                          selectedDecoration: BoxDecoration(
+                            color: Colors.blue, 
+                            shape: BoxShape.circle,
+                          ),
+                          selectedTextStyle: TextStyle(color: Colors.white),
+                          todayDecoration: BoxDecoration(
+                            color: Colors.transparent,
+                            shape: BoxShape.circle,
+                          ),
+                          todayTextStyle: TextStyle(color: Colors.black),
+                        ),
+                        focusedDay: checkInDate!,
                         locale: 'id_ID',
                         calendarFormat: CalendarFormat.month,
                         headerStyle: const HeaderStyle(
@@ -132,7 +177,13 @@ class _HotelHomeState extends State<HotelHome> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pop(selectedDate);
+                            // Validate selected dates and perform necessary actions
+                            if (checkInDate != null && checkOutDate != null) {
+                              // Both check-in and check-out dates are selected
+                              Navigator.of(context).pop([checkInDate, checkOutDate]);
+                            } else {
+                              // Invalid selection, show error message or handle accordingly
+                            }
                           },
                           child: Text(
                             'OK',
@@ -150,6 +201,7 @@ class _HotelHomeState extends State<HotelHome> {
       },
     );
   }
+
   SfRangeValues _values = SfRangeValues(0, 10000000);
   late TextEditingController _minValueController = TextEditingController(text: _values.start.toStringAsFixed(0));
   late TextEditingController _maxValueController = TextEditingController(text: _values.end.toStringAsFixed(0));
@@ -269,24 +321,36 @@ class _HotelHomeState extends State<HotelHome> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      hintText: selectedDate != null
-                                          ? DateFormat('dd MMMM yyyy', 'id_ID').format(selectedDate)
-                                          : 'Pilih tanggal',
-                                      border: OutlineInputBorder(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _showDateBottomSheet(context);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 16),
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10.0),
+                                        border: Border.all(),
                                       ),
-                                      suffixIcon: IconButton(
-                                        icon: Icon(Icons.calendar_month),
-                                        onPressed: () {
-                                          _showDateBottomSheet(context);
-                                        },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                                            child: Text(
+                                              checkInDate != null && checkOutDate != null
+                                                ? '${DateFormat('dd MMMM yyyy', 'id_ID').format(checkInDate!)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(checkOutDate!)}'
+                                                : '${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now())} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now().add(Duration(days: 1)))}',
+                                            ),
+                                          ),
+                                          IconButton(
+                                            icon: Icon(Icons.calendar_month),
+                                            onPressed: () {
+                                              _showDateBottomSheet(context);
+                                            },
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    onChanged: (value) {
-                                      // Handle date changes if needed
-                                    },
                                   ),
                                 ),
                               ],
@@ -313,7 +377,7 @@ class _HotelHomeState extends State<HotelHome> {
                                             contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                                             hintText: '0',
                                           ),
-                                          controller: TextEditingController(text: '0'),
+                                          controller: TextEditingController(text: ''),
                                           onChanged: (value) {
                                             _viewModel.roomCount = int.parse(value);
                                           },
@@ -344,7 +408,7 @@ class _HotelHomeState extends State<HotelHome> {
                                                 contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                                                 hintText: '0',
                                               ),
-                                              controller: TextEditingController(text: '0'),
+                                              controller: TextEditingController(text: ''),
                                               onChanged: (value) {
                                                 _viewModel.adultCount = int.parse(value);
                                               },
@@ -368,7 +432,7 @@ class _HotelHomeState extends State<HotelHome> {
                                                 contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                                                 hintText: '0',
                                               ),
-                                              controller: TextEditingController(text: '0'),
+                                              controller: TextEditingController(text: ''),
                                               onChanged: (value) {
                                                 _viewModel.childCount = int.parse(value);
                                               },
