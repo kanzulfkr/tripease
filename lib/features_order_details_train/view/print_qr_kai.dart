@@ -272,11 +272,11 @@ class PrintQrKai extends StatelessWidget {
               SizedBox(
                 height: 12.h,
               ),
-              QrImageView(
-                data: CardTrain.cardTrain[0].noPesanan!,
-                version: QrVersions.auto,
-                size: 256.0,
-              ),
+              // QrImageView(
+              //   data: CardTrain.cardTrain[0].noPesanan!,
+              //   version: QrVersions.auto,
+              //   size: 256.0,
+              // ),
             ],
           ),
         ),

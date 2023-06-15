@@ -1,5 +1,7 @@
-import 'package:capstone_project_tripease/features_order/view/widgets/bottom_sheet/urutkan_kereta_api.dart';
+import 'package:capstone_project_tripease/features_order/api/search_provider.dart';
+import 'package:capstone_project_tripease/features_order/view/widgets/bottom_sheet/sort_train.dart';
 import 'package:capstone_project_tripease/features_order/view/widgets/train.dart';
+import 'package:capstone_project_tripease/features_order_details_hotel/view/order_pending.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +13,8 @@ import '../../utils/fonts.dart';
 import '../../utils/icons.dart';
 import '../../view_model/provider/data_provider.dart';
 import '../widgets/bottom_sheet/filter_hotel.dart';
-import '../widgets/bottom_sheet/filter_kereta_api.dart';
-import '../widgets/bottom_sheet/urutkan_hotel.dart';
+import '../widgets/bottom_sheet/filter_train.dart';
+import '../widgets/bottom_sheet/sort_hotel.dart';
 import '../widgets/hotel.dart';
 
 class PesananScreen extends StatefulWidget {
@@ -24,6 +26,7 @@ class PesananScreen extends StatefulWidget {
 
 class _PesananScreenState extends State<PesananScreen> {
   int selectRadio = 0;
+  TextEditingController _searchController = TextEditingController();
 
   void showBottomSheetFilterHotel(BuildContext context) {
     showBottomSheet(
@@ -98,6 +101,7 @@ class _PesananScreenState extends State<PesananScreen> {
               children: [
                 Expanded(
                   child: TextFormField(
+                    controller: _searchController,
                     style: GoogleFonts.openSans(
                       fontSize: 14.sp,
                       color: black,
@@ -118,7 +122,8 @@ class _PesananScreenState extends State<PesananScreen> {
                       ),
                     ),
                     onChanged: (value) {
-                      
+                      Provider.of<OrderProvider>(context, listen: false)
+                          .filterOrders(value);
                     },
                   ),
                 ),

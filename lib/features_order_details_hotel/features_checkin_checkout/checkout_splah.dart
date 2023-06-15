@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../features_order/view/screens/pesanan_screen.dart';
+import '../../features_order/view/screens/pesanan_screen.dart';
 
 class CheckOutSplash extends StatefulWidget {
   const CheckOutSplash({super.key});

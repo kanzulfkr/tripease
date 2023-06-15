@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../features_order/utils/images.dart';
 
-class OrderKaiPendingPage extends StatelessWidget {
+class OrderKaiPendingPage extends StatefulWidget {
   const OrderKaiPendingPage({super.key});
 
+  @override
+  State<OrderKaiPendingPage> createState() => _OrderKaiPendingPageState();
+}
+
+class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,11 +211,16 @@ class OrderKaiPendingPage extends StatelessWidget {
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                     )),
-                                Text('42:25',
-                                    style: GoogleFonts.openSans(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                    )),
+                                CountdownTimer(
+                                  endTime: DateTime.now()
+                                          .millisecondsSinceEpoch +
+                                      const Duration(hours: 1).inMilliseconds,
+                                  textStyle: GoogleFonts.openSans(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  onEnd: () {},
+                                ),
                               ],
                             ),
                           ],

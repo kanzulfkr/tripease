@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_checkin_checkout/reviews.dart';
+import 'package:capstone_project_tripease/features_order_details_hotel/features_checkin_checkout/reviews.dart';
 import 'package:capstone_project_tripease/features_order/view/widgets/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

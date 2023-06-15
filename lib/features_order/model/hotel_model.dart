@@ -2,7 +2,6 @@ import 'package:capstone_project_tripease/features_order/utils/icons.dart';
 import 'package:capstone_project_tripease/features_order/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 enum TabStatusHotel {
   SEMUA,
@@ -10,7 +9,7 @@ enum TabStatusHotel {
   AKTIF,
   SELESAI,
   DIBATALKAN,
-  PENGEMBALIAN,
+  PENGEMBALIAN
 }
 
 class CardHotel {

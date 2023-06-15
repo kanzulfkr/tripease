@@ -5,14 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/fonts.dart';
 
-class BottomSheetShortKA extends StatefulWidget {
-  const BottomSheetShortKA({super.key});
+class BottomSheetShortHotel extends StatefulWidget {
+  const BottomSheetShortHotel({super.key});
 
   @override
-  State<BottomSheetShortKA> createState() => _BottomSheetShortKAState();
+  State<BottomSheetShortHotel> createState() => _BottomSheetShortHotelState();
 }
 
-class _BottomSheetShortKAState extends State<BottomSheetShortKA> {
+class _BottomSheetShortHotelState extends State<BottomSheetShortHotel> {
   int selectRadio = 0;
 
   @override
@@ -59,20 +59,20 @@ class _BottomSheetShortKAState extends State<BottomSheetShortKA> {
                 Row(
                   children: [
                     Expanded(
-                      child: buildRadioButton(1, 'Harga Terendah'),
+                      child: buildRadioButton(1, 'Pesanan Terbaru'),
                     ),
                     Expanded(
-                      child: buildRadioButton(2, 'Durasi'),
+                      child: buildRadioButton(2, 'Pesanan Terlama'),
                     ),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: buildRadioButton(3, 'Keberangkatan Awal'),
+                      child: buildRadioButton(3, 'Harga Terendah'),
                     ),
                     Expanded(
-                      child: buildRadioButton(4, 'Keberangkatan Akhir'),
+                      child: buildRadioButton(4, 'Harga Tertinggi'),
                     ),
                   ],
                 ),

@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../features_checkin_checkout/component/button_active.dart';
-import '../../features_checkin_checkout/component/button_close.dart';
+import '../features_checkin_checkout/component/button_active.dart';
+import '../features_checkin_checkout/component/button_close.dart';
 import '../../../../home.dart';
-import '../../features_checkin_checkout/check_in.dart';
+import '../features_checkin_checkout/check_in.dart';
 import '../../features_order/utils/fonts.dart';
 
 class OrderActive extends StatefulWidget {

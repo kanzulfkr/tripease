@@ -2,7 +2,7 @@ import 'package:capstone_project_tripease/features_order/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../features_order/view/screens/pesanan_screen.dart';
+import '../../features_order/view/screens/pesanan_screen.dart';
 import 'component/button_active.dart';
 import 'component/button_inactive.dart';
 
@@ -78,13 +78,10 @@ class _ReviewsState extends State<Reviews> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
                           child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(4.r),
-                                        child: SizedBox.fromSize(
-                                          size: Size.fromRadius(48.r),
-                                          child: everyday
-                                        ),
-                                      ),
+                            borderRadius: BorderRadius.circular(4.r),
+                            child: SizedBox.fromSize(
+                                size: Size.fromRadius(48.r), child: everyday),
+                          ),
                         ),
                         const SizedBox(width: 16),
                         const Column(
@@ -289,9 +286,11 @@ class _ReviewsState extends State<Reviews> {
                 ? ButtonActive(
                     text: 'Beri Nilai',
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PesananScreen(),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const PesananScreen(),
+                        ),
+                      );
                     },
                   )
                 : ButtonInactive(

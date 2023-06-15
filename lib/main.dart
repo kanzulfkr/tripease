@@ -1,5 +1,7 @@
-import 'package:capstone_project_tripease/features_checkin_checkout/reviews.dart';
+import 'package:capstone_project_tripease/features_order_details_hotel/features_checkin_checkout/reviews.dart';
+import 'package:capstone_project_tripease/features_order/api/search_provider.dart';
 import 'package:capstone_project_tripease/features_order/view_model/provider/data_provider.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/train_order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,9 @@ class MainApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => TabProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TrainOrderProvider(),
         ),
       ],
       child: ScreenUtilInit(
