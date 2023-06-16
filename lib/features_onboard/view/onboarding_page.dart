@@ -1,6 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '/onboard_feature/view/login.dart';
+import '/features_onboard/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +22,7 @@ class _OnboardPageState extends State<OnboardPage> {
     const SlidePage(
       title: "Temukan Destinasi Anda",
       description:
-      "Selamat datang! Temukan destinasi impian Anda.Jelajahi dan temukan pengalaman"
+          "Selamat datang! Temukan destinasi impian Anda.Jelajahi dan temukan pengalaman"
           "perjalanan yang luar biasa",
       image: "assets/images/onboard1.png",
     ),
@@ -35,13 +35,13 @@ class _OnboardPageState extends State<OnboardPage> {
     const SlidePage(
       title: "Jangan Lewatkan Penawarannya",
       description:
-      "Banyak penawaran dan kejutan yang menarik yang bisa anda dapatkan",
+          "Banyak penawaran dan kejutan yang menarik yang bisa anda dapatkan",
       image: "assets/images/onboard3.png",
     ),
     const SlidePage(
       title: "Nikmati Liburan Anda",
       description:
-      "Menikmati hidup dengan berwisata memang hal yang tidak boleh dilewatkan",
+          "Menikmati hidup dengan berwisata memang hal yang tidak boleh dilewatkan",
       image: "assets/images/onboard4.png",
     ),
   ];
@@ -90,11 +90,11 @@ class _OnboardPageState extends State<OnboardPage> {
                 width: 320.w,
                 height: 40.h,
                 decoration:
-                BoxDecoration(borderRadius: BorderRadius.circular(5.r)),
+                    BoxDecoration(borderRadius: BorderRadius.circular(5.r)),
                 child: ElevatedButton(
                     style: const ButtonStyle(
                         backgroundColor:
-                        MaterialStatePropertyAll(Color(0xEE0080FF))),
+                            MaterialStatePropertyAll(Color(0xEE0080FF))),
                     onPressed: () async {
                       if (_currentPage == _pages.length - 1) {
                         Navigator.pushReplacement(
@@ -102,7 +102,7 @@ class _OnboardPageState extends State<OnboardPage> {
                             MaterialPageRoute(
                                 builder: (context) => const LoginPage()));
                         final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
+                            await SharedPreferences.getInstance();
                         await prefs.setBool('isOnboardingComplete', true);
                       } else {
                         _controller.nextPage(
@@ -135,7 +135,7 @@ class _OnboardPageState extends State<OnboardPage> {
                       MaterialPageRoute(
                           builder: (context) => const LoginPage()));
                   final SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
+                      await SharedPreferences.getInstance();
                   await prefs.setBool('isOnboardingComplete', true);
                 },
                 child: Text(

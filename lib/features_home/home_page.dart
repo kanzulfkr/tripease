@@ -15,34 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool popUpNotification = true;
 
-  // @override
-  // void initState() {
-  //   final userData = Provider.of<UserProfileProvider>(context, listen: false);
-  //   userData.getUserDetail();
-  //   super.initState();
-  // }
-  // Future<void> getDataWithDio() async {
-  //   try {
-  //     final response = await Dio().post(
-  //       "http://ec2-3-26-30-178.ap-southeast-2.compute.amazonaws.com:8088/api/v1/user",
-  //       options: Options(
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization':
-  //               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODU1NDk4MzIsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo1fQ.WMAMesW4jzF9uH9MnaFsFV7o7U4FqsV2JAAykd9ZYuc',
-  //         },
-  //       ),
-  //     );
-  //     if (response.statusCode == 200) {
-  //       print(response.data["data"]);
-  //     } else {
-  //       print("${response.data['message']}");
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,65 +179,65 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           popUpNotification
               ? Container(
-            height: 79.h,
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
-            decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 231, 153, 1),
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/pop_up_notification.png',
-                    width: 40.w,
-                    height: 40.h,
+                  height: 79.h,
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(255, 231, 153, 1),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
-                ),
-                SizedBox(
-                  width: 236.w,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Peringatan keamanan hilang, pembaruan pemesanan, dan balasan obrolan.',
-                        style: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
+                      Center(
+                        child: Image.asset(
+                          'assets/images/pop_up_notification.png',
+                          width: 40.w,
+                          height: 40.h,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 236.w,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Peringatan keamanan hilang, pembaruan pemesanan, dan balasan obrolan.',
+                              style: GoogleFonts.openSans(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                'Check notification settings',
+                                style: GoogleFonts.openSans(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color.fromRGBO(0, 128, 255, 1),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
-                        child: Text(
-                          'Check notification settings',
-                          style: GoogleFonts.openSans(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: const Color.fromRGBO(0, 128, 255, 1),
-                          ),
+                        onTap: () {
+                          setState(() {
+                            popUpNotification = !popUpNotification;
+                          });
+                        },
+                        child: const Icon(
+                          Icons.cancel_outlined,
+                          color: Color.fromRGBO(113, 114, 117, 1),
                         ),
-                      ),
+                      )
                     ],
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      popUpNotification = !popUpNotification;
-                    });
-                  },
-                  child: const Icon(
-                    Icons.cancel_outlined,
-                    color: Color.fromRGBO(113, 114, 117, 1),
-                  ),
                 )
-              ],
-            ),
-          )
               : const SizedBox(),
           Padding(
             padding: EdgeInsets.only(

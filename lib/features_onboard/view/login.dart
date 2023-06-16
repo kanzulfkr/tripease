@@ -1,13 +1,14 @@
+import 'package:capstone_project_tripease/features_onboard/view/register.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main_page.dart';
 import '../utils/token_manager.dart';
-import '/onboard_feature/view/register.dart';
-import '/onboard_feature/view_model/login_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../view_model/login_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -86,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                      AutovalidateMode.onUserInteraction,
                                   controller: _emailController,
                                   validator: (email) {
                                     if (email == null || email.isEmpty) {
@@ -120,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                                     helperStyle: TextStyle(
                                       fontSize: 10.sp,
                                       color:
-                                      const Color.fromRGBO(0, 128, 255, 1),
+                                          const Color.fromRGBO(0, 128, 255, 1),
                                       letterSpacing: 0.15.sp,
                                     ),
                                   ),
@@ -135,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(height: 12.h),
                                 TextFormField(
                                   autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                      AutovalidateMode.onUserInteraction,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Tolong masukkan kata sandi';
@@ -161,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                                       child: const Icon(Icons.lock_outline),
                                     ),
                                     prefixIconConstraints:
-                                    BoxConstraints(minHeight: 0.h),
+                                        BoxConstraints(minHeight: 0.h),
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -170,13 +171,13 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                       icon: _isVisible
                                           ? const Icon(
-                                        Icons.visibility,
-                                        color: Colors.grey,
-                                      )
+                                              Icons.visibility,
+                                              color: Colors.grey,
+                                            )
                                           : const Icon(
-                                        Icons.visibility_off,
-                                        color: Colors.grey,
-                                      ),
+                                              Icons.visibility_off,
+                                              color: Colors.grey,
+                                            ),
                                     ),
                                     hintText: 'Masukkan Kata Sandi',
                                     hintStyle: TextStyle(
@@ -230,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                                     MaterialPageRoute(
                                       builder: (context) => const MainPage(),
                                     ),
-                                        (route) => false,
+                                    (route) => false,
                                   );
                                 }
                               } else if (value.loginStatus ==
@@ -283,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute<void>(
                                     builder: (BuildContext context) =>
-                                    const RegisterPage(),
+                                        const RegisterPage(),
                                   ),
                                 );
                               },

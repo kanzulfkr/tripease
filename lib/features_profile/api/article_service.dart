@@ -4,7 +4,7 @@ import 'package:capstone_project_tripease/features_profile/model/article.dart';
 import 'package:http/http.dart' as http;
 
 class ArticleService {
-  final baseUrl = 'https://capstone.hanifz.com/api/v1';
+  final baseUrl = 'https://api.tripease.my.id/api/v1';
   String _message = '';
   String get message => _message;
   // List<DataArticle> dataArticleList = [];

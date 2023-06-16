@@ -10,8 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../onboard_feature/utils/token_manager.dart';
-import '../../onboard_feature/view/login.dart';
+import '../../features_onboard/utils/token_manager.dart';
+import '../../features_onboard/view/login.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

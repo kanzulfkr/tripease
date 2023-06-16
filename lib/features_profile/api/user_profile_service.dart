@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:capstone_project_tripease/onboard_feature/utils/token_manager.dart';
+import 'package:capstone_project_tripease/features_onboard/utils/token_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:capstone_project_tripease/features_profile/model/user_profile.dart';
 
 class UserProfileService {
-  final baseUrl = 'https://capstone.hanifz.com/api/v1';
+  final baseUrl = 'https://api.tripease.my.id/api/v1';
 
   String _message = '';
   String get message => _message;

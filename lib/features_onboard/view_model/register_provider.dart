@@ -1,4 +1,4 @@
-import '/onboard_feature/model/register_model.dart';
+import '/features_onboard/model/register_model.dart';
 import 'package:flutter/material.dart';
 
 import '../api/user_api.dart';

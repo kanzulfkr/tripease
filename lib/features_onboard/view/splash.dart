@@ -1,12 +1,11 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../main_page.dart';
-
-import '/onboard_feature/view/login.dart';
-import '/onboard_feature/view/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login.dart';
+import 'onboarding_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -36,8 +35,8 @@ class _SplashScreenState extends State<SplashScreen> {
               builder: (context) => isLogin
                   ? const MainPage()
                   : (isOnboardingComplete
-                  ? const LoginPage()
-                  : const OnboardPage())));
+                      ? const LoginPage()
+                      : const OnboardPage())));
     }
   }
 
