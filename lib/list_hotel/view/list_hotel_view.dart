@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../filter_bottomsheet/model/bottomsheet_model.dart';
+import '../../filter_bottomsheet/view/sheet.dart';
 import '../../filter_bottomsheet/viewmodel/bottomsheet_view_model.dart';
+import '../../hotel_home/model/hotel_home_model.dart';
 import '../../hotel_home/view/clone.dart';
 import '../../hotel_search/view/hotel_search_view.dart';
 import '../viewmodel/list_hotel_viewmodel.dart';
@@ -29,7 +31,7 @@ class _ListHotelViewState extends State<ListHotelView> {
   void _showDateBottomSheet(BuildContext context) {
     final now = DateTime.now().subtract(Duration(days: 1));
     final currentYear = now.year.toString();
-
+    final dateProvider = Provider.of<DateProvider>(context, listen: false);
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -55,20 +57,10 @@ class _ListHotelViewState extends State<ListHotelView> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 24, top: 16),
-                      child: Text(
-                        currentYear,
-                        style: GoogleFonts.openSans(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 24, top: 36),
                       child: Row(
                         children: [
                           Text(
-                            'Check In: ${checkInDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(checkInDate!) : 'Pilih tanggal'}',
+                            'Check In: ${dateProvider.checkInDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(dateProvider.checkInDate!) : 'Pilih tanggal'}',
                             style: GoogleFonts.openSans(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -85,7 +77,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                       child: Row(
                         children: [
                           Text(
-                            'Check Out: ${checkOutDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(checkOutDate!) : 'Pilih tanggal'}',
+                            'Check Out: ${dateProvider.checkOutDate != null ? DateFormat('EEEE, dd MMMM', 'id_ID').format(dateProvider.checkOutDate!) : 'Pilih tanggal'}',
                             style: GoogleFonts.openSans(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -113,24 +105,24 @@ class _ListHotelViewState extends State<ListHotelView> {
                             return;
                           }
                           setState(() {
-                            if (checkInDate == null || checkOutDate != null) {
-                              checkInDate = selectedDay;
-                              checkOutDate = null;
+                          if (dateProvider.checkInDate == null || dateProvider.checkOutDate != null) {
+                            dateProvider.setCheckInDate(selectedDay);
+                            dateProvider.setCheckOutDate(null);
+                          } else {
+                            if (selectedDay.isAfter(dateProvider.checkInDate!)) {
+                              dateProvider.setCheckOutDate(selectedDay);
                             } else {
-                              if (selectedDay.isAfter(checkInDate!)) {
-                                checkOutDate = selectedDay;
-                              } else {                               
-                                checkInDate = selectedDay;
-                                checkOutDate = null;
-                              }
+                              dateProvider.setCheckInDate(selectedDay);
+                              dateProvider.setCheckOutDate(null);
                             }
-                          });
+                          }
+                        });
                         },
                         selectedDayPredicate: (day) {
-                          if (checkInDate == null || checkOutDate == null) {
-                            return day == checkInDate || day == checkOutDate;
+                          if (dateProvider.checkInDate == null || dateProvider.checkOutDate == null) {
+                            return day == dateProvider.checkInDate || day == dateProvider.checkOutDate;
                           } else {
-                            return day == checkInDate || day == checkOutDate || (day.isAfter(checkInDate!) && day.isBefore(checkOutDate!));
+                            return day == dateProvider.checkInDate || day == dateProvider.checkOutDate || (day.isAfter(dateProvider.checkInDate!) && day.isBefore(dateProvider.checkOutDate!));
                           }
                         },
                         calendarStyle: CalendarStyle(
@@ -140,7 +132,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                           ),
                           selectedTextStyle: TextStyle(color: Colors.white),
                           todayDecoration: BoxDecoration(
-                            color: Colors.transparent,
+                            color: Colors.grey[300],
                             shape: BoxShape.circle,
                           ),
                           todayTextStyle: TextStyle(color: Colors.black),
@@ -172,9 +164,9 @@ class _ListHotelViewState extends State<ListHotelView> {
                         TextButton(
                           onPressed: () {
                             // Validate selected dates and perform necessary actions
-                            if (checkInDate != null && checkOutDate != null) {
+                            if (dateProvider.checkInDate != null && dateProvider.checkOutDate != null) {
                               // Both check-in and check-out dates are selected
-                              Navigator.of(context).pop([checkInDate, checkOutDate]);
+                              Navigator.of(context).pop([dateProvider.checkInDate, dateProvider.checkOutDate]);
                             } else {
                               // Invalid selection, show error message or handle accordingly
                             }
@@ -195,6 +187,7 @@ class _ListHotelViewState extends State<ListHotelView> {
       },
     );
   }
+  
   final ListHotelViewModel _viewModel = ListHotelViewModel();
   final PopUpViewModel _vModel = PopUpViewModel();
   SfRangeValues _values = SfRangeValues(0, 10000000);
@@ -498,374 +491,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                               showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return ChangeNotifierProvider(
-                                    create: (_) => FilterSheetViewModel (
-                                      FilterSheetModel(
-                                        hotelSelected: false,
-                                        guestHouseSelected: false,
-                                        gpSelected: false,
-                                        bayarTempatSelected: false,
-                                        wifiSelected: false,
-                                        loungeSelected: false,
-                                        kolamRenangSelected: false,
-                                        sarapanSelected: false,
-                                        rating: 0,
-                                        minValue: 0,
-                                        maxValue: 10000000,
-                                      ),
-                                    ),
-                                    child: Consumer<FilterSheetViewModel>(
-                                      builder: (context, viewModel, _) {
-                                        final filterSheetModel = viewModel.filterSheetModel;
-                                        return Container(
-                                          height: MediaQuery.of(context).size.height * 0.8,
-                                          alignment: Alignment.topCenter,
-                                          padding: const EdgeInsets.all(20),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                            children: [
-                                              Container(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    const Text(
-                                                      "Rentang Harga",
-                                                      style: TextStyle(
-                                                        fontFamily: 'Open Sans',
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 12,
-                                                        letterSpacing: 0.04,
-                                                      ),
-                                                    ),
-                                                    SfRangeSlider(
-                                                      min: 0.0,
-                                                      max: 10000000.0,
-                                                      values: _values,
-                                                      onChanged: (SfRangeValues values) {
-                                                        setState(() {
-                                                          _values = values;
-                                                          _minValueController.text = _values.start.toStringAsFixed(0);
-                                                          _maxValueController.text = _values.end.toStringAsFixed(0);
-                                                        });
-                                                      },
-                                                    ),
-                                                    Container(
-                                                      child: Row(
-                                                        children: [
-                                                          Container(
-                                                            width: 125,
-                                                            height: 44,
-                                                            padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                color: Colors.grey,
-                                                                width: 1.0,
-                                                              ),
-                                                              borderRadius: BorderRadius.circular(8.0),
-                                                            ),
-                                                            child: TextFormField(
-                                                              controller: _minValueController,
-                                                              onChanged: (value) {
-                                                                final double minValue = double.tryParse(value) ?? 0;
-                                                                setState(() {
-                                                                  _values = SfRangeValues(minValue, _values.end);
-                                                                });
-                                                              },
-                                                              keyboardType: TextInputType.number,
-                                                              decoration: const InputDecoration(
-                                                                border: InputBorder.none,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 120,
-                                                            height: 1.0,
-                                                            color: Colors.grey,
-                                                          ),
-                                                          Container(
-                                                            width: 125,
-                                                            height: 44,
-                                                            padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                color: Colors.grey,
-                                                                width: 1.0,
-                                                              ),
-                                                              borderRadius: BorderRadius.circular(8.0),
-                                                            ),
-                                                            child: TextFormField(
-                                                              controller: _maxValueController,
-                                                              onChanged: (value) {
-                                                                final double maxValue = double.tryParse(value) ?? 0;
-                                                                setState(() {
-                                                                  _values = SfRangeValues(_values.start, maxValue);
-                                                                });
-                                                              },
-                                                              keyboardType: TextInputType.number,
-                                                              decoration: const InputDecoration(
-                                                                border: InputBorder.none,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(height: 20,),
-                                              Container(
-                                                height: 68,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          "Rating",
-                                                          style: TextStyle(
-                                                            fontFamily: 'Open Sans',
-                                                            fontWeight: FontWeight.w600,
-                                                            fontSize: 12,
-                                                            letterSpacing: 0.04,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 12,),
-                                                    RatingBar.builder(
-                                                      initialRating: _rating,
-                                                      minRating: 1,
-                                                      direction: Axis.horizontal,
-                                                      allowHalfRating: false,
-                                                      itemCount: 5,
-                                                      itemSize: 40,
-                                                      itemBuilder: (context, _) => Icon(
-                                                        Icons.star,
-                                                        color: _rating >= _ ? Colors.yellow : Colors.grey, // Use yellow color for selected stars
-                                                      ),
-                                                      onRatingUpdate: (rating) {
-                                                        setState(() {
-                                                          _rating = rating;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(height: 20,),
-                                              Container(
-                                                child: IntrinsicHeight(
-                                                  child: Row(
-                                                    children: [
-                                                      Container(
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Text('Tipe Akomodasi'),
-                                                            SizedBox(height: 20),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isHotelSelected = !isHotelSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isHotelSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isHotelSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Hotel'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isGuestHouseSelected = !isGuestHouseSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isGuestHouseSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isGuestHouseSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Guest House'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 60,),
-                                                      Container(
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Text('Fasilitas'),
-                                                            SizedBox(height: 20),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isGpSelected = !isGpSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isGpSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isGpSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Gratis Pembatalan'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isBayarTempatSelected = !isBayarTempatSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isBayarTempatSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isBayarTempatSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Bayar di Tempat'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isWifiSelected = !isWifiSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isWifiSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isWifiSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Wi-Fi'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isLoungeSelected = !isLoungeSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isLoungeSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isLoungeSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Lounge'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isKolamRenangSelected = !isKolamRenangSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isKolamRenangSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isKolamRenangSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Kolam Renang'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  isSarapanSelected = !isSarapanSelected;
-                                                                });
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Checkbox(
-                                                                    value: isSarapanSelected,
-                                                                    onChanged: (bool? value) {
-                                                                      setState(() {
-                                                                        isSarapanSelected = value ?? false;
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                  Text('Sarapan'),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(height: 50,),
-                                              Container(
-                                                width: 320,
-                                                height: 40,
-                                                child: ElevatedButton(
-                                                  onPressed: () {
-                                                    // Function
-                                                  },
-                                                  child: Text('Terapkan'),
-                                                  style: ElevatedButton.styleFrom(
-                                                    primary: Colors.blue, 
-                                                    onPrimary: Colors.white, 
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(5.0), 
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          )
-                                        );
-                                      }
-                                    )
-                                  );
+                                  return CustomBottomSheet(); 
                                 },
                               );
                             },
@@ -915,26 +541,22 @@ class _ListHotelViewState extends State<ListHotelView> {
                           color: Colors.grey,
                         ),
                       ),
-                      child: StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          String dropdownValue = 'Pilih';
+                      child: Consumer<SortingOption>(
+                        builder: (context, sortingOption, child) {
                           return DropdownButton<String>(
-                            value: dropdownValue,
+                            value: sortingOption.value,
                             hint: Text('Pilih'),
                             isExpanded: true,
                             onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValue = newValue!;
-                            _viewModel.selectedSortingOption = newValue; // Update selected sorting option
-
-                            // Sort the hotels based on the selected option
-                            if (newValue == 'Harga Terendah') {
+                              sortingOption.value = newValue!;
+                              if (newValue == 'Harga Terendah') {
                               _viewModel.hotels.sort((a, b) => a.price.compareTo(b.price));
                             } else if (newValue == 'Harga Tertinggi') {
                               _viewModel.hotels.sort((a, b) => b.price.compareTo(a.price));
                             }
-                          });
-                        },
+
+                              setState(() {});
+                            },
                             items: <String>[
                               'Pilih',
                               'Rekomendasi',

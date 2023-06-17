@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HotelModel {
@@ -25,3 +26,18 @@ class Hotel {
 DateTime today = DateTime.now();
 CalendarFormat calendarFormat = CalendarFormat.month;
 DateTime? selectedDated;
+
+class DateProvider with ChangeNotifier {
+  DateTime? checkInDate;
+  DateTime? checkOutDate;
+
+  void setCheckInDate(DateTime? date) {
+    checkInDate = date;
+    notifyListeners();
+  }
+
+  void setCheckOutDate(DateTime? date) {
+    checkOutDate = date;
+    notifyListeners();
+  }
+}

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'hotel_home/model/hotel_home_model.dart';
 import 'hotel_home/view/clone.dart';
+import 'list_hotel/model/list_hotel_model.dart';
 
 void main() {
   initializeDateFormatting('id_ID', null).then((_) {
-    runApp(MyApp());
+    runApp(
+      ChangeNotifierProvider<DateProvider>(
+        create: (context) => DateProvider(),
+        child: MyApp(),
+      )
+    );
   });
 }
 
@@ -15,13 +23,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HotelHome(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SortingOption>(
+          create: (context) => SortingOption('Pilih'),
+        ),
+        // ChangeNotifierProvider<AnotherFilter>(
+        //   create: (context) => AnotherFilter(),
+        // ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: HotelHome(),
+      )
     );
   }
 }
+
 

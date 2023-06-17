@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ListHotel {
   final String name;
   final String address;
@@ -24,4 +26,10 @@ class PopUpModel {
   int roomCount = 0;
   int adultCount = 0;
   int childCount = 0;
+}
+
+class SortingOption extends ChangeNotifier {
+  String value;
+
+  SortingOption(this.value);
 }
