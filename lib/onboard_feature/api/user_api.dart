@@ -1,12 +1,11 @@
-
 import '/onboard_feature/model/register_model.dart';
 import '/onboard_feature/model/user_model.dart';
 import '/onboard_feature/utils/token_manager.dart';
 import 'package:dio/dio.dart';
 
 class UserApi {
-  String urlLogin = 'https://capstone.hanifz.com/api/v1/login';
-  String urlRegister = 'https://capstone.hanifz.com/api/v1/register';
+  String urlLogin = 'https://api.tripease.my.id/api/v1/login';
+  String urlRegister = 'https://api.tripease.my.id/api/v1/register';
 
   var error = '';
   var message = '';
@@ -40,8 +39,8 @@ class UserApi {
   }
 
   Future<UserRegisterResponseModel> register(
-      UserRegisterResponseModel registerData,
-      ) async {
+    UserRegisterResponseModel registerData,
+  ) async {
     final response = await Dio().post(
       urlRegister,
       data: registerData.toJson(),

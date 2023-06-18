@@ -36,8 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
               builder: (context) => isLogin
                   ? const MainPage()
                   : (isOnboardingComplete
-                  ? const LoginPage()
-                  : const OnboardPage())));
+                      ? const LoginPage()
+                      : const OnboardPage())));
     }
   }
 

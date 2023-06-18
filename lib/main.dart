@@ -1,3 +1,6 @@
+import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/timer/time_payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:capstone_project_tripease/features_profile/view_model/article_provider.dart';
 
 import '/onboard_feature/view/splash.dart';
@@ -6,8 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'features_kai/view_model/select_seat_kai_provider.dart';
-import 'features_kai/view_model/timer_seat_provider.dart';
+import 'features_kai/view_model/carriage/carriage_provider.dart';
+import 'features_kai/view_model/carriage/order_train_provider.dart';
+import 'features_kai/view_model/carriage/select_seat_kai_provider.dart';
+import 'features_kai/view_model/station/depature_provider.dart';
+import 'features_kai/view_model/station/return_provider.dart';
+import 'features_kai/view_model/station/station_provider.dart';
+import 'features_kai/view_model/timer/timer_seat_provider.dart';
 import 'onboard_feature/view_model/login_provider.dart';
 import 'package:capstone_project_tripease/features_profile/view_model/user_profile_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -31,9 +39,16 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProfileProvider()),
         ChangeNotifierProvider(create: (_) => ArticleProvider()),
         ChangeNotifierProvider(create: (_) => TimerSeatProvider()),
-        ChangeNotifierProvider(
-          create: (_) => SelectSeatKaiProvider(),
-        ),
+        ChangeNotifierProvider(create: (_) => SelectedSeatsProvider()),
+        ChangeNotifierProvider(create: (_) => StationProvider()),
+        ChangeNotifierProvider(create: (_) => DepartureViewModel()),
+        ChangeNotifierProvider(create: (_) => ReturnProvider()),
+        ChangeNotifierProvider(create: (_) => PostOrderTrainProvider()),
+        ChangeNotifierProvider(create: (_) => SelectedSeatsProvider()),
+        ChangeNotifierProvider(create: (_) => CarriageProvider()),
+        ChangeNotifierProvider(create: (_) => TrainProvider()),
+        ChangeNotifierProvider(create: (_) => PaymentProvider()),
+        ChangeNotifierProvider(create: (_) => TimerPaymentProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
