@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../features_order/utils/colors.dart';
-import '../../features_order/utils/fonts.dart';
-import '../../features_order/utils/icons.dart';
-import '../../features_order/utils/images.dart';
+import '../../../../utils/colors.dart';
+import '../../../../utils/fonts.dart';
+import '../../../../utils/icons.dart';
+import '../../../../utils/images.dart';
 
 class OrderPending extends StatelessWidget {
   const OrderPending({super.key});

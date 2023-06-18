@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../features_order/utils/colors.dart';
-import '../../features_order/utils/fonts.dart';
-import '../../features_order/utils/icons.dart';
-import '../../features_order/utils/images.dart';
+import '../../../../utils/colors.dart';
+import '../../../../utils/fonts.dart';
+import '../../../../utils/icons.dart';
+import '../../../../utils/images.dart';
 
-class OrderRefundSucces extends StatelessWidget {
-  const OrderRefundSucces({super.key});
+
+class OrderFailedNoPayment extends StatelessWidget {
+  const OrderFailedNoPayment({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,29 +29,29 @@ class OrderRefundSucces extends StatelessWidget {
             children: [
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 20.0.h,
+                  padding: const EdgeInsets.only(
+                    top: 20,
                   ),
                   child: Container(
                     width: 350.w,
                     height: 50.h,
                     decoration: BoxDecoration(
-                      color: success,
+                      color: canceled,
                       borderRadius: BorderRadius.circular(8.0.r),
-                      border: Border.all(color: green),
+                      border: Border.all(color: red),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(10.0.w),
+                      padding: const EdgeInsets.all(10.0),
                       child: Row(
                         children: [
-                          iconSuccess,
+                          iconCanceled,
                           SizedBox(width: 10.w),
                           Text(
-                            'Pesananmu Berhasil DiKembalikan',
+                            'Pesanan Dibatalkan',
                             style: GoogleFonts.openSans(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: green,
+                              color: red,
                             ),
                           ),
                         ],
@@ -66,17 +67,17 @@ class OrderRefundSucces extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: grey.withOpacity(0.5),
-                      spreadRadius: 1.w,
-                      blurRadius: 3.w,
+                      spreadRadius: 1,
+                      blurRadius: 3,
                       offset: const Offset(1, 1),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 width: 350.w,
-                height: 180.h,
+                height: 210.h,
                 child: Padding(
-                  padding: EdgeInsets.all(20.0.w),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -96,7 +97,7 @@ class OrderRefundSucces extends StatelessWidget {
                                 BorderRadius.circular(4.r), // Image border
                             child: SizedBox.fromSize(
                               size: Size.fromRadius(48.r), // Image radius
-                              child: shibuya,
+                              child: shangrila,
                             ),
                           ),
                           SizedBox(width: 20.w),
@@ -105,8 +106,11 @@ class OrderRefundSucces extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Shibuya Shabu',
-                                  style: myTextTheme.displayMedium,
+                                  'Shangri-La',
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                                 SizedBox(height: 10.h),
                                 Column(
@@ -117,7 +121,7 @@ class OrderRefundSucces extends StatelessWidget {
                                         iconLocation,
                                         SizedBox(width: 4.w),
                                         Text(
-                                          'Bangkok, Thailand',
+                                          'Jl. Mayjend Sungkono, Surabaya',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -145,7 +149,7 @@ class OrderRefundSucces extends StatelessWidget {
                                     Row(
                                       children: [
                                         iconDate,
-                                        SizedBox(width: 4.w),
+                                        SizedBox(width: 5.w),
                                         Text(
                                           '26 April 2023 - 27 April 2023',
                                           style: myTextTheme.headlineSmall,
@@ -160,6 +164,25 @@ class OrderRefundSucces extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 5.h),
+                      const Divider(
+                        color: black,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Row(
+                          children: [
+                            Text(
+                              'Nomor Pesanan :',
+                              style: myTextTheme.bodySmall,
+                            ),
+                            SizedBox(width: 5.w),
+                            Text(
+                              '72814712074910',
+                              style: myTextTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -181,7 +204,7 @@ class OrderRefundSucces extends StatelessWidget {
                 width: 350.w,
                 height: 100.h,
                 child: Padding(
-                  padding: EdgeInsets.all(20.0.w),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -229,14 +252,14 @@ class OrderRefundSucces extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 width: 350.w,
-                height: 145.h,
+                height: 160.h,
                 child: Padding(
-                  padding: EdgeInsets.all(20.0.w),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Informasi Pengembalian Dana',
+                        'Informasi Pesanan',
                         style: GoogleFonts.openSans(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
@@ -248,14 +271,14 @@ class OrderRefundSucces extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dikembalikan ke',
+                            'Waktu Pemesanan',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            'Bank BRI',
+                            '19-04-2023, 05:34',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -268,14 +291,14 @@ class OrderRefundSucces extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Jumlah Pengembalian',
+                            'Waktu Pembayaran',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            'Rp. 400.000',
+                            '24-04-2023, 21:36',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -288,14 +311,14 @@ class OrderRefundSucces extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dikembalikan Pada',
+                            'Waktu Check-in',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            '23-04-2023, 18:54',
+                            '26-04-2023, 14:00',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -303,7 +326,7 @@ class OrderRefundSucces extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 4.h),
+                      const Divider(color: black),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -311,14 +334,14 @@ class OrderRefundSucces extends StatelessWidget {
                             'Alasan Pembatalan',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
-                            'Double Booking',
+                            'Tidak Ada Pembayaran',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
@@ -335,7 +358,7 @@ class OrderRefundSucces extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Kembali Ke Beranda',
+                  'Ajukan Pengembalian Dana',
                   style: myTextTheme.headlineMedium,
                 ),
                 onPressed: () {},
@@ -360,7 +383,6 @@ class OrderRefundSucces extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
-              SizedBox(height: 10.h),
             ],
           ),
         ),

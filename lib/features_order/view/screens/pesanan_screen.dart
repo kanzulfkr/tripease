@@ -1,7 +1,7 @@
-import 'package:capstone_project_tripease/features_order/api/search_provider.dart';
 import 'package:capstone_project_tripease/features_order/view/widgets/bottom_sheet/sort_train.dart';
 import 'package:capstone_project_tripease/features_order/view/widgets/train.dart';
-import 'package:capstone_project_tripease/features_order_details_hotel/view/order_pending.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/train/train_search_provider.dart';
+
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/colors.dart';
 import '../../utils/fonts.dart';
 import '../../utils/icons.dart';
-import '../../view_model/provider/data_provider.dart';
+import '../../view_model/provider/tab_provider.dart';
 import '../widgets/bottom_sheet/filter_hotel.dart';
 import '../widgets/bottom_sheet/filter_train.dart';
 import '../widgets/bottom_sheet/sort_hotel.dart';
@@ -100,30 +100,33 @@ class _PesananScreenState extends State<PesananScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: TextFormField(
-                    controller: _searchController,
-                    style: GoogleFonts.openSans(
-                      fontSize: 14.sp,
-                      color: black,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(),
-                      filled: true,
-                      fillColor: background,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0.r),
-                      ),
-                      prefixIcon: iconSearch,
-                      hintText: 'Cari pesananmu disini',
-                      hintStyle: GoogleFonts.openSans(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: grey,
-                      ),
-                    ),
-                    onChanged: (value) {
-                      Provider.of<OrderProvider>(context, listen: false)
-                          .filterOrders(value);
+                  child: Consumer<TrainSearchProvider>(
+                    builder: (context, trainSearchProvider, _) {
+                      return TextFormField(
+                        controller: _searchController,
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          color: black,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(),
+                          filled: true,
+                          fillColor: background,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0.r),
+                          ),
+                          prefixIcon: iconSearch,
+                          hintText: 'Cari pesananmu disini',
+                          hintStyle: GoogleFonts.openSans(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: grey,
+                          ),
+                        ),
+                        onChanged: (value) {
+                          trainSearchProvider.fetchTrainOrdersByClass(value);
+                        },
+                      );
                     },
                   ),
                 ),

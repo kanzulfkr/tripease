@@ -1,17 +1,18 @@
 import 'package:capstone_project_tripease/features_order/utils/colors.dart';
 import 'package:capstone_project_tripease/features_order/utils/icons.dart';
 import 'package:capstone_project_tripease/features_order/utils/images.dart';
-import 'package:capstone_project_tripease/features_order_details_hotel/view/order_cancceled.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../utils/fonts.dart';
 import '../features_checkin_checkout/component/button_active.dart';
 import '../features_checkin_checkout/component/button_close.dart';
-import '../../../../home.dart';
+
 import '../features_checkin_checkout/check_in.dart';
-import '../../features_order/utils/fonts.dart';
+import 'order_cancceled.dart';
 
 class OrderActive extends StatefulWidget {
   const OrderActive({super.key});

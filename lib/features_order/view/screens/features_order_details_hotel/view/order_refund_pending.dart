@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../features_order/utils/colors.dart';
-import '../../features_order/utils/fonts.dart';
-import '../../features_order/utils/icons.dart';
-import '../../features_order/utils/images.dart';
+import '../../../../utils/colors.dart';
+import '../../../../utils/fonts.dart';
+import '../../../../utils/icons.dart';
+import '../../../../utils/images.dart';
 
-class OrderRefundCanccel extends StatelessWidget {
-  const OrderRefundCanccel({super.key});
+
+class OrderRefundPending extends StatelessWidget {
+  const OrderRefundPending({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,22 +36,24 @@ class OrderRefundCanccel extends StatelessWidget {
                     width: 350.w,
                     height: 50.h,
                     decoration: BoxDecoration(
-                      color: canceled,
+                      color: wait,
                       borderRadius: BorderRadius.circular(8.0.r),
-                      border: Border.all(color: red),
+                      border: Border.all(
+                        color: kuning,
+                      ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(10.0.w),
+                      padding: EdgeInsets.all(10.0.r),
                       child: Row(
                         children: [
-                          iconCanceled,
+                          iconWait,
                           SizedBox(width: 10.w),
                           Text(
-                            'Pesananmu Gagal Dikembalikan',
+                            'Pesanan Dalam Proses Pengembalian',
                             style: GoogleFonts.openSans(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: red,
+                              color: kuning,
                             ),
                           ),
                         ],
@@ -176,7 +179,7 @@ class OrderRefundCanccel extends StatelessWidget {
                       offset: const Offset(1, 1),
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(8.r),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 width: 350.w,
                 height: 100.h,
@@ -335,7 +338,7 @@ class OrderRefundCanccel extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Ajukan Kembalian',
+                  'Cek Detail Status',
                   style: myTextTheme.headlineMedium,
                 ),
                 onPressed: () {},

@@ -1,12 +1,14 @@
-import 'package:capstone_project_tripease/features_order_details_hotel/features_checkin_checkout/reviews.dart';
+
 import 'package:capstone_project_tripease/features_order/view/widgets/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../features_order/utils/colors.dart';
-import '../../features_order/utils/fonts.dart';
-import '../../features_order/utils/icons.dart';
+import '../../../../utils/colors.dart';
+import '../../../../utils/fonts.dart';
+import '../../../../utils/icons.dart';
+import '../features_checkin_checkout/reviews.dart';
+
 
 class OrderSucces extends StatelessWidget {
   const OrderSucces({super.key});

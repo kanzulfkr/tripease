@@ -1,10 +1,10 @@
-import 'package:capstone_project_tripease/features_order_details_hotel/features_checkin_checkout/check_out.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-import '../../features_order/model/hotel_model.dart';
-import '../../features_order/view/screens/pesanan_screen.dart';
+import '../../pesanan_screen.dart';
+import 'check_out.dart';
 import 'component/button_active.dart';
 
 class CheckInQrcode extends StatefulWidget {
@@ -112,11 +112,11 @@ class _CheckInQrcodeState extends State<CheckInQrcode> {
                     ),
                   ],
                 ),
-                child: QrImageView(
-                  data: CardHotel.cardHotel[0].noPesanan!,
-                  version: QrVersions.auto,
-                  size: 256.0,
-                ),
+                // child: QrImageView(
+                //   data: CardHotel.cardHotel[0].noPesanan!,
+                //   version: QrVersions.auto,
+                //   size: 256.0,
+                // ),
               ),
             ),
             ButtonActive(

@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_order/model/train_model.dart';
+import 'package:capstone_project_tripease/features_order/model/train/train_order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -272,11 +272,11 @@ class PrintQrKai extends StatelessWidget {
               SizedBox(
                 height: 12.h,
               ),
-              // QrImageView(
-              //   data: CardTrain.cardTrain[0].noPesanan!,
-              //   version: QrVersions.auto,
-              //   size: 256.0,
-              // ),
+              QrImageView(
+                data: 'Coba',
+                version: QrVersions.auto,
+                size: 256.0,
+              ),
             ],
           ),
         ),

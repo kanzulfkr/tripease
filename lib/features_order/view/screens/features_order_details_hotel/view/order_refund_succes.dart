@@ -1,15 +1,15 @@
-import 'package:capstone_project_tripease/features_order/view/widgets/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../features_order/utils/colors.dart';
-import '../../features_order/utils/fonts.dart';
-import '../../features_order/utils/icons.dart';
-import '../../features_order/utils/images.dart';
+import '../../../../utils/colors.dart';
+import '../../../../utils/fonts.dart';
+import '../../../../utils/icons.dart';
+import '../../../../utils/images.dart';
 
-class OrderCanccel extends StatelessWidget {
-  const OrderCanccel({super.key});
+
+class OrderRefundSucces extends StatelessWidget {
+  const OrderRefundSucces({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,6 @@ class OrderCanccel extends StatelessWidget {
           style: myTextTheme.headlineLarge,
         ),
         centerTitle: false,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const Home(),
-            ));
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -38,28 +30,28 @@ class OrderCanccel extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: 20.h,
+                    top: 20.0.h,
                   ),
                   child: Container(
                     width: 350.w,
                     height: 50.h,
                     decoration: BoxDecoration(
-                      color: canceled,
+                      color: success,
                       borderRadius: BorderRadius.circular(8.0.r),
-                      border: Border.all(color: red),
+                      border: Border.all(color: green),
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(10.0.w),
                       child: Row(
                         children: [
-                          iconCanceled,
+                          iconSuccess,
                           SizedBox(width: 10.w),
                           Text(
-                            'Pesanan Dibatalkan',
+                            'Pesananmu Berhasil DiKembalikan',
                             style: GoogleFonts.openSans(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: red,
+                              color: green,
                             ),
                           ),
                         ],
@@ -105,7 +97,7 @@ class OrderCanccel extends StatelessWidget {
                                 BorderRadius.circular(4.r), // Image border
                             child: SizedBox.fromSize(
                               size: Size.fromRadius(48.r), // Image radius
-                              child: everyday,
+                              child: shibuya,
                             ),
                           ),
                           SizedBox(width: 20.w),
@@ -114,7 +106,7 @@ class OrderCanccel extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Everyday',
+                                  'Shibuya Shabu',
                                   style: myTextTheme.displayMedium,
                                 ),
                                 SizedBox(height: 10.h),
@@ -126,7 +118,7 @@ class OrderCanccel extends StatelessWidget {
                                         iconLocation,
                                         SizedBox(width: 4.w),
                                         Text(
-                                          'Jl. Soekarno Hatta, Malang',
+                                          'Bangkok, Thailand',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -136,7 +128,7 @@ class OrderCanccel extends StatelessWidget {
                                         iconBed,
                                         SizedBox(width: 5.w),
                                         Text(
-                                          'Standard Room',
+                                          'Exclusive Room',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -146,7 +138,7 @@ class OrderCanccel extends StatelessWidget {
                                         iconBedTime,
                                         SizedBox(width: 5.w),
                                         Text(
-                                          '2 Night',
+                                          '1 Night',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -154,9 +146,9 @@ class OrderCanccel extends StatelessWidget {
                                     Row(
                                       children: [
                                         iconDate,
-                                        SizedBox(width: 5.w),
+                                        SizedBox(width: 4.w),
                                         Text(
-                                          '05 Mei 2023 - 07 Mei 2023',
+                                          '26 April 2023 - 27 April 2023',
                                           style: myTextTheme.headlineSmall,
                                         ),
                                       ],
@@ -238,14 +230,14 @@ class OrderCanccel extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 width: 350.w,
-                height: 160.h,
+                height: 145.h,
                 child: Padding(
                   padding: EdgeInsets.all(20.0.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Informasi Pesanan',
+                        'Informasi Pengembalian Dana',
                         style: GoogleFonts.openSans(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
@@ -257,14 +249,14 @@ class OrderCanccel extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Waktu Pemesanan',
+                            'Dikembalikan ke',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            '19-04-2023, 05:34',
+                            'Bank BRI',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -277,14 +269,14 @@ class OrderCanccel extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Waktu Pembayaran',
+                            'Jumlah Pengembalian',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            '24-04-2023, 21:36',
+                            'Rp. 400.000',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -297,14 +289,14 @@ class OrderCanccel extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Waktu Check-in',
+                            'Dikembalikan Pada',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            '26-04-2023, 14:00',
+                            '23-04-2023, 18:54',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -312,7 +304,7 @@ class OrderCanccel extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Divider(color: black),
+                      SizedBox(height: 4.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -320,14 +312,14 @@ class OrderCanccel extends StatelessWidget {
                             'Alasan Pembatalan',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
-                            'Tidak Ada Pembayaran',
+                            'Double Booking',
                             style: GoogleFonts.openSans(
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -344,7 +336,7 @@ class OrderCanccel extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Booking Lagi',
+                  'Kembali Ke Beranda',
                   style: myTextTheme.headlineMedium,
                 ),
                 onPressed: () {},

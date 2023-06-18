@@ -2,7 +2,8 @@ import 'package:capstone_project_tripease/features_order/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../features_order/view/screens/pesanan_screen.dart';
+
+import '../../pesanan_screen.dart';
 import 'component/button_active.dart';
 import 'component/button_inactive.dart';
 

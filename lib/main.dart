@@ -1,7 +1,7 @@
-import 'package:capstone_project_tripease/features_order_details_hotel/features_checkin_checkout/reviews.dart';
-import 'package:capstone_project_tripease/features_order/api/search_provider.dart';
-import 'package:capstone_project_tripease/features_order/view_model/provider/data_provider.dart';
-import 'package:capstone_project_tripease/features_order/view_model/provider/train_order_provider.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/coundown_provider.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/hotel/hotel_order_provider.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/tab_provider.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/train/train_search_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +9,9 @@ import 'features_order/utils/colors.dart';
 import 'features_order/utils/fonts.dart';
 import 'features_order/view/widgets/home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'features_order/view_model/provider/train/train_order_detail_provider.dart';
+import 'features_order/view_model/provider/train/train_order_provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -25,7 +28,21 @@ class MainApp extends StatelessWidget {
           create: (context) => TabProvider(),
         ),
         ChangeNotifierProvider(
+          create: (context) => CountdownProvider(
+            DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TrainSearchProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => TrainOrderProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TrainOrderDetailProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => HotelOrderProvider(),
         ),
       ],
       child: ScreenUtilInit(

@@ -1,26 +1,30 @@
+// To parse this JSON data, do
+//
+//     final trainOrderModel = trainOrderModelFromJson(jsonString);
+
 import 'dart:convert';
 
-OrderTrainModel orderTrainModelFromJson(String str) =>
-    OrderTrainModel.fromJson(json.decode(str));
+TrainOrderModel trainOrderModelFromJson(String str) =>
+    TrainOrderModel.fromJson(json.decode(str));
 
-String orderTrainModelToJson(OrderTrainModel data) =>
+String trainOrderModelToJson(TrainOrderModel data) =>
     json.encode(data.toJson());
 
-class OrderTrainModel {
+class TrainOrderModel {
   int? statusCode;
   String? message;
   List<Datum>? data;
   Meta? meta;
 
-  OrderTrainModel({
+  TrainOrderModel({
     this.statusCode,
     this.message,
     this.data,
     this.meta,
   });
 
-  factory OrderTrainModel.fromJson(Map<String, dynamic> json) =>
-      OrderTrainModel(
+  factory TrainOrderModel.fromJson(Map<String, dynamic> json) =>
+      TrainOrderModel(
         statusCode: json["status_code"],
         message: json["message"],
         data: json["data"] == null
