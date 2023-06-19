@@ -8,6 +8,7 @@ import '../../model/order_train_model.dart';
 import '../../view_model/carriage/carriage_provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
 import '../../view_model/carriage/select_seat_kai_provider.dart';
+import '../../view_model/station/depature_provider.dart';
 import '../../view_model/timer/timer_seat_provider.dart';
 import 'widgets/ekonomi_carriage.dart';
 
@@ -33,9 +34,19 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
     final carriageProv = Provider.of<CarriageProvider>(context, listen: false);
     final trainProv = Provider.of<TrainProvider>(context, listen: false);
     final timerProv = Provider.of<TimerSeatProvider>(context, listen: false);
-
+    final departureProv =
+        Provider.of<DepartureViewModel>(context, listen: false);
+    Future.microtask(() async {
+      await carriageProv.fetchCarriageEko(
+        trainId: departureProv
+            .departure[departureProv.selectedDepartIndex as int].trainId as int,
+        trainClass: departureProv
+            .departure[departureProv.selectedDepartIndex as int].datumClass,
+      );
+      debugPrint('prov: ${carriageProv.carriage.length}');
+    });
     // debugPrint('zzzzzz : ${carriageProv.carriage[2].name}');
-    debugPrint('zzzzzz : ${trainProv.getClassTrain}');
+    // debugPrint('zzzzzz : ${trainProv.getClassTrain}');
 
     timerProv.stopCountDown();
     timerProv.startCountDown(context);
@@ -50,13 +61,6 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
         }
       },
     );
-
-    Future.microtask(() async {
-      await carriageProv.fetchCarriageEko(
-        trainId: trainProv.getTrainId!,
-        trainClass: trainProv.getClassTrain,
-      );
-    });
   }
 
   Future<dynamic> showDialogWithContext(BuildContext context) {
@@ -84,7 +88,11 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
         Provider.of<CarriageProvider>(context, listen: false);
     var tabIndex = carriageProvider.selectedTabIndex;
     selectedIndexProvider = Provider.of<SelectedSeatsProvider>(context);
+    List<Tab> tabs = List.generate(carriageProvider.carriage.length,
+        (index) => Tab(text: carriageProvider.carriage[index].name));
 
+    List<Widget> tabViews = List.generate(carriageProvider.carriage.length,
+        (index) => const EkonomiCarriagePage());
     TabController tabController =
         TabController(length: carriageProvider.carriage.length, vsync: this);
 
@@ -154,57 +162,84 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                     padding: EdgeInsets.symmetric(vertical: 12.h),
                     child: DefaultTabController(
                       length: carriageProvider.carriage.length,
-                      child: TabBar(
-                        controller: tabController,
-                        tabs: [
-                          Tab(
-                            child: Text(
-                              carriageProvider.carriage[0].name!,
-                              style: GoogleFonts.openSans(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
+                      child: SizedBox(
+                        height: 500.h,
+                        child: Column(
+                          children: [
+                            TabBar(
+                              labelColor: Colors.black,
+                              tabs: List.generate(
+                                carriageProvider.carriage.length,
+                                (index) => Tab(
+                                    text:
+                                        carriageProvider.carriage[index].name),
+                              ),
+                              onTap: (value) async {
+                                carriageProvider.setSelectedTabIndex(value);
+                              },
+
+                              // controller: tabController,
+                              // tabs: [
+                              //   Tab(
+                              //     child: Text(
+                              //       carriageProvider.carriage[0].name!,
+                              //       style: GoogleFonts.openSans(
+                              //         color: Colors.grey,
+                              //         fontWeight: FontWeight.w400,
+                              //         fontSize: 12,
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   Tab(
+                              //     child: Text(
+                              //       carriageProvider.carriage[1].name!,
+                              //       style: GoogleFonts.openSans(
+                              //         color: Colors.grey,
+                              //         fontWeight: FontWeight.w400,
+                              //         fontSize: 12,
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   Tab(
+                              //     child: Text(
+                              //       carriageProvider.carriage[2].name!,
+                              //       style: GoogleFonts.openSans(
+                              //         color: Colors.grey,
+                              //         fontWeight: FontWeight.w400,
+                              //         fontSize: 12,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ],
+                              // onTap: (index) {
+                              //   carriageProvider.setSelectedTabIndex(index);
+                              // },
+                            ),
+                            Expanded(
+                              child: TabBarView(
+                                children: List.generate(
+                                  carriageProvider.carriage.length,
+                                  (index) => const EkonomiCarriagePage(),
+                                ),
                               ),
                             ),
-                          ),
-                          Tab(
-                            child: Text(
-                              carriageProvider.carriage[1].name!,
-                              style: GoogleFonts.openSans(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                          Tab(
-                            child: Text(
-                              carriageProvider.carriage[2].name!,
-                              style: GoogleFonts.openSans(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ],
-                        onTap: (index) {
-                          carriageProvider.setSelectedTabIndex(index);
-                        },
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 490,
-                    child: TabBarView(
-                      controller: tabController,
-                      children: const [
-                        Tab(child: EkonomiCarriagePage()),
-                        Tab(child: EkonomiCarriagePage()),
-                        Tab(child: EkonomiCarriagePage()),
-                      ],
-                    ),
-                  ),
+
+                  // SizedBox(
+                  //   height: 490,
+                  //   child: TabBarView(
+                  //     controller: tabController,
+                  //     children: const [
+                  //       Tab(child: EkonomiCarriagePage()),
+                  //       Tab(child: EkonomiCarriagePage()),
+                  //       Tab(child: EkonomiCarriagePage()),
+                  //     ],
+                  //   ),
+                  // ),
                   Container(
                     margin: EdgeInsets.only(top: 20.h),
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -222,17 +257,17 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                             DateTime(now.year, now.month, now.day);
 
                         var stationDestinationId = carriageProvider
-                            .carriage[carriageProvider.selectedTabIndex]
-                            .train!
-                            .route![1]
+                            .carriage[carriageProvider.selectedTabIndex as int]
+                            .train
+                            ?.route?[1]
                             .stationId;
                         var stationOriginId = carriageProvider
-                            .carriage[carriageProvider.selectedTabIndex]
+                            .carriage[carriageProvider.selectedTabIndex as int]
                             .train!
                             .route![0]
                             .stationId;
                         var trainCarriageId = carriageProvider
-                            .carriage[carriageProvider.selectedTabIndex]
+                            .carriage[carriageProvider.selectedTabIndex as int]
                             .trainCarriageId;
                         var trainSeatId = carriageProvider.trainSeatId;
 

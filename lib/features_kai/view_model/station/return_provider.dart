@@ -111,7 +111,7 @@ class ReturnProvider with ChangeNotifier {
         arriveTime: arriveTime,
       );
 
-      _returnData = response.data;
+      _returnData = response.data!;
 
       notifyListeners();
     } catch (e) {

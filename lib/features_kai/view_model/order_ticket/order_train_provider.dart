@@ -34,8 +34,8 @@ class PostOrderTrainProvider with ChangeNotifier {
   int _quantityAdult = 1;
   int get getQuantityAdult => _quantityAdult;
 
-  int? _quantityInfant;
-  int? get getQuantityInfant => _quantityInfant;
+  int _quantityInfant = 0;
+  int get getQuantityInfant => _quantityInfant;
 
   List<TicketTravelerDetail>? _ticketTravelerDetail = [];
   List<TicketTravelerDetail>? get getTicketTravelerDetail =>

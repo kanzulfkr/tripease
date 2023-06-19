@@ -27,23 +27,23 @@ class _ReturnState extends State<ReturnPage> {
       ),
       body: Consumer<DepartureViewModel>(
         builder: (context, data, _) {
-          if (data.departure.isEmpty) {
+          if (data.departure!.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
             return ListView.builder(
-              itemCount: data.departure.length,
+              itemCount: data.departure?.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(data.departure[index].name),
+                      Text(data.departure[index].name.toString()),
                       Text(data.departure[index].price.toString())
                     ],
                   ),
-                  subtitle: Text(data.departure[index].datumClass),
+                  subtitle: Text(data.departure[index].datumClass.toString()),
                 );
               },
             );

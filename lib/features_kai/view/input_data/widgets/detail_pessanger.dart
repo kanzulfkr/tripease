@@ -1,10 +1,13 @@
 import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_kai.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/depature_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../model/order_train_model.dart';
+import '../../../view_model/carriage/carriage_provider.dart';
+import '../../../view_model/station/station_provider.dart';
 
 class BodyDetailPessanger extends StatelessWidget {
   const BodyDetailPessanger({
@@ -20,17 +23,17 @@ class BodyDetailPessanger extends StatelessWidget {
       builder: (context, travelerDetail, child) {
         if (travelerDetail.travelerDetail == null ||
             travelerDetail.travelerDetail!.length !=
-                travelerDetail.getQuantityInfant) {
+                travelerDetail.getQuantityAdult) {
           travelerDetail.travelerDetail = List.generate(
-            travelerDetail.getQuantityInfant!,
+            travelerDetail.getQuantityAdult,
             (index) => TravelerDetail(),
           );
         }
-        var qtyInfant = travelerDetail.getQuantityInfant;
+        // var qtyInfant = travelerDetail.getQuantityInfant;
         return SizedBox(
           height: 300.h,
           child: ListView.builder(
-            itemCount: qtyInfant,
+            itemCount: travelerDetail.getQuantityAdult,
             itemBuilder: (context, index) {
               final passenger = index + 1;
               final traveler = travelerDetail.travelerDetail!.length > index
@@ -68,15 +71,32 @@ class BodyDetailPessanger extends StatelessWidget {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SelectSeatKai(
-                                        passengerNumber: passenger,
-                                      ),
-                                    ),
+                                onPressed: () async {
+                                  final departureProv =
+                                      Provider.of<DepartureViewModel>(context,
+                                          listen: false);
+                                  await Provider.of<CarriageProvider>(context,
+                                          listen: false)
+                                      .fetchCarriageEko(
+                                    trainId: departureProv
+                                        .departure[departureProv
+                                            .selectedDepartIndex as int]
+                                        .trainId as int,
+                                    trainClass: departureProv
+                                        .departure![departureProv
+                                            .selectedDepartIndex as int]
+                                        .datumClass,
                                   );
+                                  if (context.mounted) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectSeatKai(
+                                          passengerNumber: passenger,
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 },
                                 child: Text(
                                   'No.Kursi',

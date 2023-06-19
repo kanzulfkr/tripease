@@ -2,6 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../view_model/order_ticket/order_train_provider.dart';
+import '../../view_model/order_ticket/response_order_train_provider.dart';
+import '../../view_model/train/train_provider.dart';
 import '../invoice_page/factur_page.dart';
 
 class PaymentStatus extends StatefulWidget {
@@ -15,12 +19,22 @@ class _PaymentStatusState extends State<PaymentStatus> {
   @override
   void initState() {
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 10),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const InvoicePage()),
       ),
     );
+    var trainProv = Provider.of<TrainProvider>(context, listen: false);
+    var postOrderProv =
+        Provider.of<PostOrderTrainProvider>(context, listen: false);
+    var responseOrderProv =
+        Provider.of<ResponseOrderTrainProvider>(context, listen: false);
+
+    Future.microtask(() async {
+      await responseOrderProv.getResponseOrder(80, 1);
+    });
+
     super.initState();
   }
 
@@ -35,78 +49,79 @@ class _PaymentStatusState extends State<PaymentStatus> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('assets/images/paymentstatus.png'),
-          SizedBox(
-            height: 135.h,
-          ),
-          Text(
-            'Pembayaran Berhasil!',
-            style: GoogleFonts.openSans(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-                color: Colors.green),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Center(
-            child: Container(
-              width: 100.w,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(Icons.train),
-                  Text(
-                    'Turangga',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w400),
-                  ),
-                ],
+      body: Consumer<ResponseOrderTrainProvider>(
+        builder: (context, responseProv, child) {
+          int infant = responseProv.dataOrder.quantityInfant ?? 0;
+          int adult = responseProv.dataOrder.quantityAdult!;
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/paymentstatus.png'),
+              SizedBox(height: 135.h),
+              Text(
+                'Pembayaran Berhasil!',
+                style: GoogleFonts.openSans(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.green),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Center(
-            child: Container(
-              width: 100.w,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(Icons.person),
-                  Text(
-                    '4 Orang  ',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w400),
-                  ),
-                ],
+              SizedBox(height: 20.h),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.train),
+                    SizedBox(width: 10.w),
+                    SizedBox(
+                      width: 100.w,
+                      child: Text(
+                        '${responseProv.dataOrder.train!.name}',
+                        style: GoogleFonts.openSans(
+                            fontSize: 14.sp, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Center(
-            child: Container(
-              width: 100.w,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(Icons.payments),
-                  Text(
-                    'Rp. 80.000',
-                    style: GoogleFonts.openSans(
-                        fontSize: 14.sp, fontWeight: FontWeight.w400),
-                  ),
-                ],
+              SizedBox(height: 20.h),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.person),
+                    SizedBox(width: 10.w),
+                    SizedBox(
+                      width: 100.w,
+                      child: Text(
+                        '${(adult + infant).toString()} Orang',
+                        style: GoogleFonts.openSans(
+                            fontSize: 14.sp, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-        ],
+              SizedBox(height: 20.h),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.payments),
+                    SizedBox(width: 10.w),
+                    SizedBox(
+                      width: 100.w,
+                      child: Text(
+                        'Rp. ${(responseProv.dataOrder.train!.trainPrice)}',
+                        style: GoogleFonts.openSans(
+                            fontSize: 14.sp, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

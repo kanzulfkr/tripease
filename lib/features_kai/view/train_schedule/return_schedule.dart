@@ -654,9 +654,10 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                                 Text(
                                                   returnProvider
                                                       .returnData[index]
-                                                      .route[0]
-                                                      .station
-                                                      .origin,
+                                                      .route![0]
+                                                      .station!
+                                                      .origin
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w600,
@@ -670,7 +671,7 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Stasiun ${returnProvider.returnData[index].route[0].station.name}',
+                                                  'Stasiun ${returnProvider.returnData[index].route![0].station!.name.toString()}',
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w400,
@@ -693,7 +694,8 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                                 Text(
                                                   returnProvider
                                                       .returnData[index]
-                                                      .datumClass,
+                                                      .datumClass
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w400,
@@ -734,8 +736,9 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                                 Text(
                                                   returnProvider
                                                       .returnData[index]
-                                                      .route[0]
-                                                      .arriveTime,
+                                                      .route![0]
+                                                      .arriveTime
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                   ),
@@ -744,8 +747,9 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                                 Text(
                                                   returnProvider
                                                       .returnData[index]
-                                                      .route[1]
-                                                      .arriveTime,
+                                                      .route![1]
+                                                      .arriveTime
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                   ),

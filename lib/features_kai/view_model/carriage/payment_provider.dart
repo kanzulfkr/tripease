@@ -19,16 +19,13 @@ class PaymentProvider extends ChangeNotifier {
 
   void setImageUrl(String imageUrl) {
     _imageUrl = imageUrl;
-    notifyListeners();
   }
 
   void setAccountNumber(String accountNumber) {
     _accountNumber = accountNumber;
-    notifyListeners();
   }
 
   Future<void> getPayment() async {
-    notifyListeners();
     try {
       final response = await PaymentApi().getPaymentData();
       _payment = response.data;

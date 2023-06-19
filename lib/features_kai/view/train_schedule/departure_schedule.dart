@@ -586,315 +586,361 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                           ? SizedBox(
                               height: 420.h,
                               width: double.maxFinite,
-                              child: ListView.builder(
-                                itemCount: departureProvider.departure.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(1, 0, 1, 12),
-                                    child: Consumer<TrainProvider>(
-                                      builder: (context, trainProvider, child) {
-                                        return InkWell(
-                                          onTap: () {
-                                            // departureProvider
-                                            //     .setSelectedDepartIndex(index);
-                                            var trainId = departureProvider
-                                                .departure[index].trainId;
-                                            var classTr = departureProvider
-                                                .departure[index].datumClass;
-                                            var originSt = departureProvider
-                                                .departure[index]
-                                                .route[0]
-                                                .station
-                                                .name;
-                                            var depatureSt = departureProvider
-                                                .departure[index]
-                                                .route[1]
-                                                .station
-                                                .name;
-                                            var originStInt = departureProvider
-                                                .departure[index]
-                                                .route[0]
-                                                .station
-                                                .initial;
-                                            var depatureStInt =
-                                                departureProvider
-                                                    .departure[index]
-                                                    .route[1]
-                                                    .station
-                                                    .initial;
-                                            var nameTr = departureProvider
-                                                .departure[index].name;
-                                            var arriveTm = departureProvider
-                                                .departure[index]
-                                                .route[0]
-                                                .arriveTime;
-                                            var price = departureProvider
-                                                .departure[index].price;
-                                            var depatureTm = departureProvider
-                                                .departure[index]
-                                                .route[1]
-                                                .arriveTime;
-                                            trainProvider.setTrainId(trainId);
-                                            trainProvider.setNameTrain(nameTr);
-                                            trainProvider
-                                                .setStationOrigin(originSt);
-                                            trainProvider
-                                                .setStationDepature(depatureSt);
-                                            trainProvider
-                                                .setStationOriginInitial(
-                                                    originStInt);
-                                            trainProvider
-                                                .setStationDepatureInitial(
-                                                    depatureStInt);
-                                            trainProvider
-                                                .setClassTrain(classTr);
-                                            trainProvider
-                                                .setArriveTime(arriveTm);
-                                            trainProvider
-                                                .setDepatureTime(depatureTm);
-                                            trainProvider.setPrice(price);
-                                            trainProvider
-                                                .setdateTime('0 j 30 m');
+                              child: departureProvider.departure.isEmpty
+                                  ? const Center(child: Text('Tidak ada data'))
+                                  : ListView.builder(
+                                      itemCount:
+                                          departureProvider.departure.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              1, 0, 1, 12),
+                                          child: Consumer<TrainProvider>(
+                                            builder: (context, trainProvider,
+                                                child) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  departureProvider
+                                                      .setSelectedDepartIndex(
+                                                          index);
 
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const InputDataKai()),
-                                            );
-                                          },
-                                          child: Container(
-                                            height: 160.h,
-                                            width: double.maxFinite,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 12, vertical: 8),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.5),
-                                                  spreadRadius: 0.2,
-                                                  blurRadius: 0.5,
-                                                  offset:
-                                                      const Offset(0.5, 0.5),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/images/kai.png',
-                                                      scale: 0.8,
+                                                  debugPrint(departureProvider
+                                                      .departure[departureProvider
+                                                              .selectedDepartIndex
+                                                          as int]
+                                                      .datumClass);
+
+                                                  // var trainId = departureProvider
+                                                  //     .departure[index].trainId;
+                                                  // var classTr = departureProvider
+                                                  //     .departure[index].datumClass;
+                                                  // var originSt = departureProvider
+                                                  //     .departure[index]
+                                                  //     .route[0]
+                                                  //     .station
+                                                  //     .name;
+                                                  // var depatureSt = departureProvider
+                                                  //     .departure[index]
+                                                  //     .route[1]
+                                                  //     .station
+                                                  //     .name;
+                                                  // var originStInt = departureProvider
+                                                  //     .departure[index]
+                                                  //     .route[0]
+                                                  //     .station
+                                                  //     .initial;
+                                                  // var depatureStInt =
+                                                  //     departureProvider
+                                                  //         .departure[index]
+                                                  //         .route[1]
+                                                  //         .station
+                                                  //         .initial;
+                                                  // var nameTr = departureProvider
+                                                  //     .departure[index].name;
+                                                  // var arriveTm = departureProvider
+                                                  //     .departure[index]
+                                                  //     .route[0]
+                                                  //     .arriveTime;
+                                                  // var price = departureProvider
+                                                  //     .departure[index].price;
+                                                  // var depatureTm = departureProvider
+                                                  //     .departure[index]
+                                                  //     .route[1]
+                                                  //     .arriveTime;
+                                                  // trainProvider.setTrainId(trainId);
+                                                  // trainProvider.setNameTrain(nameTr);
+                                                  // trainProvider
+                                                  //     .setStationOrigin(originSt);
+                                                  // trainProvider
+                                                  //     .setStationDepature(depatureSt);
+                                                  // trainProvider
+                                                  //     .setStationOriginInitial(
+                                                  //         originStInt);
+                                                  // trainProvider
+                                                  //     .setStationDepatureInitial(
+                                                  //         depatureStInt);
+                                                  // trainProvider
+                                                  //     .setClassTrain(classTr);
+                                                  // trainProvider
+                                                  //     .setArriveTime(arriveTm);
+                                                  // trainProvider
+                                                  //     .setDepatureTime(depatureTm);
+                                                  // trainProvider.setPrice(price);
+                                                  // trainProvider
+                                                  //     .setdateTime('0 j 30 m');
+
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const InputDataKai()),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  height: 160.h,
+                                                  width: double.maxFinite,
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 8),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      Radius.circular(8),
                                                     ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: 5.h),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      departureProvider
-                                                          .departure[index]
-                                                          .name,
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 0.2,
+                                                        blurRadius: 0.5,
+                                                        offset: const Offset(
+                                                            0.5, 0.5),
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      'Rp ${departureProvider.departure[index].price},-',
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/kai.png',
+                                                            scale: 0.8,
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'Stasiun ${departureProvider.departure[index].route[0].station.name}',
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Stasiun ${departureProvider.departure[index].route[1].station.name}',
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      departureProvider
-                                                          .departure[index]
-                                                          .datumClass,
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: const Color
-                                                                .fromRGBO(
-                                                            113, 114, 117, 1),
-                                                      ),
-                                                    ),
-                                                    departureProvider
+                                                      SizedBox(height: 5.h),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            departureProvider
                                                                 .departure[
                                                                     index]
-                                                                .status ==
-                                                            'available'
-                                                        ? Text(
-                                                            'Tersedia',
+                                                                .name
+                                                                .toString(),
                                                             style: GoogleFonts
                                                                 .openSans(
-                                                              fontSize: 12.sp,
+                                                              fontSize: 14.sp,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
-                                                              color:
-                                                                  Colors.green,
-                                                            ),
-                                                          )
-                                                        : Text(
-                                                            'Habis',
-                                                            style: GoogleFonts
-                                                                .openSans(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: Colors.red,
                                                             ),
                                                           ),
-                                                  ],
+                                                          Text(
+                                                            'Rp ${departureProvider.departure[index].price},-',
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            'Stasiun ${departureProvider.departure[index].route![0].station?.name.toString()}',
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            'Stasiun ${departureProvider.departure[index].route![1].station?.name.toString()}',
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            departureProvider
+                                                                .departure[
+                                                                    index]
+                                                                .datumClass
+                                                                .toString(),
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: const Color
+                                                                      .fromRGBO(
+                                                                  113,
+                                                                  114,
+                                                                  117,
+                                                                  1),
+                                                            ),
+                                                          ),
+                                                          departureProvider
+                                                                      .departure[
+                                                                          index]
+                                                                      .status ==
+                                                                  'available'
+                                                              ? Text(
+                                                                  'Tersedia',
+                                                                  style: GoogleFonts
+                                                                      .openSans(
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: Colors
+                                                                        .green,
+                                                                  ),
+                                                                )
+                                                              : Text(
+                                                                  'Habis',
+                                                                  style: GoogleFonts
+                                                                      .openSans(
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            departureProvider
+                                                                .departure[
+                                                                    index]
+                                                                .route![0]
+                                                                .arriveTime
+                                                                .toString(),
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                            ),
+                                                          ),
+                                                          const Icon(Icons
+                                                              .arrow_forward),
+                                                          Text(
+                                                            departureProvider
+                                                                .departure[
+                                                                    index]
+                                                                .route![1]
+                                                                .arriveTime
+                                                                .toString(),
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            tglPergiEditingController
+                                                                        .text ==
+                                                                    ''
+                                                                ? DateFormat(
+                                                                        'EEEE, dd MMMM',
+                                                                        'id_ID')
+                                                                    .format(
+                                                                        DateTime
+                                                                            .now())
+                                                                : tglPergiEditingController
+                                                                    .text,
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              color: const Color
+                                                                      .fromRGBO(
+                                                                  113,
+                                                                  114,
+                                                                  117,
+                                                                  1),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '0 j 30 m',
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              color: const Color
+                                                                      .fromRGBO(
+                                                                  113,
+                                                                  114,
+                                                                  117,
+                                                                  1),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            tglPergiEditingController
+                                                                        .text ==
+                                                                    ''
+                                                                ? DateFormat(
+                                                                        'EEEE, dd MMMM',
+                                                                        'id_ID')
+                                                                    .format(
+                                                                        DateTime
+                                                                            .now())
+                                                                : tglPergiEditingController
+                                                                    .text,
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              color: const Color
+                                                                      .fromRGBO(
+                                                                  113,
+                                                                  114,
+                                                                  117,
+                                                                  1),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      departureProvider
-                                                          .departure[index]
-                                                          .route[0]
-                                                          .arriveTime,
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                      ),
-                                                    ),
-                                                    const Icon(
-                                                        Icons.arrow_forward),
-                                                    Text(
-                                                      departureProvider
-                                                          .departure[index]
-                                                          .route[1]
-                                                          .arriveTime,
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      tglPergiEditingController
-                                                                  .text ==
-                                                              ''
-                                                          ? DateFormat(
-                                                                  'EEEE, dd MMMM',
-                                                                  'id_ID')
-                                                              .format(DateTime
-                                                                  .now())
-                                                          : tglPergiEditingController
-                                                              .text,
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        color: const Color
-                                                                .fromRGBO(
-                                                            113, 114, 117, 1),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '0 j 30 m',
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        color: const Color
-                                                                .fromRGBO(
-                                                            113, 114, 117, 1),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      tglPergiEditingController
-                                                                  .text ==
-                                                              ''
-                                                          ? DateFormat(
-                                                                  'EEEE, dd MMMM',
-                                                                  'id_ID')
-                                                              .format(DateTime
-                                                                  .now())
-                                                          : tglPergiEditingController
-                                                              .text,
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        color: const Color
-                                                                .fromRGBO(
-                                                            113, 114, 117, 1),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                              );
+                                            },
                                           ),
                                         );
                                       },
                                     ),
-                                  );
-                                },
-                              ),
                             )
                           : SizedBox(
                               height: 330.h,
@@ -969,9 +1015,10 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 Text(
                                                   departureProvider
                                                       .departure[index]
-                                                      .route[0]
-                                                      .station
-                                                      .origin,
+                                                      .route![0]
+                                                      .station!
+                                                      .origin
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w600,
@@ -985,7 +1032,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Stasiun ${departureProvider.departure[index].route[0].station.name}',
+                                                  'Stasiun ${departureProvider.departure[index].route![0].station?.name.toString()}',
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w400,
@@ -1008,7 +1055,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 Text(
                                                   departureProvider
                                                       .departure[index]
-                                                      .datumClass,
+                                                      .datumClass
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w400,
@@ -1050,8 +1098,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 Text(
                                                   departureProvider
                                                       .departure[index]
-                                                      .route[0]
-                                                      .arriveTime,
+                                                      .route![0]
+                                                      .arriveTime
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                   ),
@@ -1060,8 +1109,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 Text(
                                                   departureProvider
                                                       .departure[index]
-                                                      .route[1]
-                                                      .arriveTime,
+                                                      .route![1]
+                                                      .arriveTime
+                                                      .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                   ),

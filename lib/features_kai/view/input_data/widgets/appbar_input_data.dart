@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/depature_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +10,8 @@ class AppbarInputData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TrainProvider>(
-      builder: (context, trainProvider, child) {
+    return Consumer<DepartureViewModel>(
+      builder: (context, departureProv, child) {
         return SizedBox(
           width: 250.w,
           child: Row(
@@ -21,7 +21,7 @@ class AppbarInputData extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    '${trainProvider.getStationOrigin}',
+                    '${departureProv.departure[departureProv.selectedDepartIndex as int].route![0].station!.name}',
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
@@ -29,7 +29,7 @@ class AppbarInputData extends StatelessWidget {
                   ),
                   SizedBox(height: 3.h),
                   Text(
-                    '${trainProvider.getStationOriginInitial}',
+                    '${departureProv.departure[departureProv.selectedDepartIndex as int].route![0].station!.initial}',
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
@@ -48,7 +48,7 @@ class AppbarInputData extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '${trainProvider.getStationDepature}',
+                    '${departureProv.departure[departureProv.selectedDepartIndex as int].route![1].station!.name}',
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
@@ -56,7 +56,7 @@ class AppbarInputData extends StatelessWidget {
                   ),
                   SizedBox(height: 3),
                   Text(
-                    '${trainProvider.getStationDepatureInitial}',
+                    '${departureProv.departure[departureProv.selectedDepartIndex as int].route![1].station!.initial}',
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,

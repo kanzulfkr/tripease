@@ -1,7 +1,9 @@
+import 'package:capstone_project_tripease/features_kai/view_model/station/depature_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../payment/select_payment.dart';
 import 'widgets/appbar_input_data.dart';
@@ -38,8 +40,8 @@ class _InputDataKaiState extends State<InputDataKai> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Consumer<TrainProvider>(
-                builder: (context, trainProvider, child) {
+              Consumer<DepartureViewModel>(
+                builder: (context, departureProv, child) {
                   return SizedBox(
                     height: 180.h,
                     width: double.maxFinite,
@@ -77,14 +79,18 @@ class _InputDataKaiState extends State<InputDataKai> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '${trainProvider.getNameTrain}',
+                                departureProv
+                                    .departure[departureProv.selectedDepartIndex
+                                        as int]
+                                    .name
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Text(
-                                'Rp. ${trainProvider.getPrice},-',
+                                'Rp. ${departureProv.departure![departureProv.selectedDepartIndex as int].price},-',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
@@ -96,14 +102,14 @@ class _InputDataKaiState extends State<InputDataKai> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Stasiun ${trainProvider.getStationOrigin}',
+                                'Stasiun ${departureProv.departure[departureProv.selectedDepartIndex as int].route![0].station!.name.toString()}',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
                               Text(
-                                'Stasiun ${trainProvider.getStationDepature}',
+                                'Stasiun ${departureProv.departure[departureProv.selectedDepartIndex as int].route![1].station!.name.toString()}',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
@@ -115,7 +121,11 @@ class _InputDataKaiState extends State<InputDataKai> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '${trainProvider.getClassTrain}',
+                                departureProv
+                                    .departure[departureProv.selectedDepartIndex
+                                        as int]
+                                    .datumClass
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
@@ -136,14 +146,24 @@ class _InputDataKaiState extends State<InputDataKai> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '${trainProvider.getArriveTime}',
+                                departureProv
+                                    .departure[departureProv.selectedDepartIndex
+                                        as int]
+                                    .route![0]
+                                    .arriveTime
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                 ),
                               ),
                               Icon(Icons.arrow_forward),
                               Text(
-                                '${trainProvider.getDepatureTime}',
+                                departureProv
+                                    .departure[departureProv.selectedDepartIndex
+                                        as int]
+                                    .route![1]
+                                    .arriveTime
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                 ),
@@ -154,21 +174,27 @@ class _InputDataKaiState extends State<InputDataKai> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '05 April 2023',
+                                departureProv.departureDate == ''
+                                    ? DateFormat('EEEE, dd MMMM', 'id_ID')
+                                        .format(DateTime.now())
+                                    : departureProv.departureDate,
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   color: Color.fromRGBO(113, 114, 117, 1),
                                 ),
                               ),
                               Text(
-                                '${trainProvider.getdateTime}',
+                                '',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   color: Color.fromRGBO(113, 114, 117, 1),
                                 ),
                               ),
                               Text(
-                                '05 April 2023',
+                                departureProv.departureDate == ''
+                                    ? DateFormat('EEEE, dd MMMM', 'id_ID')
+                                        .format(DateTime.now())
+                                    : departureProv.departureDate,
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   color: Color.fromRGBO(113, 114, 117, 1),

@@ -1,3 +1,4 @@
+import 'package:capstone_project_tripease/features_kai/model/order_train_model.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,6 +68,8 @@ class _KaPageState extends State<KaPage> {
   DateTime returnDated = DateTime.now();
   CalendarFormat calendarFormat = CalendarFormat.month;
 
+  bool isSwitch = false;
+
   void arrivalDay() {
     tglPergiController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(arrivalDated);
@@ -88,6 +91,22 @@ class _KaPageState extends State<KaPage> {
     super.initState();
     Future.microtask(() =>
         Provider.of<StationProvider>(context, listen: false).getStation());
+  }
+
+  void _switchValue() {
+    String temp = asalController.text;
+    asalController.text = tujuanController.text;
+    tujuanController.text = temp;
+
+    final stationProv = Provider.of<StationProvider>(context, listen: false);
+    final departureProv =
+        Provider.of<DepartureViewModel>(context, listen: false);
+
+    stationProv.switchStations();
+    departureProv.clearDeparture();
+
+    print('origin baru ${stationProv.idOrigin}');
+    print('destination baru ${stationProv.idDestination}');
   }
 
   @override
@@ -220,7 +239,14 @@ class _KaPageState extends State<KaPage> {
                               style: GoogleFonts.openSans(
                                   fontSize: 14.sp, fontWeight: FontWeight.w600),
                             ),
-                            SvgPicture.asset('assets/icons/swap_vert.svg'),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _switchValue();
+                                  });
+                                },
+                                child: SvgPicture.asset(
+                                    'assets/icons/swap_vert.svg')),
                           ],
                         ),
                         SizedBox(height: 10.h),
@@ -639,8 +665,8 @@ class _KaPageState extends State<KaPage> {
                                     return null;
                                   },
                                   onChanged: (value) {
-                                    postOrder
-                                        .setQuantityInfant(int.parse(value));
+                                    postOrder.setQuantityInfant(
+                                        int.tryParse(value) ?? 0);
                                   },
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
@@ -787,8 +813,10 @@ class _KaPageState extends State<KaPage> {
                                   //   ScaffoldMessenger.of(context).showSnackBar(
                                   //     const SnackBar(content: Text('yeayyyyy')),
                                   //   );
-                                  stationProvider.setQtyInfant(
-                                      int.tryParse(anakAnakController.text));
+
+                                  postOrder.setQuantityInfant(
+                                      int.tryParse(anakAnakController.text) ??
+                                          0);
                                   print(
                                       'dewsa : ${postOrder.getQuantityInfant}');
 
@@ -797,8 +825,8 @@ class _KaPageState extends State<KaPage> {
                                         stationProvider.idOrigin as int;
                                     var destinationId =
                                         stationProvider.idDestination as int;
-                                    stationProvider.setQtyAdult(
-                                        int.tryParse(dewasaController.text));
+                                    postOrder.setQuantityAdult(
+                                        int.parse(dewasaController.text));
                                     var trainClass =
                                         departureProvider.selectedClass;
 

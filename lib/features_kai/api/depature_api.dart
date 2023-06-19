@@ -36,6 +36,11 @@ class DepartureRepository {
       print('DepartureApi: ${response.data}');
       final data = DepartureResponseModel.fromJson(response.data);
       return data;
+      // if (response.data.isNull) {
+      //   print('null');
+      // }else{
+      //   p
+      // }
     } else {
       throw Exception('Failed to fetch data');
     }

@@ -29,7 +29,6 @@ class TimerPaymentProvider extends ChangeNotifier {
         updateTimer(totalSeconds);
       }
     });
-    notifyListeners();
   }
 
   void updateTimer(int totalSeconds) {
@@ -54,7 +53,6 @@ class TimerPaymentProvider extends ChangeNotifier {
 
   void stopCountDown() {
     countdownTimer?.cancel();
-    notifyListeners();
   }
 
   @override

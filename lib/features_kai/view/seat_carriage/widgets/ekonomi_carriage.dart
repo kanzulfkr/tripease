@@ -14,18 +14,18 @@ class EkonomiCarriagePage extends StatefulWidget {
 }
 
 class _EkonomiCarriagePageState extends State<EkonomiCarriagePage> {
-  @override
-  void initState() {
-    super.initState();
-    // final carriageProv = Provider.of<CarriageProvider>(context, listen: false);
-    final trainProv = Provider.of<TrainProvider>(context, listen: false);
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // final carriageProv = Provider.of<CarriageProvider>(context, listen: false);
+  //   final trainProv = Provider.of<TrainProvider>(context, listen: false);
 
-    Future.microtask(() =>
-        Provider.of<CarriageProvider>(context, listen: false).fetchCarriageEko(
-          trainId: trainProv.getTrainId!,
-          trainClass: trainProv.getClassTrain,
-        ));
-  }
+  //   Future.microtask(() =>
+  //       Provider.of<CarriageProvider>(context, listen: false).fetchCarriageEko(
+  //         trainId: trainProv.getTrainId!,
+  //         trainClass: trainProv.getClassTrain,
+  //       ));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,53 +37,53 @@ class _EkonomiCarriagePageState extends State<EkonomiCarriagePage> {
         child: Row(
           children: [
             SingleChildScrollView(
-              child: Consumer<CarriageProvider>(
-                builder: (context, carriageProvider, child) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 32),
-                    // color: Colors.amber,
-                    // height: 830.h,
-                    width: 360,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                // color: Colors.amber,
+                // height: 830.h,
+                width: 360,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // list nomorrr
+                    Column(
                       children: [
-                        // list nomorrr
-                        Column(
-                          children: [
-                            const Text('', style: TextStyle(fontSize: 14)),
-                            Container(
+                        const Text('', style: TextStyle(fontSize: 14)),
+                        Container(
+                          height: 800,
+                          width: 25,
+                          margin: EdgeInsets.only(top: 10),
+                          child: ListView.builder(
+                            itemCount: 24,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                height: 25,
+                                width: 25,
+                                margin: EdgeInsets.only(bottom: 8),
+                                child: Center(
+                                    child: Text(
+                                  '${index + 1}',
+                                  style: GoogleFonts.openSans(fontSize: 14),
+                                )),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    // AAAAAAAAAAA
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        children: [
+                          const Text('A', style: TextStyle(fontSize: 14)),
+                          Container(
                               height: 800,
                               width: 25,
                               margin: EdgeInsets.only(top: 10),
-                              child: ListView.builder(
-                                itemCount: 24,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    height: 25,
-                                    width: 25,
-                                    margin: EdgeInsets.only(bottom: 8),
-                                    child: Center(
-                                        child: Text(
-                                      '${index + 1}',
-                                      style: GoogleFonts.openSans(fontSize: 14),
-                                    )),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        // AAAAAAAAAAA
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Column(
-                            children: [
-                              const Text('A', style: TextStyle(fontSize: 14)),
-                              Container(
-                                  height: 800,
-                                  width: 25,
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: ListView.builder(
+                              child: Consumer<CarriageProvider>(
+                                builder: (context, carriageProvider, child) {
+                                  return ListView.builder(
                                     itemCount: carriageProvider.seatA.length,
                                     itemBuilder: (context, index) {
                                       final selectedSeatsProvider =
@@ -140,22 +140,26 @@ class _EkonomiCarriagePageState extends State<EkonomiCarriagePage> {
                                         ),
                                       );
                                     },
-                                  )),
-                            ],
-                          ),
-                        ),
+                                  );
+                                },
+                              )),
+                        ],
+                      ),
+                    ),
 
-                        // BBBBBBBBBBBB
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Column(
-                            children: [
-                              const Text('B', style: TextStyle(fontSize: 14)),
-                              Container(
-                                height: 800,
-                                width: 25,
-                                margin: EdgeInsets.only(top: 10),
-                                child: ListView.builder(
+                    // BBBBBBBBBBBB
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        children: [
+                          const Text('B', style: TextStyle(fontSize: 14)),
+                          Container(
+                            height: 800,
+                            width: 25,
+                            margin: EdgeInsets.only(top: 10),
+                            child: Consumer<CarriageProvider>(
+                              builder: (context, carriageProvider, child) {
+                                return ListView.builder(
                                   itemCount: carriageProvider.seatB.length,
                                   itemBuilder: (context, index) {
                                     final selectedSeatsProvider =
@@ -208,20 +212,24 @@ class _EkonomiCarriagePageState extends State<EkonomiCarriagePage> {
                                       ),
                                     );
                                   },
-                                ),
-                              ),
-                            ],
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                        //  CCCCCCCCCCCCCCCCCC
-                        Column(
-                          children: [
-                            const Text('C', style: TextStyle(fontSize: 14)),
-                            Container(
-                              height: 701,
-                              width: 25,
-                              margin: EdgeInsets.only(top: 109),
-                              child: ListView.builder(
+                        ],
+                      ),
+                    ),
+                    //  CCCCCCCCCCCCCCCCCC
+                    Column(
+                      children: [
+                        const Text('C', style: TextStyle(fontSize: 14)),
+                        Container(
+                          height: 701,
+                          width: 25,
+                          margin: EdgeInsets.only(top: 109),
+                          child: Consumer<CarriageProvider>(
+                            builder: (context, carriageProvider, child) {
+                              return ListView.builder(
                                 itemCount: carriageProvider.seatC.length,
                                 itemBuilder: (context, index) {
                                   final selectedSeatsProvider =
@@ -272,21 +280,25 @@ class _EkonomiCarriagePageState extends State<EkonomiCarriagePage> {
                                     ),
                                   );
                                 },
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
-                        // DDDDDDDDDDDDDD
-                        Padding(
-                          padding: EdgeInsets.only(left: 58, right: 8),
-                          child: Column(
-                            children: [
-                              const Text('D', style: TextStyle(fontSize: 14)),
-                              Container(
-                                height: 734,
-                                width: 25,
-                                margin: EdgeInsets.only(top: 76),
-                                child: ListView.builder(
+                      ],
+                    ),
+                    // DDDDDDDDDDDDDD
+                    Padding(
+                      padding: EdgeInsets.only(left: 58, right: 8),
+                      child: Column(
+                        children: [
+                          const Text('D', style: TextStyle(fontSize: 14)),
+                          Container(
+                            height: 734,
+                            width: 25,
+                            margin: EdgeInsets.only(top: 76),
+                            child: Consumer<CarriageProvider>(
+                              builder: (context, carriageProvider, child) {
+                                return ListView.builder(
                                   itemCount: carriageProvider.seatD.length,
                                   itemBuilder: (context, index) {
                                     final selectedSeatsProvider =
@@ -339,20 +351,24 @@ class _EkonomiCarriagePageState extends State<EkonomiCarriagePage> {
                                       ),
                                     );
                                   },
-                                ),
-                              ),
-                            ],
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                        // EEEEEEEEE
-                        Column(
-                          children: [
-                            const Text('E', style: TextStyle(fontSize: 14)),
-                            Container(
-                              height: 734,
-                              width: 25,
-                              margin: EdgeInsets.only(top: 76),
-                              child: ListView.builder(
+                        ],
+                      ),
+                    ),
+                    // EEEEEEEEE
+                    Column(
+                      children: [
+                        const Text('E', style: TextStyle(fontSize: 14)),
+                        Container(
+                          height: 734,
+                          width: 25,
+                          margin: EdgeInsets.only(top: 76),
+                          child: Consumer<CarriageProvider>(
+                            builder: (context, carriageProvider, child) {
+                              return ListView.builder(
                                 itemCount: carriageProvider.seatE.length,
                                 itemBuilder: (context, index) {
                                   final selectedSeatsProvider =
@@ -403,14 +419,14 @@ class _EkonomiCarriagePageState extends State<EkonomiCarriagePage> {
                                     ),
                                   );
                                 },
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
-                  );
-                },
+                  ],
+                ),
               ),
             ),
           ],

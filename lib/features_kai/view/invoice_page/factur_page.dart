@@ -17,20 +17,6 @@ class InvoicePage extends StatefulWidget {
 
 class _InvoicePageState extends State<InvoicePage> {
   @override
-  void initState() {
-    super.initState();
-    var trainProv = Provider.of<TrainProvider>(context, listen: false);
-    var postOrderProv =
-        Provider.of<PostOrderTrainProvider>(context, listen: false);
-    var responseOrderProv =
-        Provider.of<ResponseOrderTrainProvider>(context, listen: false);
-
-    Future.microtask(() async {
-      await responseOrderProv.getResponseOrder(80, 1);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

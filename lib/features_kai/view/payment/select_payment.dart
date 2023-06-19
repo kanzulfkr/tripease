@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,7 +77,7 @@ class _PaymentPageState extends State<PaymentPage> {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             child: Consumer<PostOrderTrainProvider>(
-              builder: (context, postOrderProv, child) {
+              builder: (context, postOrder, child) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -133,7 +134,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             SizedBox(
                               height: 30.h,
                               child: Text(
-                                '${postOrderProv.getQuantityInfant} x Rp. ${trainProv.getPrice}',
+                                '${postOrder.getQuantityAdult} x Rp. ${trainProv.getPrice}',
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),
@@ -142,7 +143,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             SizedBox(
                               height: 30.h,
                               child: Text(
-                                '${postOrderProv.getQuantityInfant} x Rp. 8.000',
+                                '${postOrder.getQuantityAdult} x Rp. 8.000',
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),

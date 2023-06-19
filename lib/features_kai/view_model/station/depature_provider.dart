@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
@@ -60,6 +58,11 @@ class DepartureViewModel with ChangeNotifier {
 
   int? _selectedDepartIndex;
   int? get selectedDepartIndex => _selectedDepartIndex;
+
+  void clearDeparture() {
+    _departure = [];
+    notifyListeners();
+  }
 
   void setSelectedDepartIndex(int? index) {
     _selectedDepartIndex = index;
@@ -124,7 +127,7 @@ class DepartureViewModel with ChangeNotifier {
         arriveTime: arriveTime,
       );
 
-      _departure = response.data;
+      _departure = response.data!;
 
       notifyListeners();
     } catch (e) {

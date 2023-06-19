@@ -32,10 +32,10 @@ class StationProvider extends ChangeNotifier {
   String? initialDestination;
   String? get getInitialDestination => initialDestination;
 
-  int? _qtyAdult;
-  int? get qtyAdult => _qtyAdult;
+  int _qtyAdult = 0;
+  int get qtyAdult => _qtyAdult;
 
-  int? _qtyInfant;
+  int? _qtyInfant = 0;
   int? get qtyInfant => _qtyInfant;
 
   GetStationStatus _getStationStatus = GetStationStatus.empty;
@@ -111,12 +111,12 @@ class StationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setQtyAdult(int? qty) async {
+  void setQtyAdult(int qty) {
     _qtyAdult = qty;
     notifyListeners();
   }
 
-  Future<void> setQtyInfant(int? qty) async {
+  void setQtyInfant(int? qty) {
     _qtyInfant = qty;
     notifyListeners();
   }
@@ -128,6 +128,22 @@ class StationProvider extends ChangeNotifier {
 
   void updateSearchQuery(String newQuery) {
     _query = newQuery;
+    notifyListeners();
+  }
+
+  void switchStations() {
+    int? tempId = _idOrigin;
+    String? tempName = nameOrigin;
+    String? tempInitial = initialOrigin;
+
+    _idOrigin = _idDestination;
+    nameOrigin = nameDestination;
+    initialOrigin = initialDestination;
+
+    _idDestination = tempId;
+    nameDestination = tempName;
+    initialDestination = tempInitial;
+
     notifyListeners();
   }
 }
