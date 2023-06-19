@@ -10,10 +10,8 @@ class PesananScreen extends StatefulWidget {
 class _PesananScreenState extends State<PesananScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Ini Pesanan'),
-      ),
+    return Center(
+      child: Text('ini pesanan'),
     );
   }
 }

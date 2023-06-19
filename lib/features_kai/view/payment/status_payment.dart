@@ -2,12 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:random_string/random_string.dart';
 import '../invoice_page/factur_page.dart';
 
 class PaymentStatus extends StatefulWidget {
-  final String imageUrl;
-  const PaymentStatus({super.key, required this.imageUrl});
+  const PaymentStatus({super.key});
 
   @override
   State<PaymentStatus> createState() => _PaymentStatusState();
@@ -20,10 +18,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => InvoicePage(
-                  orderNumber: randomAlphaNumeric(8),
-                )),
+        MaterialPageRoute(builder: (context) => const InvoicePage()),
       ),
     );
     super.initState();

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../model/order_train_model.dart';
 import '../../view_model/carriage/carriage_provider.dart';
-import '../../view_model/carriage/order_train_provider.dart';
+import '../../view_model/order_ticket/order_train_provider.dart';
 import '../../view_model/carriage/select_seat_kai_provider.dart';
 import '../../view_model/timer/timer_seat_provider.dart';
 import 'widgets/ekonomi_carriage.dart';

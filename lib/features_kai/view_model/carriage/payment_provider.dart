@@ -14,6 +14,14 @@ class PaymentProvider extends ChangeNotifier {
   String? _accountNumber;
   String? get getAccountNumber => _accountNumber;
 
+  String? _imageUrl;
+  String? get getImageUrl => _imageUrl;
+
+  void setImageUrl(String imageUrl) {
+    _imageUrl = imageUrl;
+    notifyListeners();
+  }
+
   void setAccountNumber(String accountNumber) {
     _accountNumber = accountNumber;
     notifyListeners();

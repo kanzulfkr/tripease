@@ -1,5 +1,5 @@
-import 'package:capstone_project_tripease/features_kai/view/payment/widgets/payment_page.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view/payment/payment_page.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +8,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../view_model/timer/time_payment_provider.dart';
 
-class SelectPayment extends StatefulWidget {
-  const SelectPayment({Key? key}) : super(key: key);
+class ListPayment extends StatefulWidget {
+  const ListPayment({Key? key}) : super(key: key);
 
   @override
-  State<SelectPayment> createState() => _SelectPaymentState();
+  State<ListPayment> createState() => _ListPaymentState();
 }
 
-class _SelectPaymentState extends State<SelectPayment> {
+class _ListPaymentState extends State<ListPayment> {
   int selectedContainer = 0;
   bool showContainer = false;
-  double containerHeight = 240.0;
   int selectedRadio = 0;
   int selectedVA = 0;
 
@@ -120,17 +119,16 @@ class _SelectPaymentState extends State<SelectPayment> {
     final postOrderProv =
         Provider.of<PostOrderTrainProvider>(context, listen: false);
     final trainProv = Provider.of<TrainProvider>(context, listen: false);
-    final paymentProv = Provider.of<PaymentProvider>(context, listen: false);
 
     return Column(
       children: [
         Center(
           child: Container(
-            height: 400.h,
-            margin: EdgeInsets.only(top: 28.5.h),
+            height: showContainer ? 350.h : 300.h,
+            margin: EdgeInsets.only(top: 28.h),
             padding: EdgeInsets.symmetric(vertical: 12.h),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8.r),
               color: const Color(0xFFF0F0F8),
             ),
             child: Column(
@@ -146,7 +144,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           style: GoogleFonts.openSans(
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
-                        // Image.asset('assets/images/credit_card.png'),
+                        Image.asset('assets/images/credit_card.png'),
                       ],
                     ),
                     value: 1,
@@ -154,6 +152,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     onChanged: (sendRadioButton) {
                       setState(() {
                         selectedRadio = 1;
+                        showContainer = false;
                       });
                     },
                   ),
@@ -168,7 +167,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                             style: GoogleFonts.openSans(
                                 fontSize: 14.sp, fontWeight: FontWeight.w600),
                           ),
-                          // Image.asset('assets/images/bank-account.png'),
+                          Image.asset('assets/images/bank-account.png'),
                         ],
                       ),
                       value: 2,
@@ -177,71 +176,67 @@ class _SelectPaymentState extends State<SelectPayment> {
                         setState(() {
                           selectedRadio = value as int;
                           showContainer = true;
-                          containerHeight = showContainer ? 378.0.h : 240.0.h;
                         });
                       }),
                 ),
                 if (selectedRadio == 2)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedContainer = 1;
-                            selectedVA = 1;
-                          });
-                        },
-                        child: Container(
-                          height: 45.h,
-                          margin: EdgeInsets.only(left: 66.w),
-                          padding: EdgeInsets.only(top: 5.h),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: selectedContainer == 1
-                                  ? Colors.blue
-                                  : Colors.transparent,
-                              width: 1.5,
-                            ),
-                          ),
-                          child: Consumer<PaymentProvider>(
-                            builder: (context, paymentProv, child) {
-                              var lengthVA = paymentProv.payment.length;
-                              return ListView.builder(
-                                itemCount: lengthVA,
-                                itemBuilder: (context, index) {
-                                  var accNumber =
-                                      paymentProv.payment[index].accountNumber;
-                                  paymentProv.setAccountNumber(accNumber);
-                                  return Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 30.h,
-                                        width: 50.w,
-                                        child: Image.network(
-                                          paymentProv.payment[index].imageUrl,
-                                        ),
-                                      ),
-                                      Text(
-                                        paymentProv.payment[index].name,
-                                        style: GoogleFonts.openSans(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedContainer = 1;
+                        selectedVA = 1;
+                      });
+                    },
+                    child: Container(
+                      height: 45.h,
+                      width: 200.w,
+                      margin: EdgeInsets.only(left: 66.w),
+                      padding: EdgeInsets.only(top: 5.h),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: selectedContainer == 1
+                              ? Colors.blue
+                              : Colors.transparent,
+                          width: 1.5,
                         ),
                       ),
-                    ],
+                      child: Consumer<PaymentProvider>(
+                        builder: (context, paymentProv, child) {
+                          var lengthVA = paymentProv.payment.length;
+                          return ListView.builder(
+                            itemCount: lengthVA,
+                            itemBuilder: (context, index) {
+                              var accNumber =
+                                  paymentProv.payment[index].accountNumber;
+                              var imageUrl =
+                                  paymentProv.payment[index].imageUrl;
+                              paymentProv.setAccountNumber(accNumber);
+                              paymentProv.setImageUrl(imageUrl);
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 30.h,
+                                    width: 50.w,
+                                    child: Image.network(
+                                      paymentProv.payment[index].imageUrl,
+                                    ),
+                                  ),
+                                  Text(
+                                    paymentProv.payment[index].name,
+                                    style: GoogleFonts.openSans(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 Expanded(
                   child: RadioListTile(
@@ -253,7 +248,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           style: GoogleFonts.openSans(
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
-                        // Image.asset('assets/images/logo-ovo-pay.png')
+                        Image.asset('assets/images/logo-ovo-pay.png')
                       ],
                     ),
                     value: 3,
@@ -261,6 +256,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     onChanged: (sendRadioButton) {
                       setState(() {
                         selectedRadio = 3;
+                        showContainer = false;
                       });
                     },
                   ),
@@ -275,7 +271,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           style: GoogleFonts.openSans(
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
-                        // Image.asset('assets/images/gopay.png'),
+                        Image.asset('assets/images/gopay.png'),
                       ],
                     ),
                     value: 4,
@@ -283,6 +279,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     onChanged: (sendRadioButton) {
                       setState(() {
                         selectedRadio = 4;
+                        showContainer = false;
                       });
                     },
                   ),
@@ -297,7 +294,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           style: GoogleFonts.openSans(
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
-                        // Image.asset('assets/images/storefront.png'),
+                        Image.asset('assets/images/storefront.png'),
                       ],
                     ),
                     value: 5,
@@ -305,6 +302,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     onChanged: (sendRadioButton) {
                       setState(() {
                         selectedRadio = 5;
+                        showContainer = false;
                       });
                     },
                   ),
@@ -319,7 +317,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           style: GoogleFonts.openSans(
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
-                        // Image.asset('assets/images/ticket_office.png'),
+                        Image.asset('assets/images/ticket_office.png'),
                       ],
                     ),
                     value: 6,
@@ -327,6 +325,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                     onChanged: (sendRadioButton) {
                       setState(() {
                         selectedRadio = 6;
+                        showContainer = false;
                       });
                     },
                   ),

@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

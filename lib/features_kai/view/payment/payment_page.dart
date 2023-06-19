@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view/payment/status_payment.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../model/order_train_model.dart';
-import '../../../view_model/carriage/carriage_provider.dart';
-import '../../../view_model/timer/time_payment_provider.dart';
-import '../status_payment.dart';
+import '../../model/order_train_model.dart';
+import '../../view_model/timer/time_payment_provider.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage(
@@ -55,14 +55,17 @@ class _PaymentPageState extends State<PaymentPage> {
         Provider.of<TimerPaymentProvider>(context, listen: false);
     timerPaymentOther.stopCountDown();
     timerPaymentOther.startCountDown(context);
-    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) {
-      if (timerPaymentOther.isTimeUp()) {
-        countdownTimer?.cancel();
+    countdownTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) {
+        if (timerPaymentOther.isTimeUp()) {
+          countdownTimer?.cancel();
 
-        Navigator.of(context).pop();
-        showDialogWithContext(context);
-      }
-    });
+          Navigator.of(context).pop();
+          showDialogWithContext(context);
+        }
+      },
+    );
   }
 
   Future<dynamic> showDialogWithContext(BuildContext context) {
@@ -95,18 +98,29 @@ class _PaymentPageState extends State<PaymentPage> {
     await orderTrain.postOrderTrain(postOrder);
   }
 
-  void cekData() {
-    final orderTrain =
-        Provider.of<PostOrderTrainProvider>(context, listen: false);
-    print(orderTrain.getEmail);
-    print(orderTrain.getName);
-    print(orderTrain.getPaymentId);
-    print(orderTrain.getPhoneNumber);
-    print(orderTrain.getQuantityAdult);
-    print(orderTrain.getQuantityInfant);
-    print(orderTrain.getTicketTravelerDetail);
-    print(orderTrain.travelerDetail);
-  }
+  // void cekData() {
+  //   final orderTrain =
+  //       Provider.of<PostOrderTrainProvider>(context, listen: false);
+  //   print('email : ${orderTrain.getEmail}');
+  //   print('name : ${orderTrain.getName}');
+  //   print('paymentID : ${orderTrain.getPaymentId}');
+  //   print('notelp : ${orderTrain.getPhoneNumber}');
+  //   print('return : ${orderTrain.getWithReturn}');
+  //   print('adut : ${orderTrain.getQuantityAdult}');
+  //   print('infant : ${orderTrain.getQuantityInfant}');
+  //   print('tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].date}');
+  //   print(
+  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].stationDestinationId}');
+  //   print(
+  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].stationOriginId}');
+  //   print(
+  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].trainCarriageId}');
+  //   print(
+  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].trainSeatId}');
+  //   print('traveler dtl : ${orderTrain.travelerDetail![0].fullName}');
+  //   print('traveler dtl : ${orderTrain.travelerDetail![0].idCardNumber}');
+  //   print('traveler dtl : ${orderTrain.travelerDetail![0].title}');
+  // }
 
   @override
   void dispose() {
@@ -151,62 +165,63 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                color: const Color.fromARGB(255, 226, 228, 232),
-                height: 100.h,
-                width: 300.w,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 8.h),
-                  child: widget.isPaymentVA
-                      ? Row(
+            Container(
+              height: 80.h,
+              margin: EdgeInsets.all(20.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              color: const Color.fromARGB(255, 226, 228, 232),
+              child: widget.isPaymentVA
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.network(
+                          paymentProv.getImageUrl!,
+                          height: 60.h,
+                          width: 60.w,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Nomor Virtual Account',
                               style: GoogleFonts.openSans(
                                   fontSize: 14.sp, fontWeight: FontWeight.w600),
                             ),
-                            Column(
-                              children: [
-                                Text(
-                                  paymentProv.getAccountNumber!,
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const Icon(
-                                  Icons.content_copy,
-                                  size: 13,
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      : Row(
-                          children: [
-                            SizedBox(
-                              width: 40.w,
-                              height: 40.h,
-                              child: Image.asset(
-                                widget.imageUrl,
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  'Total Biaya',
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Text(postOrderProv.getTotalPrice.toString())
-                              ],
+                            Text(
+                              paymentProv.getAccountNumber!,
+                              style: GoogleFonts.openSans(
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
-                ),
-              ),
+                        const Icon(
+                          Icons.content_copy,
+                          size: 13,
+                        ),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        SizedBox(
+                          width: 40.w,
+                          height: 40.h,
+                          child: Image.asset(
+                            widget.imageUrl,
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Total Biaya',
+                              style: GoogleFonts.openSans(
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
+                            ),
+                            Text(postOrderProv.getTotalPrice.toString())
+                          ],
+                        ),
+                      ],
+                    ),
             ),
             SizedBox(
               height: 40.h,
@@ -286,17 +301,52 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ElevatedButton(
               onPressed: () {
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => PaymentStatus(
-                //       imageUrl: 'image',
-                //     ),
-                //   ),
-                //   (route) => false,
-                // );
-                cekData();
                 order();
+
+                if (postOrderProv.getStatusCode == '201') {
+                  if (context.mounted) {
+                    print('success code : ${postOrderProv.getStatusCode}');
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Berhasil melakukan order Tiket KA',
+                        ),
+                      ),
+                    );
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PaymentStatus(),
+                      ),
+                      (route) => false,
+                    );
+                  }
+                } else if (postOrderProv.getStatusCode == '400') {
+                  print('failed code : ${postOrderProv.getStatusCode}');
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Kesalahan Input Data order.',
+                        ),
+                      ),
+                    );
+                  }
+                } else if (postOrderProv.getStatusCode == '401') {
+                  print('failed code : ${postOrderProv.getStatusCode}');
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Center(
+                          child: Text(
+                            'Internal Server error.',
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                }
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(252, 40),

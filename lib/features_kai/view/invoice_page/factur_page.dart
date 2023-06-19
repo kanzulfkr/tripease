@@ -1,15 +1,34 @@
-import 'package:capstone_project_tripease/main_page.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/response_order_train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'code_payment.dart';
+import 'package:provider/provider.dart';
+import '../../../main_page.dart';
+import '../../view_model/train/train_provider.dart';
 import 'ticket_booking.dart';
 
-class InvoicePage extends StatelessWidget {
-  final String orderNumber;
+class InvoicePage extends StatefulWidget {
+  const InvoicePage({super.key});
 
-  InvoicePage({required this.orderNumber});
+  @override
+  State<InvoicePage> createState() => _InvoicePageState();
+}
+
+class _InvoicePageState extends State<InvoicePage> {
+  @override
+  void initState() {
+    super.initState();
+    var trainProv = Provider.of<TrainProvider>(context, listen: false);
+    var postOrderProv =
+        Provider.of<PostOrderTrainProvider>(context, listen: false);
+    var responseOrderProv =
+        Provider.of<ResponseOrderTrainProvider>(context, listen: false);
+
+    Future.microtask(() async {
+      await responseOrderProv.getResponseOrder(80, 1);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,142 +41,146 @@ class InvoicePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // PrintBarcode(orderNumber: orderNumber),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, top: 18.h),
-            child: CodePayment(orderNumber: orderNumber),
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          const TicketBooking(),
-          SizedBox(
-            height: 25.h,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Tiket',
+      body: Consumer<ResponseOrderTrainProvider>(
+        builder: (context, responseProv, child) {
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, top: 18.h),
+                child: Text(
+                  'No.${responseProv.dataOrder.ticketOrderCode}',
                   style: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                Text(
-                  '8 x Rp. 15.000',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 17.h),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Asuransi',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  '8 x Rp. 3.000',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          ),
-
-          SizedBox(height: 17.h),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              width: 400.w,
-              height: 1.h,
-              color: Colors.black,
-            ),
-          ),
-          SizedBox(height: 17.h),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Column(
-              children: [
-                Row(
+              ),
+              SizedBox(height: 16.h),
+              const TicketBooking(),
+              SizedBox(height: 25.h),
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Total',
+                      'Tiket',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      'Rp. 144.000',
+                      '${responseProv.dataOrder.quantityInfant} x Rp. ${responseProv.dataOrder.train!.trainPrice}',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: 17.h),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Pay With',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w600),
-                ),
-                Image.asset(
-                  'assets/images/logo-ovo-pay.png',
-                  width: 50.w,
-                  height: 20.h,
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 96.h,
-          ),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainPage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(252, 40), // Ukuran tombol
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        5), // Sudut melengkung dengan jari-jari 5
-                  ),
-                  padding: const EdgeInsets.fromLTRB(
-                      24, 0, 24, 0), // Padding di kiri dan kanan
-                  primary: const Color(0XFF0080FF) // Warna latar belakang biru
-                  ),
-              child: Text(
-                'Cek Pesanan',
-                style: GoogleFonts.openSans(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white, // Warna teks putih
+              ),
+              SizedBox(height: 17.h),
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Asuransi',
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      '${responseProv.dataOrder.quantityInfant} x Rp. 3.000',
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-        ],
+              SizedBox(height: 17.h),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  width: 400.w,
+                  height: 1.h,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 17.h),
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total',
+                          style: GoogleFonts.openSans(
+                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'Rp. ${responseProv.dataOrder.train!.trainPrice}',
+                          style: GoogleFonts.openSans(
+                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 17.h),
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Pay With',
+                      style: GoogleFonts.openSans(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    ),
+                    Image.network(
+                      '${responseProv.dataOrder.payment!.imageUrl}',
+                      width: 50.w,
+                      height: 30.h,
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 96.h,
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MainPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(252, 40), // Ukuran tombol
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            5), // Sudut melengkung dengan jari-jari 5
+                      ),
+                      padding: const EdgeInsets.fromLTRB(
+                          24, 0, 24, 0), // Padding di kiri dan kanan
+                      primary:
+                          const Color(0XFF0080FF) // Warna latar belakang biru
+                      ),
+                  child: Text(
+                    'Cek Pesanan',
+                    style: GoogleFonts.openSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white, // Warna teks putih
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

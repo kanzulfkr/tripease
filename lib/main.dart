@@ -1,8 +1,8 @@
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/response_order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/timer/time_payment_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:capstone_project_tripease/features_profile/view_model/article_provider.dart';
-
 import '/onboard_feature/view/splash.dart';
 import '/onboard_feature/view_model/register_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'features_kai/view_model/carriage/carriage_provider.dart';
-import 'features_kai/view_model/carriage/order_train_provider.dart';
+import 'features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'features_kai/view_model/carriage/select_seat_kai_provider.dart';
 import 'features_kai/view_model/station/depature_provider.dart';
 import 'features_kai/view_model/station/return_provider.dart';
@@ -49,6 +49,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TrainProvider()),
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
         ChangeNotifierProvider(create: (_) => TimerPaymentProvider()),
+        ChangeNotifierProvider(create: (_) => ResponseOrderTrainProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

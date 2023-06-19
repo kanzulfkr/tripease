@@ -1,12 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../api/order_train_api.dart';
 import '../../model/order_train_model.dart';
 
-enum RequestState { empty, loading, loaded, error }
-
 class PostOrderTrainProvider with ChangeNotifier {
-  RequestState _state = RequestState.empty;
-  RequestState get state => _state;
+  String _statusCode = '';
+  String get getStatusCode => _statusCode;
+
+  int _ticketOrderId = 0;
+  int get getTicketOrderId => _ticketOrderId;
 
   String? _email;
   String? get getEmail => _email;
@@ -29,7 +31,7 @@ class PostOrderTrainProvider with ChangeNotifier {
   String? _depatureTime;
   String? get getDepatureTime => _depatureTime;
 
-  int _quantityAdult = 0;
+  int _quantityAdult = 1;
   int get getQuantityAdult => _quantityAdult;
 
   int? _quantityInfant;
@@ -124,12 +126,19 @@ class PostOrderTrainProvider with ChangeNotifier {
 
   Future<void> postOrderTrain(PostOrderTrainModel order) async {
     try {
-      await OrderTrainApi().postOrderTrain(order);
+      final response = await OrderTrainApi().postOrderTrain(order);
+      _statusCode = response.data['status_code'].toString();
+
+      _ticketOrderId = response.data['data']['ticket_order_id'];
+
+      // print('ticket_order_id');
+      // print(response.data['data']['ticket_order_id']);
+      // print('ini response full nya');
+      // print(response.data);
       notifyListeners();
-    } catch (e) {
-      print('Error ORDER : $e');
-      _state = RequestState.error;
-      print(e);
+    } on DioError catch (e) {
+      final code = e.response!.statusCode;
+      _statusCode = code.toString();
       notifyListeners();
     }
   }

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -206,7 +206,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         ),
                       ],
                     ),
-                    const SelectPayment(),
+                    const ListPayment(),
                   ],
                 );
               },

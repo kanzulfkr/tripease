@@ -1,5 +1,5 @@
 import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_kai.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/order_train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
