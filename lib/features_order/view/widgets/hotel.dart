@@ -1,6 +1,7 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:capstone_project_tripease/features_order/view/screens/features_order_details_hotel/view/order_refund_pending.dart';
 import 'package:capstone_project_tripease/features_order/view_model/provider/coundown_provider.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/hotel/hotel_order_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -107,7 +108,7 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
         destinationPages.add(const OrderCanccel());
         break;
       case TabStatusHotel.PENGEMBALIAN:
-        destinationPages.add(const OrderRefundPending());
+        destinationPages.add(const OrderCanccel());
         break;
       case TabStatusHotel.SEMUA:
       default:
@@ -189,156 +190,291 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                   ],
                 ),
                 Expanded(
-                  child: Consumer<HotelOrderProvider>(
-                    builder: (context, hotelOrderProvider, _) {
-                      return ListView.builder(
-                        itemCount: hotelOrderProvider.hotelOrder.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              navigateToDetailPage();
-                            },
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(16.w),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: background,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: grey.withOpacity(0.5),
-                                          spreadRadius: 1.w,
-                                          blurRadius: 3.w,
-                                          offset: const Offset(1, 1),
-                                        ),
-                                      ],
-                                      borderRadius: BorderRadius.circular(8.r),
+                  child: ListView.builder(
+                    itemCount: hotelProvider.hotelOrder.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          var orderDetail =
+                              Provider.of<HotelOrderDetailProvider>(context,
+                                  listen: false);
+
+                          var nameHotel =
+                              hotelProvider.hotelOrder[index].hotel?.name ?? '';
+                          orderDetail.setNameHotel(nameHotel);
+                          var addressHotel =
+                              hotelProvider.hotelOrder[index].hotel?.name ?? '';
+                          orderDetail.setAddressHotel(addressHotel);
+                          var classHotel = hotelProvider
+                                  .hotelOrder[index].hotel?.hotelClass ??
+                              '';
+                          orderDetail.setClassHotel(classHotel.toString());
+                          var numberOfNight =
+                              hotelProvider.hotelOrder[index].numberOfNight ??
+                                  '';
+                          orderDetail
+                              .setNumberOfNight(numberOfNight.toString());
+                          var checkIn =
+                              hotelProvider.hotelOrder[index].checkInDate ?? '';
+                          final formatDate = DateFormat('dd MMMM yyyy');
+                          String formattedCheckIn = formatDate
+                              .format(DateTime.parse(checkIn.toString()));
+                          orderDetail.setCheckIn(formattedCheckIn);
+                          var checkOut =
+                              hotelProvider.hotelOrder[index].checkOutDate ??
+                                  '';
+                          String formattedCheckOut = formatDate
+                              .format(DateTime.parse(checkOut.toString()));
+                          orderDetail.setCheckOut(formattedCheckOut);
+                          var typePayment =
+                              hotelProvider.hotelOrder[index].payment?.type ??
+                                  '';
+                          orderDetail.setTypePayment(typePayment);
+                          var accountNumber = hotelProvider
+                                  .hotelOrder[index].payment?.accountNumber ??
+                              '';
+                          orderDetail.setAccountNumber(accountNumber);
+                          var accountName = hotelProvider
+                                  .hotelOrder[index].payment?.accountName ??
+                              '';
+                          orderDetail.setAccountName(accountName);
+
+                          var imagePayment = hotelProvider
+                                  .hotelOrder[index].payment?.imageUrl ??
+                              '';
+                          orderDetail.setImagePayment(imagePayment);
+
+                          var ticketOrderCode =
+                              hotelProvider.hotelOrder[index].ticketOrderCode ??
+                                  '';
+                          orderDetail.setTicketOrderCode(ticketOrderCode);
+                          var nameOrder =
+                              hotelProvider.hotelOrder[index].nameOrder ?? '';
+                          orderDetail.setNameOrder(nameOrder);
+                          var nameRoomHotel = hotelProvider
+                                  .hotelOrder[index].hotel?.hotelRoom?.name ??
+                              '';
+                          orderDetail.setNameRoomHotel(nameRoomHotel);
+                          var emailOrder =
+                              hotelProvider.hotelOrder[index].emailOrder ?? '';
+                          orderDetail.setEmailOrder(emailOrder);
+                          var specialRequest =
+                              hotelProvider.hotelOrder[index].specialRequest ??
+                                  '';
+                          orderDetail.setSpecialRequest(specialRequest);
+                          var hotelFacilities = hotelProvider
+                                  .hotelOrder[index].hotel?.hotelFacilities ??
+                              '';
+
+                          orderDetail
+                              .setHotelFacilities(hotelFacilities.toString());
+                          var numberOfGuest = hotelProvider.hotelOrder[index]
+                                  .hotel?.hotelRoom?.numberOfGuest ??
+                              '';
+                          orderDetail
+                              .setNumberOfGuest(numberOfGuest.toString());
+                          var quantityOfRoom = hotelProvider.hotelOrder[index]
+                                  .hotel?.hotelRoom?.quantityOfRoom ??
+                              '';
+                          orderDetail
+                              .setQuantityRoom(quantityOfRoom.toString());
+                          var priceHotel =
+                              hotelProvider.hotelOrder[index].price ?? '';
+                          final formatCurrency = NumberFormat.currency(
+                              locale: 'id_ID', symbol: 'Rp ');
+                          String formattedPrice = formatCurrency
+                              .format(double.parse(priceHotel.toString()));
+                          orderDetail.setPriceHotel(formattedPrice);
+
+                          var totalAmount =
+                              hotelProvider.hotelOrder[index].totalAmount ?? '';
+                          String formattedTotalAmount = formatCurrency
+                              .format(double.parse(totalAmount.toString()));
+                          orderDetail.setTotalAmount(formattedTotalAmount);
+
+                          var discountPrice = hotelProvider.hotelOrder[index]
+                                  .hotel?.hotelRoom?.discountPrice ??
+                              '';
+                          String formattedDiscount = formatCurrency
+                              .format(double.parse(discountPrice.toString()));
+                          orderDetail.setDiscountPrice(formattedDiscount);
+
+                          var createAt =
+                              hotelProvider.hotelOrder[index].createdAt ?? '';
+                          final formatDateOrderCheck =
+                              DateFormat('dd MMMM yyyy HH:mm:ss');
+                          String formattedCreateAt = formatDateOrderCheck
+                              .format(DateTime.parse(createAt.toString()));
+                          orderDetail.setCreatedAt(formattedCreateAt);
+
+                          var updateAt =
+                              hotelProvider.hotelOrder[index].updatedAt ?? '';
+                          final formatDateOrderUpdate =
+                              DateFormat('dd MMMM yyyy HH:mm:ss');
+                          String formattedUpdateAt = formatDateOrderUpdate
+                              .format(DateTime.parse(updateAt.toString()));
+                          orderDetail.setUpdatedAt(formattedUpdateAt);
+
+                          navigateToDetailPage();
+                        },
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(16.w),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: background,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: grey.withOpacity(0.5),
+                                      spreadRadius: 1.w,
+                                      blurRadius: 3.w,
+                                      offset: const Offset(1, 1),
                                     ),
-                                    // height:205.h,
-                                    width: 350.w,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(20.w),
-                                      child: Column(
+                                  ],
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
+                                // height:205.h,
+                                width: 350.w,
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.w),
+                                  child: Column(
+                                    children: [
+                                      Row(
                                         children: [
-                                          Row(
-                                            children: [
-                                              hotelProvider.hotelOrder[index]
+                                          hotelProvider.hotelOrder[index]
+                                                      .status ==
+                                                  'unpaid'
+                                              ? iconSchedule
+                                              : hotelProvider.hotelOrder[index]
                                                           .status ==
-                                                      'unpaid'
-                                                  ? iconSchedule
+                                                      'paid'
+                                                  ? iconCheck
                                                   : hotelProvider
                                                               .hotelOrder[index]
                                                               .status ==
-                                                          'paid'
-                                                      ? iconCheck
+                                                          'done'
+                                                      ? iconPesananSelesai
                                                       : hotelProvider
                                                                   .hotelOrder[
                                                                       index]
                                                                   .status ==
-                                                              'done'
-                                                          ? iconPesananSelesai
-                                                          : hotelProvider
-                                                                      .hotelOrder[
-                                                                          index]
-                                                                      .status ==
-                                                                  'canceled'
-                                                              ? iconCencel
-                                                              : iconSchedule,
-                                              SizedBox(width: 5.w),
-                                              Expanded(
-                                                child: hotelProvider
+                                                              'canceled'
+                                                          ? iconCencel
+                                                          : iconCencel,
+                                          SizedBox(width: 5.w),
+                                          Expanded(
+                                            child: hotelProvider
+                                                        .hotelOrder[index]
+                                                        .status ==
+                                                    'unpaid'
+                                                ? Text(
+                                                    'MENUNGGU PEMBAYARAN',
+                                                    style: myTextTheme
+                                                        .titleLarge
+                                                        ?.copyWith(
+                                                      color: kuning,
+                                                    ),
+                                                  )
+                                                : hotelProvider
                                                             .hotelOrder[index]
                                                             .status ==
-                                                        'unpaid'
+                                                        'paid'
                                                     ? Text(
-                                                        'MENUNGGU PEMBAYARAN',
+                                                        'SUDAH BAYAR',
                                                         style: myTextTheme
                                                             .titleLarge
                                                             ?.copyWith(
-                                                          color: kuning,
+                                                          color: green,
                                                         ),
                                                       )
                                                     : hotelProvider
                                                                 .hotelOrder[
                                                                     index]
                                                                 .status ==
-                                                            'paid'
+                                                            'done'
                                                         ? Text(
-                                                            'SUDAH BAYAR',
+                                                            'PESANAN SELESAI',
                                                             style: myTextTheme
                                                                 .titleLarge
                                                                 ?.copyWith(
-                                                              color: green,
+                                                              color: orange,
                                                             ),
                                                           )
                                                         : hotelProvider
                                                                     .hotelOrder[
                                                                         index]
                                                                     .status ==
-                                                                'done'
+                                                                'canceled'
                                                             ? Text(
-                                                                'PESANAN SELESAI',
+                                                                'PESANAN DIBATALKAN',
                                                                 style: myTextTheme
                                                                     .titleLarge
                                                                     ?.copyWith(
-                                                                  color: orange,
+                                                                  color: red,
                                                                 ),
                                                               )
-                                                            : hotelProvider
-                                                                        .hotelOrder[
-                                                                            index]
-                                                                        .status ==
-                                                                    'canceled'
-                                                                ? Text(
-                                                                    'PESANAN DIBATALKAN',
-                                                                    style: myTextTheme
-                                                                        .titleLarge
-                                                                        ?.copyWith(
-                                                                      color:
-                                                                          red,
-                                                                    ),
-                                                                  )
-                                                                : Text(
-                                                                    'DALAM PROSES PENGEMBALIAN',
-                                                                    style: myTextTheme
-                                                                        .titleLarge
-                                                                        ?.copyWith(
-                                                                      color:
-                                                                          kuning,
-                                                                    ),
-                                                                  ),
-                                              ),
-                                              if (hotelProvider
-                                                      .hotelOrder[index]
-                                                      .status ==
-                                                  'unpaid')
-                                                Consumer<CountdownProvider>(
-                                                  builder: (context,
-                                                      timeProvider, _) {
-                                                    return Expanded(
-                                                      child: CountdownTimer(
-                                                        endTime: timeProvider
-                                                            .endTime,
-                                                        textStyle: myTextTheme
-                                                            .titleLarge
-                                                            ?.copyWith(
-                                                          color: getIconColor(
-                                                              iconSchedule),
-                                                        ),
-                                                        onEnd: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              return AlertDialog(
-                                                                title: Text(
-                                                                  'Waktu Habis',
+                                                            : Text(
+                                                                'PESANAN DIBATALKAN',
+                                                                style: myTextTheme
+                                                                    .titleLarge
+                                                                    ?.copyWith(
+                                                                  color: red,
+                                                                ),
+                                                              ),
+                                          ),
+                                          if (hotelProvider
+                                                  .hotelOrder[index].status ==
+                                              'unpaid')
+                                            Consumer<CountdownProvider>(
+                                              builder:
+                                                  (context, timeProvider, _) {
+                                                return Expanded(
+                                                  child: CountdownTimer(
+                                                    endTime:
+                                                        timeProvider.endTime,
+                                                    textStyle: myTextTheme
+                                                        .titleLarge
+                                                        ?.copyWith(
+                                                      color: getIconColor(
+                                                          iconSchedule),
+                                                    ),
+                                                    onEnd: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                              'Waktu Habis',
+                                                              style: GoogleFonts
+                                                                  .openSans(
+                                                                color: black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                            content: Text(
+                                                              'Pesanan Dibatalkan',
+                                                              style: GoogleFonts
+                                                                  .openSans(
+                                                                color: black,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                            ),
+                                                            actions: [
+                                                              TextButton(
+                                                                child: Text(
+                                                                  'Tutup',
                                                                   style: GoogleFonts
                                                                       .openSans(
                                                                     color:
-                                                                        black,
+                                                                        mainBlue,
                                                                     fontSize:
                                                                         14,
                                                                     fontWeight:
@@ -346,211 +482,172 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                                                             .w600,
                                                                   ),
                                                                 ),
-                                                                content: Text(
-                                                                  'Pesanan Dibatalkan',
-                                                                  style: GoogleFonts
-                                                                      .openSans(
-                                                                    color:
-                                                                        black,
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                  ),
-                                                                ),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    child: Text(
-                                                                      'Tutup',
-                                                                      style: GoogleFonts
-                                                                          .openSans(
-                                                                        color:
-                                                                            mainBlue,
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                      ),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop();
-                                                                    },
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                              ),
+                                                            ],
                                                           );
-                                                          // setState(() {
-                                                          // });
                                                         },
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                            ],
+                                                      );
+                                                      setState(() {});
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 20.h),
+                                      Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(4.r),
+                                            child: SizedBox.fromSize(
+                                              size: Size.fromRadius(48.r),
+                                              child: shibuya,
+                                            ),
                                           ),
-                                          SizedBox(height: 20.h),
-                                          Row(
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(4.r),
-                                                child: SizedBox.fromSize(
-                                                  size: Size.fromRadius(48.r),
-                                                  child: shibuya,
+                                          SizedBox(width: 20.w),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  hotelProvider
+                                                          .hotelOrder[index]
+                                                          .hotel
+                                                          ?.name ??
+                                                      '',
+                                                  style:
+                                                      myTextTheme.displayMedium,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
                                                 ),
-                                              ),
-                                              SizedBox(width: 20.w),
-                                              Expanded(
-                                                child: Column(
+                                                SizedBox(height: 10.h),
+                                                Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      hotelProvider
-                                                              .hotelOrder[index]
-                                                              .hotel
-                                                              ?.name ??
-                                                          '',
-                                                      style: myTextTheme
-                                                          .displayMedium,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                    ),
-                                                    SizedBox(height: 10.h),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                    Row(
                                                       children: [
-                                                        Row(
-                                                          children: [
-                                                            iconLocation,
-                                                            SizedBox(
-                                                                width: 10.w),
-                                                            Expanded(
-                                                              child: Text(
-                                                                hotelProvider
-                                                                        .hotelOrder[
-                                                                            index]
-                                                                        .hotel
-                                                                        ?.address ??
-                                                                    '',
-                                                                style: myTextTheme
-                                                                    .headlineSmall,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 1,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            iconBed,
-                                                            SizedBox(
-                                                                width: 10.w),
-                                                            Expanded(
-                                                              child: Text(
-                                                                'Exclusive Room',
-                                                                style: myTextTheme
-                                                                    .headlineSmall,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 1,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            iconBedTime,
-                                                            SizedBox(
-                                                                width: 10.w),
-                                                            Expanded(
-                                                              child: Text(
-                                                                '${hotelProvider.hotelOrder[index].numberOfNight}',
-                                                                style: myTextTheme
-                                                                    .headlineSmall,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 1,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            iconDate,
-                                                            SizedBox(
-                                                                width: 10.w),
-                                                            Expanded(
-                                                              child: Text(
-                                                                '${hotelProvider.hotelOrder[index].checkInDate} - ${hotelProvider.hotelOrder[index].checkOutDate}',
-                                                                style: myTextTheme
-                                                                    .headlineSmall,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 1,
-                                                              ),
-                                                            ),
-                                                          ],
+                                                        iconLocation,
+                                                        SizedBox(width: 10.w),
+                                                        Expanded(
+                                                          child: Text(
+                                                            hotelProvider
+                                                                    .hotelOrder[
+                                                                        index]
+                                                                    .hotel
+                                                                    ?.address ??
+                                                                '',
+                                                            style: myTextTheme
+                                                                .headlineSmall,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                          ),
                                                         ),
                                                       ],
-                                                    )
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        iconBed,
+                                                        SizedBox(width: 10.w),
+                                                        Expanded(
+                                                          child: Text(
+                                                            'Exclusive Room',
+                                                            style: myTextTheme
+                                                                .headlineSmall,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        iconBedTime,
+                                                        SizedBox(width: 10.w),
+                                                        Expanded(
+                                                          child: Text(
+                                                            '${hotelProvider.hotelOrder[index].numberOfNight}',
+                                                            style: myTextTheme
+                                                                .headlineSmall,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        iconDate,
+                                                        SizedBox(width: 10.w),
+                                                        Expanded(
+                                                          child: Text(
+                                                            '${hotelProvider.hotelOrder[index].checkInDate} - ${hotelProvider.hotelOrder[index].checkOutDate}',
+                                                            style: myTextTheme
+                                                                .headlineSmall,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: 5.h),
-                                          const Divider(
-                                            color: black,
-                                          ),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  'Nomor Pesanan :',
-                                                  style: myTextTheme.bodySmall,
-                                                ),
-                                                SizedBox(width: 5.w),
-                                                Expanded(
-                                                  child: Text(
-                                                    hotelProvider
-                                                            .hotelOrder[index]
-                                                            .ticketOrderCode
-                                                            ?.toString() ??
-                                                        '',
-                                                    style:
-                                                        myTextTheme.bodySmall,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 2,
-                                                  ),
-                                                ),
+                                                )
                                               ],
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
-                                    ),
+                                      SizedBox(height: 5.h),
+                                      const Divider(
+                                        color: black,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Nomor Pesanan :',
+                                              style: myTextTheme.bodySmall,
+                                            ),
+                                            SizedBox(width: 5.w),
+                                            Expanded(
+                                              child: Text(
+                                                hotelProvider.hotelOrder[index]
+                                                        .ticketOrderCode
+                                                        ?.toString() ??
+                                                    '',
+                                                style: myTextTheme.bodySmall,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          );
-                        },
+                          ],
+                        ),
                       );
                     },
                   ),

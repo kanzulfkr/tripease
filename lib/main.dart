@@ -10,6 +10,7 @@ import 'features_order/utils/fonts.dart';
 import 'features_order/view/widgets/home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'features_order/view_model/provider/hotel/hotel_order_detail_provider.dart';
 import 'features_order/view_model/provider/train/train_order_detail_provider.dart';
 import 'features_order/view_model/provider/train/train_order_provider.dart';
 
@@ -43,6 +44,9 @@ class MainApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => HotelOrderProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => HotelOrderDetailProvider(),
         ),
       ],
       child: ScreenUtilInit(

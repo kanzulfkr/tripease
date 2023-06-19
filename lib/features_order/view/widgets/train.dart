@@ -112,7 +112,7 @@ class _KeretaApiState extends State<KeretaApi>
         destinationPages = const OrderKaiCancelledPage();
         break;
       case TabStatusTrain.PENGEMBALIAN:
-        destinationPages = const OrderKaiRefundPendingPage();
+        destinationPages = const OrderKaiCancelledPage();
         break;
       case TabStatusTrain.SEMUA:
       default:
@@ -193,6 +193,11 @@ class _KeretaApiState extends State<KeretaApi>
                   child: ListView.builder(
                       itemCount: trainProvider.trainOrder.length,
                       itemBuilder: (context, index) {
+                        DateTime date = trainProvider.trainOrder[index].date ??
+                            DateTime.now();
+                        initializeDateFormatting('id_ID', null);
+                        String formattedDate =
+                            DateFormat.yMMMMd('id_ID').format(date);
                         return InkWell(
                           onTap: () {
                             var orderDetail =
@@ -335,7 +340,7 @@ class _KeretaApiState extends State<KeretaApi>
                                                                     .status ==
                                                                 'canceled'
                                                             ? iconCencel
-                                                            : iconSchedule,
+                                                            : iconCencel,
                                             SizedBox(width: 5.w),
                                             Expanded(
                                               child: trainProvider
@@ -376,10 +381,15 @@ class _KeretaApiState extends State<KeretaApi>
                                                               ),
                                                             )
                                                           : trainProvider
-                                                                      .trainOrder[
-                                                                          index]
-                                                                      .status ==
-                                                                  'canceled'
+                                                                          .trainOrder[
+                                                                              index]
+                                                                          .status ==
+                                                                      'canceled' &&
+                                                                  trainProvider
+                                                                          .trainOrder[
+                                                                              index]
+                                                                          .status ==
+                                                                      'refund'
                                                               ? Text(
                                                                   'PESANAN DIBATALKAN',
                                                                   style: myTextTheme
@@ -389,12 +399,11 @@ class _KeretaApiState extends State<KeretaApi>
                                                                   ),
                                                                 )
                                                               : Text(
-                                                                  'DALAM PROSES PENGEMBALIAN',
+                                                                  'PESANAN DIBATALKAN',
                                                                   style: myTextTheme
                                                                       .titleLarge
                                                                       ?.copyWith(
-                                                                    color:
-                                                                        kuning,
+                                                                    color: red,
                                                                   ),
                                                                 ),
                                             ),
@@ -468,6 +477,7 @@ class _KeretaApiState extends State<KeretaApi>
                                                             );
                                                           },
                                                         );
+                                                        setState(() {});
                                                       },
                                                     ),
                                                   );
@@ -581,12 +591,7 @@ class _KeretaApiState extends State<KeretaApi>
                                                           SizedBox(width: 5.w),
                                                           Expanded(
                                                             child: Text(
-                                                              trainProvider
-                                                                      .trainOrder[
-                                                                          index]
-                                                                      .date
-                                                                      ?.toString() ??
-                                                                  '',
+                                                              formattedDate,
                                                               style: myTextTheme
                                                                   .headlineSmall,
                                                               overflow:

@@ -21,7 +21,7 @@ class HotelOrderApi {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODcxNDg3MDQsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.CcC4FEVXdClWqnDSniUCWNx_sP5OblqoB07dl2P5wQU'
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODcxODc1NDUsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.fD8tvkLVFZWF5aqY0jU_QofqaHVdBtHMr5rZc1-Nyds'
         }),
         queryParameters: {
           'page': pageNumber,

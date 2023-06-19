@@ -205,94 +205,99 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                   height: 12.h,
                 ),
                 SizedBox(
-                    width: 328.w,
-                    child: Card(
-                        shadowColor: Colors.black.withOpacity(1),
-                        elevation: 4.sp,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(16.sp),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  width: 328.w,
+                  child: Card(
+                    shadowColor: Colors.black.withOpacity(1),
+                    elevation: 4.sp,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(16.sp),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Selesaikan Pembayaran Sebelum',
+                              style: GoogleFonts.openSans(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFF0080FF))),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text('Selesaikan Pembayaran Sebelum',
+                              Expanded(
+                                child: Text(
+                                  orderDetail.getDateTime ?? '',
                                   style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xFF0080FF))),
-                              SizedBox(
-                                height: 8.h,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(orderDetail.getDateTime ?? '',
-                                      style: GoogleFonts.openSans(
+                              Consumer<CountdownProvider>(
+                                builder: (context, timerProvider, _) {
+                                  return Expanded(
+                                    child: CountdownTimer(
+                                      endTime: timerProvider.endTime,
+                                      textStyle: GoogleFonts.openSans(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
-                                      )),
-                                  Consumer<CountdownProvider>(
-                                    builder: (context, timerProvider, _) {
-                                      return CountdownTimer(
-                                        endTime: timerProvider.endTime,
-                                        textStyle: GoogleFonts.openSans(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        onEnd: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: Text(
-                                                  'Waktu Habis',
-                                                  style: GoogleFonts.openSans(
-                                                    color: black,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
+                                      ),
+                                      onEnd: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                'Waktu Habis',
+                                                style: GoogleFonts.openSans(
+                                                  color: black,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
-                                                content: Text(
-                                                  'Pesanan Dibatalkan',
-                                                  style: GoogleFonts.openSans(
-                                                    color: black,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
+                                              ),
+                                              content: Text(
+                                                'Pesanan Dibatalkan',
+                                                style: GoogleFonts.openSans(
+                                                  color: black,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
                                                 ),
-                                                actions: [
-                                                  TextButton(
-                                                    child: Text(
-                                                      'Tutup',
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        color: mainBlue,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  child: Text(
+                                                    'Tutup',
+                                                    style: GoogleFonts.openSans(
+                                                      color: mainBlue,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                     ),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
                                                   ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
-                        ))),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 12.h,
                 ),
