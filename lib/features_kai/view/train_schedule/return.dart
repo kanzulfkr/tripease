@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../view_model/station/departure_provider.dart';
-import '../view_model/station/return_provider.dart';
+import '../../view_model/station/departure_provider.dart';
+import '../../view_model/station/return_provider.dart';
 
 class ReturnPage extends StatefulWidget {
   const ReturnPage({super.key});
@@ -27,13 +27,13 @@ class _ReturnState extends State<ReturnPage> {
       ),
       body: Consumer<DepartureProvider>(
         builder: (context, data, _) {
-          if (data.departure!.isEmpty) {
+          if (data.departure.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
             return ListView.builder(
-              itemCount: data.departure?.length,
+              itemCount: data.departure.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Column(

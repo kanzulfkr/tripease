@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_kai/view/return.dart';
+import 'package:capstone_project_tripease/features_kai/view/train_schedule/return.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -173,9 +173,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                       var sortPrice = departureProvider
                                           .selectedSortingOption;
                                       var originId =
-                                          stationProv.idOrigin as int;
+                                          stationProv.getIdOrigin as int;
                                       var destinationId =
-                                          stationProv.idDestination as int;
+                                          stationProv.getIdDestination as int;
                                       departureProvider.fetchDepartures(
                                           stationOriginId: originId,
                                           stationDestinationId: destinationId,
@@ -1166,8 +1166,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
       ),
       builder: (BuildContext context) {
         return Container(
-          height: 479.h,
-          width: 360.w,
+          height: 400.h,
+          width: double.maxFinite,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10),
@@ -1177,9 +1177,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
           child: Stack(
             children: [
               Container(
-                height: 43.h,
+                height: 45.h,
                 decoration: const BoxDecoration(
-                  color: Colors.blue,
+                  color: Color.fromRGBO(0, 128, 255, 1),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
@@ -1190,7 +1190,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                 builder: (context, departureProvider, child) {
                   return Container(
                     margin: const EdgeInsets.only(top: 43),
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(20.w),
                     decoration: const BoxDecoration(
                       color: Color(0xF9FAFBFB),
                       borderRadius: BorderRadius.only(
@@ -1214,7 +1214,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                             Row(
                               children: [
                                 SizedBox(
-                                  height: 32.h,
+                                  height: 50.h,
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
@@ -1235,9 +1235,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                     onSelected: (value) {
                                       departureProvider.setFilterOption1(value);
                                       var originId =
-                                          stationProvider.idOrigin as int;
-                                      var destinationId =
-                                          stationProvider.idDestination as int;
+                                          stationProvider.getIdOrigin as int;
+                                      var destinationId = stationProvider
+                                          .getIdDestination as int;
                                       var trainClass =
                                           departureProvider.selectedClass;
 
@@ -1256,7 +1256,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 32.h,
+                                  height: 50.h,
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
@@ -1277,9 +1277,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                     onSelected: (value) {
                                       departureProvider.setFilterOption2(value);
                                       var originId =
-                                          stationProvider.idOrigin as int;
-                                      var destinationId =
-                                          stationProvider.idDestination as int;
+                                          stationProvider.getIdOrigin as int;
+                                      var destinationId = stationProvider
+                                          .getIdDestination as int;
                                       var trainClass =
                                           departureProvider.selectedClass;
 
@@ -1298,7 +1298,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 32.h,
+                                  height: 50.h,
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
@@ -1319,9 +1319,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                     onSelected: (value) {
                                       departureProvider.setFilterOption3(value);
                                       var originId =
-                                          stationProvider.idOrigin as int;
-                                      var destinationId =
-                                          stationProvider.idDestination as int;
+                                          stationProvider.getIdOrigin as int;
+                                      var destinationId = stationProvider
+                                          .getIdDestination as int;
                                       var trainClass =
                                           departureProvider.selectedClass;
 
@@ -1341,17 +1341,13 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 24.h,
-                            ),
+                            SizedBox(height: 24.h),
                             Text(
                               'Nama Kereta Api',
                               style: GoogleFonts.openSans(
                                   fontSize: 12.sp, fontWeight: FontWeight.w600),
                             ),
-                            SizedBox(
-                              height: 8.h,
-                            ),
+                            SizedBox(height: 8.h),
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
@@ -1396,13 +1392,11 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 100.h,
-                            ),
+                            SizedBox(height: 30.h),
                             Center(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Aksi yang ingin dilakukan saat tombol ditekan
+                                  Navigator.pop(context);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     fixedSize:

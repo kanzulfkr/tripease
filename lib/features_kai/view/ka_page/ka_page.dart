@@ -1,3 +1,4 @@
+import 'package:capstone_project_tripease/features_kai/view/ka_page/search_page.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,11 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import 'not_found.dart';
-import '../view_model/station/departure_provider.dart';
-import '../view_model/station/station_provider.dart';
-import 'train_schedule/departure_schedule.dart';
+import '../../view_model/station/departure_provider.dart';
+import '../../view_model/station/station_provider.dart';
+import '../train_schedule/departure_schedule.dart';
 
 class KaPage extends StatefulWidget {
   const KaPage({Key? key}) : super(key: key);
@@ -88,8 +88,8 @@ class _KaPageState extends State<KaPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<StationProvider>(context, listen: false).getStation());
+    // Future.microtask(() =>
+    //     Provider.of<StationProvider>(context, listen: false).getStation());
   }
 
   void _switchValue() {
@@ -104,8 +104,8 @@ class _KaPageState extends State<KaPage> {
     stationProv.switchStations();
     departureProv.clearDeparture();
 
-    print('origin baru ${stationProv.idOrigin}');
-    print('destination baru ${stationProv.idDestination}');
+    print('origin baru ${stationProv.getIdOrigin}');
+    print('destination baru ${stationProv.getIdDestination}');
   }
 
   @override
@@ -140,7 +140,7 @@ class _KaPageState extends State<KaPage> {
   }
 
   Widget buildBody() {
-    return Consumer<StationProvider>(builder: (context, stationProvider, _) {
+    return Consumer<StationProvider>(builder: (context, stationProv, _) {
       return Form(
         key: _formKey,
         child: Container(
@@ -193,17 +193,12 @@ class _KaPageState extends State<KaPage> {
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 12.w, bottom: 10.h),
-                              // height: 50.h,
                               width: 200.w,
                               child: TextFormField(
                                 readOnly: true,
-                                onTap: () {
-                                  _showCariBottomSheet(
-                                      context, stationProvider);
-                                },
+                                controller: stationProv.asalController,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                controller: asalController,
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp.sp, color: Colors.black),
                                 decoration: InputDecoration(
@@ -225,6 +220,17 @@ class _KaPageState extends State<KaPage> {
                                     return 'Stasiun asal harap di isi.';
                                   }
                                   return null;
+                                },
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SearchPage(isOrigin: true),
+                                    ),
+                                  );
+                                  // _showCariBottomSheet(
+                                  //     context, stationProvider);
                                 },
                               ),
                             ),
@@ -265,13 +271,9 @@ class _KaPageState extends State<KaPage> {
                               width: 200.w,
                               child: TextFormField(
                                 readOnly: true,
-                                onTap: () {
-                                  _showCariBottomSheet2(
-                                      context, stationProvider);
-                                },
+                                controller: stationProv.tujuanController,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                controller: tujuanController,
                                 keyboardType: TextInputType.text,
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp.sp, color: Colors.black),
@@ -294,6 +296,17 @@ class _KaPageState extends State<KaPage> {
                                     return 'Stasiun tujuan harap di isi.';
                                   }
                                   return null;
+                                },
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SearchPage(isOrigin: false),
+                                    ),
+                                  );
+                                  // _showCariBottomSheet2(
+                                  //     context, stationProvider);
                                 },
                               ),
                             ),
@@ -601,7 +614,7 @@ class _KaPageState extends State<KaPage> {
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.h, horizontal: 26.w),
-                                  hintText: '1',
+                                  hintText: '0',
                                   hintStyle:
                                       GoogleFonts.openSans(color: Colors.grey),
                                   border: OutlineInputBorder(
@@ -771,9 +784,9 @@ class _KaPageState extends State<KaPage> {
 
                                   if (_formKey.currentState!.validate()) {
                                     var originId =
-                                        stationProvider.idOrigin as int;
+                                        stationProv.getIdOrigin as int;
                                     var destinationId =
-                                        stationProvider.idDestination as int;
+                                        stationProv.getIdDestination as int;
                                     postOrder.setQuantityAdult(
                                         int.parse(dewasaController.text));
                                     var trainClass =
@@ -888,7 +901,9 @@ class _KaPageState extends State<KaPage> {
                 ),
               ),
               _searchController.text == ''
-                  ? const NotFoundKeywords()
+                  ? NotFoundStation(
+                      value: _searchController.text,
+                    )
                   : Expanded(
                       child: Container(
                         height: 300,
@@ -1047,7 +1062,7 @@ class _KaPageState extends State<KaPage> {
                 ),
               ),
               _searchController.text == ''
-                  ? const NotFoundKeywords()
+                  ? NotFoundStation(value: _searchController.text)
                   : Expanded(
                       child: Container(
                         height: 300,

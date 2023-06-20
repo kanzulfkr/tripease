@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-
-import '../model/carriage.dart';
+import '../model/carriage_model.dart';
 
 class CarriageRepo {
   final Dio dio = Dio();
 
-  Future<TrainCarriageModel> fetchCarriage(
+  Future<CarriageModel> fetchCarriage(
       {required int trainId,
       String? trainClass,
       String? date,
@@ -20,11 +19,11 @@ class CarriageRepo {
           'date': date,
           'status': status,
           'page': page,
-          'limit': limit
+          'limit': 9999
         });
     if (response.statusCode == 200) {
-      print('CarriageApi: ${response.data}');
-      final data = TrainCarriageModel.fromJson(response.data);
+      // print('CarriageApi: ${response.data}');
+      final data = CarriageModel.fromJson(response.data);
       return data;
     } else {
       throw Exception('Failed to fetch data');

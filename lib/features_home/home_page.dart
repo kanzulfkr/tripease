@@ -1,10 +1,12 @@
 import 'package:capstone_project_tripease/features_home/widgets/for_you.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_saw.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_search.dart';
-import 'package:capstone_project_tripease/features_kai/view/ka_page.dart';
+import 'package:capstone_project_tripease/features_kai/view/ka_page/ka_page.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.h),
         child: AppBar(
+          backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
           actions: [
             IconButton(
               padding: EdgeInsets.only(top: 12.sp, bottom: 8.sp),
@@ -74,6 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 InkWell(
                   onTap: () {
+                    Provider.of<StationProvider>(context, listen: false)
+                        .setAsalController('');
+                    Provider.of<StationProvider>(context, listen: false)
+                        .setTujuanController('');
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
                         return const KaPage();
@@ -85,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 160.w,
                     padding: EdgeInsets.symmetric(horizontal: 32.5.w),
                     decoration: BoxDecoration(
-                      color: const Color.fromRGBO(51, 153, 255, 1),
+                      color: const Color.fromRGBO(92, 163, 234, 1),
                       borderRadius: BorderRadius.horizontal(
                         left: Radius.circular(8.h),
                       ),

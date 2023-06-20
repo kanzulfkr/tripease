@@ -175,10 +175,10 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                               .setSelectedSortingOption(value);
                                           var sortPrice = returnProvider
                                               .selectedSortingOption;
-                                          var originId =
-                                              stationProvider.idOrigin as int;
+                                          var originId = stationProvider
+                                              .getIdOrigin as int;
                                           var destinationId = stationProvider
-                                              .idDestination as int;
+                                              .getIdDestination as int;
                                           returnProvider.fetchDepartures(
                                               stationOriginId: originId,
                                               stationDestinationId:
@@ -1008,9 +1008,9 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                     onSelected: (value) {
                                       ReturnProvider.setFilterOption1(value);
                                       var originId =
-                                          stationProvider.idOrigin as int;
-                                      var destinationId =
-                                          stationProvider.idDestination as int;
+                                          stationProvider.getIdOrigin as int;
+                                      var destinationId = stationProvider
+                                          .getIdDestination as int;
                                       var trainClass =
                                           ReturnProvider.selectedClass;
 
@@ -1050,9 +1050,9 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                     onSelected: (value) {
                                       ReturnProvider.setFilterOption2(value);
                                       var originId =
-                                          stationProvider.idOrigin as int;
-                                      var destinationId =
-                                          stationProvider.idDestination as int;
+                                          stationProvider.getIdOrigin as int;
+                                      var destinationId = stationProvider
+                                          .getIdDestination as int;
                                       var trainClass =
                                           ReturnProvider.selectedClass;
 
@@ -1092,9 +1092,9 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                     onSelected: (value) {
                                       ReturnProvider.setFilterOption3(value);
                                       var originId =
-                                          stationProvider.idOrigin as int;
-                                      var destinationId =
-                                          stationProvider.idDestination as int;
+                                          stationProvider.getIdOrigin as int;
+                                      var destinationId = stationProvider
+                                          .getIdDestination as int;
                                       var trainClass =
                                           ReturnProvider.selectedClass;
 

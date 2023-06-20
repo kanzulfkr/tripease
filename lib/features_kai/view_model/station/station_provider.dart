@@ -7,15 +7,31 @@ import '../../model/station_model.dart';
 enum GetStationStatus { empty, loading, success, error }
 
 class StationProvider extends ChangeNotifier {
+  bool loading = false;
+  List<dynamic> _allStation = [];
+
+  List<dynamic> get allStation => _allStation;
+
+  TextEditingController asalController = TextEditingController();
+  TextEditingController tujuanController = TextEditingController();
+
+  Future<void> getSearchStation() async {
+    var response = await StationApi().getAllStation();
+    _allStation = response.data['data'];
+    notifyListeners();
+  }
+
   List<Datum> _station = [];
   List<Datum> get station => _station;
+
   String _message = '';
   String get message => _message;
+
   String _query = '';
   String get query => _query;
 
   int? _idOrigin;
-  int? get idOrigin => _idOrigin;
+  int? get getIdOrigin => _idOrigin;
 
   String? nameOrigin;
   String? get getNameOrigin => nameOrigin;
@@ -24,7 +40,7 @@ class StationProvider extends ChangeNotifier {
   String? get getInitialOrigin => initialOrigin;
 
   int? _idDestination;
-  int? get idDestination => _idDestination;
+  int? get getIdDestination => _idDestination;
 
   String? nameDestination;
   String? get getNameDestination => nameDestination;
@@ -135,15 +151,34 @@ class StationProvider extends ChangeNotifier {
     int? tempId = _idOrigin;
     String? tempName = nameOrigin;
     String? tempInitial = initialOrigin;
+    String? tempAsal = asalController.text;
 
     _idOrigin = _idDestination;
     nameOrigin = nameDestination;
     initialOrigin = initialDestination;
+    asalController.text = tujuanController.text;
 
     _idDestination = tempId;
     nameDestination = tempName;
     initialDestination = tempInitial;
+    tujuanController.text = tempAsal;
 
+    // int? tempId = _idOrigin;
+
+    // _idOrigin = _idDestination;
+
+    // _idDestination = tempId;
+
+    notifyListeners();
+  }
+
+  void setAsalController(String value) {
+    asalController.text = value;
+    notifyListeners();
+  }
+
+  void setTujuanController(String value) {
+    tujuanController.text = value;
     notifyListeners();
   }
 }

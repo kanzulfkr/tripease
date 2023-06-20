@@ -21,25 +21,29 @@ class BuildAppbar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        stationProvider.getNameOrigin!,
-                        style: GoogleFonts.openSans(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
+                  SizedBox(
+                    width: 100.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          stationProvider.getNameOrigin!,
+                          style: GoogleFonts.openSans(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.fade,
                         ),
-                      ),
-                      SizedBox(height: 3.h),
-                      Text(
-                        stationProvider.getInitialOrigin!,
-                        style: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
+                        SizedBox(height: 3.h),
+                        Text(
+                          stationProvider.getInitialOrigin!,
+                          style: GoogleFonts.openSans(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5),
@@ -49,25 +53,30 @@ class BuildAppbar extends StatelessWidget {
                       size: 20,
                     ),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        stationProvider.getNameDestination!,
-                        style: GoogleFonts.openSans(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
+                  SizedBox(
+                    width: 100,
+                    child: Column(
+                      children: [
+                        Text(
+                          stationProvider.getNameDestination!,
+                          style: GoogleFonts.openSans(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.fade,
                         ),
-                      ),
-                      SizedBox(height: 3.h),
-                      Text(
-                        stationProvider.getInitialDestination!,
-                        style: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
+                        SizedBox(height: 3.h),
+                        Text(
+                          stationProvider.getInitialDestination!,
+                          style: GoogleFonts.openSans(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                  SizedBox(width: 10.w)
                 ],
               ),
             ),

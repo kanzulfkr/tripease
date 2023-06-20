@@ -7,6 +7,7 @@ class StationApi {
   final Dio _dio = Dio();
   String stationUrl = 'https://api.tripease.my.id/api/v1/public/station';
   var error = '';
+
   Future<StationResponseModel> getStationData() async {
     final response = await _dio.get(stationUrl);
 
@@ -21,6 +22,15 @@ class StationApi {
       return StationResponseModel.fromJson(response.data);
     } else {
       throw Exception('Failed to fetch data');
+    }
+  }
+
+  Future<dynamic> getAllStation() async {
+    try {
+      final response = await _dio.get(stationUrl);
+      return response;
+    } catch (e) {
+      error = e.toString();
     }
   }
 }

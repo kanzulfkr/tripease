@@ -70,21 +70,25 @@ class BodyDetailPessanger extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () async {
-                                  final departureProv =
-                                      Provider.of<DepartureProvider>(context,
-                                          listen: false);
-                                  await Provider.of<CarriageProvider>(context,
-                                          listen: false)
-                                      .fetchCarriageEko(
-                                    trainId: departureProv
-                                        .departure[departureProv
-                                            .selectedDepartIndex as int]
-                                        .trainId as int,
-                                    trainClass: departureProv
-                                        .departure[departureProv
-                                            .selectedDepartIndex as int]
-                                        .datumClass,
-                                  );
+                                  // final departureProv =
+                                  //     Provider.of<DepartureProvider>(context,
+                                  //         listen: false);
+                                  // await Provider.of<CarriageProvider>(context,
+                                  //         listen: false)
+                                  //     .fetchCarriageEko(
+                                  // trainId: 6
+                                  // departureProv
+                                  //     .departure[departureProv
+                                  //         .selectedDepartIndex as int]
+                                  //     .trainId as int
+                                  // ,
+                                  // trainClass: 'Ekonomi'
+                                  //  departureProv
+                                  //     .departure[departureProv
+                                  //         .selectedDepartIndex as int]
+                                  //     .datumClass
+                                  // ,
+                                  // );
                                   if (context.mounted) {
                                     Navigator.push(
                                       context,

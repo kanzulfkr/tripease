@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,12 +8,12 @@ import '../../view_model/carriage/carriage_provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
 import '../../view_model/carriage/select_seat_kai_provider.dart';
 import '../../view_model/station/departure_provider.dart';
-import '../../view_model/timer/time_payment_provider.dart';
 import '../../view_model/timer/timer_seat_provider.dart';
 import 'widgets/carriage_page.dart';
 
 class SelectSeatKai extends StatefulWidget {
   final int passengerNumber;
+
   const SelectSeatKai({super.key, required this.passengerNumber});
 
   @override
@@ -92,7 +90,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
             backgroundColor: const Color(0XFF0080FF), // Ukuran tombol
 
             title: Text(
-              'Pilih Kursi',
+              'Kursi',
               style: GoogleFonts.openSans(
                   fontSize: 16, fontWeight: FontWeight.w600),
             ),
@@ -122,7 +120,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                               child: Text(
                                 'Penumpang ${widget.passengerNumber}',
                                 style: GoogleFonts.openSans(
-                                  fontSize: 16.sp,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
                                 textAlign: TextAlign.center,
@@ -182,10 +180,6 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: ElevatedButton(
                       onPressed: () {
-                        final timerPayment = Provider.of<TimerPaymentProvider>(
-                            context,
-                            listen: false);
-                        timerPayment.stopCountDown();
                         final selectedSeatsProvider =
                             Provider.of<SelectedSeatsProvider>(context,
                                 listen: false);
@@ -213,7 +207,9 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                         var trainSeatId = carriageProvider.trainSeatId;
 
                         if (selectedSeats.isNotEmpty) {
+                          // Lakukan sesuatu dengan kursi yang dipilih, misalnya, kirim ke penyedia
                           print('Kursi yang dipilih: $selectedSeats');
+
                           final orderTrain =
                               Provider.of<PostOrderTrainProvider>(context,
                                   listen: false);

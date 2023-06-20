@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NotFoundKeywords extends StatelessWidget {
-  const NotFoundKeywords({
+class NotFoundStation extends StatelessWidget {
+  const NotFoundStation({
     super.key,
+    required this.value,
   });
+  final String value;
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +23,13 @@ class NotFoundKeywords extends StatelessWidget {
           ),
         ),
         Text(
-          "Tidak ditemukan hasil untuk 'Malaysia'! ",
+          "Tidak ditemukan hasil untuk '$value' !\n\n Mohon untuk mencoba kata kunci berbeda.",
           style: GoogleFonts.openSans(
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               color: const Color(0xDBDB2D24)),
+          textAlign: TextAlign.center,
         ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          "Mohon untuk mencoba kata kunci berbeda. ",
-          style: GoogleFonts.openSans(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xDBDB2D24)),
-        )
       ],
     );
   }

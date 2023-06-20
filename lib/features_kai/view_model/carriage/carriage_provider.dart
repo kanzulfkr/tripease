@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../../api/carriage_api.dart';
-import '../../model/carriage.dart';
+import '../../model/carriage_model.dart';
 
 class CarriageProvider with ChangeNotifier {
   List<Datum> _carriage = [];
@@ -86,54 +86,57 @@ class CarriageProvider with ChangeNotifier {
     int? page,
     int? limit,
   }) async {
-    try {
-      final response = await CarriageRepo().fetchCarriage(
-        trainId: trainId,
-        trainClass: trainClass,
-        date: date,
-        status: status,
-        page: page,
-        limit: limit,
-      );
+    // try {
+    final response = await CarriageRepo().fetchCarriage(
+      trainId: trainId,
+      trainClass: trainClass,
+      date: date,
+      status: status,
+      page: page,
+      limit: limit,
+    );
+    print(response.data?[0].name);
 
-      _carriage = response.data ?? [];
+    _carriage = response.data!;
 
-      // if (_carriage.isNotEmpty) {
-      //   if (_carriage[_selectedTabIndex as int].seat != null) {
-      //     List<Seat> seats = _carriage[_selectedTabIndex as int]
-      //         .seat!
-      //         .map((seat) => Seat(
-      //               id: seat.id,
-      //               name: seat.name,
-      //             ))
-      //         .toList();
-      //     seatA = seats.where((seat) => seat.name!.startsWith('A')).toList();
-      //     seatB = seats.where((seat) => seat.name!.startsWith('B')).toList();
-      //     seatC = seats.where((seat) => seat.name!.startsWith('C')).toList();
-      //     seatD = seats.where((seat) => seat.name!.startsWith('D')).toList();
-      //     seatE = seats.where((seat) => seat.name!.startsWith('E')).toList();
-      //     // Rest of your code...
+    // if (_carriage.isNotEmpty) {
+    //   if (_carriage[_selectedTabIndex as int].seat != null) {
+    //     List<Seat> seats = _carriage[_selectedTabIndex as int]
+    //         .seat!
+    //         .map((seat) => Seat(
+    //               id: seat.id,
+    //               name: seat.name,
+    //             ))
+    //         .toList();
+    //     seatA = seats.where((seat) => seat.name!.startsWith('A')).toList();
+    //     seatB = seats.where((seat) => seat.name!.startsWith('B')).toList();
+    //     seatC = seats.where((seat) => seat.name!.startsWith('C')).toList();
+    //     seatD = seats.where((seat) => seat.name!.startsWith('D')).toList();
+    //     seatE = seats.where((seat) => seat.name!.startsWith('E')).toList();
+    //     // Rest of your code...
 
-      //     debugPrint('seatA: $seatA');
-      //     debugPrint('seatB: $seatB');
-      //     debugPrint('seatC: $seatC');
-      //     debugPrint('seatD: $seatD');
-      //     debugPrint('seatE: $seatE');
-      //   } else {
-      //     print('The seat property is null.');
-      //   }
-      // } else {
-      //   print('The _carriage list is empty.');
-      // }
+    //     debugPrint('seatA: $seatA');
+    //     debugPrint('seatB: $seatB');
+    //     debugPrint('seatC: $seatC');
+    //     debugPrint('seatD: $seatD');
+    //     debugPrint('seatE: $seatE');
+    //   } else {
+    //     print('The seat property is null.');
+    //   }
+    // } else {
+    //   print('The _carriage list is empty.');
+    // }
 
-      updateSeatLists();
+    updateSeatLists();
 
-      // Filter seats and assign them to respective lists
+    // Filter seats and assign them to respective lists
 
-      notifyListeners();
-    } catch (e) {
-      // Handle error
-      print('Error: $e');
-    }
+    notifyListeners();
+    // } catch (e) {
+    //   // Handle error
+    //   print('tessss');
+
+    //   print('Error: $e');
+    // }
   }
 }

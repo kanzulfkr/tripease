@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../view_model/carriage/carriage_provider.dart';
 import '../../../view_model/carriage/select_seat_kai_provider.dart';
 
