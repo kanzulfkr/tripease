@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'features_kai/view_model/carriage/carriage_provider.dart';
 import 'features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'features_kai/view_model/carriage/select_seat_kai_provider.dart';
-import 'features_kai/view_model/station/depature_provider.dart';
+import 'features_kai/view_model/station/departure_provider.dart';
 import 'features_kai/view_model/station/return_provider.dart';
 import 'features_kai/view_model/station/station_provider.dart';
 import 'features_kai/view_model/timer/timer_seat_provider.dart';
@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TimerSeatProvider()),
         ChangeNotifierProvider(create: (_) => SelectedSeatsProvider()),
         ChangeNotifierProvider(create: (_) => StationProvider()),
-        ChangeNotifierProvider(create: (_) => DepartureViewModel()),
+        ChangeNotifierProvider(create: (_) => DepartureProvider()),
         ChangeNotifierProvider(create: (_) => ReturnProvider()),
         ChangeNotifierProvider(create: (_) => PostOrderTrainProvider()),
         ChangeNotifierProvider(create: (_) => SelectedSeatsProvider()),

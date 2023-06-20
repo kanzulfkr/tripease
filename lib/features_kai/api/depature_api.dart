@@ -1,26 +1,26 @@
 import 'package:dio/dio.dart';
+import '../../onboard_feature/utils/token_manager.dart';
 import '../model/depature_model.dart';
 
 class DepartureRepository {
   final Dio dio = Dio();
 
-  Future<DepartureResponseModel> fetchDepartures(
-      {required int stationOriginId,
-      required int stationDestinationId,
-      int? trainId,
-      String? trainClass,
-      String? price,
-      String? arriveTime
+  Future<DepartureResponseModel> fetchDepartures({
+    required int stationOriginId,
+    required int stationDestinationId,
+    int? trainId,
+    String? trainClass,
+    String? price,
+    String? arriveTime,
+  }) async {
+    String? tokens = await TokenManager.getToken();
 
-      // Add more query parameters as needed
-      }) async {
     final response = await dio.get(
       'https://api.tripease.my.id/api/v1/user/train/search',
       options: Options(headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODcyMjUxNzksInJvbGUiOiJ1c2VyIiwidXNlcklkIjo0fQ.8xKbX3FopSjTH8fC6bjp4l24hvoM-Qyy0_oMpW8SH7E'
+        'Authorization': 'Bearer $tokens'
       }),
       queryParameters: {
         'station_origin_id': stationOriginId,

@@ -18,7 +18,7 @@ class TimerPaymentProvider extends ChangeNotifier {
 
   void startCountDown(BuildContext context) {
     const oneSec = Duration(seconds: 1);
-    int totalSeconds = 10000; // Total duration in seconds (3 minutes)
+    int totalSeconds = 300; // Total duration in seconds (3 minutes)
 
     countdownTimer = Timer.periodic(oneSec, (timer) {
       if (totalSeconds <= 0) {
@@ -36,14 +36,14 @@ class TimerPaymentProvider extends ChangeNotifier {
     int seconds = totalSeconds % 60;
     timer =
         '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-    notifyListeners(); // Notify listeners about the updated timer value
+    notifyListeners();
   }
 
   void showTimeUpDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
-        return AlertDialog(
+        return const AlertDialog(
           title: Text('Time Up'),
           content: Text('The time has run out.'),
         );

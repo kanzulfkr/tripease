@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../view_model/station/depature_provider.dart';
+import '../view_model/station/departure_provider.dart';
 import '../view_model/station/return_provider.dart';
 
 class ReturnPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _ReturnState extends State<ReturnPage> {
       appBar: AppBar(
         title: const Text('ReturnPage'),
       ),
-      body: Consumer<DepartureViewModel>(
+      body: Consumer<DepartureProvider>(
         builder: (context, data, _) {
           if (data.departure!.isEmpty) {
             return const Center(

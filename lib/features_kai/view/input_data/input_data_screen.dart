@@ -1,11 +1,9 @@
-import 'package:capstone_project_tripease/features_kai/view_model/station/depature_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../payment/select_payment.dart';
 import 'widgets/appbar_input_data.dart';
 import 'widgets/detail_booking.dart';
 import 'widgets/detail_pessanger.dart';
@@ -28,6 +26,7 @@ class _InputDataKaiState extends State<InputDataKai> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: const Color(0XFF0080FF),
         title: const Row(
           children: [
             AppbarInputData(),
@@ -40,7 +39,8 @@ class _InputDataKaiState extends State<InputDataKai> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Consumer<DepartureViewModel>(
+              // Card shcedule KA
+              Consumer<DepartureProvider>(
                 builder: (context, departureProv, child) {
                   return SizedBox(
                     height: 180.h,
@@ -90,7 +90,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                 ),
                               ),
                               Text(
-                                'Rp. ${departureProv.departure![departureProv.selectedDepartIndex as int].price},-',
+                                'Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price},-',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
@@ -102,14 +102,14 @@ class _InputDataKaiState extends State<InputDataKai> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Stasiun ${departureProv.departure[departureProv.selectedDepartIndex as int].route![0].station!.name.toString()}',
+                                'Stasiun ${departureProv.departure[departureProv.selectedDepartIndex as int].route![0].station!.origin.toString()}',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
                               Text(
-                                'Stasiun ${departureProv.departure[departureProv.selectedDepartIndex as int].route![1].station!.name.toString()}',
+                                'Stasiun ${departureProv.departure[departureProv.selectedDepartIndex as int].route![1].station!.origin.toString()}',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
@@ -129,7 +129,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(113, 114, 117, 1),
+                                  color: const Color.fromRGBO(113, 114, 117, 1),
                                 ),
                               ),
                               Text(
@@ -137,7 +137,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: Color.fromRGBO(61, 175, 29, 1),
+                                  color: const Color.fromRGBO(61, 175, 29, 1),
                                 ),
                               )
                             ],
@@ -156,7 +156,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                   fontSize: 12.sp,
                                 ),
                               ),
-                              Icon(Icons.arrow_forward),
+                              const Icon(Icons.arrow_forward),
                               Text(
                                 departureProv
                                     .departure[departureProv.selectedDepartIndex
@@ -180,14 +180,24 @@ class _InputDataKaiState extends State<InputDataKai> {
                                     : departureProv.departureDate,
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  color: Color.fromRGBO(113, 114, 117, 1),
+                                  color: const Color.fromRGBO(113, 114, 117, 1),
                                 ),
                               ),
                               Text(
-                                '',
+                                departureProv.getDurationKA(
+                                    departureProv
+                                        .departure[departureProv
+                                            .selectedDepartIndex as int]
+                                        .route![0]
+                                        .arriveTime!,
+                                    departureProv
+                                        .departure[departureProv
+                                            .selectedDepartIndex as int]
+                                        .route![1]
+                                        .arriveTime!),
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  color: Color.fromRGBO(113, 114, 117, 1),
+                                  color: const Color.fromRGBO(113, 114, 117, 1),
                                 ),
                               ),
                               Text(
@@ -197,7 +207,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                     : departureProv.departureDate,
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  color: Color.fromRGBO(113, 114, 117, 1),
+                                  color: const Color.fromRGBO(113, 114, 117, 1),
                                 ),
                               )
                             ],
@@ -208,6 +218,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                   );
                 },
               ),
+              // input data Booking
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -250,12 +261,9 @@ class _InputDataKaiState extends State<InputDataKai> {
                   ),
                 ),
               ),
-              if (isDropdownPemesan) ...[
-                const BodyDetailBooking(),
-              ],
-              const SizedBox(
-                height: 12,
-              ),
+              isDropdownPemesan ? const BodyDetailBooking() : SizedBox(),
+              const SizedBox(height: 12),
+              // input data Passenger
               GestureDetector(
                 onTap: () {
                   setState(() {

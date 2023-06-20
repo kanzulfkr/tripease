@@ -1,6 +1,8 @@
 import 'package:capstone_project_tripease/features_kai/model/response_order_train_model.dart';
 import 'package:dio/dio.dart';
 
+import '../../onboard_feature/utils/token_manager.dart';
+
 class ResponseOrderTrainApi {
   Dio dio = Dio();
 
@@ -8,13 +10,14 @@ class ResponseOrderTrainApi {
     required int ticketOrderId,
     required int trainId,
   }) async {
+    String? tokens = await TokenManager.getToken();
+
     final response = await dio.get(
       'https://api.tripease.my.id/api/v1/user/order/ticket/detail',
       options: Options(headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODcyMjUxNzksInJvbGUiOiJ1c2VyIiwidXNlcklkIjo0fQ.8xKbX3FopSjTH8fC6bjp4l24hvoM-Qyy0_oMpW8SH7E'
+        'Authorization': 'Bearer $tokens'
       }),
       queryParameters: {
         'ticket_order_id': ticketOrderId,

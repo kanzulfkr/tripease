@@ -1,11 +1,9 @@
-import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/response_order_train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../main_page.dart';
-import '../../view_model/train/train_provider.dart';
 import 'ticket_booking.dart';
 
 class InvoicePage extends StatefulWidget {
@@ -20,6 +18,7 @@ class _InvoicePageState extends State<InvoicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0XFF0080FF),
         title: Text(
           'Faktur',
           style: GoogleFonts.openSans(
@@ -55,7 +54,7 @@ class _InvoicePageState extends State<InvoicePage> {
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      '${responseProv.dataOrder.quantityInfant} x Rp. ${responseProv.dataOrder.train!.trainPrice}',
+                      '${responseProv.dataOrder.quantityAdult} x Rp. ${responseProv.dataOrder.train!.trainPrice}',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
@@ -74,7 +73,7 @@ class _InvoicePageState extends State<InvoicePage> {
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      '${responseProv.dataOrder.quantityInfant} x Rp. 3.000',
+                      '${responseProv.dataOrder.quantityAdult} x Rp. 8.000',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),

@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
-import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,13 +9,13 @@ import '../../model/order_train_model.dart';
 import '../../view_model/carriage/carriage_provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
 import '../../view_model/carriage/select_seat_kai_provider.dart';
-import '../../view_model/station/depature_provider.dart';
+import '../../view_model/station/departure_provider.dart';
+import '../../view_model/timer/time_payment_provider.dart';
 import '../../view_model/timer/timer_seat_provider.dart';
-import 'widgets/ekonomi_carriage.dart';
+import 'widgets/carriage_page.dart';
 
 class SelectSeatKai extends StatefulWidget {
   final int passengerNumber;
-
   const SelectSeatKai({super.key, required this.passengerNumber});
 
   @override
@@ -32,10 +33,9 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
   void initState() {
     super.initState();
     final carriageProv = Provider.of<CarriageProvider>(context, listen: false);
-    final trainProv = Provider.of<TrainProvider>(context, listen: false);
     final timerProv = Provider.of<TimerSeatProvider>(context, listen: false);
     final departureProv =
-        Provider.of<DepartureViewModel>(context, listen: false);
+        Provider.of<DepartureProvider>(context, listen: false);
     Future.microtask(() async {
       await carriageProv.fetchCarriageEko(
         trainId: departureProv
@@ -45,8 +45,6 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
       );
       debugPrint('prov: ${carriageProv.carriage.length}');
     });
-    // debugPrint('zzzzzz : ${carriageProv.carriage[2].name}');
-    // debugPrint('zzzzzz : ${trainProv.getClassTrain}');
 
     timerProv.stopCountDown();
     timerProv.startCountDown(context);
@@ -84,18 +82,6 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
 
   @override
   Widget build(BuildContext context) {
-    final carriageProvider =
-        Provider.of<CarriageProvider>(context, listen: false);
-    var tabIndex = carriageProvider.selectedTabIndex;
-    selectedIndexProvider = Provider.of<SelectedSeatsProvider>(context);
-    List<Tab> tabs = List.generate(carriageProvider.carriage.length,
-        (index) => Tab(text: carriageProvider.carriage[index].name));
-
-    List<Widget> tabViews = List.generate(carriageProvider.carriage.length,
-        (index) => const EkonomiCarriagePage());
-    TabController tabController =
-        TabController(length: carriageProvider.carriage.length, vsync: this);
-
     selectedIndexProvider = Provider.of<SelectedSeatsProvider>(context);
 
     return Consumer<SelectedSeatsProvider>(
@@ -106,7 +92,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
             backgroundColor: const Color(0XFF0080FF), // Ukuran tombol
 
             title: Text(
-              'Kursi',
+              'Pilih Kursi',
               style: GoogleFonts.openSans(
                   fontSize: 16, fontWeight: FontWeight.w600),
             ),
@@ -136,7 +122,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                               child: Text(
                                 'Penumpang ${widget.passengerNumber}',
                                 style: GoogleFonts.openSans(
-                                  fontSize: 14,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                                 textAlign: TextAlign.center,
@@ -177,49 +163,12 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                               onTap: (value) async {
                                 carriageProvider.setSelectedTabIndex(value);
                               },
-
-                              // controller: tabController,
-                              // tabs: [
-                              //   Tab(
-                              //     child: Text(
-                              //       carriageProvider.carriage[0].name!,
-                              //       style: GoogleFonts.openSans(
-                              //         color: Colors.grey,
-                              //         fontWeight: FontWeight.w400,
-                              //         fontSize: 12,
-                              //       ),
-                              //     ),
-                              //   ),
-                              //   Tab(
-                              //     child: Text(
-                              //       carriageProvider.carriage[1].name!,
-                              //       style: GoogleFonts.openSans(
-                              //         color: Colors.grey,
-                              //         fontWeight: FontWeight.w400,
-                              //         fontSize: 12,
-                              //       ),
-                              //     ),
-                              //   ),
-                              //   Tab(
-                              //     child: Text(
-                              //       carriageProvider.carriage[2].name!,
-                              //       style: GoogleFonts.openSans(
-                              //         color: Colors.grey,
-                              //         fontWeight: FontWeight.w400,
-                              //         fontSize: 12,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ],
-                              // onTap: (index) {
-                              //   carriageProvider.setSelectedTabIndex(index);
-                              // },
                             ),
                             Expanded(
                               child: TabBarView(
                                 children: List.generate(
                                   carriageProvider.carriage.length,
-                                  (index) => const EkonomiCarriagePage(),
+                                  (index) => const CarriagePage(),
                                 ),
                               ),
                             ),
@@ -228,23 +177,15 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                       ),
                     ),
                   ),
-
-                  // SizedBox(
-                  //   height: 490,
-                  //   child: TabBarView(
-                  //     controller: tabController,
-                  //     children: const [
-                  //       Tab(child: EkonomiCarriagePage()),
-                  //       Tab(child: EkonomiCarriagePage()),
-                  //       Tab(child: EkonomiCarriagePage()),
-                  //     ],
-                  //   ),
-                  // ),
                   Container(
                     margin: EdgeInsets.only(top: 20.h),
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: ElevatedButton(
                       onPressed: () {
+                        final timerPayment = Provider.of<TimerPaymentProvider>(
+                            context,
+                            listen: false);
+                        timerPayment.stopCountDown();
                         final selectedSeatsProvider =
                             Provider.of<SelectedSeatsProvider>(context,
                                 listen: false);
@@ -272,9 +213,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                         var trainSeatId = carriageProvider.trainSeatId;
 
                         if (selectedSeats.isNotEmpty) {
-                          // Lakukan sesuatu dengan kursi yang dipilih, misalnya, kirim ke penyedia
                           print('Kursi yang dipilih: $selectedSeats');
-
                           final orderTrain =
                               Provider.of<PostOrderTrainProvider>(context,
                                   listen: false);
@@ -289,7 +228,6 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                         } else {
                           print('Belum ada kursi yang dipilih');
                         }
-
                         selectedSeatsProvider.confirmSelectedSeats();
 
                         Navigator.pop(context);

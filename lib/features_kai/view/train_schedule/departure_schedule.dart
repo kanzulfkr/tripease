@@ -8,8 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import '../../view_model/station/depature_provider.dart';
+import '../../view_model/station/departure_provider.dart';
 import '../../view_model/station/station_provider.dart';
 import '../input_data/input_data_screen.dart';
 import 'appbar_departure.dart';
@@ -49,8 +48,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
     tglPergiEditingController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(arrivalDated);
 
-    final departureProvider = Provider.of<DepartureViewModel>(context,
-        listen: false); // listen false agar tidak rebuild
+    final departureProvider =
+        Provider.of<DepartureProvider>(context, listen: false);
 
     departureProvider.setDepartureDate(arrivalDated);
   }
@@ -60,17 +59,16 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
         DateFormat('dd MMMM yyyy', 'id_ID').format(returnDated);
 
     final departureProvider =
-        Provider.of<DepartureViewModel>(context, listen: false);
+        Provider.of<DepartureProvider>(context, listen: false);
 
     departureProvider.setReturnDate(returnDated);
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     final departureProvider =
-        Provider.of<DepartureViewModel>(context, listen: false);
+        Provider.of<DepartureProvider>(context, listen: false);
 
     Provider.of<StationProvider>(context, listen: false);
 
@@ -82,10 +80,11 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: const Color(0XFF0080FF),
         title: const BuildAppbar(),
       ),
-      body: Consumer<DepartureViewModel>(
-        builder: (context, departureProvider, child) {
+      body: Consumer<DepartureProvider>(
+        builder: (context, departureProv, child) {
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -145,7 +144,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                   ),
                                   border: Border.all(color: Colors.grey),
                                 ),
-                                child: Consumer<DepartureViewModel>(
+                                child: Consumer<DepartureProvider>(
                                   builder: (context, departureProvider, child) {
                                     return DropdownButtonHideUnderline(
                                       child: DropdownButton2<SortingOption>(
@@ -563,8 +562,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                     CupertinoSwitch(
                                       activeColor: Colors.blueAccent,
                                       trackColor: Colors.grey,
-                                      value:
-                                          stationProvider.pulangPergi ?? false,
+                                      value: stationProvider.pulangPergi,
                                       onChanged: (newValue) {
                                         stationProvider
                                             .setPulangPergi(newValue);
@@ -586,11 +584,10 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                           ? SizedBox(
                               height: 420.h,
                               width: double.maxFinite,
-                              child: departureProvider.departure.isEmpty
+                              child: departureProv.departure.isEmpty
                                   ? const Center(child: Text('Tidak ada data'))
                                   : ListView.builder(
-                                      itemCount:
-                                          departureProvider.departure.length,
+                                      itemCount: departureProv.departure.length,
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding: const EdgeInsets.fromLTRB(
@@ -600,12 +597,12 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 child) {
                                               return InkWell(
                                                 onTap: () {
-                                                  departureProvider
+                                                  departureProv
                                                       .setSelectedDepartIndex(
                                                           index);
 
-                                                  debugPrint(departureProvider
-                                                      .departure[departureProvider
+                                                  debugPrint(departureProv
+                                                      .departure[departureProv
                                                               .selectedDepartIndex
                                                           as int]
                                                       .datumClass);
@@ -723,7 +720,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                            departureProvider
+                                                            departureProv
                                                                 .departure[
                                                                     index]
                                                                 .name
@@ -737,7 +734,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            'Rp ${departureProvider.departure[index].price},-',
+                                                            'Rp ${departureProv.departure[index].price},-',
                                                             style: GoogleFonts
                                                                 .openSans(
                                                               fontSize: 12.sp,
@@ -754,7 +751,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                            'Stasiun ${departureProvider.departure[index].route![0].station?.name.toString()}',
+                                                            'Stasiun ${departureProv.departure[index].route![0].station?.origin}',
                                                             style: GoogleFonts
                                                                 .openSans(
                                                               fontSize: 12.sp,
@@ -764,7 +761,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            'Stasiun ${departureProvider.departure[index].route![1].station?.name.toString()}',
+                                                            'Stasiun ${departureProv.departure[index].route![1].station?.origin}',
                                                             style: GoogleFonts
                                                                 .openSans(
                                                               fontSize: 12.sp,
@@ -781,7 +778,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                            departureProvider
+                                                            departureProv
                                                                 .departure[
                                                                     index]
                                                                 .datumClass
@@ -800,7 +797,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                                   1),
                                                             ),
                                                           ),
-                                                          departureProvider
+                                                          departureProv
                                                                       .departure[
                                                                           index]
                                                                       .status ==
@@ -839,7 +836,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                            departureProvider
+                                                            departureProv
                                                                 .departure[
                                                                     index]
                                                                 .route![0]
@@ -853,7 +850,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                           const Icon(Icons
                                                               .arrow_forward),
                                                           Text(
-                                                            departureProvider
+                                                            departureProv
                                                                 .departure[
                                                                     index]
                                                                 .route![1]
@@ -895,7 +892,19 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            '0 j 30 m',
+                                                            departureProv.getDurationKA(
+                                                                departureProv
+                                                                    .departure[
+                                                                        index]
+                                                                    .route![0]
+                                                                    .arriveTime
+                                                                    .toString(),
+                                                                departureProv
+                                                                    .departure[
+                                                                        index]
+                                                                    .route![1]
+                                                                    .arriveTime
+                                                                    .toString()),
                                                             style: GoogleFonts
                                                                 .openSans(
                                                               fontSize: 12.sp,
@@ -946,7 +955,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                               height: 330.h,
                               width: double.maxFinite,
                               child: ListView.builder(
-                                itemCount: departureProvider.departure.length,
+                                itemCount: departureProv.departure.length,
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding:
@@ -1013,11 +1022,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
-                                                      .route![0]
-                                                      .station!
-                                                      .origin
+                                                  departureProv.departure[index]
+                                                      .route![0].station!.origin
                                                       .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 14.sp,
@@ -1032,14 +1038,14 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Stasiun ${departureProvider.departure[index].route![0].station?.name.toString()}',
+                                                  'Stasiun ${departureProv.departure[index].route![0].station?.name.toString()}',
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ),
                                                 Text(
-                                                  'Rp ${departureProvider.departure[index].price},-',
+                                                  'Rp ${departureProv.departure[index].price},-',
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w600,
@@ -1053,8 +1059,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
+                                                  departureProv.departure[index]
                                                       .datumClass
                                                       .toString(),
                                                   style: GoogleFonts.openSans(
@@ -1064,8 +1069,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                         113, 114, 117, 1),
                                                   ),
                                                 ),
-                                                departureProvider
-                                                            .departure[index]
+                                                departureProv.departure[index]
                                                             .status ==
                                                         'available'
                                                     ? Text(
@@ -1096,10 +1100,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
-                                                      .route![0]
-                                                      .arriveTime
+                                                  departureProv.departure[index]
+                                                      .route![0].arriveTime
                                                       .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
@@ -1107,10 +1109,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 ),
                                                 const Icon(Icons.arrow_forward),
                                                 Text(
-                                                  departureProvider
-                                                      .departure[index]
-                                                      .route![1]
-                                                      .arriveTime
+                                                  departureProv.departure[index]
+                                                      .route![1].arriveTime
                                                       .toString(),
                                                   style: GoogleFonts.openSans(
                                                     fontSize: 12.sp,
@@ -1263,7 +1263,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                         onTap: () {
                           _showDateBottomSheet();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.calendar_month,
                           color: Colors.grey,
                         ),
@@ -1311,7 +1311,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                   ),
                 ),
               ),
-              Consumer<DepartureViewModel>(
+              Consumer<DepartureProvider>(
                 builder: (context, departureProvider, child) {
                   return Container(
                     margin: const EdgeInsets.only(top: 43),

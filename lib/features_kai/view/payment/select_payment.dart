@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,8 +63,11 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
+    final postOrderProv =
+        Provider.of<PostOrderTrainProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0XFF0080FF),
         title: Text(
           'Pembayaran',
           style: GoogleFonts.openSans(
@@ -76,8 +79,8 @@ class _PaymentPageState extends State<PaymentPage> {
         builder: (context, trainProv, child) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-            child: Consumer<PostOrderTrainProvider>(
-              builder: (context, postOrder, child) {
+            child: Consumer<DepartureProvider>(
+              builder: (context, departureProv, child) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -86,70 +89,79 @@ class _PaymentPageState extends State<PaymentPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              width: 40.h,
-                              height: 20.h,
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                              child: Checkbox(
-                                value: isChecked,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    isChecked = value!;
-                                  });
-                                },
+                        SizedBox(
+                          width: 40.w,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 20.h,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 30.h,
+                                child: Checkbox(
+                                  value: isChecked,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      isChecked = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            SizedBox(
-                              width: 120.w,
-                              height: 30.h,
-                              child: Text(
-                                'Tiket',
-                                style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
+                        SizedBox(
+                          width: 100.w,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: 100.w,
+                                height: 30.h,
+                                child: Text(
+                                  'Tiket',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                              width: 120.w,
-                              child: Text(
-                                'Asuransi',
-                                style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
+                              SizedBox(
+                                height: 30.h,
+                                width: 100.w,
+                                child: Text(
+                                  'Asuransi',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 30.h,
-                              child: Text(
-                                '${postOrder.getQuantityAdult} x Rp. ${trainProv.getPrice}',
-                                style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
+                        SizedBox(
+                          width: 130.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                height: 30.h,
+                                child: Text(
+                                  '${postOrderProv.getQuantityInfant} x Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                              child: Text(
-                                '${postOrder.getQuantityAdult} x Rp. 8.000',
-                                style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
+                              SizedBox(
+                                height: 30.h,
+                                child: Text(
+                                  '${postOrderProv.getQuantityInfant} x Rp. 8.000',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -166,17 +178,26 @@ class _PaymentPageState extends State<PaymentPage> {
                           height: 20.h,
                         ),
                         SizedBox(
-                          width: 120.w,
+                          width: 100.w,
                           child: Text(
                             'Subtotal',
                             style: GoogleFonts.openSans(
                                 fontSize: 14.sp, fontWeight: FontWeight.w600),
                           ),
                         ),
-                        Text(
-                          'Rp. ${trainProv.getPrice}',
-                          style: GoogleFonts.openSans(
-                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        SizedBox(
+                          width: 130.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -193,17 +214,26 @@ class _PaymentPageState extends State<PaymentPage> {
                           height: 20.h,
                         ),
                         SizedBox(
-                          width: 120.w,
+                          width: 100.w,
                           child: Text(
                             'Total',
                             style: GoogleFonts.openSans(
                                 fontSize: 14.sp, fontWeight: FontWeight.w600),
                           ),
                         ),
-                        Text(
-                          'Rp. ${trainProv.getPrice}',
-                          style: GoogleFonts.openSans(
-                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                        SizedBox(
+                          width: 130.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

@@ -2,16 +2,14 @@ import 'dart:async';
 import 'package:capstone_project_tripease/features_kai/view/payment/status_payment.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/depature_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../model/order_train_model.dart';
 import '../../view_model/order_ticket/response_order_train_provider.dart';
-import '../../view_model/station/station_provider.dart';
 import '../../view_model/timer/time_payment_provider.dart';
-import '../../view_model/train/train_provider.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage(
@@ -135,13 +133,14 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     final departureProv =
-        Provider.of<DepartureViewModel>(context, listen: false);
+        Provider.of<DepartureProvider>(context, listen: false);
     final postOrderProv =
         Provider.of<PostOrderTrainProvider>(context, listen: false);
     final paymentProv = Provider.of<PaymentProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0XFF0080FF),
         title: Text(
           'Pembayaran',
           style: GoogleFonts.openSans(
@@ -312,7 +311,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
                 if (postOrderProv.getStatusCode == '201') {
                   var departureProv =
-                      Provider.of<DepartureViewModel>(context, listen: false);
+                      Provider.of<DepartureProvider>(context, listen: false);
                   var responseOrderProv =
                       Provider.of<ResponseOrderTrainProvider>(context,
                           listen: false);

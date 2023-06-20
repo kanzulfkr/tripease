@@ -1,13 +1,12 @@
 import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_kai.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/depature_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../model/order_train_model.dart';
 import '../../../view_model/carriage/carriage_provider.dart';
-import '../../../view_model/station/station_provider.dart';
 
 class BodyDetailPessanger extends StatelessWidget {
   const BodyDetailPessanger({
@@ -29,7 +28,6 @@ class BodyDetailPessanger extends StatelessWidget {
             (index) => TravelerDetail(),
           );
         }
-        // var qtyInfant = travelerDetail.getQuantityInfant;
         return SizedBox(
           height: 300.h,
           child: ListView.builder(
@@ -73,7 +71,7 @@ class BodyDetailPessanger extends StatelessWidget {
                               TextButton(
                                 onPressed: () async {
                                   final departureProv =
-                                      Provider.of<DepartureViewModel>(context,
+                                      Provider.of<DepartureProvider>(context,
                                           listen: false);
                                   await Provider.of<CarriageProvider>(context,
                                           listen: false)
@@ -83,7 +81,7 @@ class BodyDetailPessanger extends StatelessWidget {
                                             .selectedDepartIndex as int]
                                         .trainId as int,
                                     trainClass: departureProv
-                                        .departure![departureProv
+                                        .departure[departureProv
                                             .selectedDepartIndex as int]
                                         .datumClass,
                                   );

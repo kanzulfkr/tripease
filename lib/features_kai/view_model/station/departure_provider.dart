@@ -22,7 +22,7 @@ extension SortingOptionExtension on SortingOption {
   }
 }
 
-class DepartureViewModel with ChangeNotifier {
+class DepartureProvider with ChangeNotifier {
   SortingOption? _selectedSortingOption = SortingOption.empty;
   SortingOption? get selectedSortingOption => _selectedSortingOption;
 
@@ -144,5 +144,30 @@ class DepartureViewModel with ChangeNotifier {
   void setReturnDate(DateTime date) {
     _returnDate = DateFormat('dd MMMM yyyy', 'id_ID').format(date);
     notifyListeners();
+  }
+
+  String getDurationKA(String originArriveTime, String departureArriveTime) {
+    var arrvhours1 = originArriveTime[0];
+    var arrvhours2 = originArriveTime[1];
+    var arrvminuts1 = originArriveTime[3];
+    var arrvminuts2 = originArriveTime[4];
+
+    var dptrhours1 = departureArriveTime[0];
+    var dptrhours2 = departureArriveTime[1];
+    var dptrminuts1 = departureArriveTime[3];
+    var dptrminuts2 = departureArriveTime[4];
+    DateTime berangkat = DateTime(
+        2023,
+        6,
+        20,
+        int.parse(dptrhours1 + dptrhours2),
+        int.parse(dptrminuts1 + dptrminuts2));
+    DateTime tiba = DateTime(2023, 6, 20, int.parse(arrvhours1 + arrvhours2),
+        int.parse(arrvminuts1 + arrvminuts2));
+
+    Duration durasi = berangkat.difference(tiba);
+    int jam = durasi.inHours;
+    int menit = durasi.inMinutes.remainder(60);
+    return '$jam j $menit m';
   }
 }

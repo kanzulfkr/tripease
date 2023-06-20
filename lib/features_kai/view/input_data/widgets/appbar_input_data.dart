@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_kai/view_model/station/depature_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class AppbarInputData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DepartureViewModel>(
+    return Consumer<DepartureProvider>(
       builder: (context, departureProv, child) {
         return SizedBox(
           width: 250.w,

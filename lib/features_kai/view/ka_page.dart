@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'not_found.dart';
-import '../view_model/station/depature_provider.dart';
+import '../view_model/station/departure_provider.dart';
 import '../view_model/station/station_provider.dart';
 import 'train_schedule/departure_schedule.dart';
 
@@ -73,7 +73,7 @@ class _KaPageState extends State<KaPage> {
   void arrivalDay() {
     tglPergiController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(arrivalDated);
-    final departureProvider = Provider.of<DepartureViewModel>(context,
+    final departureProvider = Provider.of<DepartureProvider>(context,
         listen: false); // listen false agar tidak rebuild
     departureProvider.setDepartureDate(arrivalDated);
   }
@@ -82,7 +82,7 @@ class _KaPageState extends State<KaPage> {
     tglKembaliController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(returnDated);
     final departureProvider =
-        Provider.of<DepartureViewModel>(context, listen: false);
+        Provider.of<DepartureProvider>(context, listen: false);
     departureProvider.setReturnDate(returnDated);
   }
 
@@ -100,7 +100,7 @@ class _KaPageState extends State<KaPage> {
 
     final stationProv = Provider.of<StationProvider>(context, listen: false);
     final departureProv =
-        Provider.of<DepartureViewModel>(context, listen: false);
+        Provider.of<DepartureProvider>(context, listen: false);
 
     stationProv.switchStations();
     departureProv.clearDeparture();
@@ -488,7 +488,6 @@ class _KaPageState extends State<KaPage> {
                                               Container(
                                                 margin:
                                                     EdgeInsets.only(top: 8.h),
-                                                // height: 45.h,
                                                 width: 177.w,
                                                 child: TextFormField(
                                                   maxLines: 1,
@@ -749,7 +748,7 @@ class _KaPageState extends State<KaPage> {
                                         const Color.fromRGBO(210, 215, 224, 1),
                                   ),
                                 ),
-                                child: Consumer<DepartureViewModel>(
+                                child: Consumer<DepartureProvider>(
                                   builder: (context, departureProvider, child) {
                                     return DropdownButtonHideUnderline(
                                       child: DropdownButton2<String>(
@@ -804,7 +803,7 @@ class _KaPageState extends State<KaPage> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        Consumer<DepartureViewModel>(
+                        Consumer<DepartureProvider>(
                           builder: (context, departureProvider, child) {
                             return Center(
                               child: ElevatedButton(
@@ -818,7 +817,7 @@ class _KaPageState extends State<KaPage> {
                                       int.tryParse(anakAnakController.text) ??
                                           0);
                                   print(
-                                      'dewsa : ${postOrder.getQuantityInfant}');
+                                      'dewsa : ${postOrder.getQuantityAdult}');
 
                                   if (_formKey.currentState!.validate()) {
                                     var originId =
@@ -1035,192 +1034,6 @@ class _KaPageState extends State<KaPage> {
                         ),
                       ),
                     ),
-              // Container(
-              //   margin: EdgeInsets.all(20.w),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'Stasiun Populer',
-              //         style: GoogleFonts.openSans(
-              //             fontSize: 14.sp,
-              //             fontWeight: FontWeight.w700,
-              //             color: const Color(0x96989C9C)),
-              //       ),
-              //       Container(
-              //         height: 280.h,
-              //         width: double.maxFinite,
-              //         margin: EdgeInsets.only(top: 10.h),
-              //         decoration: BoxDecoration(
-              //           borderRadius: const BorderRadius.horizontal(
-              //             left: Radius.circular(8),
-              //             right: Radius.circular(8),
-              //           ),
-              //           color: const Color(0xF9FAFBFB),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: Colors.grey.withOpacity(0.5),
-              //               spreadRadius: 2,
-              //               blurRadius: 5,
-              //               offset: const Offset(0, 3),
-              //             ),
-              //           ],
-              //         ),
-              //         child: ListView.builder(
-              //           padding: EdgeInsets.zero,
-              //           itemCount: cities.length,
-              //           itemBuilder: (context, index) {
-              //             return Column(
-              //               children: [
-              //                 ListTile(
-              //                   title: Column(
-              //                     crossAxisAlignment: CrossAxisAlignment.start,
-              //                     children: [
-              //                       Row(
-              //                         children: [
-              //                           Text(
-              //                             cities[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Container(
-              //                             width: 5,
-              //                             height: 5,
-              //                             decoration: const BoxDecoration(
-              //                               shape: BoxShape.circle,
-              //                               color: Colors.black,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Text(
-              //                             cities2[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                         ],
-              //                       ),
-              //                       SizedBox(height: 4.h),
-              //                       Text(
-              //                         cities2[index],
-              //                         style: GoogleFonts.openSans(
-              //                           fontSize: 12.sp,
-              //                           fontWeight: FontWeight.w600,
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 ),
-              //                 Divider(
-              //                   height: 4.h,
-              //                   thickness: 1,
-              //                   color: Colors.grey,
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(horizontal: 20.w),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'Stasiun Populer',
-              //         style: GoogleFonts.openSans(
-              //             fontSize: 14.sp,
-              //             fontWeight: FontWeight.w700,
-              //             color: const Color(0x96989C9C)),
-              //       ),
-              //       Container(
-              //         height: 230.h,
-              //         width: double.maxFinite,
-              //         margin: EdgeInsets.only(top: 10.h, bottom: 20.h),
-              //         decoration: BoxDecoration(
-              //           borderRadius: const BorderRadius.horizontal(
-              //             left: Radius.circular(8),
-              //             right: Radius.circular(8),
-              //           ),
-              //           color: const Color(0xF9FAFBFB),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: Colors.grey.withOpacity(0.5),
-              //               spreadRadius: 2,
-              //               blurRadius: 5,
-              //               offset: const Offset(0, 3),
-              //             ),
-              //           ],
-              //         ),
-              //         child: ListView.builder(
-              //           padding: EdgeInsets.zero,
-              //           itemCount: cities.length,
-              //           itemBuilder: (context, index) {
-              //             return Column(
-              //               children: [
-              //                 ListTile(
-              //                   title: Column(
-              //                     crossAxisAlignment: CrossAxisAlignment.start,
-              //                     children: [
-              //                       Row(
-              //                         children: [
-              //                           Text(
-              //                             cities[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Container(
-              //                             width: 5,
-              //                             height: 5,
-              //                             decoration: const BoxDecoration(
-              //                               shape: BoxShape.circle,
-              //                               color: Colors.black,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Text(
-              //                             cities2[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                         ],
-              //                       ),
-              //                       SizedBox(height: 4.h),
-              //                       Text(
-              //                         cities2[index],
-              //                         style: GoogleFonts.openSans(
-              //                           fontSize: 12.sp,
-              //                           fontWeight: FontWeight.w600,
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 ),
-              //                 Divider(
-              //                   height: 4.h,
-              //                   thickness: 1,
-              //                   color: Colors.grey,
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         );
