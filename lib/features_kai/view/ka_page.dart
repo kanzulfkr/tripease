@@ -1,4 +1,3 @@
-import 'package:capstone_project_tripease/features_kai/model/order_train_model.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -73,8 +72,8 @@ class _KaPageState extends State<KaPage> {
   void arrivalDay() {
     tglPergiController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(arrivalDated);
-    final departureProvider = Provider.of<DepartureProvider>(context,
-        listen: false); // listen false agar tidak rebuild
+    final departureProvider =
+        Provider.of<DepartureProvider>(context, listen: false);
     departureProvider.setDepartureDate(arrivalDated);
   }
 
@@ -125,6 +124,7 @@ class _KaPageState extends State<KaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(
           'Kereta Api',
           style: GoogleFonts.openSans(
@@ -132,7 +132,6 @@ class _KaPageState extends State<KaPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,
@@ -323,6 +322,8 @@ class _KaPageState extends State<KaPage> {
                                               maxLines: 1,
                                               readOnly: true,
                                               controller: tglPergiController,
+                                              autovalidateMode: AutovalidateMode
+                                                  .onUserInteraction,
                                               style: GoogleFonts.openSans(
                                                   fontSize: 14.sp.sp,
                                                   color: Colors.black),
@@ -339,26 +340,6 @@ class _KaPageState extends State<KaPage> {
                                                         horizontal: 16.w,
                                                         vertical: 10.h),
                                                 border: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 1,
-                                                      color: Color.fromRGBO(
-                                                          210, 215, 224, 1)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.r),
-                                                ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 1,
-                                                      color: Color.fromRGBO(
-                                                          210, 215, 224, 1)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.r),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
                                                   borderSide: const BorderSide(
                                                       width: 1,
                                                       color: Color.fromRGBO(
@@ -385,6 +366,13 @@ class _KaPageState extends State<KaPage> {
                                               onChanged: (value) {
                                                 postOrder.setArrivalTime(value);
                                               },
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Harap diisi';
+                                                }
+                                                return null;
+                                              },
                                             ),
                                           )
                                         ],
@@ -406,6 +394,8 @@ class _KaPageState extends State<KaPage> {
                                               maxLines: 1,
                                               readOnly: true,
                                               controller: tglPergiController,
+                                              autovalidateMode: AutovalidateMode
+                                                  .onUserInteraction,
                                               style: GoogleFonts.openSans(
                                                   fontSize: 14.sp.sp,
                                                   color: Colors.black),
@@ -422,26 +412,6 @@ class _KaPageState extends State<KaPage> {
                                                         horizontal: 16.w,
                                                         vertical: 10.h),
                                                 border: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 1,
-                                                      color: Color.fromRGBO(
-                                                          210, 215, 224, 1)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.r),
-                                                ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 1,
-                                                      color: Color.fromRGBO(
-                                                          210, 215, 224, 1)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.r),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
                                                   borderSide: const BorderSide(
                                                       width: 1,
                                                       color: Color.fromRGBO(
@@ -467,6 +437,13 @@ class _KaPageState extends State<KaPage> {
                                               ),
                                               onChanged: (value) {
                                                 postOrder.setArrivalTime(value);
+                                              },
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Harap diisi';
+                                                }
+                                                return null;
                                               },
                                             ),
                                           ),
@@ -494,6 +471,9 @@ class _KaPageState extends State<KaPage> {
                                                   readOnly: true,
                                                   controller:
                                                       tglKembaliController,
+                                                  autovalidateMode:
+                                                      AutovalidateMode
+                                                          .onUserInteraction,
                                                   style: GoogleFonts.openSans(
                                                       fontSize: 14.sp.sp,
                                                       color: Colors.black),
@@ -512,36 +492,6 @@ class _KaPageState extends State<KaPage> {
                                                             horizontal: 16.w,
                                                             vertical: 10.h),
                                                     border: OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                              width: 1,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      210,
-                                                                      215,
-                                                                      224,
-                                                                      1)),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.r),
-                                                    ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                              width: 1,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      210,
-                                                                      215,
-                                                                      224,
-                                                                      1)),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.r),
-                                                    ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
                                                       borderSide:
                                                           const BorderSide(
                                                               width: 1,
@@ -576,6 +526,13 @@ class _KaPageState extends State<KaPage> {
                                                   onChanged: (value) {
                                                     postOrder
                                                         .setDepatureTime(value);
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'Harap diisi';
+                                                    }
+                                                    return null;
                                                   },
                                                 ),
                                               ),
@@ -616,116 +573,112 @@ class _KaPageState extends State<KaPage> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        SizedBox(
-                          // height: 60.h,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Center(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Center(
+                              child: Text(
+                                'Dewasa',
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Container(
+                              // height: 44.h,
+                              width: 65.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: TextFormField(
+                                maxLines: 1,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: dewasaController,
+                                keyboardType: TextInputType.number,
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp, color: Colors.black),
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.h, horizontal: 26.w),
+                                  hintText: '1',
+                                  hintStyle:
+                                      GoogleFonts.openSans(color: Colors.grey),
+                                  border: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        width: 1,
+                                        color:
+                                            Color.fromRGBO(210, 215, 224, 1)),
+                                    borderRadius: BorderRadius.circular(8.r),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return '';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  postOrder.setQuantityInfant(
+                                      int.tryParse(value) ?? 0);
+                                },
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(2)
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              // height: 44.h,
+                              width: 49.w,
+                              child: Center(
                                 child: Text(
-                                  'Dewasa',
+                                  'Anak - Anak',
                                   style: GoogleFonts.openSans(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600),
+                                  maxLines: 2,
                                 ),
                               ),
-                              Container(
-                                // height: 44.h,
-                                width: 65.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: TextFormField(
-                                  maxLines: 1,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  controller: dewasaController,
-                                  keyboardType: TextInputType.number,
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp, color: Colors.black),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10.h, horizontal: 26.w),
-                                    hintText: '0',
-                                    hintStyle: GoogleFonts.openSans(
-                                        color: Colors.grey),
-                                    border: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color:
-                                              Color.fromRGBO(210, 215, 224, 1)),
-                                      borderRadius: BorderRadius.circular(8.r),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return '';
-                                    }
-                                    return null;
-                                  },
-                                  onChanged: (value) {
-                                    postOrder.setQuantityInfant(
-                                        int.tryParse(value) ?? 0);
-                                  },
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    LengthLimitingTextInputFormatter(2)
-                                  ],
-                                ),
+                            ),
+                            Container(
+                              // height: 44.h,
+                              width: 65.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              SizedBox(
-                                // height: 44.h,
-                                width: 49.w,
-                                child: Center(
-                                  child: Text(
-                                    'Anak - Anak',
-                                    style: GoogleFonts.openSans(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600),
-                                    maxLines: 2,
+                              child: TextFormField(
+                                maxLines: 1,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: anakAnakController,
+                                keyboardType: TextInputType.number,
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp, color: Colors.black),
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.h, horizontal: 26.w),
+                                  hintText: '0',
+                                  hintStyle:
+                                      GoogleFonts.openSans(color: Colors.grey),
+                                  border: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        width: 1,
+                                        color:
+                                            Color.fromRGBO(210, 215, 224, 1)),
+                                    borderRadius: BorderRadius.circular(8.r),
                                   ),
                                 ),
+                                onChanged: (value) {
+                                  postOrder.setQuantityAdult(int.parse(value));
+                                },
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(2)
+                                ],
                               ),
-                              Container(
-                                // height: 44.h,
-                                width: 65.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: TextFormField(
-                                  maxLines: 1,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  controller: anakAnakController,
-                                  keyboardType: TextInputType.number,
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp, color: Colors.black),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10.h, horizontal: 26.w),
-                                    hintText: '0',
-                                    hintStyle: GoogleFonts.openSans(
-                                        color: Colors.grey),
-                                    border: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color:
-                                              Color.fromRGBO(210, 215, 224, 1)),
-                                      borderRadius: BorderRadius.circular(8.r),
-                                    ),
-                                  ),
-                                  onChanged: (value) {
-                                    postOrder
-                                        .setQuantityAdult(int.parse(value));
-                                  },
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    LengthLimitingTextInputFormatter(2)
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: 20.h),
                         Row(
@@ -737,69 +690,69 @@ class _KaPageState extends State<KaPage> {
                                   fontSize: 14.sp, fontWeight: FontWeight.w600),
                             ),
                             Container(
-                                height: 40,
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8.r),
-                                  ),
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromRGBO(210, 215, 224, 1),
-                                  ),
+                              height: 40,
+                              width: 160,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.r),
                                 ),
-                                child: Consumer<DepartureProvider>(
-                                  builder: (context, departureProvider, child) {
-                                    return DropdownButtonHideUnderline(
-                                      child: DropdownButton2<String>(
-                                        hint: TextFormField(
-                                          autovalidateMode: AutovalidateMode
-                                              .onUserInteraction,
-                                          controller: jenisKAController,
-                                          readOnly: true,
-                                          style: GoogleFonts.openSans(
-                                              fontSize: 14.sp,
-                                              color: Colors.black),
-                                          decoration: InputDecoration(
-                                            hintText: 'Pilih',
-                                            hintStyle: GoogleFonts.openSans(
-                                                color: Colors.grey),
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                          ),
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 161, 163, 165),
+                                ),
+                              ),
+                              child: Consumer<DepartureProvider>(
+                                builder: (context, departureProvider, child) {
+                                  return DropdownButtonHideUnderline(
+                                    child: DropdownButton2<String>(
+                                      hint: TextFormField(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        controller: jenisKAController,
+                                        readOnly: true,
+                                        style: GoogleFonts.openSans(
+                                            fontSize: 14.sp,
+                                            color: Colors.black),
+                                        decoration: InputDecoration(
+                                          hintText: 'Pilih',
+                                          hintStyle: GoogleFonts.openSans(
+                                              color: Colors.grey),
+                                          enabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
                                         ),
-                                        iconStyleData: const IconStyleData(
-                                          icon: Icon(Icons.arrow_drop_down),
-                                          openMenuIcon:
-                                              Icon(Icons.arrow_drop_up),
-                                        ),
-                                        isExpanded: true,
-                                        underline: const SizedBox(),
-                                        onChanged: (String? value) {
-                                          departureProvider
-                                              .setSelectedClass(value);
-                                          jenisKAController.text =
-                                              departureProvider.selectedClass
-                                                  .toString();
-                                        },
-                                        items: dropdownItems
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value == '' ? 'Semua' : value,
-                                              style: GoogleFonts.openSans(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
                                       ),
-                                    );
-                                  },
-                                ))
+                                      iconStyleData: const IconStyleData(
+                                        icon: Icon(Icons.arrow_drop_down),
+                                        openMenuIcon: Icon(Icons.arrow_drop_up),
+                                      ),
+                                      isExpanded: true,
+                                      underline: const SizedBox(),
+                                      onChanged: (String? value) {
+                                        departureProvider
+                                            .setSelectedClass(value);
+                                        jenisKAController.text =
+                                            departureProvider.selectedClass
+                                                .toString();
+                                      },
+                                      items: dropdownItems
+                                          .map<DropdownMenuItem<String>>(
+                                              (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value == '' ? 'Semua' : value,
+                                            style: GoogleFonts.openSans(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
                           ],
                         ),
                         SizedBox(height: 20.h),
@@ -808,16 +761,13 @@ class _KaPageState extends State<KaPage> {
                             return Center(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // if (_formKey.currentState!.validate()) {
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //     const SnackBar(content: Text('yeayyyyy')),
-                                  //   );
-
                                   postOrder.setQuantityInfant(
                                       int.tryParse(anakAnakController.text) ??
                                           0);
                                   print(
-                                      'dewsa : ${postOrder.getQuantityAdult}');
+                                      'dewasa : ${postOrder.getQuantityAdult}');
+                                  print(
+                                      'anak-anak : ${postOrder.getQuantityInfant}');
 
                                   if (_formKey.currentState!.validate()) {
                                     var originId =
@@ -1194,192 +1144,6 @@ class _KaPageState extends State<KaPage> {
                         ),
                       ),
                     ),
-              // Container(
-              //   margin: EdgeInsets.all(20.w),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'Stasiun Populer',
-              //         style: GoogleFonts.openSans(
-              //             fontSize: 14.sp,
-              //             fontWeight: FontWeight.w700,
-              //             color: const Color(0x96989C9C)),
-              //       ),
-              //       Container(
-              //         height: 280.h,
-              //         width: double.maxFinite,
-              //         margin: EdgeInsets.only(top: 10.h),
-              //         decoration: BoxDecoration(
-              //           borderRadius: const BorderRadius.horizontal(
-              //             left: Radius.circular(8),
-              //             right: Radius.circular(8),
-              //           ),
-              //           color: const Color(0xF9FAFBFB),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: Colors.grey.withOpacity(0.5),
-              //               spreadRadius: 2,
-              //               blurRadius: 5,
-              //               offset: const Offset(0, 3),
-              //             ),
-              //           ],
-              //         ),
-              //         child: ListView.builder(
-              //           padding: EdgeInsets.zero,
-              //           itemCount: cities.length,
-              //           itemBuilder: (context, index) {
-              //             return Column(
-              //               children: [
-              //                 ListTile(
-              //                   title: Column(
-              //                     crossAxisAlignment: CrossAxisAlignment.start,
-              //                     children: [
-              //                       Row(
-              //                         children: [
-              //                           Text(
-              //                             cities[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Container(
-              //                             width: 5,
-              //                             height: 5,
-              //                             decoration: const BoxDecoration(
-              //                               shape: BoxShape.circle,
-              //                               color: Colors.black,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Text(
-              //                             cities2[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                         ],
-              //                       ),
-              //                       SizedBox(height: 4.h),
-              //                       Text(
-              //                         cities2[index],
-              //                         style: GoogleFonts.openSans(
-              //                           fontSize: 12.sp,
-              //                           fontWeight: FontWeight.w600,
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 ),
-              //                 Divider(
-              //                   height: 4.h,
-              //                   thickness: 1,
-              //                   color: Colors.grey,
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(horizontal: 20.w),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'Stasiun Populer',
-              //         style: GoogleFonts.openSans(
-              //             fontSize: 14.sp,
-              //             fontWeight: FontWeight.w700,
-              //             color: const Color(0x96989C9C)),
-              //       ),
-              //       Container(
-              //         height: 230.h,
-              //         width: double.maxFinite,
-              //         margin: EdgeInsets.only(top: 10.h, bottom: 20.h),
-              //         decoration: BoxDecoration(
-              //           borderRadius: const BorderRadius.horizontal(
-              //             left: Radius.circular(8),
-              //             right: Radius.circular(8),
-              //           ),
-              //           color: const Color(0xF9FAFBFB),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: Colors.grey.withOpacity(0.5),
-              //               spreadRadius: 2,
-              //               blurRadius: 5,
-              //               offset: const Offset(0, 3),
-              //             ),
-              //           ],
-              //         ),
-              //         child: ListView.builder(
-              //           padding: EdgeInsets.zero,
-              //           itemCount: cities.length,
-              //           itemBuilder: (context, index) {
-              //             return Column(
-              //               children: [
-              //                 ListTile(
-              //                   title: Column(
-              //                     crossAxisAlignment: CrossAxisAlignment.start,
-              //                     children: [
-              //                       Row(
-              //                         children: [
-              //                           Text(
-              //                             cities[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Container(
-              //                             width: 5,
-              //                             height: 5,
-              //                             decoration: const BoxDecoration(
-              //                               shape: BoxShape.circle,
-              //                               color: Colors.black,
-              //                             ),
-              //                           ),
-              //                           SizedBox(width: 8.h),
-              //                           Text(
-              //                             cities2[index],
-              //                             style: GoogleFonts.openSans(
-              //                               fontSize: 12.sp,
-              //                               fontWeight: FontWeight.w600,
-              //                             ),
-              //                           ),
-              //                         ],
-              //                       ),
-              //                       SizedBox(height: 4.h),
-              //                       Text(
-              //                         cities2[index],
-              //                         style: GoogleFonts.openSans(
-              //                           fontSize: 12.sp,
-              //                           fontWeight: FontWeight.w600,
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 ),
-              //                 Divider(
-              //                   height: 4.h,
-              //                   thickness: 1,
-              //                   color: Colors.grey,
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         );

@@ -1,4 +1,5 @@
 import 'package:capstone_project_tripease/features_kai/view/return.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,20 +48,16 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
   void arrivalDay() {
     tglPergiEditingController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(arrivalDated);
-
     final departureProvider =
         Provider.of<DepartureProvider>(context, listen: false);
-
     departureProvider.setDepartureDate(arrivalDated);
   }
 
   void returnDay() {
     tglKembaliEditingController.text =
         DateFormat('dd MMMM yyyy', 'id_ID').format(returnDated);
-
     final departureProvider =
         Provider.of<DepartureProvider>(context, listen: false);
-
     departureProvider.setReturnDate(returnDated);
   }
 
@@ -69,14 +66,15 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
     super.initState();
     final departureProvider =
         Provider.of<DepartureProvider>(context, listen: false);
-
-    Provider.of<StationProvider>(context, listen: false);
-
     tglPergiEditingController.text = departureProvider.departureDate;
+    tglKembaliEditingController.text = departureProvider.returnDate;
   }
 
   @override
   Widget build(BuildContext context) {
+    final postOrder =
+        Provider.of<PostOrderTrainProvider>(context, listen: false);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -89,9 +87,10 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Consumer<StationProvider>(
-                builder: (context, stationsProvider, child) {
+                builder: (context, stationProv, child) {
                   return Column(
                     children: [
+                      // ini filter
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -133,87 +132,81 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                           SizedBox(width: 40.w),
                           const Text('Urut'),
                           SizedBox(width: 18.w),
-                          Consumer<StationProvider>(
-                            builder: (context, stationProvider, child) {
-                              return Container(
-                                height: 40.h,
-                                width: 135.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8.r),
-                                  ),
-                                  border: Border.all(color: Colors.grey),
-                                ),
-                                child: Consumer<DepartureProvider>(
-                                  builder: (context, departureProvider, child) {
-                                    return DropdownButtonHideUnderline(
-                                      child: DropdownButton2<SortingOption>(
-                                        hint: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: Text(
-                                            'Pilih',
-                                            style: GoogleFonts.openSans(
-                                              color: Colors.grey,
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            maxLines: 2,
-                                          ),
+                          Container(
+                            height: 40.h,
+                            width: 135.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8.r),
+                              ),
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: Consumer<DepartureProvider>(
+                              builder: (context, departureProvider, child) {
+                                return DropdownButtonHideUnderline(
+                                  child: DropdownButton2<SortingOption>(
+                                    hint: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Text(
+                                        'Pilih',
+                                        style: GoogleFonts.openSans(
+                                          color: Colors.grey,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        value: departureProvider
-                                            .selectedSortingOption,
-                                        iconStyleData: const IconStyleData(
-                                          icon: Icon(
-                                            Icons.arrow_drop_down,
-                                          ),
-                                          openMenuIcon:
-                                              Icon(Icons.arrow_drop_up),
-                                        ),
-                                        isExpanded: true,
-                                        underline: const SizedBox(),
-                                        onChanged: (SortingOption? value) {
-                                          departureProvider
-                                              .setSelectedSortingOption(value);
-                                          var sortPrice = departureProvider
-                                              .selectedSortingOption;
-                                          var originId =
-                                              stationProvider.idOrigin as int;
-                                          var destinationId = stationProvider
-                                              .idDestination as int;
-                                          departureProvider.fetchDepartures(
-                                              stationOriginId: originId,
-                                              stationDestinationId:
-                                                  destinationId,
-                                              price: sortPrice ==
-                                                      SortingOption.empty
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                    value:
+                                        departureProvider.selectedSortingOption,
+                                    iconStyleData: const IconStyleData(
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                      ),
+                                      openMenuIcon: Icon(Icons.arrow_drop_up),
+                                    ),
+                                    isExpanded: true,
+                                    underline: const SizedBox(),
+                                    onChanged: (SortingOption? value) {
+                                      departureProvider
+                                          .setSelectedSortingOption(value);
+                                      var sortPrice = departureProvider
+                                          .selectedSortingOption;
+                                      var originId =
+                                          stationProv.idOrigin as int;
+                                      var destinationId =
+                                          stationProv.idDestination as int;
+                                      departureProvider.fetchDepartures(
+                                          stationOriginId: originId,
+                                          stationDestinationId: destinationId,
+                                          price:
+                                              sortPrice == SortingOption.empty
                                                   ? ''
                                                   : sortPrice?.toStringValue());
-                                        },
-                                        items: const <DropdownMenuItem<
-                                            SortingOption>>[
-                                          DropdownMenuItem(
-                                            value: SortingOption.empty,
-                                            child: Text('All'),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: SortingOption.asc,
-                                            child: Text('Terendah'),
-                                          ),
-                                          DropdownMenuItem(
-                                              value: SortingOption.desc,
-                                              child: Text('Tertinggi'))
-                                        ],
+                                    },
+                                    items: const <DropdownMenuItem<
+                                        SortingOption>>[
+                                      DropdownMenuItem(
+                                        value: SortingOption.empty,
+                                        child: Text('All'),
                                       ),
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          )
+                                      DropdownMenuItem(
+                                        value: SortingOption.asc,
+                                        child: Text('Terendah'),
+                                      ),
+                                      DropdownMenuItem(
+                                          value: SortingOption.desc,
+                                          child: Text('Tertinggi'))
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 12.h),
+                      // ini detail filter
                       Container(
                         width: double.maxFinite,
                         height: 92.h,
@@ -272,7 +265,6 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                       SizedBox(width: 12.w),
                                       Container(
                                         height: 32.h,
-                                        // width: 135,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16),
                                         decoration: BoxDecoration(
@@ -297,9 +289,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
+                                SizedBox(width: 5.w),
                                 const Icon(
                                   Icons.close,
                                   size: 20,
@@ -366,221 +356,208 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                         ),
                       ),
                       SizedBox(height: 10.h),
+                      //  date PP
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Consumer<StationProvider>(
-                            builder: (context, value, child) {
-                              return value.pulangPergi == false
-                                  ? Container(
-                                      width: 232.w,
-                                      height: 68.h,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 16),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  TextFormField(
-                                                    readOnly: true,
-                                                    controller:
-                                                        tglPergiEditingController,
-                                                    decoration: InputDecoration(
-                                                      hintText:
-                                                          'Tanggal Keberangkatan',
-                                                      labelStyle:
-                                                          GoogleFonts.openSans(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                      border:
-                                                          const OutlineInputBorder(),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    right: 8,
-                                                    top: 8,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        _showDateBottomSheet();
-                                                      },
-                                                      child: Icon(
-                                                        Icons.calendar_month,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                          stationProv.pulangPergi == false
+                              ? Container(
+                                  margin: EdgeInsets.only(top: 20.h),
+                                  width: 200.w,
+                                  height: 65.h,
+                                  child: SizedBox(
+                                    height: 45.h,
+                                    child: TextFormField(
+                                      maxLines: 1,
+                                      readOnly: true,
+                                      controller: tglPergiEditingController,
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      style: GoogleFonts.openSans(
+                                          fontSize: 14.sp.sp,
+                                          color: Colors.black),
+                                      decoration: InputDecoration(
+                                        hintText: 'Pilih Tanggal',
+                                        hintStyle: GoogleFonts.openSans(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: const Color(0x96989C9C),
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16.w, vertical: 10.h),
+                                        border: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              width: 1,
+                                              color: Color.fromRGBO(
+                                                  210, 215, 224, 1)),
+                                          borderRadius:
+                                              BorderRadius.circular(8.r),
+                                        ),
+                                        suffixIcon: SizedBox(
+                                          width: 48.w,
+                                          height: 48.h,
+                                          child: InkWell(
+                                            onTap: () {
+                                              _showDateBottomSheet(true);
+                                            },
+                                            child: const Icon(
+                                              Icons.calendar_month,
+                                              color: Color.fromARGB(
+                                                  167, 118, 122, 122),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        postOrder.setArrivalTime(value);
+                                      },
+                                    ),
+                                  ),
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(top: 8.h),
+                                      width: 200.w,
+                                      height: 45,
+                                      child: TextFormField(
+                                        maxLines: 1,
+                                        readOnly: true,
+                                        controller: tglPergiEditingController,
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: GoogleFonts.openSans(
+                                            fontSize: 14.sp.sp,
+                                            color: Colors.black),
+                                        decoration: InputDecoration(
+                                          hintText: 'Pilih Tanggal',
+                                          hintStyle: GoogleFonts.openSans(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: const Color(0x96989C9C),
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 16.w, vertical: 10.h),
+                                          border: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 1,
+                                                color: Color.fromRGBO(
+                                                    210, 215, 224, 1)),
+                                            borderRadius:
+                                                BorderRadius.circular(8.r),
+                                          ),
+                                          suffixIcon: SizedBox(
+                                            width: 48.w,
+                                            height: 48.h,
+                                            child: InkWell(
+                                              onTap: () {
+                                                _showDateBottomSheet(true);
+                                              },
+                                              child: const Icon(
+                                                Icons.calendar_month,
+                                                color: Color.fromARGB(
+                                                    167, 118, 122, 122),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 232.w,
-                                          height: 68.h,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12),
-                                          child: Padding(
-                                            padding: EdgeInsets.only(left: 16),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      TextFormField(
-                                                        readOnly: true,
-                                                        controller:
-                                                            tglPergiEditingController,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          hintText:
-                                                              'Tanggal Keberangkatan',
-                                                          labelStyle:
-                                                              GoogleFonts
-                                                                  .openSans(
-                                                            fontSize: 12.sp,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                          border:
-                                                              const OutlineInputBorder(),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        right: 8,
-                                                        top: 8,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            _showDateBottomSheet();
-                                                          },
-                                                          child: Icon(
-                                                            Icons
-                                                                .calendar_month,
-                                                            color: Colors.grey,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
                                           ),
                                         ),
-                                        Container(
-                                          width: 232.h,
-                                          height: 68.w,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12),
-                                          child: Padding(
-                                            padding: EdgeInsets.only(left: 16),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      TextFormField(
-                                                        readOnly: true,
-                                                        controller:
-                                                            tglKembaliEditingController,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          hintText:
-                                                              'Tanggal Kembali',
-                                                          labelStyle:
-                                                              GoogleFonts
-                                                                  .openSans(
-                                                            fontSize: 12.sp,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                          border:
-                                                              const OutlineInputBorder(),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        right: 8,
-                                                        top: 8,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            _showDateBottomSheet();
-                                                          },
-                                                          child: Icon(
-                                                            Icons
-                                                                .calendar_month,
-                                                            color: Colors.grey,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                            },
-                          ),
-                          SizedBox(width: 10.w),
-                          Consumer<StationProvider>(
-                            builder: (context, stationProvider, child) {
-                              return SizedBox(
-                                width: 80.w,
-                                height: 68.h,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Pulang Pergi?',
-                                      style: GoogleFonts.openSans(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
+                                        onChanged: (value) {
+                                          // postOrder.setArrivalTime(value);
+                                        },
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Harap diisi';
+                                          }
+                                          return null;
+                                        },
                                       ),
                                     ),
-                                    CupertinoSwitch(
-                                      activeColor: Colors.blueAccent,
-                                      trackColor: Colors.grey,
-                                      value: stationProvider.pulangPergi,
-                                      onChanged: (newValue) {
-                                        stationProvider
-                                            .setPulangPergi(newValue);
-                                      },
+                                    Container(
+                                      margin: EdgeInsets.only(top: 20.h),
+                                      width: 200.w,
+                                      height: 45,
+                                      child: TextFormField(
+                                        maxLines: 1,
+                                        readOnly: true,
+                                        controller: tglKembaliEditingController,
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: GoogleFonts.openSans(
+                                            fontSize: 14.sp.sp,
+                                            color: Colors.black),
+                                        decoration: InputDecoration(
+                                          hintText: 'Pilih Tanggal',
+                                          hintStyle: GoogleFonts.openSans(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: const Color(0x96989C9C),
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 16.w, vertical: 10.h),
+                                          border: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 1,
+                                                color: Color.fromRGBO(
+                                                    210, 215, 224, 1)),
+                                            borderRadius:
+                                                BorderRadius.circular(8.r),
+                                          ),
+                                          suffixIcon: SizedBox(
+                                            width: 48.w,
+                                            height: 48.h,
+                                            child: InkWell(
+                                              onTap: () {
+                                                _showDateBottomSheet(false);
+                                              },
+                                              child: const Icon(
+                                                Icons.calendar_month,
+                                                color: Color.fromARGB(
+                                                    167, 118, 122, 122),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        onChanged: (value) {
+                                          postOrder.setDepatureTime(value);
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),
-                              );
-                            },
+                          SizedBox(
+                            width: 100.w,
+                            height: 68.h,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Pulang Pergi?',
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                CupertinoSwitch(
+                                  activeColor: Colors.blueAccent,
+                                  trackColor: Colors.grey,
+                                  value: stationProv.pulangPergi,
+                                  onChanged: (newValue) {
+                                    stationProv.setPulangPergi(newValue);
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                       Divider(
                         height: 20.h,
                         thickness: 1,
-                        color: Color.fromRGBO(113, 114, 117, 1),
+                        color: const Color.fromRGBO(113, 114, 117, 1),
                       ),
-                      stationsProvider.pulangPergi == false
+                      stationProv.pulangPergi == false
                           ? SizedBox(
                               height: 420.h,
                               width: double.maxFinite,
@@ -597,6 +574,10 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 child) {
                                               return InkWell(
                                                 onTap: () {
+                                                  print(
+                                                      'arrv : ${departureProv.returnDate}');
+                                                  print(
+                                                      'dprt : ${departureProv.departureDate}');
                                                   departureProv
                                                       .setSelectedDepartIndex(
                                                           index);
@@ -665,12 +646,12 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                   // trainProvider.setPrice(price);
                                                   // trainProvider
                                                   //     .setdateTime('0 j 30 m');
-
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const InputDataKai()),
+                                                      builder: (context) =>
+                                                          const InputDataKai(),
+                                                    ),
                                                   );
                                                 },
                                                 child: Container(
@@ -962,19 +943,6 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                         const EdgeInsets.fromLTRB(1, 0, 1, 12),
                                     child: InkWell(
                                       onTap: () {
-                                        final stationProvider =
-                                            Provider.of<StationProvider>(
-                                                context,
-                                                listen: false);
-                                        // if (stationProvider.pulangPergi == true) {
-                                        //   setState(() {
-                                        //     isPulang = true;
-                                        //   });
-                                        // } else if (stationProvider.pulangPergi ==
-                                        //     false) {
-                                        //   setState(() {
-                                        //     isPulang = false;
-                                        //   });
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1184,99 +1152,6 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
         },
       ),
     );
-  }
-
-  List<Widget> get _if {
-    return [
-      Container(
-        width: 232.w,
-        height: 68.h,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    TextFormField(
-                      readOnly: true,
-                      controller: tglPergiEditingController,
-                      decoration: InputDecoration(
-                        hintText: 'Tanggal Keberangkatan',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    Positioned(
-                      right: 8,
-                      top: 8,
-                      child: InkWell(
-                        onTap: () {
-                          _showDateBottomSheet();
-                        },
-                        child: Icon(
-                          Icons.calendar_month,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      Container(
-        width: 232.h,
-        height: 68.w,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    TextFormField(
-                      readOnly: true,
-                      controller: tglKembaliEditingController,
-                      decoration: InputDecoration(
-                        hintText: 'Tanggal Kembali',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    Positioned(
-                      right: 8,
-                      top: 8,
-                      child: InkWell(
-                        onTap: () {
-                          _showDateBottomSheet();
-                        },
-                        child: const Icon(
-                          Icons.calendar_month,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ];
   }
 
   void _showFilterBottomSheet(BuildContext context) {
@@ -1565,7 +1440,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
     );
   }
 
-  void _showDateBottomSheet() {
+  void _showDateBottomSheet(bool dateArrival) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -1615,7 +1490,9 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                   onDaySelected: (selectedDay, focusedDay) {
                     setState(() {
                       today = selectedDay;
-                      arrivalDated = selectedDay;
+                      dateArrival
+                          ? arrivalDated = selectedDay
+                          : returnDated = selectedDay;
                       print(arrivalDated);
                     });
                   },
@@ -1667,7 +1544,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                     ),
                     TextButton(
                       onPressed: () {
-                        arrivalDay();
+                        dateArrival ? arrivalDay() : returnDay();
                         Navigator.of(context).pop();
                       },
                       child: Text(

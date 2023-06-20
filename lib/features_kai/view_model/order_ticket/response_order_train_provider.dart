@@ -1,5 +1,4 @@
 import 'package:capstone_project_tripease/features_kai/api/response_order_train_api.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../model/response_order_train_model.dart';
 
@@ -13,8 +12,7 @@ class ResponseOrderTrainProvider with ChangeNotifier {
           .fetchOrderDetail(ticketOrderId: ticketOrderId, trainId: trainId);
       _dataOrder = response.data!;
       notifyListeners();
-    } on DioError catch (e) {
-      final code = e.response!.statusCode;
+    } catch (e) {
       notifyListeners();
     }
   }

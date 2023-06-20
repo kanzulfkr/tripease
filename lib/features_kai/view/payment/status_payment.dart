@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../view_model/order_ticket/order_train_provider.dart';
 import '../../view_model/order_ticket/response_order_train_provider.dart';
-import '../../view_model/train/train_provider.dart';
 import '../invoice_page/factur_page.dart';
 
 class PaymentStatus extends StatefulWidget {
@@ -25,9 +23,6 @@ class _PaymentStatusState extends State<PaymentStatus> {
         MaterialPageRoute(builder: (context) => const InvoicePage()),
       ),
     );
-    var trainProv = Provider.of<TrainProvider>(context, listen: false);
-    var postOrderProv =
-        Provider.of<PostOrderTrainProvider>(context, listen: false);
     var responseOrderProv =
         Provider.of<ResponseOrderTrainProvider>(context, listen: false);
 
@@ -42,6 +37,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0XFF0080FF),
         title: Text(
           'Status Pembayaran',
           style: GoogleFonts.openSans(

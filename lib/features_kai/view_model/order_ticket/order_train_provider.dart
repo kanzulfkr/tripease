@@ -31,7 +31,7 @@ class PostOrderTrainProvider with ChangeNotifier {
   String? _depatureTime;
   String? get getDepatureTime => _depatureTime;
 
-  int _quantityAdult = 0;
+  int _quantityAdult = 1;
   int get getQuantityAdult => _quantityAdult;
 
   int _quantityInfant = 0;
