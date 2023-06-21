@@ -28,6 +28,7 @@ class _PaymentPageState extends State<PaymentPage> {
     super.initState();
     TimerPaymentProvider timerPayment =
         Provider.of<TimerPaymentProvider>(context, listen: false);
+
     timerPayment.stopCountDown();
     timerPayment.startCountDown(context);
     countdownTimer = Timer.periodic(
@@ -65,6 +66,14 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     final postOrderProv =
         Provider.of<PostOrderTrainProvider>(context, listen: false);
+    final departureProv =
+        Provider.of<DepartureProvider>(context, listen: false);
+    int quantityAdult = postOrderProv.getQuantityAdult;
+
+    int? price =
+        departureProv.departure[departureProv.selectedDepartIndex as int].price;
+    int totalHargaTiket = quantityAdult * price!;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF0080FF),
@@ -145,7 +154,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               SizedBox(
                                 height: 30.h,
                                 child: Text(
-                                  '${postOrderProv.getQuantityInfant} x Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                  '${quantityAdult} x Rp. ${price}',
                                   style: GoogleFonts.openSans(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600),
@@ -154,7 +163,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               SizedBox(
                                 height: 30.h,
                                 child: Text(
-                                  '${postOrderProv.getQuantityInfant} x Rp. 8.000',
+                                  '${quantityAdult} x Rp. 8.000',
                                   style: GoogleFonts.openSans(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600),
@@ -191,7 +200,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                'Rp. ${totalHargaTiket}',
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),
@@ -227,7 +236,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                'Rp. ${totalHargaTiket}',
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),

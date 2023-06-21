@@ -28,6 +28,8 @@ class _InvoicePageState extends State<InvoicePage> {
       ),
       body: Consumer<ResponseOrderTrainProvider>(
         builder: (context, responseProv, child) {
+          int quantityAdult = responseProv.dataOrder.quantityAdult!;
+          // int price
           return Column(
             children: [
               Padding(
