@@ -10,14 +10,14 @@ import '../../view_model/timer/time_payment_provider.dart';
 import 'widgets/list_payment.dart';
 import 'widgets/payment_timer.dart';
 
-class PaymentPage extends StatefulWidget {
-  const PaymentPage({super.key});
+class SelectPayment extends StatefulWidget {
+  const SelectPayment({super.key});
 
   @override
-  State<PaymentPage> createState() => _PaymentPageState();
+  State<SelectPayment> createState() => _SelectPaymentState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _SelectPaymentState extends State<SelectPayment> {
   TimerPaymentProvider timerText = TimerPaymentProvider();
   Timer? countdownTimer;
   int selectedRadio = 0;
@@ -28,6 +28,7 @@ class _PaymentPageState extends State<PaymentPage> {
     super.initState();
     TimerPaymentProvider timerPayment =
         Provider.of<TimerPaymentProvider>(context, listen: false);
+
     timerPayment.stopCountDown();
     timerPayment.startCountDown(context);
     countdownTimer = Timer.periodic(
@@ -65,6 +66,14 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     final postOrderProv =
         Provider.of<PostOrderTrainProvider>(context, listen: false);
+    final departureProv =
+        Provider.of<DepartureProvider>(context, listen: false);
+    int quantityAdult = postOrderProv.getQuantityAdult;
+
+    int? price =
+        departureProv.departure[departureProv.selectedDepartIndex as int].price;
+    int totalHargaTiket = quantityAdult * price!;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF0080FF),
@@ -85,80 +94,35 @@ class _PaymentPageState extends State<PaymentPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PaymentTimer(timerText: timerText),
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 25.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
                           width: 40.w,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                                child: Checkbox(
-                                  value: isChecked,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      isChecked = value!;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
+                          height: 30.h,
                         ),
                         SizedBox(
                           width: 100.w,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 100.w,
-                                height: 30.h,
-                                child: Text(
-                                  'Tiket',
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                                width: 100.w,
-                                child: Text(
-                                  'Asuransi',
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            ],
+                          height: 30.h,
+                          child: Text(
+                            'Tiket',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14.sp, fontWeight: FontWeight.w600),
                           ),
                         ),
                         SizedBox(
                           width: 130.w,
+                          height: 30.h,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(
-                                height: 30.h,
-                                child: Text(
-                                  '${postOrderProv.getQuantityInfant} x Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                                child: Text(
-                                  '${postOrderProv.getQuantityInfant} x Rp. 8.000',
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
+                              Text(
+                                '$quantityAdult x Rp. $price',
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -166,7 +130,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10.h, bottom: 10.h),
+                      margin: EdgeInsets.only(bottom: 10.h),
                       height: 1.4.h,
                       color: Colors.black,
                     ),
@@ -191,7 +155,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                'Rp. $totalHargaTiket',
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),
@@ -227,7 +191,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price}',
+                                'Rp. ${totalHargaTiket}',
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),

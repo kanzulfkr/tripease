@@ -64,7 +64,7 @@ void showCustomAlertDialog(BuildContext context) {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PaymentPage()),
+                MaterialPageRoute(builder: (context) => const SelectPayment()),
               );
             },
           ),

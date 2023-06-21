@@ -324,11 +324,12 @@ class _PaymentPageState extends State<PaymentPage> {
 
                   if (context.mounted) {
                     print('success code : ${postOrderProv.getStatusCode}');
-
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text(
-                          'Berhasil melakukan order Tiket KA',
+                        content: Center(
+                          child: Text(
+                            'Berhasil melakukan order Tiket KA',
+                          ),
                         ),
                       ),
                     );
@@ -345,8 +346,10 @@ class _PaymentPageState extends State<PaymentPage> {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text(
-                          'Kesalahan Input Data order.',
+                        content: Center(
+                          child: Text(
+                            'Kesalahan Input Data order.',
+                          ),
                         ),
                       ),
                     );

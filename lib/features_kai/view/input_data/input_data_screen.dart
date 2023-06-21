@@ -1,30 +1,37 @@
+// ignore_for_file: avoid_print
+
 import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/return_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../model/order_train_model.dart';
 import '../../view_model/carriage/carriage_provider.dart';
+import '../../view_model/carriage/select_seat_kai_provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
-import '../seat_carriage/select_seat_kai.dart';
+import '../seat_carriage/select_seat_departure_page.dart';
 import 'widgets/appbar_input_data.dart';
-import 'widgets/detail_booking.dart';
-import 'widgets/detail_pessanger.dart';
 import 'widgets/show_dialog.dart';
 
 class InputDataKai extends StatefulWidget {
-  const InputDataKai({super.key, required this.list});
-  final List<String> list;
+  const InputDataKai({super.key});
 
   @override
   State<InputDataKai> createState() => _InputDataKaiState();
 }
 
+class PassengerData {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController nikController = TextEditingController();
+}
+
 class _InputDataKaiState extends State<InputDataKai> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _nikController = TextEditingController();
+
   final TextEditingController _namesController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
@@ -33,16 +40,24 @@ class _InputDataKaiState extends State<InputDataKai> {
   bool isDropdownPenumpang = false;
   bool val = false;
   List<String> list = <String>['Tuan', 'Nyonya'];
+  List<PassengerData> passengerDataList = [];
 
   @override
-  void dispose() {
-    super.dispose();
-    _nameController;
-    _nikController;
+  void initState() {
+    super.initState();
+    final traveler =
+        Provider.of<PostOrderTrainProvider>(context, listen: false);
+    // Generate controller for each passenger
+    for (int i = 0; i < traveler.getQuantityAdult; i++) {
+      passengerDataList.add(PassengerData());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final stationProv = Provider.of<StationProvider>(context, listen: false);
+    final departureProv =
+        Provider.of<DepartureProvider>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -71,7 +86,6 @@ class _InputDataKaiState extends State<InputDataKai> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Card shcedule KA
                     Consumer<DepartureProvider>(
                       builder: (context, departureProv, child) {
                         return SizedBox(
@@ -260,7 +274,194 @@ class _InputDataKaiState extends State<InputDataKai> {
                         );
                       },
                     ),
-                    // input data Booking
+                    stationProv.pulangPergi == false
+                        ? const SizedBox()
+                        : Consumer<ReturnProvider>(
+                            builder: (context, returnProv, child) {
+                              return SizedBox(
+                                height: 180.h,
+                                width: double.maxFinite,
+                                child: Container(
+                                  width: double.maxFinite,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 12.w, vertical: 8.h),
+                                  margin: EdgeInsets.only(bottom: 12.h),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8.r),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 0.5,
+                                        offset: Offset.zero,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/kai.png',
+                                            scale: 0.8,
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .name
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Rp. ${returnProv.returns[returnProv.selectedDepartIndex as int].price},-',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![0].station!.origin.toString()}',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![1].station!.origin.toString()}',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .datumClass
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Tersedia',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color.fromRGBO(
+                                                  61, 175, 29, 1),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .route![0]
+                                                .arriveTime
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                            ),
+                                          ),
+                                          const Icon(Icons.arrow_forward),
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .route![1]
+                                                .arriveTime
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            departureProv.returnDate,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            returnProv.getDurationKA(
+                                                returnProv
+                                                    .returns[returnProv
+                                                            .selectedDepartIndex
+                                                        as int]
+                                                    .route![0]
+                                                    .arriveTime!,
+                                                returnProv
+                                                    .returns[returnProv
+                                                            .selectedDepartIndex
+                                                        as int]
+                                                    .route![1]
+                                                    .arriveTime!),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            departureProv.returnDate,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -303,215 +504,227 @@ class _InputDataKaiState extends State<InputDataKai> {
                         ),
                       ),
                     ),
-                    // isDropdownPemesan ? const BodyDetailBooking() : SizedBox(),
-                    Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        color: const Color(0xF9FAFBFB),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 0.2,
-                            blurRadius: 0.5,
-                            offset: const Offset(0.5, 0.5),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(12),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Nama',
-                              style: GoogleFonts.openSans(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(vertical: 10.h),
-                              child: TextFormField(
-                                controller: _namesController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 1,
-                                        color:
-                                            Color.fromRGBO(210, 215, 224, 1)),
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  hintText: 'Nama Lengkap',
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 12),
-                                ),
-                                onChanged: (value) {
-                                  travelerDetail.setName(value);
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Nama Lengkap harap di isi.';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Text(
-                              'Nomor Telepon',
-                              style: GoogleFonts.openSans(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(vertical: 10.h),
-                              child: TextFormField(
-                                controller: _phoneNumberController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 1,
-                                        color:
-                                            Color.fromRGBO(210, 215, 224, 1)),
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  hintText: 'Nomor Telepon',
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 12),
-                                ),
-                                onChanged: (value) {
-                                  travelerDetail.setPhoneNumber(value);
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Nomor Telepon harap di isi.';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Text(
-                              'Email',
-                              style: GoogleFonts.openSans(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(vertical: 10.h),
-                              child: TextFormField(
-                                controller: _emailController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 1,
-                                        color:
-                                            Color.fromRGBO(210, 215, 224, 1)),
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  hintText: 'Email Pemesan',
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 12),
-                                ),
-                                onChanged: (value) {
-                                  travelerDetail.setEmail(value);
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Email harap di isi.';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Container(
-                              height: 150.h,
-                              width: double.maxFinite,
-                              padding: EdgeInsets.all(20.w),
-                              margin: EdgeInsets.only(bottom: 10.h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: const Color.fromARGB(255, 219, 215, 215),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 0.2,
-                                    blurRadius: 0.5,
-                                    offset: const Offset(0.5, 0.5),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.info_rounded,
-                                          color: Colors.blue),
-                                      SizedBox(width: 8.w),
-                                      Text(
-                                        "Info",
-                                        style: GoogleFonts.openSans(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(height: 12.h),
-                                  LayoutBuilder(
-                                    builder: (BuildContext context,
-                                        BoxConstraints constraints) {
-                                      return Text(
-                                        'Data Pemesan hanya digunakan untuk mengirim invoice melalui email dan segala yang berhubungan dengan transaksi. Privasi data tetap terjaga',
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        maxLines:
-                                            6, // Jumlah maksimum baris yang ingin ditampilkan
-                                        overflow: TextOverflow
-                                            .ellipsis, // Tindakan yang diambil saat teks melampaui jumlah maksimum baris
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _nameController.text =
-                                        travelerDetail.getName!;
-                                  });
-                                  // print(travelerDetail.);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    primary: const Color(0XFF0080FF)),
-                                child: Text(
-                                  'Tambahkan sebagai Penumpang',
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white, // Warna teks putih
-                                  ),
-                                ),
-                              ),
+
+                    if (isDropdownPemesan) ...[
+                      Container(
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                          color: const Color(0xF9FAFBFB),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 0.2,
+                              blurRadius: 0.5,
+                              offset: const Offset(0.5, 0.5),
                             ),
                           ],
                         ),
+                        padding: const EdgeInsets.all(12),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Nama',
+                                style: GoogleFonts.openSans(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.h),
+                                child: TextFormField(
+                                  controller: _namesController,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color:
+                                              Color.fromRGBO(210, 215, 224, 1)),
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    hintText: 'Nama Lengkap',
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 12),
+                                  ),
+                                  onChanged: (value) {
+                                    travelerDetail.setName(value);
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Nama Lengkap harap di isi.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Text(
+                                'Nomor Telepon',
+                                style: GoogleFonts.openSans(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.h),
+                                child: TextFormField(
+                                  controller: _phoneNumberController,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color:
+                                              Color.fromRGBO(210, 215, 224, 1)),
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    hintText: 'Nomor Telepon',
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 12),
+                                  ),
+                                  onChanged: (value) {
+                                    travelerDetail.setPhoneNumber(value);
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Nomor Telepon harap di isi.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Text(
+                                'Email',
+                                style: GoogleFonts.openSans(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.h),
+                                child: TextFormField(
+                                  controller: _emailController,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color:
+                                              Color.fromRGBO(210, 215, 224, 1)),
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    hintText: 'Email Pemesan',
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 12),
+                                  ),
+                                  onChanged: (value) {
+                                    travelerDetail.setEmail(value);
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Email harap di isi.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                height: 150.h,
+                                width: double.maxFinite,
+                                padding: EdgeInsets.all(20.w),
+                                margin: EdgeInsets.only(bottom: 10.h),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color:
+                                      const Color.fromARGB(255, 219, 215, 215),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 0.2,
+                                      blurRadius: 0.5,
+                                      offset: const Offset(0.5, 0.5),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.info_rounded,
+                                            color: Colors.blue),
+                                        SizedBox(width: 8.w),
+                                        Text(
+                                          "Info",
+                                          style: GoogleFonts.openSans(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 12.h),
+                                    LayoutBuilder(
+                                      builder: (BuildContext context,
+                                          BoxConstraints constraints) {
+                                        return Text(
+                                          'Data Pemesan hanya digunakan untuk mengirim invoice melalui email dan segala yang berhubungan dengan transaksi. Privasi data tetap terjaga',
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          maxLines:
+                                              6, // Jumlah maksimum baris yang ingin ditampilkan
+                                          overflow: TextOverflow
+                                              .ellipsis, // Tindakan yang diambil saat teks melampaui jumlah maksimum baris
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    // print('sebelum : ${travelerDetail.travelerDetail![0].fullName}');
+                                    setState(() {
+                                      final PassengerData pass =
+                                          passengerDataList[0];
+                                      pass.nameController.text =
+                                          travelerDetail.getName!;
+                                    });
+                                    travelerDetail.travelerDetail![0].fullName =
+                                        travelerDetail.getName!;
+                                    // print(  'setelah : ${travelerDetail.travelerDetail![0].fullName}');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      backgroundColor: const Color(0XFF0080FF)),
+                                  child: Text(
+                                    'Tambahkan sebagai Penumpang',
+                                    style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white, // Warna teks putih
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                     const SizedBox(height: 12),
                     // input data Passenger
                     GestureDetector(
@@ -556,9 +769,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                         ),
                       ),
                     ),
-                    // if (isDropdownPenumpang) ...[
-                    //   BodyDetailPessanger(list: list),
-                    // ],
+
                     if (isDropdownPenumpang) ...[
                       SizedBox(
                         height: 300.h,
@@ -570,6 +781,8 @@ class _InputDataKaiState extends State<InputDataKai> {
                                 travelerDetail.travelerDetail!.length > index
                                     ? travelerDetail.travelerDetail![index]
                                     : TravelerDetail();
+                            final PassengerData passengerData =
+                                passengerDataList[index];
 
                             return Column(
                               children: [
@@ -631,7 +844,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          SelectSeatKai(
+                                                          SelectSeatDepartureCarriage(
                                                         passengerNumber:
                                                             passenger,
                                                       ),
@@ -687,7 +900,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                                       index, value);
                                               print(traveler.title);
                                             },
-                                            items: widget.list
+                                            items: list
                                                 .map<DropdownMenuItem<String>>(
                                               (String value) {
                                                 return DropdownMenuItem<String>(
@@ -714,38 +927,42 @@ class _InputDataKaiState extends State<InputDataKai> {
                                           ),
                                         ),
                                         const SizedBox(height: 8),
-                                        Container(
-                                          child: TextFormField(
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
-                                            controller: _nikController,
-                                            onChanged: (value) {
-                                              traveler.idCardNumber = value;
-                                            },
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    width: 1,
-                                                    color: Color.fromRGBO(
-                                                        210, 215, 224, 1)),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.r),
-                                              ),
-                                              hintText: 'NIK/Paspor',
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                horizontal: 16.h,
-                                                vertical: 12,
-                                              ),
+                                        TextFormField(
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          controller:
+                                              passengerData.nikController,
+                                          onChanged: (value) {
+                                            traveler.idCardNumber = value;
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  width: 1,
+                                                  color: Color.fromRGBO(
+                                                      210, 215, 224, 1)),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
                                             ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Nomor Identitas harap di isi.';
-                                              }
-                                              return null;
-                                            },
+                                            hintText: 'NIK/Paspor',
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: 16.h,
+                                              vertical: 12,
+                                            ),
                                           ),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Nomor Identitas harap di isi.';
+                                            }
+                                            return null;
+                                          },
                                         ),
                                         const SizedBox(height: 8),
                                         Text(
@@ -756,38 +973,39 @@ class _InputDataKaiState extends State<InputDataKai> {
                                           ),
                                         ),
                                         const SizedBox(height: 8),
-                                        Container(
-                                          child: TextFormField(
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
-                                            controller: _nameController,
-                                            onChanged: (value) {
-                                              traveler.fullName = value;
-                                            },
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    width: 1,
-                                                    color: Color.fromRGBO(
-                                                        210, 215, 224, 1)),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.r),
-                                              ),
-                                              hintText: 'Nama Lengkap',
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                horizontal: 16.h,
-                                                vertical: 12,
-                                              ),
+                                        TextFormField(
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          controller:
+                                              passengerData.nameController,
+                                          onChanged: (value) {
+                                            traveler.fullName = value =
+                                                passengerData
+                                                    .nameController.text;
+                                          },
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  width: 1,
+                                                  color: Color.fromRGBO(
+                                                      210, 215, 224, 1)),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
                                             ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Nama Lengkap harap di isi.';
-                                              }
-                                              return null;
-                                            },
+                                            hintText: 'Nama Lengkap',
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: 16.h,
+                                              vertical: 12,
+                                            ),
                                           ),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Nama Lengkap harap di isi.';
+                                            }
+                                            return null;
+                                          },
                                         ),
                                       ],
                                     ),
@@ -803,21 +1021,36 @@ class _InputDataKaiState extends State<InputDataKai> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            print(travelerDetail.getEmail);
-                            print(travelerDetail.getName);
-                            print(travelerDetail.getPhoneNumber);
-                            showCustomAlertDialog(context);
-                          } else {}
+                          final selectSeatsProv =
+                              Provider.of<SelectedSeatsProvider>(context,
+                                  listen: false);
+                          print(selectSeatsProv.selectedSeats);
+                          if (selectSeatsProv.selectedSeats.isNotEmpty) {
+                            if (_formKey.currentState!.validate()) {
+                              showCustomAlertDialog(context);
+                            }
+                          } else {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Center(
+                                    child: Text(
+                                      'Tidak ada kursi yang dipilih.',
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             fixedSize: const Size(252, 40),
+                            backgroundColor: const Color(0XFF0080FF),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-                            primary: const Color(
-                                0XFF0080FF) // Warna latar belakang biru
+                            padding: const EdgeInsets.fromLTRB(
+                                24, 0, 24, 0) // Warna latar belakang biru
                             ),
                         child: Text(
                           'Konfirmasi',

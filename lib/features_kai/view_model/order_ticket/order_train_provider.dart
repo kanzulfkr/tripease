@@ -130,11 +130,6 @@ class PostOrderTrainProvider with ChangeNotifier {
       _statusCode = response.data['status_code'].toString();
 
       _ticketOrderId = response.data['data']['ticket_order_id'];
-
-      // print('ticket_order_id');
-      // print(response.data['data']['ticket_order_id']);
-      // print('ini response full nya');
-      // print(response.data);
       notifyListeners();
     } on DioError catch (e) {
       final code = e.response!.statusCode;

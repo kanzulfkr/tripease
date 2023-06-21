@@ -1,17 +1,16 @@
+// ignore_for_file: avoid_print
+import 'package:capstone_project_tripease/features_kai/view_model/station/return_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
-
-import '../../view_model/station/return_provider.dart';
+import '../../view_model/station/departure_provider.dart';
 import '../../view_model/station/station_provider.dart';
+import '../../view_model/train/train_provider.dart';
 import '../input_data/input_data_screen.dart';
-import 'appbar_departure.dart';
+import 'widgets/appbar_departure.dart';
+import 'widgets/not_found_schedule.dart';
 
 class ReturnSchedule extends StatefulWidget {
   const ReturnSchedule({super.key});
@@ -21,17 +20,11 @@ class ReturnSchedule extends StatefulWidget {
 }
 
 class _ReturnScheduleState extends State<ReturnSchedule> {
-  DateTime today = DateTime.now();
-  DateTime arrivalDated = DateTime.now();
-  DateTime returnDated = DateTime.now();
-  CalendarFormat calendarFormat = CalendarFormat.month;
-
-  TextEditingController tglPergiEditingController = TextEditingController();
-  TextEditingController tglKembaliEditingController = TextEditingController();
   bool val = false;
   bool isDropdownOpened = false;
   int buttonPressCount = 0;
   List<String> list2 = <String>['Tuan', 'Nyonya'];
+
   bool isPulang = false;
 
   List<String> list = <String>[
@@ -44,50 +37,49 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
   ];
   String? selectedValue;
 
-  void arrivalDay() {
-    tglPergiEditingController.text =
-        DateFormat('dd MMMM yyyy', 'id_ID').format(arrivalDated);
-
-    final returnProvider = Provider.of<ReturnProvider>(context,
-        listen: false); // listen false agar tidak rebuild
-
-    returnProvider.setReturnDate(arrivalDated);
-  }
-
-  void returnDay() {
-    tglKembaliEditingController.text =
-        DateFormat('dd MMMM yyyy', 'id_ID').format(returnDated);
-
-    final returnProvider = Provider.of<ReturnProvider>(context, listen: false);
-
-    returnProvider.setReturnDate(returnDated);
-  }
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    final returnProvider = Provider.of<ReturnProvider>(context, listen: false);
+    final returnProv = Provider.of<ReturnProvider>(context, listen: false);
+    final stationProv = Provider.of<StationProvider>(context, listen: false);
 
-    Provider.of<StationProvider>(context, listen: false);
+    var trainClass = returnProv.selectedClass;
 
-    tglKembaliEditingController.text = returnProvider.returnDate;
+    var originId = stationProv.getIdOrigin as int;
+    var destinationId = stationProv.getIdDestination as int;
+
+    if (trainClass == null) {
+      returnProv.fetchReturns(
+        stationOriginId: destinationId,
+        stationDestinationId: originId,
+      );
+    } else {
+      returnProv.fetchReturns(
+        stationOriginId: destinationId,
+        stationDestinationId: originId,
+        trainClass: trainClass,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final departureProvider =
+        Provider.of<DepartureProvider>(context, listen: false);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const BuildAppbar(),
+        backgroundColor: const Color(0XFF0080FF),
+        title: const BuildAppbar(isPulangPergi: true),
       ),
       body: Consumer<ReturnProvider>(
-        builder: (context, returnProvider, child) {
+        builder: (context, returnProv, child) {
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Consumer<StationProvider>(
-                builder: (context, stationsProvider, child) {
+                builder: (context, stationProv, child) {
                   return Column(
                     children: [
                       Row(
@@ -131,87 +123,80 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                           SizedBox(width: 40.w),
                           const Text('Urut'),
                           SizedBox(width: 18.w),
-                          Consumer<StationProvider>(
-                            builder: (context, stationProvider, child) {
-                              return Container(
-                                height: 40.h,
-                                width: 135.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8.r),
-                                  ),
-                                  border: Border.all(color: Colors.grey),
-                                ),
-                                child: Consumer<ReturnProvider>(
-                                  builder: (context, returnProvider, child) {
-                                    return DropdownButtonHideUnderline(
-                                      child: DropdownButton2<SortingOption>(
-                                        hint: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: Text(
-                                            'Pilih',
-                                            style: GoogleFonts.openSans(
-                                              color: Colors.grey,
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            maxLines: 2,
-                                          ),
+                          Container(
+                            height: 40.h,
+                            width: 135.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8.r),
+                              ),
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: Consumer<ReturnProvider>(
+                              builder: (context, returnProv, child) {
+                                return DropdownButtonHideUnderline(
+                                  child: DropdownButton2<ReturnSortingOption>(
+                                    hint: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Text(
+                                        'Pilih',
+                                        style: GoogleFonts.openSans(
+                                          color: Colors.grey,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        value: returnProvider
-                                            .selectedSortingOption,
-                                        iconStyleData: const IconStyleData(
-                                          icon: Icon(
-                                            Icons.arrow_drop_down,
-                                          ),
-                                          openMenuIcon:
-                                              Icon(Icons.arrow_drop_up),
-                                        ),
-                                        isExpanded: true,
-                                        underline: const SizedBox(),
-                                        onChanged: (SortingOption? value) {
-                                          returnProvider
-                                              .setSelectedSortingOption(value);
-                                          var sortPrice = returnProvider
-                                              .selectedSortingOption;
-                                          var originId = stationProvider
-                                              .getIdOrigin as int;
-                                          var destinationId = stationProvider
-                                              .getIdDestination as int;
-                                          returnProvider.fetchDepartures(
-                                              stationOriginId: originId,
-                                              stationDestinationId:
-                                                  destinationId,
-                                              price: sortPrice ==
-                                                      SortingOption.empty
-                                                  ? ''
-                                                  : sortPrice?.toStringValue());
-                                        },
-                                        items: const <DropdownMenuItem<
-                                            SortingOption>>[
-                                          DropdownMenuItem(
-                                            value: SortingOption.empty,
-                                            child: Text('All'),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: SortingOption.asc,
-                                            child: Text('Terendah'),
-                                          ),
-                                          DropdownMenuItem(
-                                              value: SortingOption.desc,
-                                              child: Text('Tertinggi'))
-                                        ],
+                                        maxLines: 2,
                                       ),
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          )
+                                    ),
+                                    value: returnProv.selectedSortingOption,
+                                    iconStyleData: const IconStyleData(
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                      ),
+                                      openMenuIcon: Icon(Icons.arrow_drop_up),
+                                    ),
+                                    isExpanded: true,
+                                    underline: const SizedBox(),
+                                    onChanged: (ReturnSortingOption? value) {
+                                      returnProv
+                                          .setSelectedSortingOption(value);
+                                      var sortPrice =
+                                          returnProv.selectedSortingOption;
+                                      var originId =
+                                          stationProv.getIdOrigin as int;
+                                      var destinationId =
+                                          stationProv.getIdDestination as int;
+                                      returnProv.fetchReturns(
+                                          stationOriginId: destinationId,
+                                          stationDestinationId: originId,
+                                          price: sortPrice ==
+                                                  ReturnSortingOption.empty
+                                              ? ''
+                                              : sortPrice?.toStringValue());
+                                    },
+                                    items: const <DropdownMenuItem<
+                                        ReturnSortingOption>>[
+                                      DropdownMenuItem(
+                                        value: ReturnSortingOption.empty,
+                                        child: Text('All'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: ReturnSortingOption.asc,
+                                        child: Text('Terendah'),
+                                      ),
+                                      DropdownMenuItem(
+                                          value: ReturnSortingOption.desc,
+                                          child: Text('Tertinggi'))
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 12.h),
+                      // ini detail filter
                       Container(
                         width: double.maxFinite,
                         height: 92.h,
@@ -270,7 +255,6 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                       SizedBox(width: 12.w),
                                       Container(
                                         height: 32.h,
-                                        // width: 135,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16),
                                         decoration: BoxDecoration(
@@ -295,9 +279,7 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
+                                SizedBox(width: 5.w),
                                 const Icon(
                                   Icons.close,
                                   size: 20,
@@ -364,466 +346,274 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      Row(
-                        children: [
-                          Consumer<StationProvider>(
-                            builder: (context, value, child) {
-                              return value.pulangPergi == false
-                                  ? Container(
-                                      width: 232.w,
-                                      height: 68.h,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 16),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  TextFormField(
-                                                    readOnly: true,
-                                                    controller:
-                                                        tglPergiEditingController,
-                                                    decoration: InputDecoration(
-                                                      hintText:
-                                                          'Tanggal Keberangkatan',
-                                                      labelStyle:
+
+                      Divider(
+                        height: 20.h,
+                        thickness: 1,
+                        color: const Color.fromRGBO(113, 114, 117, 1),
+                      ),
+
+                      SizedBox(
+                        height: 400.h,
+                        width: double.maxFinite,
+                        child: returnProv.returns.isEmpty
+                            ? NotFoundSchedule(
+                                value1: stationProv.getNameOrigin!,
+                                value2: stationProv.getNameDestination!,
+                              )
+                            : ListView.builder(
+                                itemCount: returnProv.returns.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(1, 0, 1, 12),
+                                    child: Consumer<TrainProvider>(
+                                      builder: (context, trainProvider, child) {
+                                        return InkWell(
+                                          onTap: () {
+                                            print(
+                                                'arrv : ${returnProv.returnDate}');
+                                            print(
+                                                'dprt : ${returnProv.departureDate}');
+                                            returnProv
+                                                .setSelectedDepartIndex(index);
+
+                                            debugPrint(returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .datumClass);
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return const InputDataKai();
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 160.h,
+                                            width: double.maxFinite,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12, vertical: 8),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
+                                                  spreadRadius: 0.2,
+                                                  blurRadius: 0.5,
+                                                  offset:
+                                                      const Offset(0.5, 0.5),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      'assets/images/kai.png',
+                                                      scale: 0.8,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: 5.h),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      returnProv
+                                                          .returns[index].name
+                                                          .toString(),
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Rp ${returnProv.returns[index].price},-',
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Stasiun ${returnProv.returns[index].route![0].station?.origin}',
+                                                      style:
                                                           GoogleFonts.openSans(
                                                         fontSize: 12.sp,
                                                         fontWeight:
                                                             FontWeight.w400,
                                                       ),
-                                                      border:
-                                                          const OutlineInputBorder(),
                                                     ),
-                                                  ),
-                                                  Positioned(
-                                                    right: 8,
-                                                    top: 8,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        _showDateBottomSheet();
-                                                      },
-                                                      child: Icon(
-                                                        Icons.calendar_month,
-                                                        color: Colors.grey,
+                                                    Text(
+                                                      'Stasiun ${returnProv.returns[index].route![1].station?.origin}',
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 232.w,
-                                          height: 68.h,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12),
-                                          child: Padding(
-                                            padding: EdgeInsets.only(left: 16),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      TextFormField(
-                                                        readOnly: true,
-                                                        controller:
-                                                            tglPergiEditingController,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          hintText:
-                                                              'Tanggal Keberangkatan',
-                                                          labelStyle:
-                                                              GoogleFonts
-                                                                  .openSans(
-                                                            fontSize: 12.sp,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                          border:
-                                                              const OutlineInputBorder(),
-                                                        ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      returnProv.returns[index]
+                                                          .datumClass
+                                                          .toString(),
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color
+                                                                .fromRGBO(
+                                                            113, 114, 117, 1),
                                                       ),
-                                                      Positioned(
-                                                        right: 8,
-                                                        top: 8,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            _showDateBottomSheet();
-                                                          },
-                                                          child: Icon(
-                                                            Icons
-                                                                .calendar_month,
-                                                            color: Colors.grey,
+                                                    ),
+                                                    returnProv.returns[index]
+                                                                .status ==
+                                                            'available'
+                                                        ? Text(
+                                                            'Tersedia',
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color:
+                                                                  Colors.green,
+                                                            ),
+                                                          )
+                                                        : Text(
+                                                            'Habis',
+                                                            style: GoogleFonts
+                                                                .openSans(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Colors.red,
+                                                            ),
                                                           ),
-                                                        ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      returnProv.returns[index]
+                                                          .route![0].arriveTime
+                                                          .toString(),
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    const Icon(
+                                                        Icons.arrow_forward),
+                                                    Text(
+                                                      returnProv.returns[index]
+                                                          .route![1].arriveTime
+                                                          .toString(),
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      departureProvider
+                                                          .returnDate,
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
+                                                        color: const Color
+                                                                .fromRGBO(
+                                                            113, 114, 117, 1),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      returnProv.getDurationKA(
+                                                          returnProv
+                                                              .returns[index]
+                                                              .route![0]
+                                                              .arriveTime
+                                                              .toString(),
+                                                          returnProv
+                                                              .returns[index]
+                                                              .route![1]
+                                                              .arriveTime
+                                                              .toString()),
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
+                                                        color: const Color
+                                                                .fromRGBO(
+                                                            113, 114, 117, 1),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      departureProvider
+                                                          .returnDate,
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontSize: 12.sp,
+                                                        color: const Color
+                                                                .fromRGBO(
+                                                            113, 114, 117, 1),
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 232.h,
-                                          height: 68.w,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12),
-                                          child: Padding(
-                                            padding: EdgeInsets.only(left: 16),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      TextFormField(
-                                                        readOnly: true,
-                                                        controller:
-                                                            tglKembaliEditingController,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          hintText:
-                                                              'Tanggal Kembali',
-                                                          labelStyle:
-                                                              GoogleFonts
-                                                                  .openSans(
-                                                            fontSize: 12.sp,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                          border:
-                                                              const OutlineInputBorder(),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        right: 8,
-                                                        top: 8,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            _showDateBottomSheet();
-                                                          },
-                                                          child: Icon(
-                                                            Icons
-                                                                .calendar_month,
-                                                            color: Colors.grey,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                            },
-                          ),
-                          SizedBox(width: 10.w),
-                          Consumer<StationProvider>(
-                            builder: (context, stationProvider, child) {
-                              return SizedBox(
-                                width: 80.w,
-                                height: 68.h,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Pulang Pergi?',
-                                      style: GoogleFonts.openSans(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    CupertinoSwitch(
-                                      activeColor: Colors.blueAccent,
-                                      trackColor: Colors.grey,
-                                      value:
-                                          stationProvider.pulangPergi ?? false,
-                                      onChanged: (newValue) {
-                                        stationProvider
-                                            .setPulangPergi(newValue);
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        height: 20.h,
-                        thickness: 1,
-                        color: Color.fromRGBO(113, 114, 117, 1),
-                      ),
-                      stationsProvider.pulangPergi == false
-                          ? SizedBox(
-                              height: 400.h,
-                              width: double.maxFinite,
-                              child: ListView.builder(
-                                itemCount: returnProvider.returnData.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(1, 0, 1, 12),
-                                    child: InkWell(
-                                      onTap: () {
-                                        final stationProvider =
-                                            Provider.of<StationProvider>(
-                                                context,
-                                                listen: false);
-                                        // if (stationProvider.pulangPergi == true) {
-                                        //   setState(() {
-                                        //     isPulang = true;
-                                        //   });
-                                        // } else if (stationProvider.pulangPergi ==
-                                        //     false) {
-                                        //   setState(() {
-                                        //     isPulang = false;
-                                        //   });
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                InputDataKai(list: list2),
                                           ),
                                         );
-                                        // }
                                       },
-                                      child: Container(
-                                        height: 160.h,
-                                        width: double.maxFinite,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 12, vertical: 8),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(8),
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 0.2,
-                                              blurRadius: 0.5,
-                                              offset: const Offset(0.5, 0.5),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                SvgPicture.asset(
-                                                  'assets/icons/logo_kai.svg',
-                                                  width: 24.w,
-                                                  height: 21.h,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  returnProvider
-                                                      .returnData[index]
-                                                      .route![0]
-                                                      .station!
-                                                      .origin
-                                                      .toString(),
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Stasiun ${returnProvider.returnData[index].route![0].station!.name.toString()}',
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Rp ${returnProvider.returnData[index].price},-',
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  returnProvider
-                                                      .returnData[index]
-                                                      .datumClass
-                                                      .toString(),
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                ),
-                                                returnProvider.returnData[index]
-                                                            .status ==
-                                                        'available'
-                                                    ? Text(
-                                                        'Tersedia',
-                                                        style: GoogleFonts
-                                                            .openSans(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.green,
-                                                        ),
-                                                      )
-                                                    : Text(
-                                                        'Habis',
-                                                        style: GoogleFonts
-                                                            .openSans(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.red,
-                                                        ),
-                                                      ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  returnProvider
-                                                      .returnData[index]
-                                                      .route![0]
-                                                      .arriveTime
-                                                      .toString(),
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                  ),
-                                                ),
-                                                const Icon(Icons.arrow_forward),
-                                                Text(
-                                                  returnProvider
-                                                      .returnData[index]
-                                                      .route![1]
-                                                      .arriveTime
-                                                      .toString(),
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  tglPergiEditingController
-                                                              .text ==
-                                                          ''
-                                                      ? DateFormat(
-                                                              'EEEE, dd MMMM',
-                                                              'id_ID')
-                                                          .format(
-                                                              DateTime.now())
-                                                      : tglPergiEditingController
-                                                          .text,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '0 j 30 m',
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  tglPergiEditingController
-                                                              .text ==
-                                                          ''
-                                                      ? DateFormat(
-                                                              'EEEE, dd MMMM',
-                                                              'id_ID')
-                                                          .format(
-                                                              DateTime.now())
-                                                      : tglPergiEditingController
-                                                          .text,
-                                                  style: GoogleFonts.openSans(
-                                                    fontSize: 12.sp,
-                                                    color: const Color.fromRGBO(
-                                                        113, 114, 117, 1),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     ),
                                   );
                                 },
                               ),
-                            )
-                          : InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        InputDataKai(list: list2),
-                                  ),
-                                );
-                              },
-                              child: Text('Jadwal Pulang'))
+                      ),
                     ],
                   );
                 },
@@ -833,99 +623,6 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
         },
       ),
     );
-  }
-
-  List<Widget> get _if {
-    return [
-      Container(
-        width: 232.w,
-        height: 68.h,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    TextFormField(
-                      readOnly: true,
-                      controller: tglPergiEditingController,
-                      decoration: InputDecoration(
-                        hintText: 'Tanggal Keberangkatan',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    Positioned(
-                      right: 8,
-                      top: 8,
-                      child: InkWell(
-                        onTap: () {
-                          _showDateBottomSheet();
-                        },
-                        child: Icon(
-                          Icons.calendar_month,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      Container(
-        width: 232.h,
-        height: 68.w,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    TextFormField(
-                      readOnly: true,
-                      controller: tglKembaliEditingController,
-                      decoration: InputDecoration(
-                        hintText: 'Tanggal Kembali',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    Positioned(
-                      right: 8,
-                      top: 8,
-                      child: InkWell(
-                        onTap: () {
-                          _showDateBottomSheet();
-                        },
-                        child: Icon(
-                          Icons.calendar_month,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ];
   }
 
   void _showFilterBottomSheet(BuildContext context) {
@@ -940,8 +637,8 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
       ),
       builder: (BuildContext context) {
         return Container(
-          height: 479.h,
-          width: 360.w,
+          height: 400.h,
+          width: double.maxFinite,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10),
@@ -951,9 +648,9 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
           child: Stack(
             children: [
               Container(
-                height: 43.h,
+                height: 45.h,
                 decoration: const BoxDecoration(
-                  color: Colors.blue,
+                  color: Color.fromRGBO(0, 128, 255, 1),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
@@ -961,10 +658,10 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                 ),
               ),
               Consumer<ReturnProvider>(
-                builder: (context, ReturnProvider, child) {
+                builder: (context, returnProvider, child) {
                   return Container(
                     margin: const EdgeInsets.only(top: 43),
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(20.w),
                     decoration: const BoxDecoration(
                       color: Color(0xF9FAFBFB),
                       borderRadius: BorderRadius.only(
@@ -988,11 +685,11 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                             Row(
                               children: [
                                 SizedBox(
-                                  height: 32.h,
+                                  height: 50.h,
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
-                                    backgroundColor: ReturnProvider.filter1
+                                    backgroundColor: returnProvider.filter1
                                         ? Colors.blueAccent
                                         : const Color(0xFFE1E4EA),
                                     showCheckmark: false,
@@ -1001,40 +698,40 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                       style: GoogleFonts.openSans(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: ReturnProvider.filter1
+                                          color: returnProvider.filter1
                                               ? const Color(0xFFE1E4EA)
                                               : Colors.grey),
                                     ),
-                                    selected: ReturnProvider.filter1,
+                                    selected: returnProvider.filter1,
                                     onSelected: (value) {
-                                      ReturnProvider.setFilterOption1(value);
+                                      returnProvider.setFilterOption1(value);
                                       var originId =
                                           stationProvider.getIdOrigin as int;
                                       var destinationId = stationProvider
                                           .getIdDestination as int;
                                       var trainClass =
-                                          ReturnProvider.selectedClass;
+                                          returnProvider.selectedClass;
 
                                       if (trainClass == null) {
-                                        ReturnProvider.fetchDepartures(
-                                          stationOriginId: originId,
-                                          stationDestinationId: destinationId,
+                                        returnProvider.fetchReturns(
+                                          stationOriginId: destinationId,
+                                          stationDestinationId: originId,
                                         );
                                       } else {
-                                        ReturnProvider.fetchDepartures(
-                                            stationOriginId: originId,
-                                            stationDestinationId: destinationId,
+                                        returnProvider.fetchReturns(
+                                            stationOriginId: destinationId,
+                                            stationDestinationId: originId,
                                             trainClass: trainClass);
                                       }
                                     },
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 32.h,
+                                  height: 50.h,
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
-                                    backgroundColor: ReturnProvider.filter2
+                                    backgroundColor: returnProvider.filter2
                                         ? Colors.blueAccent
                                         : const Color(0xFFE1E4EA),
                                     showCheckmark: false,
@@ -1043,40 +740,40 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                       style: GoogleFonts.openSans(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: ReturnProvider.filter2
+                                          color: returnProvider.filter2
                                               ? const Color(0xFFE1E4EA)
                                               : Colors.grey),
                                     ),
-                                    selected: ReturnProvider.filter2,
+                                    selected: returnProvider.filter2,
                                     onSelected: (value) {
-                                      ReturnProvider.setFilterOption2(value);
+                                      returnProvider.setFilterOption2(value);
                                       var originId =
                                           stationProvider.getIdOrigin as int;
                                       var destinationId = stationProvider
                                           .getIdDestination as int;
                                       var trainClass =
-                                          ReturnProvider.selectedClass;
+                                          returnProvider.selectedClass;
 
                                       if (trainClass == null) {
-                                        ReturnProvider.fetchDepartures(
-                                          stationOriginId: originId,
-                                          stationDestinationId: destinationId,
+                                        returnProvider.fetchReturns(
+                                          stationOriginId: destinationId,
+                                          stationDestinationId: originId,
                                         );
                                       } else {
-                                        ReturnProvider.fetchDepartures(
-                                            stationOriginId: originId,
-                                            stationDestinationId: destinationId,
+                                        returnProvider.fetchReturns(
+                                            stationOriginId: destinationId,
+                                            stationDestinationId: originId,
                                             trainClass: trainClass);
                                       }
                                     },
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 32.h,
+                                  height: 50.h,
                                   width: 83.w,
                                   child: FilterChip(
                                     selectedColor: Colors.blueAccent,
-                                    backgroundColor: ReturnProvider.filter3
+                                    backgroundColor: returnProvider.filter3
                                         ? Colors.blueAccent
                                         : const Color(0xFFE1E4EA),
                                     showCheckmark: false,
@@ -1085,29 +782,29 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                       style: GoogleFonts.openSans(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
-                                          color: ReturnProvider.filter3
+                                          color: returnProvider.filter3
                                               ? const Color(0xFFE1E4EA)
                                               : Colors.grey),
                                     ),
-                                    selected: ReturnProvider.filter3,
+                                    selected: returnProvider.filter3,
                                     onSelected: (value) {
-                                      ReturnProvider.setFilterOption3(value);
+                                      returnProvider.setFilterOption3(value);
                                       var originId =
                                           stationProvider.getIdOrigin as int;
                                       var destinationId = stationProvider
                                           .getIdDestination as int;
                                       var trainClass =
-                                          ReturnProvider.selectedClass;
+                                          returnProvider.selectedClass;
 
                                       if (trainClass == null) {
-                                        ReturnProvider.fetchDepartures(
-                                          stationOriginId: originId,
-                                          stationDestinationId: destinationId,
+                                        returnProvider.fetchReturns(
+                                          stationOriginId: destinationId,
+                                          stationDestinationId: originId,
                                         );
                                       } else {
-                                        ReturnProvider.fetchDepartures(
-                                            stationOriginId: originId,
-                                            stationDestinationId: destinationId,
+                                        returnProvider.fetchReturns(
+                                            stationOriginId: destinationId,
+                                            stationDestinationId: originId,
                                             trainClass: trainClass);
                                       }
                                     },
@@ -1115,17 +812,13 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 24.h,
-                            ),
+                            SizedBox(height: 24.h),
                             Text(
                               'Nama Kereta Api',
                               style: GoogleFonts.openSans(
                                   fontSize: 12.sp, fontWeight: FontWeight.w600),
                             ),
-                            SizedBox(
-                              height: 8.h,
-                            ),
+                            SizedBox(height: 8.h),
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
@@ -1143,16 +836,11 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                       color: const Color(0xFFE1E4EA),
                                     ),
                                   ),
-
                                   value: null,
-                                  // icon: const Icon(Icons.arrow_drop_down),
-                                  // elevation: 16,
                                   isExpanded: true,
                                   underline: Container(
                                     color: Colors.transparent,
                                   ),
-                                  // dropdownColor:
-                                  //     Colors.grey[300], // Warna pinggiran dropdown
                                   onChanged: (String? value) {},
                                   items: list.map<DropdownMenuItem<String>>(
                                       (String value) {
@@ -1170,26 +858,20 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 100.h,
-                            ),
+                            SizedBox(height: 30.h),
                             Center(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Aksi yang ingin dilakukan saat tombol ditekan
+                                  Navigator.pop(context);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    fixedSize:
-                                        const Size(252, 40), // Ukuran tombol
+                                    fixedSize: const Size(252, 40),
+                                    backgroundColor: const Color(0XFF0080FF),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          5), // Sudut melengkung dengan jari-jari 5
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
-                                    padding: const EdgeInsets.fromLTRB(24, 0,
-                                        24, 0), // Padding di kiri dan kanan
-                                    primary: const Color(
-                                        0XFF0080FF) // Warna latar belakang biru
-                                    ),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        24, 0, 24, 0)),
                                 child: Text(
                                   'Terapkan',
                                   style: GoogleFonts.openSans(
@@ -1209,127 +891,6 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
               ),
             ],
           ),
-        );
-      },
-    );
-  }
-
-  void _showDateBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(28.r),
-          topRight: Radius.circular(28.r),
-        ),
-      ),
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Wrap(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 16.h, left: 24.w, bottom: 24),
-                  child: Text(
-                    'Pilih Tanggal',
-                    style: GoogleFonts.openSans(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 24.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        DateFormat('EEEE, dd MMMM', 'id_ID').format(today),
-                        style: GoogleFonts.openSans(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(width: 50.w, child: const Icon(Icons.edit)),
-                    ],
-                  ),
-                ),
-                TableCalendar(
-                  selectedDayPredicate: (day) {
-                    return isSameDay(today, day);
-                  },
-                  firstDay: DateTime.utc(1900, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      today = selectedDay;
-                      arrivalDated = selectedDay;
-                      print(arrivalDated);
-                    });
-                  },
-                  focusedDay: today,
-                  locale: 'id_ID', // Set locale ke Indonesia
-                  calendarFormat: CalendarFormat.month,
-                  headerStyle: const HeaderStyle(
-                    formatButtonTextStyle: TextStyle(color: Colors.transparent),
-                    formatButtonDecoration:
-                        BoxDecoration(color: Colors.transparent),
-                  ),
-                  calendarStyle: CalendarStyle(
-                    isTodayHighlighted: true,
-                    todayTextStyle: GoogleFonts.roboto(
-                      fontSize: 14.sp,
-                      color: const Color.fromRGBO(0, 128, 255, 1),
-                    ),
-                    selectedDecoration: const BoxDecoration(
-                      color: Color.fromRGBO(0, 128, 255, 1),
-                      shape: BoxShape.circle,
-                    ),
-                    todayDecoration: BoxDecoration(
-                      color: Colors.transparent,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: const Color.fromRGBO(0, 128, 255, 1),
-                        width: 2.0.w,
-                      ),
-                    ),
-                  ),
-                  onPageChanged: (focusedDay) {
-                    setState(() {
-                      today = focusedDay;
-                    });
-                  },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'Batal',
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w500, fontSize: 14),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        arrivalDay();
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'OK',
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w500, fontSize: 14),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
         );
       },
     );

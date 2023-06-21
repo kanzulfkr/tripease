@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 import '../../../main_page.dart';
 import 'ticket_booking.dart';
 
-class InvoicePage extends StatefulWidget {
-  const InvoicePage({super.key});
+class FacturPage extends StatefulWidget {
+  const FacturPage({super.key});
 
   @override
-  State<InvoicePage> createState() => _InvoicePageState();
+  State<FacturPage> createState() => _FacturPageState();
 }
 
-class _InvoicePageState extends State<InvoicePage> {
+class _FacturPageState extends State<FacturPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +28,11 @@ class _InvoicePageState extends State<InvoicePage> {
       ),
       body: Consumer<ResponseOrderTrainProvider>(
         builder: (context, responseProv, child) {
+          int quantityAdult = responseProv.dataOrder.quantityAdult!;
+          int price = responseProv.dataOrder.train!.trainPrice!;
+          int totalHarga = quantityAdult * price;
+
+          // int price
           return Column(
             children: [
               Padding(
@@ -54,26 +59,7 @@ class _InvoicePageState extends State<InvoicePage> {
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      '${responseProv.dataOrder.quantityAdult} x Rp. ${responseProv.dataOrder.train!.trainPrice}',
-                      style: GoogleFonts.openSans(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 17.h),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Asuransi',
-                      style: GoogleFonts.openSans(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                    Text(
-                      '${responseProv.dataOrder.quantityAdult} x Rp. 8.000',
+                      '$quantityAdult x Rp. $price',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
@@ -103,7 +89,7 @@ class _InvoicePageState extends State<InvoicePage> {
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          'Rp. ${responseProv.dataOrder.train!.trainPrice}',
+                          'Rp. $totalHarga',
                           style: GoogleFonts.openSans(
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
@@ -143,15 +129,14 @@ class _InvoicePageState extends State<InvoicePage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(252, 40), // Ukuran tombol
+                      fixedSize: const Size(252, 40),
+                      backgroundColor: const Color(0XFF0080FF), // Ukuran tombol
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                             5), // Sudut melengkung dengan jari-jari 5
                       ),
                       padding: const EdgeInsets.fromLTRB(
-                          24, 0, 24, 0), // Padding di kiri dan kanan
-                      primary:
-                          const Color(0XFF0080FF) // Warna latar belakang biru
+                          24, 0, 24, 0) // Warna latar belakang biru
                       ),
                   child: Text(
                     'Cek Pesanan',

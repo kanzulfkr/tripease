@@ -1,4 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
+import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_return_page.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,19 +13,20 @@ import '../../view_model/order_ticket/order_train_provider.dart';
 import '../../view_model/carriage/select_seat_kai_provider.dart';
 import '../../view_model/station/departure_provider.dart';
 import '../../view_model/timer/timer_seat_provider.dart';
-import 'widgets/carriage_page.dart';
+import 'widgets/departure_carriage.dart';
 
-class SelectSeatKai extends StatefulWidget {
+class SelectSeatDepartureCarriage extends StatefulWidget {
   final int passengerNumber;
 
-  const SelectSeatKai({super.key, required this.passengerNumber});
+  const SelectSeatDepartureCarriage({super.key, required this.passengerNumber});
 
   @override
-  State<SelectSeatKai> createState() => _SelectSeatKaiState();
+  State<SelectSeatDepartureCarriage> createState() =>
+      _SelectSeatDepartureCarriageState();
 }
 
-class _SelectSeatKaiState extends State<SelectSeatKai>
-    with TickerProviderStateMixin {
+class _SelectSeatDepartureCarriageState
+    extends State<SelectSeatDepartureCarriage> with TickerProviderStateMixin {
   Timer? countdownTimer;
   final List<int> selectedIndexes = [];
   List<Map<String, dynamic>> items = [];
@@ -166,7 +171,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                               child: TabBarView(
                                 children: List.generate(
                                   carriageProvider.carriage.length,
-                                  (index) => const CarriagePage(),
+                                  (index) => const DepartureCarriagePage(),
                                 ),
                               ),
                             ),
@@ -183,11 +188,14 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                         final selectedSeatsProvider =
                             Provider.of<SelectedSeatsProvider>(context,
                                 listen: false);
+                        final stationProv = Provider.of<StationProvider>(
+                            context,
+                            listen: false);
+
                         final selectedSeats =
                             selectedSeatsProvider.selectedSeats;
 
                         DateTime now = DateTime.now();
-
                         DateTime formattedDate =
                             DateTime(now.year, now.month, now.day);
 
@@ -207,9 +215,7 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                         var trainSeatId = carriageProvider.trainSeatId;
 
                         if (selectedSeats.isNotEmpty) {
-                          // Lakukan sesuatu dengan kursi yang dipilih, misalnya, kirim ke penyedia
                           print('Kursi yang dipilih: $selectedSeats');
-
                           final orderTrain =
                               Provider.of<PostOrderTrainProvider>(context,
                                   listen: false);
@@ -226,7 +232,18 @@ class _SelectSeatKaiState extends State<SelectSeatKai>
                         }
                         selectedSeatsProvider.confirmSelectedSeats();
 
-                        Navigator.pop(context);
+                        if (!stationProv.pulangPergi) {
+                          Navigator.pop(context);
+                        } else if (stationProv.pulangPergi) {
+                          print('pulangpergiiiiii');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const SelectSeatReturnCarriage(),
+                            ),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(double.maxFinite, 50.h),

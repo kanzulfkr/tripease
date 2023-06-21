@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 160.w,
                     padding: EdgeInsets.symmetric(horizontal: 32.5.w),
                     decoration: BoxDecoration(
-                      color: const Color.fromRGBO(92, 163, 234, 1),
+                      color: const Color.fromRGBO(51, 153, 255, 1),
                       borderRadius: BorderRadius.horizontal(
                         left: Radius.circular(8.h),
                       ),

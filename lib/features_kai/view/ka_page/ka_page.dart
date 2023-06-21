@@ -229,8 +229,6 @@ class _KaPageState extends State<KaPage> {
                                           const SearchPage(isOrigin: true),
                                     ),
                                   );
-                                  // _showCariBottomSheet(
-                                  //     context, stationProvider);
                                 },
                               ),
                             ),
@@ -305,8 +303,6 @@ class _KaPageState extends State<KaPage> {
                                           const SearchPage(isOrigin: false),
                                     ),
                                   );
-                                  // _showCariBottomSheet2(
-                                  //     context, stationProvider);
                                 },
                               ),
                             ),
@@ -364,20 +360,18 @@ class _KaPageState extends State<KaPage> {
                                                 suffixIcon: SizedBox(
                                                   width: 48.w,
                                                   height: 48.h,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      _arrivalDateBottomSheet();
-                                                    },
-                                                    child: const Icon(
-                                                      Icons.calendar_month,
-                                                      color: Color.fromARGB(
-                                                          167, 118, 122, 122),
-                                                    ),
+                                                  child: const Icon(
+                                                    Icons.calendar_month,
+                                                    color: Color.fromARGB(
+                                                        167, 118, 122, 122),
                                                   ),
                                                 ),
                                               ),
                                               onChanged: (value) {
                                                 postOrder.setArrivalTime(value);
+                                              },
+                                              onTap: () {
+                                                _arrivalDateBottomSheet();
                                               },
                                               validator: (value) {
                                                 if (value == null ||
@@ -436,20 +430,18 @@ class _KaPageState extends State<KaPage> {
                                                 suffixIcon: SizedBox(
                                                   width: 48.w,
                                                   height: 48.h,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      _arrivalDateBottomSheet();
-                                                    },
-                                                    child: const Icon(
-                                                      Icons.calendar_month,
-                                                      color: Color.fromARGB(
-                                                          167, 118, 122, 122),
-                                                    ),
+                                                  child: const Icon(
+                                                    Icons.calendar_month,
+                                                    color: Color.fromARGB(
+                                                        167, 118, 122, 122),
                                                   ),
                                                 ),
                                               ),
                                               onChanged: (value) {
                                                 postOrder.setArrivalTime(value);
+                                              },
+                                              onTap: () {
+                                                _arrivalDateBottomSheet();
                                               },
                                               validator: (value) {
                                                 if (value == null ||
@@ -521,24 +513,19 @@ class _KaPageState extends State<KaPage> {
                                                     suffixIcon: SizedBox(
                                                       width: 48.w,
                                                       height: 48.h,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          _returnDateBottomSheet();
-                                                        },
-                                                        child: const Icon(
-                                                          Icons.calendar_month,
-                                                          color: Color.fromARGB(
-                                                              167,
-                                                              118,
-                                                              122,
-                                                              122),
-                                                        ),
+                                                      child: const Icon(
+                                                        Icons.calendar_month,
+                                                        color: Color.fromARGB(
+                                                            167, 118, 122, 122),
                                                       ),
                                                     ),
                                                   ),
                                                   onChanged: (value) {
                                                     postOrder
                                                         .setDepatureTime(value);
+                                                  },
+                                                  onTap: () {
+                                                    _returnDateBottomSheet();
                                                   },
                                                   validator: (value) {
                                                     if (value == null ||

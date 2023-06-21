@@ -9,14 +9,14 @@ import 'package:provider/provider.dart';
 import '../../../view_model/carriage/carriage_provider.dart';
 import '../../../view_model/carriage/select_seat_kai_provider.dart';
 
-class CarriagePage extends StatefulWidget {
-  const CarriagePage({super.key});
+class DepartureCarriagePage extends StatefulWidget {
+  const DepartureCarriagePage({super.key});
 
   @override
-  State<CarriagePage> createState() => _CarriagePageState();
+  State<DepartureCarriagePage> createState() => _DepartureCarriagePageState();
 }
 
-class _CarriagePageState extends State<CarriagePage> {
+class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
   @override
   Widget build(BuildContext context) {
     final departureProv =

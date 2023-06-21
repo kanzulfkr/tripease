@@ -20,7 +20,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
       const Duration(seconds: 10),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const InvoicePage()),
+        MaterialPageRoute(builder: (context) => const FacturPage()),
       ),
     );
     var responseOrderProv =
@@ -49,6 +49,9 @@ class _PaymentStatusState extends State<PaymentStatus> {
         builder: (context, responseProv, child) {
           int infant = responseProv.dataOrder.quantityInfant ?? 0;
           int adult = responseProv.dataOrder.quantityAdult!;
+          int price = responseProv.dataOrder.train!.trainPrice!;
+          int totalHarga = adult * price;
+
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -107,7 +110,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                     SizedBox(
                       width: 100.w,
                       child: Text(
-                        'Rp. ${(responseProv.dataOrder.train!.trainPrice)}',
+                        'Rp. ${(totalHarga)}',
                         style: GoogleFonts.openSans(
                             fontSize: 14.sp, fontWeight: FontWeight.w400),
                       ),
