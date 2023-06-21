@@ -118,11 +118,23 @@ class _SelectPaymentState extends State<SelectPayment> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
-                                '$quantityAdult x Rp. $price',
-                                style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
+                              SizedBox(
+                                height: 30.h,
+                                child: Text(
+                                  '${quantityAdult} x Rp. ${price}',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30.h,
+                                child: Text(
+                                  '${quantityAdult} x Rp. 8.000',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ],
                           ),
