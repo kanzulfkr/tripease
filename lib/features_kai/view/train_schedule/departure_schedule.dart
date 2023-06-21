@@ -1,3 +1,4 @@
+import 'package:capstone_project_tripease/features_kai/view/train_schedule/not_found_schedule.dart';
 import 'package:capstone_project_tripease/features_kai/view/train_schedule/return.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
@@ -32,6 +33,7 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
   bool val = false;
   bool isDropdownOpened = false;
   int buttonPressCount = 0;
+  List<String> list2 = <String>['Tuan', 'Nyonya'];
 
   bool isPulang = false;
 
@@ -559,10 +561,13 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                       ),
                       stationProv.pulangPergi == false
                           ? SizedBox(
-                              height: 420.h,
+                              height: 400.h,
                               width: double.maxFinite,
                               child: departureProv.departure.isEmpty
-                                  ? const Center(child: Text('Tidak ada data'))
+                                  ? NotFoundSchedule(
+                                      value1: stationProv.getNameOrigin!,
+                                      value2: stationProv.getNameDestination!,
+                                    )
                                   : ListView.builder(
                                       itemCount: departureProv.departure.length,
                                       itemBuilder: (context, index) {
@@ -650,7 +655,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          const InputDataKai(),
+                                                          InputDataKai(
+                                                              list: list2),
                                                     ),
                                                   );
                                                 },

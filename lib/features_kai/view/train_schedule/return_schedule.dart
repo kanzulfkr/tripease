@@ -31,7 +31,7 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
   bool val = false;
   bool isDropdownOpened = false;
   int buttonPressCount = 0;
-
+  List<String> list2 = <String>['Tuan', 'Nyonya'];
   bool isPulang = false;
 
   List<String> list = <String>[
@@ -608,7 +608,7 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const InputDataKai(),
+                                                InputDataKai(list: list2),
                                           ),
                                         );
                                         // }
@@ -818,7 +818,8 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const InputDataKai(),
+                                    builder: (context) =>
+                                        InputDataKai(list: list2),
                                   ),
                                 );
                               },

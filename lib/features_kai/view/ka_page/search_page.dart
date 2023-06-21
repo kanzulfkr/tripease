@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:capstone_project_tripease/features_kai/view/ka_page/not_found.dart';
+import 'package:capstone_project_tripease/features_kai/view/ka_page/not_found_station.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -191,7 +191,7 @@ class _SearchPageState extends State<SearchPage> {
                                           .setIdOrigin(params["station_id"]);
                                       stationProv.setNameOrigin(params["name"]);
                                       stationProv
-                                          .setInitialOrigin(params["origin"]);
+                                          .setInitialOrigin(params["initial"]);
                                       print('id : ${stationProv.getIdOrigin}');
                                       print(
                                           'Name :${stationProv.getNameOrigin}');
@@ -199,7 +199,7 @@ class _SearchPageState extends State<SearchPage> {
                                           'init : ${stationProv.getInitialOrigin}');
 
                                       stationProv.setAsalController(
-                                          '${stationProv.getNameOrigin!} - ${stationProv.getInitialOrigin!}');
+                                          '${stationProv.getNameOrigin!} (${stationProv.getInitialOrigin!})');
                                       Navigator.pop(context);
                                     } else {
                                       print('Destination');
@@ -208,7 +208,7 @@ class _SearchPageState extends State<SearchPage> {
                                       stationProv
                                           .setNameDestination(params["name"]);
                                       stationProv.setInitialDestination(
-                                          params["origin"]);
+                                          params["initial"]);
                                       print(
                                           'id : ${stationProv.getIdDestination}');
                                       print(
@@ -216,7 +216,7 @@ class _SearchPageState extends State<SearchPage> {
                                       print(
                                           'init : ${stationProv.getInitialDestination}');
                                       stationProv.setTujuanController(
-                                          '${stationProv.getNameDestination!} - ${stationProv.getIdDestination!}');
+                                          '${stationProv.getNameDestination!} (${stationProv.getInitialDestination!})');
                                       Navigator.pop(context);
                                     }
                                   },
