@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../../model/order_train_model.dart';
+import '../../../view_model/order_ticket/patch_order_provider.dart';
+import '../../../view_model/order_ticket/response_order_train_provider.dart';
+import '../../../view_model/station/departure_provider.dart';
 import '../../../view_model/timer/time_payment_provider.dart';
 
 class ListPayment extends StatefulWidget {
@@ -337,10 +341,65 @@ class _ListPaymentState extends State<ListPayment> {
         SizedBox(height: 20.h),
         Center(
           child: ElevatedButton(
-            onPressed: () {
-              navigateToPage();
+            onPressed: () async {
+              final orderTrain =
+                  Provider.of<PostOrderTrainProvider>(context, listen: false);
+
+              PostOrderTrainModel postOrder = PostOrderTrainModel(
+                emailOrder: orderTrain.getEmail,
+                nameOrder: orderTrain.getName,
+                paymentId: 1,
+                phoneNumberOrder: orderTrain.getPhoneNumber,
+                quantityAdult: orderTrain.getQuantityAdult,
+                quantityInfant: orderTrain.getQuantityInfant,
+                ticketTravelerDetailDeparture:
+                    orderTrain.getTicketTravelerDetail,
+                travelerDetail: orderTrain.travelerDetail,
+                withReturn: false,
+              );
+
+              await orderTrain.postOrderTrain(postOrder);
+
+              if (mounted) {
+                // Check if the widget is still mounted
+                var departureProv =
+                    Provider.of<DepartureProvider>(context, listen: false);
+                var responseOrderProv = Provider.of<ResponseOrderTrainProvider>(
+                    context,
+                    listen: false);
+                var trainId = departureProv
+                    .departure[departureProv.selectedDepartIndex as int]
+                    .trainId;
+                var ticketId = orderTrain.getTicketOrderId;
+
+                await responseOrderProv.getResponseOrder(ticketId, trainId);
+              }
+
               var totalPrice = trainProv.getPrice;
               postOrderProv.setTotalPrice(totalPrice);
+
+              navigateToPage();
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Center(
+                      child: Text(
+                        'Berhasil melakukan order Tiket KA',
+                      ),
+                    ),
+                  ),
+                );
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => PaymentPage(
+                //         imageUrl: getSelectedImage(),
+                //         isPaymentVA: true,
+                //         timerText: TimerPaymentProvider()),
+                //   ),
+                //   (route) => false,
+                // );
+              }
             },
             style: ElevatedButton.styleFrom(
                 fixedSize: const Size(252, 40),

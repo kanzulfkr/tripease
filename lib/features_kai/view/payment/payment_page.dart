@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'package:capstone_project_tripease/features_kai/model/patch_order_model.dart';
+import 'package:capstone_project_tripease/features_kai/model/response_order_train_model.dart';
 import 'package:capstone_project_tripease/features_kai/view/payment/status_payment.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/patch_order_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -307,67 +310,91 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ElevatedButton(
               onPressed: () async {
-                order();
+                // order();
 
-                if (postOrderProv.getStatusCode == '201') {
-                  var departureProv =
-                      Provider.of<DepartureProvider>(context, listen: false);
-                  var responseOrderProv =
-                      Provider.of<ResponseOrderTrainProvider>(context,
-                          listen: false);
-                  var trainId = departureProv
-                      .departure[departureProv.selectedDepartIndex as int]
-                      .trainId;
-                  var ticketId = postOrderProv.getTicketOrderId;
+                // if (postOrderProv.getStatusCode == '201') {
+                //   var departureProv =
+                //       Provider.of<DepartureProvider>(context, listen: false);
+                //   var responseOrderProv =
+                //       Provider.of<ResponseOrderTrainProvider>(context,
+                //           listen: false);
+                //   var trainId = departureProv
+                //       .departure[departureProv.selectedDepartIndex as int]
+                //       .trainId;
+                //   var ticketId = postOrderProv.getTicketOrderId;
 
-                  await responseOrderProv.getResponseOrder(ticketId, trainId);
+                //   await responseOrderProv.getResponseOrder(ticketId, trainId);
 
-                  if (context.mounted) {
-                    print('success code : ${postOrderProv.getStatusCode}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Center(
-                          child: Text(
-                            'Berhasil melakukan order Tiket KA',
-                          ),
-                        ),
-                      ),
-                    );
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PaymentStatus(),
-                      ),
-                      (route) => false,
-                    );
-                  }
-                } else if (postOrderProv.getStatusCode == '400') {
-                  print('failed code : ${postOrderProv.getStatusCode}');
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Center(
-                          child: Text(
-                            'Kesalahan Input Data order.',
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-                } else if (postOrderProv.getStatusCode == '401') {
-                  print('failed code : ${postOrderProv.getStatusCode}');
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Center(
-                          child: Text(
-                            'Internal Server error.',
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-                }
+                //   if (context.mounted) {
+                //     print('success code : ${postOrderProv.getStatusCode}');
+                //     ScaffoldMessenger.of(context).showSnackBar(
+                //       const SnackBar(
+                //         content: Center(
+                //           child: Text(
+                //             'Berhasil melakukan order Tiket KA',
+                //           ),
+                //         ),
+                //       ),
+                //     );
+                //     Navigator.pushAndRemoveUntil(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => const PaymentStatus(),
+                //       ),
+                //       (route) => false,
+                //     );
+                //   }
+                // } else if (postOrderProv.getStatusCode == '400') {
+                //   print('failed code : ${postOrderProv.getStatusCode}');
+                //   if (context.mounted) {
+                //     ScaffoldMessenger.of(context).showSnackBar(
+                //       const SnackBar(
+                //         content: Center(
+                //           child: Text(
+                //             'Kesalahan Input Data order.',
+                //           ),
+                //         ),
+                //       ),
+                //     );
+                //   }
+                // } else if (postOrderProv.getStatusCode == '401') {
+                //   print('failed code : ${postOrderProv.getStatusCode}');
+                //   if (context.mounted) {
+                //     ScaffoldMessenger.of(context).showSnackBar(
+                //       const SnackBar(
+                //         content: Center(
+                //           child: Text(
+                //             'Internal Server error.',
+                //           ),
+                //         ),
+                //       ),
+                //     );
+                //   }
+                // }
+
+                //bayaar
+                final responOrderProv = Provider.of<ResponseOrderTrainProvider>(
+                    context,
+                    listen: false);
+                final postOrderProv =
+                    Provider.of<PostOrderTrainProvider>(context, listen: false);
+                final patchOrderProv =
+                    Provider.of<PatchTrainProvider>(context, listen: false);
+                final ticketOrder = responOrderProv.dataOrder.ticketOrderId;
+
+                print('ticketOrderId : $ticketOrder');
+
+                await patchOrderProv.patchOrderTrainProvider(
+                    ticketOrder as int, 'paid');
+
+                // ignore: use_build_context_synchronously
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PaymentStatus(),
+                  ),
+                  (route) => false,
+                );
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(252, 40),

@@ -593,7 +593,8 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                   return stationProv
                                                               .pulangPergi ==
                                                           false
-                                                      ? const InputDataKai()
+                                                      ? InputDataKai(
+                                                          list: list2)
                                                       : const ReturnSchedule();
                                                 },
                                               ),

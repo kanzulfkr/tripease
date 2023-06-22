@@ -387,7 +387,8 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) {
-                                                  return const InputDataKai();
+                                                  return InputDataKai(
+                                                      list: list2);
                                                 },
                                               ),
                                             );

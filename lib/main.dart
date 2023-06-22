@@ -1,4 +1,5 @@
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/patch_order_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/response_order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/timer/time_payment_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
@@ -50,6 +51,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
         ChangeNotifierProvider(create: (_) => TimerPaymentProvider()),
         ChangeNotifierProvider(create: (_) => ResponseOrderTrainProvider()),
+        ChangeNotifierProvider(create: (_) => PatchTrainProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

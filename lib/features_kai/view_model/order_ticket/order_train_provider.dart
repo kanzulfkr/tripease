@@ -130,6 +130,7 @@ class PostOrderTrainProvider with ChangeNotifier {
       _statusCode = response.data['status_code'].toString();
 
       _ticketOrderId = response.data['data']['ticket_order_id'];
+      debugPrint('ticket order id: $_ticketOrderId');
       notifyListeners();
     } on DioError catch (e) {
       final code = e.response!.statusCode;
