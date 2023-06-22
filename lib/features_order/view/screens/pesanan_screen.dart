@@ -1,5 +1,6 @@
 import 'package:capstone_project_tripease/features_order/view/widgets/bottom_sheet/sort_train.dart';
 import 'package:capstone_project_tripease/features_order/view/widgets/train.dart';
+import 'package:capstone_project_tripease/features_order/view_model/provider/train/train_order_filter_provider.dart';
 import 'package:capstone_project_tripease/features_order/view_model/provider/train/train_search_provider.dart';
 
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
@@ -18,7 +19,7 @@ import '../widgets/bottom_sheet/sort_hotel.dart';
 import '../widgets/hotel.dart';
 
 class PesananScreen extends StatefulWidget {
-  const PesananScreen({super.key});
+  const PesananScreen({Key? key}) : super(key: key);
 
   @override
   State<PesananScreen> createState() => _PesananScreenState();
@@ -26,7 +27,7 @@ class PesananScreen extends StatefulWidget {
 
 class _PesananScreenState extends State<PesananScreen> {
   int selectRadio = 0;
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   void showBottomSheetFilterHotel(BuildContext context) {
     showBottomSheet(
@@ -56,7 +57,7 @@ class _PesananScreenState extends State<PesananScreen> {
       groupValue: selectRadio,
       onChanged: (value) {
         setState(() {
-          selectRadio = value!;
+          selectRadio = value ?? 0;
         });
       },
     );
@@ -82,6 +83,7 @@ class _PesananScreenState extends State<PesananScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -124,7 +126,7 @@ class _PesananScreenState extends State<PesananScreen> {
                           ),
                         ),
                         onChanged: (value) {
-                          trainSearchProvider.fetchTrainOrdersByClass(value);
+                          trainSearchProvider.searchTrainByName(value);
                         },
                       );
                     },

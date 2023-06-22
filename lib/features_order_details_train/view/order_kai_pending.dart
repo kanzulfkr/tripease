@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../features_order/utils/colors.dart';
 import '../../features_order/utils/images.dart';
 import '../../features_order/view_model/provider/coundown_provider.dart';
+import '../../features_order/view_model/provider/train/train_order_update_provider.dart';
 
 class OrderKaiPendingPage extends StatefulWidget {
   const OrderKaiPendingPage({super.key});
@@ -247,6 +248,14 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                                         fontWeight: FontWeight.w400,
                                       ),
                                       onEnd: () {
+                                        var orderProvider = Provider.of<
+                                                  StatusOrderTrainUpdateProvider>(
+                                              context,
+                                              listen: false);
+
+                                          int? trainOrderId =
+                                              orderDetail.getTrainOrderId;
+                                          String status = 'canceled';
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
@@ -285,7 +294,10 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                                               ],
                                             );
                                           },
-                                        );
+                                        ).then((value) {
+                                          orderProvider.updateOrderStatus(
+                                              trainOrderId!, status);
+                                        });
                                       },
                                     ),
                                   );

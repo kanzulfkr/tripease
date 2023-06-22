@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:capstone_project_tripease/features_order/view/screens/features_order_details_hotel/view/order_refund_pending.dart';
 import 'package:capstone_project_tripease/features_order/view_model/provider/coundown_provider.dart';
@@ -7,15 +9,18 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../home.dart';
 import '../../utils/colors.dart';
 import '../../utils/fonts.dart';
 import '../../utils/icons.dart';
 
 import '../../utils/images.dart';
 import '../../view_model/provider/hotel/hotel_order_provider.dart';
+import '../../view_model/provider/hotel/hotel_order_update_provider.dart';
 import '../../view_model/provider/tab_provider.dart';
 import '../screens/features_order_details_hotel/view/order_active.dart';
 import '../screens/features_order_details_hotel/view/order_cancceled.dart';
@@ -111,8 +116,8 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
         destinationPages.add(const OrderCanccel());
         break;
       case TabStatusHotel.SEMUA:
+        break;
       default:
-        return;
     }
     if (destinationPages.isNotEmpty) {
       Navigator.push(
@@ -193,6 +198,17 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                   child: ListView.builder(
                     itemCount: hotelProvider.hotelOrder.length,
                     itemBuilder: (context, index) {
+                      DateTime checkIn =
+                          hotelProvider.hotelOrder[index].checkInDate ??
+                              DateTime.now();
+                      DateTime checkOut =
+                          hotelProvider.hotelOrder[index].checkInDate ??
+                              DateTime.now();
+                      initializeDateFormatting('id_ID', null);
+                      String formattedDateCheckIn =
+                          DateFormat.yMMMMd('id_ID').format(checkIn);
+                      String formattedDateCheckOut =
+                          DateFormat.yMMMMd('id_ID').format(checkOut);
                       return InkWell(
                         onTap: () {
                           var orderDetail =
@@ -202,8 +218,14 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                           var nameHotel =
                               hotelProvider.hotelOrder[index].hotel?.name ?? '';
                           orderDetail.setNameHotel(nameHotel);
+                          var numberMattress = hotelProvider.hotelOrder[index]
+                                  .hotel?.hotelRoom?.numberOfMattress ??
+                              '';
+                          orderDetail
+                              .setNumberOfMattress(numberMattress.toString());
                           var addressHotel =
-                              hotelProvider.hotelOrder[index].hotel?.name ?? '';
+                              hotelProvider.hotelOrder[index].hotel?.address ??
+                                  '';
                           orderDetail.setAddressHotel(addressHotel);
                           var classHotel = hotelProvider
                                   .hotelOrder[index].hotel?.hotelClass ??
@@ -234,6 +256,7 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                   .hotelOrder[index].payment?.accountNumber ??
                               '';
                           orderDetail.setAccountNumber(accountNumber);
+
                           var accountName = hotelProvider
                                   .hotelOrder[index].payment?.accountName ??
                               '';
@@ -298,6 +321,10 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                           String formattedDiscount = formatCurrency
                               .format(double.parse(discountPrice.toString()));
                           orderDetail.setDiscountPrice(formattedDiscount);
+
+                          var hotelOrderId =
+                              hotelProvider.hotelOrder[index].hotelOrderId;
+                          orderDetail.setHotelOrderId(hotelOrderId);
 
                           var createAt =
                               hotelProvider.hotelOrder[index].createdAt ?? '';
@@ -431,70 +458,89 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                                   (context, timeProvider, _) {
                                                 return Expanded(
                                                   child: CountdownTimer(
-                                                    endTime:
-                                                        timeProvider.endTime,
-                                                    textStyle: myTextTheme
-                                                        .titleLarge
-                                                        ?.copyWith(
-                                                      color: getIconColor(
-                                                          iconSchedule),
-                                                    ),
-                                                    onEnd: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                              'Waktu Habis',
-                                                              style: GoogleFonts
-                                                                  .openSans(
-                                                                color: black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                            ),
-                                                            content: Text(
-                                                              'Pesanan Dibatalkan',
-                                                              style: GoogleFonts
-                                                                  .openSans(
-                                                                color: black,
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                              ),
-                                                            ),
-                                                            actions: [
-                                                              TextButton(
-                                                                child: Text(
-                                                                  'Tutup',
-                                                                  style: GoogleFonts
-                                                                      .openSans(
-                                                                    color:
-                                                                        mainBlue,
-                                                                    fontSize:
-                                                                        14,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                  ),
+                                                      endTime:
+                                                          timeProvider.endTime,
+                                                      textStyle: myTextTheme
+                                                          .titleLarge
+                                                          ?.copyWith(
+                                                        color: getIconColor(
+                                                            iconSchedule),
+                                                      ),
+                                                      onEnd: () {
+                                                        var orderProvider = Provider
+                                                            .of<StatusOrderHotelUpdateProvider>(
+                                                                context,
+                                                                listen: false);
+
+                                                        int? hotelOrderId =
+                                                            hotelProvider
+                                                                .hotelOrder[
+                                                                    index]
+                                                                .hotelOrderId;
+                                                        String status =
+                                                            'canceled';
+
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                'Waktu Habis',
+                                                                style: GoogleFonts
+                                                                    .openSans(
+                                                                  color: black,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
                                                                 ),
-                                                                onPressed: () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                },
                                                               ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                      setState(() {});
-                                                    },
-                                                  ),
+                                                              content: Text(
+                                                                'Pesanan Dibatalkan',
+                                                                style: GoogleFonts
+                                                                    .openSans(
+                                                                  color: black,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              actions: [
+                                                                TextButton(
+                                                                  child: Text(
+                                                                    'Tutup',
+                                                                    style: GoogleFonts
+                                                                        .openSans(
+                                                                      color:
+                                                                          mainBlue,
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ),
+                                                                  ),
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ).then((value) {
+                                                          orderProvider
+                                                              .updateOrderStatus(
+                                                                  hotelOrderId!,
+                                                                  status);
+                                                          _tabController
+                                                              ?.animateTo(4);
+                                                        });
+                                                      }),
                                                 );
                                               },
                                             ),
@@ -562,7 +608,13 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                                         SizedBox(width: 10.w),
                                                         Expanded(
                                                           child: Text(
-                                                            'Exclusive Room',
+                                                            hotelProvider
+                                                                    .hotelOrder[
+                                                                        index]
+                                                                    .hotel
+                                                                    ?.hotelRoom
+                                                                    ?.name ??
+                                                                '',
                                                             style: myTextTheme
                                                                 .headlineSmall,
                                                             overflow:
@@ -579,7 +631,7 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                                         SizedBox(width: 10.w),
                                                         Expanded(
                                                           child: Text(
-                                                            '${hotelProvider.hotelOrder[index].numberOfNight}',
+                                                            '${hotelProvider.hotelOrder[index].numberOfNight} Night',
                                                             style: myTextTheme
                                                                 .headlineSmall,
                                                             overflow:
@@ -596,7 +648,7 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                                         SizedBox(width: 10.w),
                                                         Expanded(
                                                           child: Text(
-                                                            '${hotelProvider.hotelOrder[index].checkInDate} - ${hotelProvider.hotelOrder[index].checkOutDate}',
+                                                            '$formattedDateCheckIn - $formattedDateCheckOut',
                                                             style: myTextTheme
                                                                 .headlineSmall,
                                                             overflow:
@@ -621,6 +673,8 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'Nomor Pesanan :',

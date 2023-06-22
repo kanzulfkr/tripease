@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../api/train/train_order_detail_api.dart';
+import '../../../apis/train/train_order_detail_api.dart';
 import '../../../model/train/train_order_detail_model.dart';
 
 class TrainOrderDetailProvider with ChangeNotifier {
@@ -26,9 +26,17 @@ class TrainOrderDetailProvider with ChangeNotifier {
   String? totalAmount;
   String? nameOrder;
   String? emailOrder;
+  String? idNumber;
+  String? trainCarriage;
+  String? trainSeat;
+  int? trainOrderId;
 
   String? get getNameTrain => nameTrain;
+  int? get getTrainOrderId => trainOrderId;
+  String? get getIdNumber => idNumber;
   String? get getNameOrder => nameOrder;
+  String? get getTrainCarriage => trainCarriage;
+  String? get getTrainSeat => trainSeat;
   String? get getEmailOrder => emailOrder;
   String? get getClassTrain => classTrain;
   String? get getTicketOrderCode => ticketOrderCode;
@@ -51,6 +59,22 @@ class TrainOrderDetailProvider with ChangeNotifier {
 
   Future<void> setNameTrain(String? name) async {
     nameTrain = name;
+    notifyListeners();
+  }
+  Future<void> setIdNumber(String? idCardNumber) async {
+    idNumber = idCardNumber;
+    notifyListeners();
+  }
+  Future<void> setTrainCarriage(String? trainC) async {
+    trainCarriage = trainC;
+    notifyListeners();
+  }
+  Future<void> setTrainOrderId(int? ticketOrderId) async {
+    trainOrderId = ticketOrderId;
+    notifyListeners();
+  }
+  Future<void> setTrainSeat(String? seat) async {
+    trainSeat = seat;
     notifyListeners();
   }
   Future<void> setEmailOrder(String? email) async {

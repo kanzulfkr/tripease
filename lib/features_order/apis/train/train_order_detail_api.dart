@@ -14,7 +14,7 @@ class TrainOrderDetailApi {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODcxODc1NDUsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.fD8tvkLVFZWF5aqY0jU_QofqaHVdBtHMr5rZc1-Nyds'
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODc0MzAyMTQsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.1bWUs6o4MWmkvG7_2BzxxVh4X2F36I-vHL0eQ5xrRes'
         }),
         queryParameters: {
           'ticket_order_id': ticketOrderId,

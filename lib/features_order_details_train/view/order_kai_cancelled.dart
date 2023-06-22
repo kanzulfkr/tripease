@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../features_order/utils/images.dart';
 import '../../features_order/view_model/provider/train/train_order_detail_provider.dart';
+import '../../home.dart';
 
 class OrderKaiCancelledPage extends StatelessWidget {
   const OrderKaiCancelledPage({super.key});
@@ -21,6 +22,14 @@ class OrderKaiCancelledPage extends StatelessWidget {
             'Rincian Pesanan',
             style: GoogleFonts.openSans(
                 fontSize: 16.sp, fontWeight: FontWeight.w600),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const Home(),
+              ));
+            },
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:capstone_project_tripease/features_order/view_model/provider/train/train_order_detail_provider.dart';
+import 'package:capstone_project_tripease/features_order_details_train/view/reviews_train.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -330,7 +331,12 @@ class OrderKaiDonePage extends StatelessWidget {
                   width: 328.w,
                   height: 40.h,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ReviewsTrain(title: orderDetail.getNameTrain ?? ''),
+                      ));
+                    },
                     child: Text(
                       'Beri Penilaian',
                       style: GoogleFonts.openSans(

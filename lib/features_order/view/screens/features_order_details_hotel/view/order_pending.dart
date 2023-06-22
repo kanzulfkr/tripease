@@ -10,6 +10,7 @@ import '../../../../utils/icons.dart';
 import '../../../../utils/images.dart';
 import '../../../../view_model/provider/coundown_provider.dart';
 import '../../../../view_model/provider/hotel/hotel_order_detail_provider.dart';
+import '../../../../view_model/provider/hotel/hotel_order_update_provider.dart';
 
 class OrderPending extends StatefulWidget {
   const OrderPending({super.key});
@@ -248,6 +249,14 @@ class _OrderPendingState extends State<OrderPending> {
                                           fontWeight: FontWeight.w400,
                                         ),
                                         onEnd: () {
+                                          var orderProvider = Provider.of<
+                                                  StatusOrderHotelUpdateProvider>(
+                                              context,
+                                              listen: false);
+
+                                          int? hotelOrderId =
+                                              orderDetail.getHotelOrderId;
+                                          String status = 'canceled';
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
@@ -288,7 +297,10 @@ class _OrderPendingState extends State<OrderPending> {
                                                 ],
                                               );
                                             },
-                                          );
+                                          ).then((value) {
+                                            orderProvider.updateOrderStatus(
+                                                hotelOrderId!, status);
+                                          });
                                         },
                                       ),
                                     );

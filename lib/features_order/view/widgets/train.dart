@@ -24,6 +24,7 @@ import '../../utils/images.dart';
 import '../../view_model/provider/coundown_provider.dart';
 import '../../view_model/provider/train/train_order_detail_provider.dart';
 import '../../view_model/provider/train/train_order_provider.dart';
+import '../../view_model/provider/train/train_order_update_provider.dart';
 
 class KeretaApi extends StatefulWidget {
   const KeretaApi({
@@ -96,34 +97,38 @@ class _KeretaApiState extends State<KeretaApi>
   void navigateToDetailPage() {
     var detailTrain =
         Provider.of<TrainOrderProvider>(context, listen: false).tabStatusTrain;
-    Widget destinationPages;
+    List<Widget> destinationPages = [];
 
     switch (detailTrain) {
       case TabStatusTrain.MENUNGGU:
-        destinationPages = const OrderKaiPendingPage();
+        destinationPages.add(const OrderKaiPendingPage());
         break;
       case TabStatusTrain.AKTIF:
-        destinationPages = const OrderDetailKai();
+        destinationPages.add(const OrderDetailKai());
         break;
       case TabStatusTrain.SELESAI:
-        destinationPages = const OrderKaiDonePage();
+        destinationPages.add(const OrderKaiDonePage());
         break;
       case TabStatusTrain.DIBATALKAN:
-        destinationPages = const OrderKaiCancelledPage();
+        destinationPages.add(const OrderKaiCancelledPage());
         break;
       case TabStatusTrain.PENGEMBALIAN:
-        destinationPages = const OrderKaiCancelledPage();
+        destinationPages.add(const OrderKaiCancelledPage());
         break;
       case TabStatusTrain.SEMUA:
       default:
         return;
     }
-    Navigator.push(
+    if (destinationPages.isNotEmpty) {
+      Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => destinationPages,
-          // settings: RouteSettings(arguments: )
-        ));
+        MaterialPageRoute(builder: (context) {
+          return PageView(
+            children: destinationPages,
+          );
+        }),
+      );
+    }
   }
 
   @override
@@ -279,6 +284,17 @@ class _KeretaApiState extends State<KeretaApi>
                                     .trainOrder[index].payment?.accountNumber ??
                                 '';
                             orderDetail.setAccountNumber(accountNumber);
+                            var trainCarriage = trainProvider
+                                    .trainOrder[index].train?.trainCarriage ??
+                                '';
+                            orderDetail.setTrainCarriage(trainCarriage);
+                            var trainSeat = trainProvider
+                                    .trainOrder[index].train?.trainSeat ??
+                                '';
+                            orderDetail.setTrainSeat(trainSeat);
+                            var trainOrderId =
+                                trainProvider.trainOrder[index].ticketOrderId;
+                            orderDetail.setTrainOrderId(trainOrderId);
                             var qualityAdult =
                                 trainProvider.trainOrder[index].quantityAdult ??
                                     '';
@@ -411,75 +427,98 @@ class _KeretaApiState extends State<KeretaApi>
                                                     .trainOrder[index].status ==
                                                 'unpaid')
                                               Consumer<CountdownProvider>(
-                                                builder: (context,
-                                                    timerProvider, _) {
+                                                builder:
+                                                    (context, timeProvider, _) {
                                                   return Expanded(
                                                     child: CountdownTimer(
-                                                      endTime:
-                                                          timerProvider.endTime,
-                                                      textStyle: myTextTheme
-                                                          .titleLarge
-                                                          ?.copyWith(
-                                                        color: getIconColor(
-                                                            iconSchedule),
-                                                      ),
-                                                      onEnd: () {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext
-                                                              context) {
-                                                            return AlertDialog(
-                                                              title: Text(
-                                                                'Waktu Habis',
-                                                                style: GoogleFonts
-                                                                    .openSans(
-                                                                  color: black,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                              ),
-                                                              content: Text(
-                                                                'Pesanan Dibatalkan',
-                                                                style: GoogleFonts
-                                                                    .openSans(
-                                                                  color: black,
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                              ),
-                                                              actions: [
-                                                                TextButton(
-                                                                  child: Text(
-                                                                    'Tutup',
-                                                                    style: GoogleFonts
-                                                                        .openSans(
-                                                                      color:
-                                                                          mainBlue,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                    ),
+                                                        endTime: timeProvider
+                                                            .endTime,
+                                                        textStyle: myTextTheme
+                                                            .titleLarge
+                                                            ?.copyWith(
+                                                          color: getIconColor(
+                                                              iconSchedule),
+                                                        ),
+                                                        onEnd: () {
+                                                          var orderProvider =
+                                                              Provider.of<
+                                                                      StatusOrderTrainUpdateProvider>(
+                                                                  context,
+                                                                  listen:
+                                                                      false);
+
+                                                          int? ticketOrderId =
+                                                              trainProvider
+                                                                  .trainOrder[
+                                                                      index]
+                                                                  .ticketOrderId;
+                                                          String status =
+                                                              'canceled';
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                title: Text(
+                                                                  'Waktu Habis',
+                                                                  style: GoogleFonts
+                                                                      .openSans(
+                                                                    color:
+                                                                        black,
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
                                                                   ),
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  },
                                                                 ),
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
-                                                        setState(() {});
-                                                      },
-                                                    ),
+                                                                content: Text(
+                                                                  'Pesanan Dibatalkan',
+                                                                  style: GoogleFonts
+                                                                      .openSans(
+                                                                    color:
+                                                                        black,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    child: Text(
+                                                                      'Tutup',
+                                                                      style: GoogleFonts
+                                                                          .openSans(
+                                                                        color:
+                                                                            mainBlue,
+                                                                        fontSize:
+                                                                            14,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                      ),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          ).then((value) {
+                                                            orderProvider
+                                                                .updateOrderStatus(
+                                                                    ticketOrderId!,
+                                                                    status);
+                                                            _tabController
+                                                                ?.animateTo(4);
+                                                          });
+                                                        }),
                                                   );
                                                 },
                                               ),

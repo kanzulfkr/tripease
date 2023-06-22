@@ -24,6 +24,8 @@ class HotelOrderDetailProvider with ChangeNotifier {
   String? discountPrice;
   String? createAt;
   String? updateAt;
+  String? numberOfMatterss;
+  int? hotelOrderId;
 
   String? get  getNameHotel => nameHotel;
   String? get  getAddressHotel => addressHotel;
@@ -48,9 +50,19 @@ class HotelOrderDetailProvider with ChangeNotifier {
   String? get  getDiscountPrice => discountPrice;
   String? get  getCreateAt => createAt;
   String? get  getUpdateAt => updateAt;
+  String? get  getNumberOfMattress => numberOfMatterss;
+  int? get  getHotelOrderId => hotelOrderId;
 
   Future<void> setNameHotel(String? nameH) async {
     nameHotel = nameH;
+    notifyListeners();
+  }
+  Future<void> setHotelOrderId(int? hotelId) async {
+    hotelOrderId = hotelId;
+    notifyListeners();
+  }
+  Future<void> setNumberOfMattress(String? numberMattress) async {
+    numberOfMatterss = numberMattress;
     notifyListeners();
   }
   Future<void> setAddressHotel(String? address) async {

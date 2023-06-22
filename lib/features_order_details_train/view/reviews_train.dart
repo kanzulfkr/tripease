@@ -3,24 +3,26 @@ import 'package:capstone_project_tripease/features_order/view_model/provider/hot
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../pesanan_screen.dart';
-import 'component/button_active.dart';
-import 'component/button_inactive.dart';
+import '../../features_order/view/screens/features_order_details_hotel/features_checkin_checkout/component/button_active.dart';
+import '../../features_order/view/screens/features_order_details_hotel/features_checkin_checkout/component/button_inactive.dart';
+import '../../features_order/view_model/provider/train/train_order_detail_provider.dart';
+import '../../home.dart';
 
-class Reviews extends StatefulWidget {
-  const Reviews({
+class ReviewsTrain extends StatefulWidget {
+  const ReviewsTrain({
     super.key,
     required this.title,
   });
   final String title;
 
   @override
-  State<Reviews> createState() => _ReviewsState();
+  State<ReviewsTrain> createState() => _ReviewsTrainState();
 }
 
-class _ReviewsState extends State<Reviews> {
+class _ReviewsTrainState extends State<ReviewsTrain> {
   bool isOne = false;
   bool isTwo = false;
   bool isThree = false;
@@ -37,146 +39,145 @@ class _ReviewsState extends State<Reviews> {
         ),
         centerTitle: true,
       ),
-      body: Consumer<HotelOrderDetailProvider>(
+      body: Consumer<TrainOrderDetailProvider>(
         builder: (context, orderDetail, _) {
           return Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Container(
-                  height: 147,
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 0.2,
-                        blurRadius: 0.5,
-                        offset: const Offset(0.5, 0.5),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Detail Pesanan',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(0, 128, 255, 1),
+                SizedBox(
+                    width: 328.w,
+                    child: Card(
+                        shadowColor: Colors.black.withOpacity(1),
+                        elevation: 4.sp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r),
                         ),
-                      ),
-                      SizedBox(
-                        height: 99,
-                        // color: Colors.amber,
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(4),
-                              height: 79,
-                              width: 79,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(4.r),
-                                child: SizedBox.fromSize(
-                                    size: Size.fromRadius(48.r),
-                                    child: everyday),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Padding(
+                          padding: EdgeInsets.all(12.sp),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Detail Pesanan',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: const Color(0xFF0080FF))),
+                              Row(
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      orderDetail.getNameHotel ?? '',
-                                      style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
+                                  Container(
+                                    padding: EdgeInsets.only(right: 8.sp),
+                                    height: 79.h,
+                                    width: 79.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.r),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(4.r),
+                                      child: train2,
                                     ),
                                   ),
-                                  Row(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Icon(Icons.location_on_outlined,
-                                          size: 16),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          orderDetail.getAddressHotel ?? '',
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              orderDetail.getStationOrigin ??
+                                                  '',
+                                              style: GoogleFonts.openSans(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600,
+                                              )),
+                                          Icon(Icons.arrow_forward,
+                                              size: 14.sp),
+                                          Text(
+                                              orderDetail
+                                                      .getStationDestination ??
+                                                  '',
+                                              style: GoogleFonts.openSans(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600,
+                                              )),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.train_outlined,
+                                            size: 12.sp,
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Text(orderDetail.getNameTrain ?? '',
+                                              style: GoogleFonts.openSans(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w400,
+                                              )),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.event_seat_outlined,
+                                              size: 12.sp),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Text(orderDetail.getClassTrain ?? '',
+                                              style: GoogleFonts.openSans(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w400,
+                                              )),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.calendar_month_outlined,
+                                              size: 12.sp),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Text(orderDetail.getDateTime ?? '',
+                                              style: GoogleFonts.openSans(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w600,
+                                              )),
+                                        ],
                                       ),
                                     ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.bed_outlined, size: 16),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        orderDetail.getNameRoomHotel ?? '',
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
+                                  )
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.grey,
+                                thickness: 1.sp,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Nomor Pesanan: ',
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      )),
+                                  Expanded(
+                                    child: Text(
+                                      orderDetail.getTicketOrderCode ?? '',
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.bedtime_outlined,
-                                          size: 16),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        '${orderDetail.getNumberOfNight} Night',
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.date_range, size: 16),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          '${orderDetail.getCheckIn} - ${orderDetail.getCheckOut}',
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                            ],
+                          ),
+                        ))),
                 Container(
                   height: 100,
                   width: double.maxFinite,
@@ -308,7 +309,7 @@ class _ReviewsState extends State<Reviews> {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const PesananScreen(),
+                              builder: (context) => const Home(),
                             ),
                           );
                         },

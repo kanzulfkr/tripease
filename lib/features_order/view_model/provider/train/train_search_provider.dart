@@ -1,35 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:capstone_project_tripease/features_order/model/train/train_order_model.dart';
 
-import '../../../api/train/train_order_api.dart';
-import '../../../model/train/train_order_model.dart';
+import '../../../apis/train/train_order_search_api.dart';
 
-class TrainSearchProvider extends ChangeNotifier {
-  final TrainOrderApi _trainOrderApi = TrainOrderApi();
-  List<Datum> _trainOrders = [];
-  String? _errorMessage;
+class TrainSearchProvider with ChangeNotifier {
+  TrainOrderSearch _trainOrderSearch = TrainOrderSearch();
+  TrainOrderModel? _trainOrderModel;
+  String? _searchKeyword;
   bool _isLoading = false;
 
-  List<Datum> get trainOrders => _trainOrders;
-  String? get errorMessage => _errorMessage;
+  TrainOrderModel? get trainOrderModel => _trainOrderModel;
   bool get isLoading => _isLoading;
 
-  Future<void> fetchTrainOrdersByClass(String classTrain) async {
+  Future<void> searchTrainByName(String keyword) async {
+    _searchKeyword = keyword;
+    _isLoading = true;
+    notifyListeners();
+
     try {
-      _isLoading = true;
-      notifyListeners();
-
-      final response =
-          await _trainOrderApi.fetchTrainOrder(classTrain: classTrain);
-
-      _trainOrders = response.data!;
-      _errorMessage = null;
-    } catch (error) {
-      _errorMessage = error.toString();
-      _trainOrders = [];
-    } finally {
+      _trainOrderModel =
+          await _trainOrderSearch.fetchTrainOrderSearch(name: keyword);
       _isLoading = false;
-      notifyListeners();
+    } catch (error) {
+      print('Error fetching train order search: $error');
+      _isLoading = false;
     }
+
+    notifyListeners();
   }
 }

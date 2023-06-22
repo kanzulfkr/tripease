@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../utils/fonts.dart';
 import '../../../../view_model/provider/hotel/hotel_order_detail_provider.dart';
+import '../../../../view_model/provider/hotel/hotel_order_update_provider.dart';
 import '../../../widgets/hotel_star_rating.dart';
 import '../features_checkin_checkout/component/button_active.dart';
 import '../features_checkin_checkout/component/button_close.dart';
@@ -25,56 +26,6 @@ class OrderActive extends StatefulWidget {
 }
 
 class _OrderActiveState extends State<OrderActive> {
-  void _showAlertDialog() {
-    ScreenUtil.init(context);
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            'Apakah Anda yakin ingin membatalkan pesanan?',
-            textAlign: TextAlign.center,
-          ),
-          titleTextStyle: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
-          ),
-          content: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  width: 132.w,
-                  child: ButtonClose(
-                    text: 'Ya',
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const OrderCanccel(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(height: 12.h),
-                SizedBox(
-                  width: 132.w,
-                  child: ButtonActive(
-                    text: 'Tidak',
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: null,
-        );
-      },
-    );
-  }
-
   late bool _customIcon1 = false;
   late bool _customIcon2 = false;
   late bool _customIcon3 = false;
@@ -673,8 +624,8 @@ class _OrderActiveState extends State<OrderActive> {
                   ),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const CheckIn(
-                        title: 'Shibuya Shabu',
+                      builder: (context) => CheckIn(
+                        title: orderDetail.getNameHotel ?? '',
                       ),
                     ));
                   },
@@ -700,7 +651,66 @@ class _OrderActiveState extends State<OrderActive> {
                       color: mainBlue,
                     ),
                   ),
-                  onPressed: _showAlertDialog,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text(
+                            'Apakah Anda yakin ingin membatalkan pesanan?',
+                            textAlign: TextAlign.center,
+                          ),
+                          titleTextStyle: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                          content: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: 132.w,
+                                  child: ButtonClose(
+                                    text: 'Ya',
+                                    onTap: () {
+                                      var orderProvider = Provider.of<
+                                              StatusOrderHotelUpdateProvider>(
+                                          context,
+                                          listen: false);
+                                      int? hotelOrderId =
+                                          orderDetail.getHotelOrderId;
+                                      String status = 'canceled';
+
+                                      orderProvider.updateOrderStatus(
+                                          hotelOrderId!, status);
+
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const OrderCanccel(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 12.h),
+                                SizedBox(
+                                  width: 132.w,
+                                  child: ButtonActive(
+                                    text: 'Tidak',
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: null,
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
               SizedBox(height: 16.h),

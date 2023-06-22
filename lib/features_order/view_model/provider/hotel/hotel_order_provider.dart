@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_order/api/hotel/hotel_order_api.dart';
+import 'package:capstone_project_tripease/features_order/apis/hotel/hotel_order_api.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../model/hotel/hotel_order_model.dart';

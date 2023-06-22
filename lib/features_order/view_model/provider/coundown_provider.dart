@@ -1,4 +1,9 @@
-import 'package:flutter/foundation.dart';
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import '../../apis/hotel/hotel_order_update_api.dart';
+import '../../model/hotel/hotel_order_model.dart';
 
 class CountdownProvider with ChangeNotifier {
   int _endTime;

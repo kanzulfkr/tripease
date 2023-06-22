@@ -112,7 +112,7 @@ class _BottomSheetShortHotelState extends State<BottomSheetShortHotel> {
       groupValue: selectRadio,
       onChanged: (value) {
         setState(() {
-          selectRadio = value!;
+          selectRadio = value ?? 0;
         });
       },
     );

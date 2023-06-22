@@ -11,7 +11,7 @@ class HotelOrderDetailApi {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODcxODc1NDUsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.fD8tvkLVFZWF5aqY0jU_QofqaHVdBtHMr5rZc1-Nyds'
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODc0OTE4ODQsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.42HfICCGWUvz1PK6cYGOhl05wv2N_a4QGw7hHwKDc0M'
         }),
         queryParameters: {
           'ticket_order_id': ticketOrderId,

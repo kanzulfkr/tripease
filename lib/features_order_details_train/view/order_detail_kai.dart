@@ -6,10 +6,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../features_order/api/train/train_order_detail_api.dart';
+import '../../features_order/apis/train/train_order_detail_api.dart';
 import '../../features_order/model/train/train_order_model.dart';
 import '../../features_order/utils/colors.dart';
 import '../../features_order/view_model/provider/train/train_order_detail_provider.dart';
+import '../../features_order/view_model/provider/train/train_order_update_provider.dart';
 import 'order_kai_cancelled.dart';
 
 class OrderDetailKai extends StatefulWidget {
@@ -23,20 +24,6 @@ class _OrderDetailKaiState extends State<OrderDetailKai> {
   @override
   void initState() {
     super.initState();
-    // Future.microtask(() {
-    //   final trainOrderProvider =
-    //       Provider.of<TrainOrderDetailProvider>(context, listen: false);
-
-    //   final ticketOrderId = trainOrderProvider.ticketOrderId;
-    //   final trainId = trainOrderProvider.trainId;
-
-    //   if (ticketOrderId != null && trainId != null) {
-    //     trainOrderProvider.fetchTrainOrderDetail(
-    //       ticketOrderId: ticketOrderId,
-    //       trainId: trainId,
-    //     );
-    //   }
-    // });
   }
 
   @override
@@ -414,6 +401,16 @@ class _OrderDetailKaiState extends State<OrderDetailKai> {
                                         width: 132.w,
                                         child: ElevatedButton(
                                           onPressed: () {
+                                            var orderProvider = Provider.of<
+                                                    StatusOrderTrainUpdateProvider>(
+                                                context,
+                                                listen: false);
+                                            int? trainOrderId =
+                                                orderDetail.getTrainOrderId;
+                                            String status = 'canceled';
+
+                                            orderProvider.updateOrderStatus(
+                                                trainOrderId!, status);
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(
                                               builder: (context) =>

@@ -112,7 +112,7 @@ class _BottomSheetShortKAState extends State<BottomSheetShortKA> {
       groupValue: selectRadio,
       onChanged: (value) {
         setState(() {
-          selectRadio = value!;
+          selectRadio = value ?? 0;
         });
       },
     );

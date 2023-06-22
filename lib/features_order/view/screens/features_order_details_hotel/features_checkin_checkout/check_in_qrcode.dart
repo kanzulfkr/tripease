@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -112,11 +111,11 @@ class _CheckInQrcodeState extends State<CheckInQrcode> {
                     ),
                   ],
                 ),
-                // child: QrImageView(
-                //   data: CardHotel.cardHotel[0].noPesanan!,
-                //   version: QrVersions.auto,
-                //   size: 256.0,
-                // ),
+                child: QrImageView(
+                  data: 'coba',
+                  version: QrVersions.auto,
+                  size: 256.0,
+                ),
               ),
             ),
             ButtonActive(
