@@ -11,18 +11,24 @@ class PaymentProvider extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  String? _accountNumber;
-  String? get getAccountNumber => _accountNumber;
+  int? _paymentId;
+  int? get getPaymentId => _paymentId;
 
-  String? _imageUrl;
-  String? get getImageUrl => _imageUrl;
+  String _paymentName = '';
+  String get getPaymentName => _paymentName;
 
-  void setImageUrl(String imageUrl) {
-    _imageUrl = imageUrl;
-  }
+  String? _paymentAccNumber;
+  String? get getAccountNumber => _paymentAccNumber;
 
-  void setAccountNumber(String accountNumber) {
-    _accountNumber = accountNumber;
+  String? _paymentImageUrl;
+  String? get getImageUrl => _paymentImageUrl;
+
+  void setDataPayment(int paymentId, String paymentName, String paymentImageUrl,
+      String paymentNumber) {
+    _paymentId = paymentId;
+    _paymentName = paymentName;
+    _paymentImageUrl = paymentImageUrl;
+    _paymentAccNumber = paymentNumber;
   }
 
   Future<void> getPayment() async {

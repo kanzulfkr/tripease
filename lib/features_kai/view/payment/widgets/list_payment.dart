@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../model/order_train_model.dart';
-import '../../../view_model/order_ticket/patch_order_provider.dart';
 import '../../../view_model/order_ticket/response_order_train_provider.dart';
 import '../../../view_model/station/departure_provider.dart';
 import '../../../view_model/timer/time_payment_provider.dart';
@@ -30,6 +29,7 @@ class _ListPaymentState extends State<ListPayment> {
     super.initState();
     final paymentProv = Provider.of<PaymentProvider>(context, listen: false);
     paymentProv.getPayment();
+    paymentProv.setDataPayment(0, '', '', '');
   }
 
   bool btnIsActive() {
@@ -48,7 +48,7 @@ class _ListPaymentState extends State<ListPayment> {
         selectedRadio == 4 ||
         selectedRadio == 5 ||
         selectedRadio == 6) {
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) => PaymentPage(
@@ -57,54 +57,28 @@ class _ListPaymentState extends State<ListPayment> {
             isPaymentVA: false,
           ),
         ),
+        (route) => false,
       );
     } else if (selectedRadio == 2) {
-      if (selectedVA == 1) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PaymentPage(
-              timerText: TimerPaymentProvider(),
-              imageUrl: getSelectedImage(),
-              isPaymentVA: true,
-            ),
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaymentPage(
+            timerText: TimerPaymentProvider(),
+            imageUrl: getSelectedImage(),
+            isPaymentVA: true,
           ),
-        );
-      } else if (selectedVA == 2) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PaymentPage(
-              timerText: TimerPaymentProvider(),
-              imageUrl: getSelectedImage(),
-              isPaymentVA: true,
-            ),
-          ),
-        );
-      } else if (selectedVA == 3) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PaymentPage(
-              timerText: TimerPaymentProvider(),
-              imageUrl: getSelectedImage(),
-              isPaymentVA: true,
-            ),
-          ),
-        );
-      }
+        ),
+        (route) => false,
+      );
     } else {}
   }
 
   String getSelectedImage() {
     if (selectedRadio == 1) {
       return 'assets/images/credit_card.png';
-    } else if (selectedRadio == 2 && selectedVA == 1) {
-      return 'assets/images/bca.png';
-    } else if (selectedRadio == 2 && selectedVA == 2) {
-      return 'assets/images/bri.png';
-    } else if (selectedRadio == 2 && selectedVA == 3) {
-      return 'assets/images/mandiri.png';
+    } else if (selectedRadio == 2) {
+      return '';
     } else if (selectedRadio == 3) {
       return 'assets/images/logo-ovo-pay.png';
     } else if (selectedRadio == 4) {
@@ -123,12 +97,15 @@ class _ListPaymentState extends State<ListPayment> {
     final postOrderProv =
         Provider.of<PostOrderTrainProvider>(context, listen: false);
     final trainProv = Provider.of<TrainProvider>(context, listen: false);
+    final paymentProv = Provider.of<PaymentProvider>(context, listen: false);
+    int lengthVA = paymentProv.payment.length;
+    int heightVA = 40 * lengthVA;
 
     return Column(
       children: [
         Center(
           child: Container(
-            height: showContainer ? 350.h : 300.h,
+            height: showContainer ? (300 + heightVA).h : 300.h,
             margin: EdgeInsets.only(top: 28.h),
             padding: EdgeInsets.symmetric(vertical: 12.h),
             decoration: BoxDecoration(
@@ -157,6 +134,7 @@ class _ListPaymentState extends State<ListPayment> {
                       setState(() {
                         selectedRadio = 1;
                         showContainer = false;
+                        paymentProv.setDataPayment(0, '', '', '');
                       });
                     },
                   ),
@@ -184,64 +162,74 @@ class _ListPaymentState extends State<ListPayment> {
                       }),
                 ),
                 if (selectedRadio == 2)
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedContainer = 1;
-                        selectedVA = 1;
-                      });
-                    },
-                    child: Container(
-                      height: 45.h,
-                      width: 200.w,
-                      margin: EdgeInsets.only(left: 66.w),
-                      padding: EdgeInsets.only(top: 5.h),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: selectedContainer == 1
-                              ? Colors.blue
-                              : Colors.transparent,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: Consumer<PaymentProvider>(
-                        builder: (context, paymentProv, child) {
-                          var lengthVA = paymentProv.payment.length;
-                          return ListView.builder(
-                            itemCount: lengthVA,
-                            itemBuilder: (context, index) {
-                              var accNumber =
-                                  paymentProv.payment[index].accountNumber;
-                              var imageUrl =
-                                  paymentProv.payment[index].imageUrl;
-                              paymentProv.setAccountNumber(accNumber);
-                              paymentProv.setImageUrl(imageUrl);
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 30.h,
-                                    width: 50.w,
-                                    child: Image.network(
-                                      paymentProv.payment[index].imageUrl,
-                                    ),
+                  Container(
+                    height: heightVA.h,
+                    padding: EdgeInsets.only(top: 5.h),
+                    child: ListView.builder(
+                      itemCount: lengthVA,
+                      itemBuilder: (context, index) {
+                        var paymentId = paymentProv.payment[index].id;
+                        var paymentName = paymentProv.payment[index].name;
+                        var paymentNumber =
+                            paymentProv.payment[index].accountNumber;
+                        var paymentImageUrl =
+                            paymentProv.payment[index].imageUrl;
+
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedContainer = index + 1;
+                              selectedVA = index + 1;
+                              paymentProv.setDataPayment(paymentId, paymentName,
+                                  paymentImageUrl, paymentNumber);
+                              print('id : ${paymentProv.getPaymentId}');
+                              print(
+                                  'paymentName : ${paymentProv.getPaymentName}');
+                              print(
+                                  'accNumber : ${paymentProv.getAccountNumber}');
+                              print('iamge : ${paymentProv.getImageUrl}');
+                            });
+                          },
+                          child: Container(
+                            height: 45.h,
+                            width: 200.w,
+                            margin: EdgeInsets.only(left: 66.w, top: 5.h),
+                            padding: EdgeInsets.only(top: 5.h),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: selectedContainer == index + 1
+                                    ? Colors.blue
+                                    : Colors.transparent,
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 30.h,
+                                  width: 50.w,
+                                  child: Image.network(
+                                    paymentProv.payment[index].imageUrl,
                                   ),
-                                  Text(
-                                    paymentProv.payment[index].name,
-                                    style: GoogleFonts.openSans(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                ),
+                                Text(
+                                  paymentProv.payment[index].name,
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
+                //   },
+                // ),
                 Expanded(
                   child: RadioListTile(
                     title: Row(
@@ -261,6 +249,8 @@ class _ListPaymentState extends State<ListPayment> {
                       setState(() {
                         selectedRadio = 3;
                         showContainer = false;
+                        paymentProv.setDataPayment(0, '', '', '');
+                        paymentProv.setDataPayment(0, '', '', '');
                       });
                     },
                   ),
@@ -284,6 +274,7 @@ class _ListPaymentState extends State<ListPayment> {
                       setState(() {
                         selectedRadio = 4;
                         showContainer = false;
+                        paymentProv.setDataPayment(0, '', '', '');
                       });
                     },
                   ),
@@ -307,6 +298,7 @@ class _ListPaymentState extends State<ListPayment> {
                       setState(() {
                         selectedRadio = 5;
                         showContainer = false;
+                        paymentProv.setDataPayment(0, '', '', '');
                       });
                     },
                   ),
@@ -330,6 +322,7 @@ class _ListPaymentState extends State<ListPayment> {
                       setState(() {
                         selectedRadio = 6;
                         showContainer = false;
+                        paymentProv.setDataPayment(0, '', '', '');
                       });
                     },
                   ),
@@ -338,67 +331,57 @@ class _ListPaymentState extends State<ListPayment> {
             ),
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 30.h),
         Center(
           child: ElevatedButton(
             onPressed: () async {
-              final orderTrain =
-                  Provider.of<PostOrderTrainProvider>(context, listen: false);
+              if (paymentProv.getPaymentId == 0) {
+                print('Metode Payment belum dipilih');
+              } else if (paymentProv.getPaymentId != 0) {
+                final orderTrain =
+                    Provider.of<PostOrderTrainProvider>(context, listen: false);
 
-              PostOrderTrainModel postOrder = PostOrderTrainModel(
-                emailOrder: orderTrain.getEmail,
-                nameOrder: orderTrain.getName,
-                paymentId: 1,
-                phoneNumberOrder: orderTrain.getPhoneNumber,
-                quantityAdult: orderTrain.getQuantityAdult,
-                quantityInfant: orderTrain.getQuantityInfant,
-                ticketTravelerDetailDeparture:
-                    orderTrain.getTicketTravelerDetail,
-                travelerDetail: orderTrain.travelerDetail,
-                withReturn: false,
-              );
+                PostOrderTrainModel postOrder = PostOrderTrainModel(
+                  emailOrder: orderTrain.getEmail,
+                  nameOrder: orderTrain.getName,
+                  paymentId: paymentProv.getPaymentId,
+                  phoneNumberOrder: orderTrain.getPhoneNumber,
+                  quantityAdult: orderTrain.getQuantityAdult,
+                  quantityInfant: orderTrain.getQuantityInfant,
+                  ticketTravelerDetailDeparture:
+                      orderTrain.getTicketTravelerDetail,
+                  travelerDetail: orderTrain.travelerDetail,
+                  withReturn: false,
+                );
+                await orderTrain.postOrderTrain(postOrder);
 
-              await orderTrain.postOrderTrain(postOrder);
+                if (mounted) {
+                  var departureProv =
+                      Provider.of<DepartureProvider>(context, listen: false);
+                  var responseOrderProv =
+                      Provider.of<ResponseOrderTrainProvider>(context,
+                          listen: false);
+                  var trainId = departureProv
+                      .departure[departureProv.selectedDepartIndex as int]
+                      .trainId;
+                  var ticketId = orderTrain.getTicketOrderId;
+                  await responseOrderProv.getResponseOrder(ticketId, trainId);
+                }
+                var totalPrice = trainProv.getPrice;
+                postOrderProv.setTotalPrice(totalPrice);
 
-              if (mounted) {
-                // Check if the widget is still mounted
-                var departureProv =
-                    Provider.of<DepartureProvider>(context, listen: false);
-                var responseOrderProv = Provider.of<ResponseOrderTrainProvider>(
-                    context,
-                    listen: false);
-                var trainId = departureProv
-                    .departure[departureProv.selectedDepartIndex as int]
-                    .trainId;
-                var ticketId = orderTrain.getTicketOrderId;
-
-                await responseOrderProv.getResponseOrder(ticketId, trainId);
-              }
-
-              var totalPrice = trainProv.getPrice;
-              postOrderProv.setTotalPrice(totalPrice);
-
-              navigateToPage();
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Center(
-                      child: Text(
-                        'Berhasil melakukan order Tiket KA',
+                navigateToPage();
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Center(
+                        child: Text(
+                          'Berhasil melakukan order Tiket KA',
+                        ),
                       ),
                     ),
-                  ),
-                );
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => PaymentPage(
-                //         imageUrl: getSelectedImage(),
-                //         isPaymentVA: true,
-                //         timerText: TimerPaymentProvider()),
-                //   ),
-                //   (route) => false,
-                // );
+                  );
+                }
               }
             },
             style: ElevatedButton.styleFrom(
@@ -407,10 +390,11 @@ class _ListPaymentState extends State<ListPayment> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-                backgroundColor:
-                    btnIsActive() ? Colors.grey : const Color(0XFF0080FF)),
+                backgroundColor: paymentProv.getPaymentId == 0
+                    ? Colors.grey
+                    : const Color(0XFF0080FF)),
             child: Text(
-              'Lanjut',
+              'Order Ticket Now',
               style: GoogleFonts.openSans(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,

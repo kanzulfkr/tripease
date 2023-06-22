@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../payment/select_payment.dart';
+import '../../payment/order_ticket_page.dart';
 
 void showCustomAlertDialog(BuildContext context) {
   showDialog(
@@ -64,7 +64,7 @@ void showCustomAlertDialog(BuildContext context) {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SelectPayment()),
+                MaterialPageRoute(builder: (context) => const OrderTicket()),
               );
             },
           ),

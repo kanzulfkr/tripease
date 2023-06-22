@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'package:capstone_project_tripease/features_kai/model/patch_order_model.dart';
-import 'package:capstone_project_tripease/features_kai/model/response_order_train_model.dart';
 import 'package:capstone_project_tripease/features_kai/view/payment/status_payment.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/patch_order_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
@@ -10,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../model/order_train_model.dart';
 import '../../view_model/order_ticket/response_order_train_provider.dart';
 import '../../view_model/timer/time_payment_provider.dart';
 
@@ -84,25 +80,22 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  Future<void> order() async {
-    final orderTrain =
-        Provider.of<PostOrderTrainProvider>(context, listen: false);
-
-    PostOrderTrainModel postOrder = PostOrderTrainModel(
-      emailOrder: orderTrain.getEmail,
-      nameOrder: orderTrain.getName,
-      paymentId: 1,
-      phoneNumberOrder: orderTrain.getPhoneNumber,
-      quantityAdult: orderTrain.getQuantityAdult,
-      quantityInfant: orderTrain.getQuantityInfant,
-      ticketTravelerDetailDeparture: orderTrain.getTicketTravelerDetail,
-      travelerDetail: orderTrain.travelerDetail,
-      withReturn: false,
-    );
-
-    await orderTrain.postOrderTrain(postOrder);
-  }
-
+  // Future<void> order() async {
+  //   final orderTrain =
+  //       Provider.of<PostOrderTrainProvider>(context, listen: false);
+  //   PostOrderTrainModel postOrder = PostOrderTrainModel(
+  //     emailOrder: orderTrain.getEmail,
+  //     nameOrder: orderTrain.getName,
+  //     paymentId: 1,
+  //     phoneNumberOrder: orderTrain.getPhoneNumber,
+  //     quantityAdult: orderTrain.getQuantityAdult,
+  //     quantityInfant: orderTrain.getQuantityInfant,
+  //     ticketTravelerDetailDeparture: orderTrain.getTicketTravelerDetail,
+  //     travelerDetail: orderTrain.travelerDetail,
+  //     withReturn: false,
+  //   );
+  //   await orderTrain.postOrderTrain(postOrder);
+  // }
   // void cekData() {
   //   final orderTrain =
   //       Provider.of<PostOrderTrainProvider>(context, listen: false);
@@ -137,8 +130,6 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     final departureProv =
         Provider.of<DepartureProvider>(context, listen: false);
-    final postOrderProv =
-        Provider.of<PostOrderTrainProvider>(context, listen: false);
     final paymentProv = Provider.of<PaymentProvider>(context, listen: false);
 
     return Scaffold(
@@ -313,18 +304,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 // order();
 
                 // if (postOrderProv.getStatusCode == '201') {
-                //   var departureProv =
-                //       Provider.of<DepartureProvider>(context, listen: false);
-                //   var responseOrderProv =
-                //       Provider.of<ResponseOrderTrainProvider>(context,
-                //           listen: false);
-                //   var trainId = departureProv
-                //       .departure[departureProv.selectedDepartIndex as int]
-                //       .trainId;
-                //   var ticketId = postOrderProv.getTicketOrderId;
-
                 //   await responseOrderProv.getResponseOrder(ticketId, trainId);
-
                 //   if (context.mounted) {
                 //     print('success code : ${postOrderProv.getStatusCode}');
                 //     ScaffoldMessenger.of(context).showSnackBar(
@@ -376,8 +356,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 final responOrderProv = Provider.of<ResponseOrderTrainProvider>(
                     context,
                     listen: false);
-                final postOrderProv =
-                    Provider.of<PostOrderTrainProvider>(context, listen: false);
+
                 final patchOrderProv =
                     Provider.of<PatchTrainProvider>(context, listen: false);
                 final ticketOrder = responOrderProv.dataOrder.ticketOrderId;
@@ -398,11 +377,11 @@ class _PaymentPageState extends State<PaymentPage> {
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(252, 40),
+                backgroundColor: const Color(0XFF0080FF),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
                 padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-                primary: const Color(0XFF0080FF),
               ),
               child: Text(
                 'Bayar',

@@ -1,13 +1,15 @@
+import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_departure_page.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../model/order_train_model.dart';
 import '../../view_model/carriage/carriage_provider.dart';
+import '../../view_model/carriage/select_seat_kai_provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
-import '../seat_carriage/select_seat_departure_page.dart';
 import 'widgets/appbar_input_data.dart';
 import 'widgets/show_dialog.dart';
 
@@ -391,6 +393,10 @@ class _InputDataKaiState extends State<InputDataKai> {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 12),
                                   ),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  keyboardType: TextInputType.phone,
                                   onChanged: (value) {
                                     travelerDetail.setPhoneNumber(value);
                                   },
@@ -503,14 +509,14 @@ class _InputDataKaiState extends State<InputDataKai> {
                                       pass.nameController.text =
                                           travelerDetail.getName!;
                                     });
-
-                                    // print(travelerDetail.);
+                                    travelerDetail.travelerDetail![0].fullName =
+                                        travelerDetail.getName!;
                                   },
                                   style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      primary: const Color(0XFF0080FF)),
+                                      backgroundColor: const Color(0XFF0080FF)),
                                   child: Text(
                                     'Tambahkan sebagai Penumpang',
                                     style: GoogleFonts.openSans(
@@ -701,7 +707,6 @@ class _InputDataKaiState extends State<InputDataKai> {
                                               travelerDetail
                                                   .updateTravelerTitle(
                                                       index, value);
-                                              print(traveler.title);
                                             },
                                             items: widget.list
                                                 .map<DropdownMenuItem<String>>(
@@ -730,39 +735,42 @@ class _InputDataKaiState extends State<InputDataKai> {
                                           ),
                                         ),
                                         const SizedBox(height: 8),
-                                        Container(
-                                          child: TextFormField(
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
-                                            controller:
-                                                passengerData.nikController,
-                                            onChanged: (value) {
-                                              traveler.idCardNumber = value;
-                                            },
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    width: 1,
-                                                    color: Color.fromRGBO(
-                                                        210, 215, 224, 1)),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.r),
-                                              ),
-                                              hintText: 'NIK/Paspor',
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                horizontal: 16.h,
-                                                vertical: 12,
-                                              ),
+                                        TextFormField(
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          controller:
+                                              passengerData.nikController,
+                                          onChanged: (value) {
+                                            traveler.idCardNumber = value;
+                                          },
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  width: 1,
+                                                  color: Color.fromRGBO(
+                                                      210, 215, 224, 1)),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
                                             ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Nomor Identitas harap di isi.';
-                                              }
-                                              return null;
-                                            },
+                                            hintText: 'NIK/Paspor',
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: 16.h,
+                                              vertical: 12,
+                                            ),
                                           ),
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Nomor Identitas harap di isi.';
+                                            }
+                                            return null;
+                                          },
                                         ),
                                         const SizedBox(height: 8),
                                         Text(
@@ -773,41 +781,39 @@ class _InputDataKaiState extends State<InputDataKai> {
                                           ),
                                         ),
                                         const SizedBox(height: 8),
-                                        Container(
-                                          child: TextFormField(
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
-                                            controller:
-                                                passengerData.nameController,
-                                            onChanged: (value) {
-                                              traveler.fullName = value =
-                                                  passengerData
-                                                      .nameController.text;
-                                            },
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    width: 1,
-                                                    color: Color.fromRGBO(
-                                                        210, 215, 224, 1)),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.r),
-                                              ),
-                                              hintText: 'Nama Lengkap',
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                horizontal: 16.h,
-                                                vertical: 12,
-                                              ),
+                                        TextFormField(
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          controller:
+                                              passengerData.nameController,
+                                          onChanged: (value) {
+                                            traveler.fullName = value =
+                                                passengerData
+                                                    .nameController.text;
+                                          },
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  width: 1,
+                                                  color: Color.fromRGBO(
+                                                      210, 215, 224, 1)),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
                                             ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Nama Lengkap harap di isi.';
-                                              }
-                                              return null;
-                                            },
+                                            hintText: 'Nama Lengkap',
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: 16.h,
+                                              vertical: 12,
+                                            ),
                                           ),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Nama Lengkap harap di isi.';
+                                            }
+                                            return null;
+                                          },
                                         ),
                                       ],
                                     ),
@@ -823,22 +829,36 @@ class _InputDataKaiState extends State<InputDataKai> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          final selectedSeatsProvider =
+                              Provider.of<SelectedSeatsProvider>(context,
+                                  listen: false);
                           if (_formKey.currentState!.validate()) {
-                            print(travelerDetail.getEmail);
-                            print(travelerDetail.getName);
-                            print(travelerDetail.getPhoneNumber);
-                            showCustomAlertDialog(context);
-                          } else {}
+                            print('Pemesan');
+                            print('email : ${travelerDetail.getEmail}');
+                            print('name : ${travelerDetail.getName}');
+                            print('phone : ${travelerDetail.getPhoneNumber}');
+                            print('Penumpang :');
+                            print(
+                                'name : ${travelerDetail.travelerDetail![0].fullName}');
+                            print(
+                                'title : ${travelerDetail.travelerDetail![0].title}');
+                            print(
+                                'idCard : ${travelerDetail.travelerDetail![0].idCardNumber}');
+
+                            if (selectedSeatsProvider.selectedSeats.isEmpty) {
+                              print('seats masi kosong');
+                            } else {
+                              showCustomAlertDialog(context);
+                            }
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             fixedSize: const Size(252, 40),
+                            backgroundColor: const Color(0XFF0080FF),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-                            primary: const Color(
-                                0XFF0080FF) // Warna latar belakang biru
-                            ),
+                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 0)),
                         child: Text(
                           'Konfirmasi',
                           style: GoogleFonts.openSans(

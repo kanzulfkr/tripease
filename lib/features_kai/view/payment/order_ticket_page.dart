@@ -10,14 +10,14 @@ import '../../view_model/timer/time_payment_provider.dart';
 import 'widgets/list_payment.dart';
 import 'widgets/payment_timer.dart';
 
-class SelectPayment extends StatefulWidget {
-  const SelectPayment({super.key});
+class OrderTicket extends StatefulWidget {
+  const OrderTicket({super.key});
 
   @override
-  State<SelectPayment> createState() => _SelectPaymentState();
+  State<OrderTicket> createState() => _OrderTicketState();
 }
 
-class _SelectPaymentState extends State<SelectPayment> {
+class _OrderTicketState extends State<OrderTicket> {
   TimerPaymentProvider timerText = TimerPaymentProvider();
   Timer? countdownTimer;
   int selectedRadio = 0;
@@ -78,7 +78,7 @@ class _SelectPaymentState extends State<SelectPayment> {
       appBar: AppBar(
         backgroundColor: const Color(0XFF0080FF),
         title: Text(
-          'Pembayaran',
+          'Order Ticket',
           style: GoogleFonts.openSans(
               fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
@@ -90,8 +90,8 @@ class _SelectPaymentState extends State<SelectPayment> {
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             child: Consumer<DepartureProvider>(
               builder: (context, departureProv, child) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                return ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PaymentTimer(timerText: timerText),
                     SizedBox(height: 25.h),
@@ -194,7 +194,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'Rp. ${totalHargaTiket}',
+                                'Rp. $totalHargaTiket',
                                 style: GoogleFonts.openSans(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),
