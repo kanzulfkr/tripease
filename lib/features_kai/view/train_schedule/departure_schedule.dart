@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../view_model/carriage/select_seat_kai_provider.dart';
+import '../../view_model/carriage/select_seat_departure_provider.dart';
 import '../../view_model/station/departure_provider.dart';
 import '../../view_model/station/station_provider.dart';
 import '../input_data/input_data_screen.dart';
@@ -517,12 +517,12 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                       builder: (context, trainProvider, child) {
                                         return InkWell(
                                           onTap: () {
-                                            final selectedSeatsProvider =
+                                            final selectedSeatsDepartureProv =
                                                 Provider.of<
-                                                        SelectedSeatsProvider>(
+                                                        SelectedSeatsDepartureProvider>(
                                                     context,
                                                     listen: false);
-                                            selectedSeatsProvider
+                                            selectedSeatsDepartureProv
                                                 .clearSelectedSeats();
 
                                             departureProv

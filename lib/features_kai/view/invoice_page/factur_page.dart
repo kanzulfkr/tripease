@@ -47,6 +47,10 @@ class _FacturPageState extends State<FacturPage> {
               ),
               SizedBox(height: 16.h),
               const TicketBooking(),
+              // pp is true
+              // asdasd
+              // false
+              // szdbox
               SizedBox(height: 25.h),
               Padding(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w),

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:capstone_project_tripease/features_kai/view/payment/status_payment.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/payment_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/patch_order_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:flutter/material.dart';

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../view_model/carriage/select_seat_return_provider.dart';
 import '../../view_model/station/departure_provider.dart';
 import '../../view_model/station/station_provider.dart';
 import '../../view_model/train/train_provider.dart';
@@ -371,13 +372,15 @@ class _ReturnScheduleState extends State<ReturnSchedule> {
                                       builder: (context, trainProvider, child) {
                                         return InkWell(
                                           onTap: () {
-                                            print(
-                                                'arrv : ${returnProv.returnDate}');
-                                            print(
-                                                'dprt : ${returnProv.departureDate}');
+                                            final selectedSeatsReturnProv = Provider
+                                                .of<SelectedSeatsReturnProvider>(
+                                                    context,
+                                                    listen: false);
+
                                             returnProv
                                                 .setSelectedDepartIndex(index);
-
+                                            selectedSeatsReturnProv
+                                                .clearSelectedSeats();
                                             debugPrint(returnProv
                                                 .returns[returnProv
                                                     .selectedDepartIndex as int]

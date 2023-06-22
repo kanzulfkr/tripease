@@ -82,6 +82,26 @@ class _PaymentStatusState extends State<PaymentStatus> {
                   ],
                 ),
               ),
+              // payment status,
+              //// stationProv.pulangPergi ?
+              // Center(
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       const Icon(Icons.train),
+              //       SizedBox(width: 10.w),
+              //       SizedBox(
+              //         width: 100.w,
+              //         child: Text(
+              //           '${responseProv.dataOrder.train!.name}',
+              //           style: GoogleFonts.openSans(
+              //               fontSize: 14.sp, fontWeight: FontWeight.w400),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
               SizedBox(height: 20.h),
               Center(
                 child: Row(

@@ -41,7 +41,7 @@ class PostOrderTrainProvider with ChangeNotifier {
   List<TicketTravelerDetail>? get getTicketTravelerDetail =>
       _ticketTravelerDetail;
 
-  List<TicketTravelerDetail>? _ticketTravelerDetailReturn;
+  List<TicketTravelerDetail>? _ticketTravelerDetailReturn = [];
   List<TicketTravelerDetail>? get getTicketTravelerDetailReturn =>
       _ticketTravelerDetailReturn;
 
@@ -112,6 +112,11 @@ class PostOrderTrainProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void addTicketTravelDetailReturn(TicketTravelerDetail ticketDetail) {
+    getTicketTravelerDetailReturn!.add(ticketDetail);
+    notifyListeners();
+  }
+
   void updateTravelerTitle(int index, String? title) {
     if (index >= 0 && index < travelerDetail!.length) {
       travelerDetail?[index].title = title;
@@ -130,7 +135,7 @@ class PostOrderTrainProvider with ChangeNotifier {
       _statusCode = response.data['status_code'].toString();
 
       _ticketOrderId = response.data['data']['ticket_order_id'];
-      debugPrint('ticket order id: $_ticketOrderId');
+      debugPrint('success => ticket order id: $_ticketOrderId');
       notifyListeners();
     } on DioError catch (e) {
       final code = e.response!.statusCode;

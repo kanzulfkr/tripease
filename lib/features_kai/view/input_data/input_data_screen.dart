@@ -1,5 +1,6 @@
 import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_departure_page.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../model/order_train_model.dart';
-import '../../view_model/carriage/carriage_provider.dart';
-import '../../view_model/carriage/select_seat_kai_provider.dart';
+import '../../view_model/carriage/carriage_departure_provider.dart';
+import '../../view_model/carriage/select_seat_departure_provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
 import 'widgets/appbar_input_data.dart';
 import 'widgets/show_dialog.dart';
@@ -52,6 +53,8 @@ class _InputDataKaiState extends State<InputDataKai> {
 
   @override
   Widget build(BuildContext context) {
+    final stationProv = Provider.of<StationProvider>(context, listen: false);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -80,7 +83,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Card shcedule KA
+                    // Card departure shcedule KA
                     Consumer<DepartureProvider>(
                       builder: (context, departureProv, child) {
                         return SizedBox(
@@ -269,6 +272,13 @@ class _InputDataKaiState extends State<InputDataKai> {
                         );
                       },
                     ),
+                    // Card return shcedule KA
+                    stationProv.pulangPergi
+                        ?
+                        // consumer<return provider>
+                        Text('is pp')
+                        : SizedBox(),
+
                     // input data Booking
                     GestureDetector(
                       onTap: () {
@@ -633,10 +643,10 @@ class _InputDataKaiState extends State<InputDataKai> {
                                                         context,
                                                         listen: false);
                                                 await Provider.of<
-                                                            CarriageProvider>(
+                                                            CarriageDepartureProvider>(
                                                         context,
                                                         listen: false)
-                                                    .fetchCarriageEko(
+                                                    .fetchCarriageDeparture(
                                                   trainId: departureProv
                                                       .departure[departureProv
                                                               .selectedDepartIndex
@@ -830,7 +840,8 @@ class _InputDataKaiState extends State<InputDataKai> {
                       child: ElevatedButton(
                         onPressed: () {
                           final selectedSeatsProvider =
-                              Provider.of<SelectedSeatsProvider>(context,
+                              Provider.of<SelectedSeatsDepartureProvider>(
+                                  context,
                                   listen: false);
                           if (_formKey.currentState!.validate()) {
                             print('Pemesan');

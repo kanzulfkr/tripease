@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../../../view_model/carriage/carriage_provider.dart';
-import '../../../view_model/carriage/select_seat_kai_provider.dart';
+import '../../../view_model/carriage/carriage_departure_provider.dart';
+import '../../../view_model/carriage/select_seat_departure_provider.dart';
 
 class DepartureCarriagePage extends StatefulWidget {
   const DepartureCarriagePage({super.key});
@@ -72,8 +71,8 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
       paddingTopClassD = 43;
     }
 
-    return Consumer<SelectedSeatsProvider>(
-      builder: (context, selectedSeatProvider, _) {
+    return Consumer<SelectedSeatsDepartureProvider>(
+      builder: (context, selectedSeatDepartureProv, _) {
         return SizedBox(
           height: 550.h,
           width: double.maxFinite,
@@ -123,14 +122,14 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                               height: listHeightClassA!.h,
                               width: 25.w,
                               margin: EdgeInsets.only(top: paddingTopClassA!.h),
-                              child: Consumer<CarriageProvider>(
+                              child: Consumer<CarriageDepartureProvider>(
                                 builder: (context, carriageProvider, child) {
                                   return ListView.builder(
                                     itemCount: carriageProvider.seatA.length,
                                     itemBuilder: (context, index) {
-                                      final selectedSeatsProvider =
-                                          Provider.of<SelectedSeatsProvider>(
-                                              context);
+                                      final selectedSeatsProvider = Provider.of<
+                                              SelectedSeatsDepartureProvider>(
+                                          context);
                                       final selectedSeats =
                                           selectedSeatsProvider.selectedSeats;
                                       final item =
@@ -156,7 +155,7 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                           carriageProvider
                                               .setTrainSeatId(item.id);
 
-                                          print('Kursi ${item.id}');
+                                          print('Kursi berangkat : ${item.id}');
                                         },
                                         child: Container(
                                           height: 25.h,
@@ -197,14 +196,14 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                             height: listHeightClassB!.h,
                             width: 25.w,
                             margin: EdgeInsets.only(top: paddingTopClassB!.h),
-                            child: Consumer<CarriageProvider>(
+                            child: Consumer<CarriageDepartureProvider>(
                               builder: (context, carriageProvider, child) {
                                 return ListView.builder(
                                   itemCount: carriageProvider.seatB.length,
                                   itemBuilder: (context, index) {
-                                    final selectedSeatsProvider =
-                                        Provider.of<SelectedSeatsProvider>(
-                                            context);
+                                    final selectedSeatsProvider = Provider.of<
+                                            SelectedSeatsDepartureProvider>(
+                                        context);
                                     final selectedSeats =
                                         selectedSeatsProvider.selectedSeats;
                                     final item = carriageProvider.seatB[index];
@@ -228,7 +227,7 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
 
                                         carriageProvider
                                             .setTrainSeatId(item.id);
-                                        print('Kursi ${item.id}');
+                                        print('Kursi berangkat : ${item.id}');
                                       },
                                       child: Container(
                                         height: 25.h,
@@ -277,14 +276,14 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                               height: listHeightClassC!.h,
                               width: 25.w,
                               margin: EdgeInsets.only(top: paddingTopClassC!.h),
-                              child: Consumer<CarriageProvider>(
+                              child: Consumer<CarriageDepartureProvider>(
                                 builder: (context, carriageProvider, child) {
                                   return ListView.builder(
                                     itemCount: carriageProvider.seatC.length,
                                     itemBuilder: (context, index) {
-                                      final selectedSeatsProvider =
-                                          Provider.of<SelectedSeatsProvider>(
-                                              context);
+                                      final selectedSeatsProvider = Provider.of<
+                                              SelectedSeatsDepartureProvider>(
+                                          context);
                                       final selectedSeats =
                                           selectedSeatsProvider.selectedSeats;
                                       final item =
@@ -309,7 +308,7 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
 
                                           carriageProvider
                                               .setTrainSeatId(item.id);
-                                          print('Kursi ${item.id}');
+                                          print('Kursi berangkat : ${item.id}');
                                         },
                                         child: Container(
                                           height: 25.h,
@@ -348,14 +347,14 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                             height: listHeightClassD!.h,
                             width: 25.w,
                             margin: EdgeInsets.only(top: paddingTopClassD!.h),
-                            child: Consumer<CarriageProvider>(
+                            child: Consumer<CarriageDepartureProvider>(
                               builder: (context, carriageProvider, child) {
                                 return ListView.builder(
                                   itemCount: carriageProvider.seatD.length,
                                   itemBuilder: (context, index) {
-                                    final selectedSeatsProvider =
-                                        Provider.of<SelectedSeatsProvider>(
-                                            context);
+                                    final selectedSeatsProvider = Provider.of<
+                                            SelectedSeatsDepartureProvider>(
+                                        context);
                                     final selectedSeats =
                                         selectedSeatsProvider.selectedSeats;
                                     final item = carriageProvider.seatD[index];
@@ -379,7 +378,7 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
 
                                         carriageProvider
                                             .setTrainSeatId(item.id);
-                                        print('Kursi ${item.id}');
+                                        print('Kursi berangkat : ${item.id}');
                                       },
                                       child: Container(
                                         height: 25.h,
@@ -423,16 +422,15 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                     width: 25.w,
                                     margin: EdgeInsets.only(
                                         top: paddingTopClassE!.h),
-                                    child: Consumer<CarriageProvider>(
+                                    child: Consumer<CarriageDepartureProvider>(
                                       builder:
                                           (context, carriageProvider, child) {
                                         return ListView.builder(
                                           itemCount:
                                               carriageProvider.seatE.length,
                                           itemBuilder: (context, index) {
-                                            final selectedSeatsProvider =
-                                                Provider.of<
-                                                        SelectedSeatsProvider>(
+                                            final selectedSeatsProvider = Provider
+                                                .of<SelectedSeatsDepartureProvider>(
                                                     context);
                                             final selectedSeats =
                                                 selectedSeatsProvider
@@ -460,7 +458,8 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
 
                                                 carriageProvider
                                                     .setTrainSeatId(item.id);
-                                                print('Kursi ${item.id}');
+                                                print(
+                                                    'Kursi berangkat : ${item.id}');
                                               },
                                               child: Container(
                                                 height: 25.h,

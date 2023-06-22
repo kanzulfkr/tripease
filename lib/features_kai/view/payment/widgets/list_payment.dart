@@ -1,6 +1,6 @@
 import 'package:capstone_project_tripease/features_kai/view/payment/payment_page.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/payment_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/payment_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../model/order_train_model.dart';
 import '../../../view_model/order_ticket/response_order_train_provider.dart';
 import '../../../view_model/station/departure_provider.dart';
+import '../../../view_model/station/station_provider.dart';
 import '../../../view_model/timer/time_payment_provider.dart';
 
 class ListPayment extends StatefulWidget {
@@ -340,20 +341,70 @@ class _ListPaymentState extends State<ListPayment> {
               } else if (paymentProv.getPaymentId != 0) {
                 final orderTrain =
                     Provider.of<PostOrderTrainProvider>(context, listen: false);
+                final stationProv =
+                    Provider.of<StationProvider>(context, listen: false);
 
-                PostOrderTrainModel postOrder = PostOrderTrainModel(
-                  emailOrder: orderTrain.getEmail,
-                  nameOrder: orderTrain.getName,
-                  paymentId: paymentProv.getPaymentId,
-                  phoneNumberOrder: orderTrain.getPhoneNumber,
-                  quantityAdult: orderTrain.getQuantityAdult,
-                  quantityInfant: orderTrain.getQuantityInfant,
-                  ticketTravelerDetailDeparture:
-                      orderTrain.getTicketTravelerDetail,
-                  travelerDetail: orderTrain.travelerDetail,
-                  withReturn: false,
-                );
-                await orderTrain.postOrderTrain(postOrder);
+                if (stationProv.pulangPergi == false) {
+                  PostOrderTrainModel postOrder = PostOrderTrainModel(
+                    emailOrder: orderTrain.getEmail,
+                    nameOrder: orderTrain.getName,
+                    paymentId: paymentProv.getPaymentId,
+                    phoneNumberOrder: orderTrain.getPhoneNumber,
+                    quantityAdult: orderTrain.getQuantityAdult,
+                    quantityInfant: orderTrain.getQuantityInfant,
+                    ticketTravelerDetailDeparture:
+                        orderTrain.getTicketTravelerDetail,
+                    travelerDetail: orderTrain.travelerDetail,
+                    withReturn: stationProv.pulangPergi,
+                  );
+                  await orderTrain.postOrderTrain(postOrder);
+                } else if (stationProv.pulangPergi == true) {
+                  PostOrderTrainModel postOrderWithReturn = PostOrderTrainModel(
+                    emailOrder: orderTrain.getEmail,
+                    nameOrder: orderTrain.getName,
+                    paymentId: paymentProv.getPaymentId,
+                    phoneNumberOrder: orderTrain.getPhoneNumber,
+                    quantityAdult: orderTrain.getQuantityAdult,
+                    quantityInfant: orderTrain.getQuantityInfant,
+                    ticketTravelerDetailDeparture:
+                        orderTrain.getTicketTravelerDetail,
+                    ticketTravelerDetailReturn:
+                        orderTrain.getTicketTravelerDetailReturn,
+                    travelerDetail: orderTrain.travelerDetail,
+                    withReturn: stationProv.pulangPergi,
+                  );
+                  // print('${orderTrain.getEmail}');
+                  // print('${orderTrain.getName}');
+                  // print('${orderTrain.getPaymentId.toString()}');
+                  // print('${orderTrain.getPhoneNumber}');
+                  // print('${orderTrain.getQuantityAdult}');
+                  // print('${orderTrain.getQuantityInfant}');
+                  // print('${orderTrain.getEmail}');
+                  // print('departure');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetail?[0].stationOriginId}');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetail?[0].stationDestinationId}');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetail?[0].trainCarriageId}');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetail?[0].trainSeatId}');
+                  // print('return');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetailReturn?[0].stationOriginId}');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetailReturn?[0].stationDestinationId}');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetailReturn?[0].trainCarriageId}');
+                  // print(
+                  //     '${orderTrain.getTicketTravelerDetailReturn?[0].trainSeatId}');
+                  // print(orderTrain.travelerDetail?[0].fullName);
+                  // print(orderTrain.travelerDetail?[0].idCardNumber);
+                  // print(orderTrain.travelerDetail?[0].title);
+                  // print(stationProv.pulangPergi);
+
+                  await orderTrain.postOrderTrain(postOrderWithReturn);
+                }
 
                 if (mounted) {
                   var departureProv =

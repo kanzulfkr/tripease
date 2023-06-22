@@ -121,6 +121,10 @@ class _OrderTicketState extends State<OrderTicket> {
                               SizedBox(
                                 height: 30.h,
                                 child: Text(
+                                  // stationProv.pulangPergi ?
+                                  // '(qwuantiti adult*2) X price'
+                                  // :
+
                                   '${quantityAdult} x Rp. ${price}',
                                   style: GoogleFonts.openSans(
                                       fontSize: 14.sp,

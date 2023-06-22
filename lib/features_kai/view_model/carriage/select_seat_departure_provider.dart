@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SelectedSeatsProvider extends ChangeNotifier {
+class SelectedSeatsDepartureProvider extends ChangeNotifier {
   List<int?> selectedSeats = [];
 
   void selectSeat(int? idSeat) {

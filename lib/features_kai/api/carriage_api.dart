@@ -22,7 +22,6 @@ class CarriageRepo {
           'limit': 9999
         });
     if (response.statusCode == 200) {
-      // print('CarriageApi: ${response.data}');
       final data = CarriageModel.fromJson(response.data);
       return data;
     } else {
