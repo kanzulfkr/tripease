@@ -127,15 +127,6 @@ class _SelectPaymentState extends State<SelectPayment> {
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
-                              SizedBox(
-                                height: 30.h,
-                                child: Text(
-                                  '${quantityAdult} x Rp. 8.000',
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
                             ],
                           ),
                         )
