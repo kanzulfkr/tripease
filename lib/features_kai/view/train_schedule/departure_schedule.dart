@@ -532,64 +532,6 @@ class _DepartureScheduleState extends State<DepartureSchedule> {
                                                 .departure[departureProv
                                                     .selectedDepartIndex as int]
                                                 .datumClass);
-                                            // var trainId = departureProvider
-                                            //     .departure[index].trainId;
-                                            // var classTr = departureProvider
-                                            //     .departure[index].datumClass;
-                                            // var originSt = departureProvider
-                                            //     .departure[index]
-                                            //     .route[0]
-                                            //     .station
-                                            //     .name;
-                                            // var depatureSt = departureProvider
-                                            //     .departure[index]
-                                            //     .route[1]
-                                            //     .station
-                                            //     .name;
-                                            // var originStInt = departureProvider
-                                            //     .departure[index]
-                                            //     .route[0]
-                                            //     .station
-                                            //     .initial;
-                                            // var depatureStInt =
-                                            //     departureProvider
-                                            //         .departure[index]
-                                            //         .route[1]
-                                            //         .station
-                                            //         .initial;
-                                            // var nameTr = departureProvider
-                                            //     .departure[index].name;
-                                            // var arriveTm = departureProvider
-                                            //     .departure[index]
-                                            //     .route[0]
-                                            //     .arriveTime;
-                                            // var price = departureProvider
-                                            //     .departure[index].price;
-                                            // var depatureTm = departureProvider
-                                            //     .departure[index]
-                                            //     .route[1]
-                                            //     .arriveTime;
-                                            // trainProvider.setTrainId(trainId);
-                                            // trainProvider.setNameTrain(nameTr);
-                                            // trainProvider
-                                            //     .setStationOrigin(originSt);
-                                            // trainProvider
-                                            //     .setStationDepature(depatureSt);
-                                            // trainProvider
-                                            //     .setStationOriginInitial(
-                                            //         originStInt);
-                                            // trainProvider
-                                            //     .setStationDepatureInitial(
-                                            //         depatureStInt);
-                                            // trainProvider
-                                            //     .setClassTrain(classTr);
-                                            // trainProvider
-                                            //     .setArriveTime(arriveTm);
-                                            // trainProvider
-                                            //     .setDepatureTime(depatureTm);
-                                            // trainProvider.setPrice(price);
-                                            // trainProvider
-                                            //     .setdateTime('0 j 30 m');
 
                                             Navigator.push(
                                               context,

@@ -1,5 +1,6 @@
 import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_departure_page.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/return_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../model/order_train_model.dart';
 import '../../view_model/carriage/carriage_departure_provider.dart';
 import '../../view_model/carriage/select_seat_departure_provider.dart';
+import '../../view_model/carriage/select_seat_return_provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
 import 'widgets/appbar_input_data.dart';
 import 'widgets/show_dialog.dart';
@@ -54,6 +56,8 @@ class _InputDataKaiState extends State<InputDataKai> {
   @override
   Widget build(BuildContext context) {
     final stationProv = Provider.of<StationProvider>(context, listen: false);
+    final departureProv =
+        Provider.of<DepartureProvider>(context, listen: false);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -225,10 +229,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      departureProv.departureDate == ''
-                                          ? DateFormat('EEEE, dd MMMM', 'id_ID')
-                                              .format(DateTime.now())
-                                          : departureProv.departureDate,
+                                      departureProv.departureDate,
                                       style: TextStyle(
                                         fontSize: 12.sp,
                                         color: const Color.fromRGBO(
@@ -274,9 +275,199 @@ class _InputDataKaiState extends State<InputDataKai> {
                     ),
                     // Card return shcedule KA
                     stationProv.pulangPergi
-                        ?
-                        // consumer<return provider>
-                        Text('is pp')
+                        ? Consumer<ReturnProvider>(
+                            builder: (context, returnProv, child) {
+                              return SizedBox(
+                                height: 180.h,
+                                width: double.maxFinite,
+                                child: Container(
+                                  width: double.maxFinite,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 12.w, vertical: 8.h),
+                                  margin: EdgeInsets.only(bottom: 12.h),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8.r),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 0.5,
+                                        offset: Offset.zero,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/kai.png',
+                                            scale: 0.8,
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .name
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Rp. ${returnProv.returns[returnProv.selectedDepartIndex as int].price},-',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![0].station!.origin.toString()}',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![1].station!.origin.toString()}',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .datumClass
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Tersedia',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color.fromRGBO(
+                                                  61, 175, 29, 1),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .route![0]
+                                                .arriveTime
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                            ),
+                                          ),
+                                          const Icon(Icons.arrow_forward),
+                                          Text(
+                                            returnProv
+                                                .returns[returnProv
+                                                    .selectedDepartIndex as int]
+                                                .route![1]
+                                                .arriveTime
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            departureProv.returnDate == ''
+                                                ? DateFormat(
+                                                        'dd MMMM yyyy', 'id_ID')
+                                                    .format(DateTime.now())
+                                                : departureProv.returnDate,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            returnProv.getDurationKA(
+                                                returnProv
+                                                    .returns[returnProv
+                                                            .selectedDepartIndex
+                                                        as int]
+                                                    .route![0]
+                                                    .arriveTime!,
+                                                returnProv
+                                                    .returns[returnProv
+                                                            .selectedDepartIndex
+                                                        as int]
+                                                    .route![1]
+                                                    .arriveTime!),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            departureProv.returnDate == ''
+                                                ? DateFormat(
+                                                        'dd MMMM yyyy', 'id_ID')
+                                                    .format(DateTime.now())
+                                                : departureProv.returnDate,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: const Color.fromRGBO(
+                                                  113, 114, 117, 1),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          )
                         : SizedBox(),
 
                     // input data Booking
@@ -586,9 +777,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                         ),
                       ),
                     ),
-                    // if (isDropdownPenumpang) ...[
-                    //   BodyDetailPessanger(list: list),
-                    // ],
+
                     if (isDropdownPenumpang) ...[
                       SizedBox(
                         height: 300.h,
@@ -839,9 +1028,12 @@ class _InputDataKaiState extends State<InputDataKai> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          final selectedSeatsProvider =
+                          final selectedSeatsDepartureProv =
                               Provider.of<SelectedSeatsDepartureProvider>(
                                   context,
+                                  listen: false);
+                          final selectedSeatsReturnProv =
+                              Provider.of<SelectedSeatsReturnProvider>(context,
                                   listen: false);
                           if (_formKey.currentState!.validate()) {
                             print('Pemesan');
@@ -856,10 +1048,23 @@ class _InputDataKaiState extends State<InputDataKai> {
                             print(
                                 'idCard : ${travelerDetail.travelerDetail![0].idCardNumber}');
 
-                            if (selectedSeatsProvider.selectedSeats.isEmpty) {
-                              print('seats masi kosong');
-                            } else {
-                              showCustomAlertDialog(context);
+                            if (stationProv.pulangPergi == false) {
+                              if (selectedSeatsDepartureProv
+                                  .selectedSeats.isEmpty) {
+                                print('seats departure masi kosong');
+                              } else {
+                                showCustomAlertDialog(context);
+                              }
+                            } else if (stationProv.pulangPergi == true) {
+                              if (selectedSeatsDepartureProv
+                                  .selectedSeats.isEmpty) {
+                                print('seats departure masi kosong');
+                              } else if (selectedSeatsReturnProv
+                                  .selectedSeats.isEmpty) {
+                                print('seats return masi kosong');
+                              } else {
+                                showCustomAlertDialog(context);
+                              }
                             }
                           }
                         },

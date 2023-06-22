@@ -2,8 +2,13 @@ import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/r
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../main_page.dart';
+import '../../view_model/order_ticket/order_train_provider.dart';
+import '../../view_model/station/departure_provider.dart';
+import '../../view_model/station/return_provider.dart';
+import '../../view_model/station/station_provider.dart';
 import 'ticket_booking.dart';
 
 class FacturPage extends StatefulWidget {
@@ -16,6 +21,13 @@ class FacturPage extends StatefulWidget {
 class _FacturPageState extends State<FacturPage> {
   @override
   Widget build(BuildContext context) {
+    final stationProv = Provider.of<StationProvider>(context, listen: false);
+    final returnProv = Provider.of<ReturnProvider>(context, listen: false);
+    final postOrderProv =
+        Provider.of<PostOrderTrainProvider>(context, listen: false);
+
+    final departureProv =
+        Provider.of<DepartureProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF0080FF),
@@ -28,61 +40,258 @@ class _FacturPageState extends State<FacturPage> {
       ),
       body: Consumer<ResponseOrderTrainProvider>(
         builder: (context, responseProv, child) {
-          int quantityAdult = responseProv.dataOrder.quantityAdult!;
-          int price = responseProv.dataOrder.train!.trainPrice!;
-          int totalHarga = quantityAdult * price;
+          int quantityAdult = postOrderProv.getQuantityAdult;
 
           // int price
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, top: 18.h),
-                child: Text(
-                  'No.${responseProv.dataOrder.ticketOrderCode}',
+          return Padding(
+            padding: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
+            child: ListView(
+              children: [
+                Text(
+                  'No. ${responseProv.dataOrder.ticketOrderCode}',
                   style: GoogleFonts.openSans(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-              SizedBox(height: 16.h),
-              const TicketBooking(),
-              // pp is true
-              // asdasd
-              // false
-              // szdbox
-              SizedBox(height: 25.h),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                child: Row(
+                SizedBox(height: 16.h),
+                const TicketBooking(),
+                SizedBox(height: 16.h),
+                stationProv.pulangPergi
+                    ? Container(
+                        height: 160.h,
+                        width: double.maxFinite,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 0.2,
+                              blurRadius: 0.5,
+                              offset: const Offset(0.5, 0.5),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/kai.png',
+                                  scale: 0.8,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  returnProv
+                                      .returns[
+                                          returnProv.selectedDepartIndex as int]
+                                      .name
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  'Rp. ${returnProv.returns[returnProv.selectedDepartIndex as int].price},-',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![0].station!.origin.toString()}',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                Text(
+                                  'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![1].station!.origin.toString()}',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  returnProv
+                                      .returns[
+                                          returnProv.selectedDepartIndex as int]
+                                      .datumClass
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                        const Color.fromRGBO(113, 114, 117, 1),
+                                  ),
+                                ),
+                                Text(
+                                  'Tersedia',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color.fromRGBO(61, 175, 29, 1),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  returnProv
+                                      .returns[
+                                          returnProv.selectedDepartIndex as int]
+                                      .route![0]
+                                      .arriveTime
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                                const Icon(Icons.arrow_forward),
+                                Text(
+                                  returnProv
+                                      .returns[
+                                          returnProv.selectedDepartIndex as int]
+                                      .route![1]
+                                      .arriveTime
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  departureProv.returnDate == ''
+                                      ? DateFormat('dd MMMM yyyy', 'id_ID')
+                                          .format(DateTime.now())
+                                      : departureProv.returnDate,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color:
+                                        const Color.fromRGBO(113, 114, 117, 1),
+                                  ),
+                                ),
+                                Text(
+                                  returnProv.getDurationKA(
+                                      returnProv
+                                          .returns[returnProv
+                                              .selectedDepartIndex as int]
+                                          .route![0]
+                                          .arriveTime!,
+                                      returnProv
+                                          .returns[returnProv
+                                              .selectedDepartIndex as int]
+                                          .route![1]
+                                          .arriveTime!),
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color:
+                                        const Color.fromRGBO(113, 114, 117, 1),
+                                  ),
+                                ),
+                                Text(
+                                  departureProv.returnDate == ''
+                                      ? DateFormat('dd MMMM yyyy', 'id_ID')
+                                          .format(DateTime.now())
+                                      : departureProv.returnDate,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color:
+                                        const Color.fromRGBO(113, 114, 117, 1),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : SizedBox(),
+                SizedBox(height: 25.h),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Tiket',
+                      stationProv.pulangPergi ? 'Tiket Keberangkatan' : 'Tiket',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
-                    Text(
-                      '$quantityAdult x Rp. $price',
-                      style: GoogleFonts.openSans(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          height: 30.h,
+                          child: Text(
+                            '$quantityAdult x Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price!}',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
-              ),
-              SizedBox(height: 17.h),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
+                SizedBox(height: 17.h),
+                stationProv.pulangPergi
+                    ? Padding(
+                        padding: EdgeInsets.only(bottom: 17.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Tiket Pulang',
+                              style: GoogleFonts.openSans(
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '$quantityAdult x Rp.${returnProv.returns[returnProv.selectedDepartIndex as int].price!}',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : SizedBox(),
+                Container(
                   width: 400.w,
                   height: 1.h,
                   color: Colors.black,
                 ),
-              ),
-              SizedBox(height: 17.h),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                child: Column(
+                SizedBox(height: 17.h),
+                Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +302,9 @@ class _FacturPageState extends State<FacturPage> {
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          'Rp. $totalHarga',
+                          stationProv.pulangPergi
+                              ? 'Rp.${quantityAdult * ((returnProv.returns[returnProv.selectedDepartIndex as int].price!) + (departureProv.departure[departureProv.selectedDepartIndex as int].price!))}'
+                              : 'Rp. ${(departureProv.departure[departureProv.selectedDepartIndex as int].price!) * quantityAdult}',
                           style: GoogleFonts.openSans(
                               fontSize: 14.sp, fontWeight: FontWeight.w600),
                         ),
@@ -101,11 +312,8 @@ class _FacturPageState extends State<FacturPage> {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 17.h),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                child: Row(
+                SizedBox(height: 17.h),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -120,39 +328,41 @@ class _FacturPageState extends State<FacturPage> {
                     )
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 96.h,
-              ),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MainPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(252, 40),
-                      backgroundColor: const Color(0XFF0080FF), // Ukuran tombol
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            5), // Sudut melengkung dengan jari-jari 5
+                SizedBox(
+                  height: 40.h,
+                ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(252, 40),
+                        backgroundColor:
+                            const Color(0XFF0080FF), // Ukuran tombol
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              5), // Sudut melengkung dengan jari-jari 5
+                        ),
+                        padding: const EdgeInsets.fromLTRB(
+                            24, 0, 24, 0) // Warna latar belakang biru
+                        ),
+                    child: Text(
+                      'Cek Pesanan',
+                      style: GoogleFonts.openSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white, // Warna teks putih
                       ),
-                      padding: const EdgeInsets.fromLTRB(
-                          24, 0, 24, 0) // Warna latar belakang biru
-                      ),
-                  child: Text(
-                    'Cek Pesanan',
-                    style: GoogleFonts.openSans(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white, // Warna teks putih
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

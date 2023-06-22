@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'package:capstone_project_tripease/features_kai/view/ka_page/not_found_station.dart';
+import 'package:capstone_project_tripease/features_kai/view/ka_page/widgets/history_search.dart';
+import 'package:capstone_project_tripease/features_kai/view/ka_page/widgets/not_found_station.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -293,8 +294,7 @@ class _SearchPageState extends State<SearchPage> {
                           )
                     : const Padding(
                         padding: EdgeInsets.all(20),
-                        child: Text(
-                            "Station Popular gada datanya dr BE, klo mau hardCode nunggu realDatanya diinput stelah testing"),
+                        child: HistorySearch(),
                       )
               ],
             ),

@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../view_model/order_ticket/order_train_provider.dart';
 import '../../view_model/order_ticket/response_order_train_provider.dart';
+import '../../view_model/station/departure_provider.dart';
+import '../../view_model/station/return_provider.dart';
+import '../../view_model/station/station_provider.dart';
 import '../invoice_page/factur_page.dart';
 
 class PaymentStatus extends StatefulWidget {
@@ -35,6 +39,11 @@ class _PaymentStatusState extends State<PaymentStatus> {
 
   @override
   Widget build(BuildContext context) {
+    final postOrderProv =
+        Provider.of<PostOrderTrainProvider>(context, listen: false);
+    final returnProv = Provider.of<ReturnProvider>(context, listen: false);
+    final stationProv = Provider.of<StationProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF0080FF),
@@ -45,12 +54,9 @@ class _PaymentStatusState extends State<PaymentStatus> {
         ),
         centerTitle: true,
       ),
-      body: Consumer<ResponseOrderTrainProvider>(
-        builder: (context, responseProv, child) {
-          int infant = responseProv.dataOrder.quantityInfant ?? 0;
-          int adult = responseProv.dataOrder.quantityAdult!;
-          int price = responseProv.dataOrder.train!.trainPrice!;
-          int totalHarga = adult * price;
+      body: Consumer<DepartureProvider>(
+        builder: (context, departureProv, child) {
+          int quantityAdult = postOrderProv.getQuantityAdult;
 
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +80,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                     SizedBox(
                       width: 100.w,
                       child: Text(
-                        '${responseProv.dataOrder.train!.name}',
+                        '${departureProv.departure[departureProv.selectedDepartIndex as int].name}',
                         style: GoogleFonts.openSans(
                             fontSize: 14.sp, fontWeight: FontWeight.w400),
                       ),
@@ -82,27 +88,31 @@ class _PaymentStatusState extends State<PaymentStatus> {
                   ],
                 ),
               ),
-              // payment status,
-              //// stationProv.pulangPergi ?
-              // Center(
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       const Icon(Icons.train),
-              //       SizedBox(width: 10.w),
-              //       SizedBox(
-              //         width: 100.w,
-              //         child: Text(
-              //           '${responseProv.dataOrder.train!.name}',
-              //           style: GoogleFonts.openSans(
-              //               fontSize: 14.sp, fontWeight: FontWeight.w400),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-
               SizedBox(height: 20.h),
+              // payment status,
+              stationProv.pulangPergi
+                  ? Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 20.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.train),
+                            SizedBox(width: 10.w),
+                            SizedBox(
+                              width: 100.w,
+                              child: Text(
+                                '${returnProv.returns[returnProv.selectedDepartIndex as int].name}',
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : SizedBox(),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +122,7 @@ class _PaymentStatusState extends State<PaymentStatus> {
                     SizedBox(
                       width: 100.w,
                       child: Text(
-                        '${(adult + infant).toString()} Orang',
+                        '${(quantityAdult).toString()} Orang',
                         style: GoogleFonts.openSans(
                             fontSize: 14.sp, fontWeight: FontWeight.w400),
                       ),
@@ -130,7 +140,9 @@ class _PaymentStatusState extends State<PaymentStatus> {
                     SizedBox(
                       width: 100.w,
                       child: Text(
-                        'Rp. ${(totalHarga)}',
+                        stationProv.pulangPergi
+                            ? 'Rp.${quantityAdult * ((returnProv.returns[returnProv.selectedDepartIndex as int].price!) + (departureProv.departure[departureProv.selectedDepartIndex as int].price!))}'
+                            : 'Rp. ${(departureProv.departure[departureProv.selectedDepartIndex as int].price!) * quantityAdult}',
                         style: GoogleFonts.openSans(
                             fontSize: 14.sp, fontWeight: FontWeight.w400),
                       ),

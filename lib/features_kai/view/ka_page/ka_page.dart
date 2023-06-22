@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'not_found_station.dart';
+import 'widgets/not_found_station.dart';
 import '../../view_model/station/departure_provider.dart';
 import '../../view_model/station/station_provider.dart';
 import '../train_schedule/departure_schedule.dart';
