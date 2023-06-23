@@ -1,4 +1,3 @@
-
 import 'package:capstone_project_tripease/features_order/view_model/provider/hotel/hotel_order_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -215,41 +214,39 @@ class OrderCanccel extends StatelessWidget {
                       height: 100.h,
                       child: Padding(
                         padding: EdgeInsets.all(20.0.w),
-                        child: Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Metode Pembayaran',
-                                style: GoogleFonts.openSans(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: mainBlue,
-                                ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Metode Pembayaran',
+                              style: GoogleFonts.openSans(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: mainBlue,
                               ),
-                              SizedBox(height: 10.h),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      orderDetail.getTypePayment ?? '',
-                                      style: GoogleFonts.openSans(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                            ),
+                            SizedBox(height: 10.h),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    orderDetail.getTypePayment ?? '',
+                                    style: GoogleFonts.openSans(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    SizedBox(
-                                      width: 30.w,
-                                      child: Image.network(
-                                          orderDetail.getImagePayment ?? ''),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(
+                                    width: 30.w,
+                                    child: Image.network(
+                                        orderDetail.getImagePayment ?? ''),
+                                  )
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

@@ -8,13 +8,13 @@ class TrainOrderDetailApi {
   var baseUrl = 'https://api.tripease.my.id/api/v1/user/order/ticket/detail';
 
   Future<dynamic> fetchOrderTrainTicketDetail(
-      int ticketOrderId, int trainId) async {
+      int? ticketOrderId, int? trainId) async {
     final response = await dio.get(baseUrl,
         options: Options(headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODc0MzAyMTQsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.1bWUs6o4MWmkvG7_2BzxxVh4X2F36I-vHL0eQ5xrRes'
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2ODc1NzU5MjUsInJvbGUiOiJ1c2VyIiwidXNlcklkIjo2fQ.DgywxP8D7pO6w8AzP2yXuOh_I624nhxHX_ntc5GYFyw'
         }),
         queryParameters: {
           'ticket_order_id': ticketOrderId,

@@ -19,7 +19,7 @@ import '../widgets/bottom_sheet/sort_hotel.dart';
 import '../widgets/hotel.dart';
 
 class PesananScreen extends StatefulWidget {
-  const PesananScreen({Key? key}) : super(key: key);
+  const PesananScreen({super.key});
 
   @override
   State<PesananScreen> createState() => _PesananScreenState();
@@ -83,7 +83,7 @@ class _PesananScreenState extends State<PesananScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    ScreenUtil.init(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

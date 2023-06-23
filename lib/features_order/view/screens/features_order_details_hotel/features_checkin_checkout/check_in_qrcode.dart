@@ -123,7 +123,7 @@ class _CheckInQrcodeState extends State<CheckInQrcode> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const PesananScreen(),
+                    builder: (context) => PesananScreen(),
                   ),
                 );
               },

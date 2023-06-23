@@ -4,16 +4,16 @@ import 'package:capstone_project_tripease/features_order/model/train/train_order
 import '../../../apis/train/train_order_search_api.dart';
 
 class TrainSearchProvider with ChangeNotifier {
-  TrainOrderSearch _trainOrderSearch = TrainOrderSearch();
+  final TrainOrderSearch _trainOrderSearch = TrainOrderSearch();
   TrainOrderModel? _trainOrderModel;
-  String? _searchKeyword;
+  String? searchKeyword;
   bool _isLoading = false;
 
   TrainOrderModel? get trainOrderModel => _trainOrderModel;
   bool get isLoading => _isLoading;
 
-  Future<void> searchTrainByName(String keyword) async {
-    _searchKeyword = keyword;
+  Future<void> searchTrainByName(String? keyword) async {
+    searchKeyword = keyword;
     _isLoading = true;
     notifyListeners();
 

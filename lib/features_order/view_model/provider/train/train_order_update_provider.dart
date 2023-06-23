@@ -11,13 +11,13 @@ class StatusOrderTrainUpdateProvider with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  Future<void> updateOrderStatus(int ticketOrderId, String status) async {
+  Future<void> updateOrderStatus(int? ticketOrderId, String? status) async {
     try {
       _isLoading = true;
       notifyListeners();
 
       final TrainOrderModel response =
-          await _api.updateOrderStatus(ticketOrderId, status);
+          await _api.updateOrderStatus(ticketOrderId!, status!);
 
       print(response.data);
 

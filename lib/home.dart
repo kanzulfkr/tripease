@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 1;
-  final List _screens = [
+  final List<Widget> _screens = [
     const BerandaScreen(),
     const PesananScreen(),
     const ProfileScreen(),

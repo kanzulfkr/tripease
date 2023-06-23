@@ -535,7 +535,7 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                                                         ).then((value) {
                                                           orderProvider
                                                               .updateOrderStatus(
-                                                                  hotelOrderId!,
+                                                                  hotelOrderId,
                                                                   status);
                                                           _tabController
                                                               ?.animateTo(4);

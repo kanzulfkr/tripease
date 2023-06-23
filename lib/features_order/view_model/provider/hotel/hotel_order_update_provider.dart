@@ -8,13 +8,13 @@ class StatusOrderHotelUpdateProvider with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  Future<void> updateOrderStatus(int hotelOrderId, String status) async {
+  Future<void> updateOrderStatus(int? hotelOrderId, String? status) async {
     try {
       _isLoading = true;
       notifyListeners();
 
       final HotelOrderModel response =
-          await _api.updateOrderStatus(hotelOrderId, status);
+          await _api.updateOrderStatus(hotelOrderId!, status!);
 
       print(response.data);
 

@@ -19,7 +19,7 @@ class _CheckOutSplashState extends State<CheckOutSplash> {
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const PesananScreen()),
+        MaterialPageRoute(builder: (context) => PesananScreen()),
       ),
     );
     super.initState();

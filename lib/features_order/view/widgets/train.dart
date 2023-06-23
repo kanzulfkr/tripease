@@ -513,7 +513,7 @@ class _KeretaApiState extends State<KeretaApi>
                                                           ).then((value) {
                                                             orderProvider
                                                                 .updateOrderStatus(
-                                                                    ticketOrderId!,
+                                                                    ticketOrderId,
                                                                     status);
                                                             _tabController
                                                                 ?.animateTo(4);

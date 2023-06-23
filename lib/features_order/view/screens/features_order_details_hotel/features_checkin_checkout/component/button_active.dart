@@ -4,14 +4,10 @@ class ButtonActive extends StatelessWidget {
   const ButtonActive({
     super.key,
     required this.text,
-    // required this.colorText,
-    // required this.colorButton,
     required this.onTap,
   });
 
   final String text;
-  // final Color colorText;
-  // final Color colorButton;
   final VoidCallback onTap;
 
   @override

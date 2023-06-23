@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TabProvider extends ChangeNotifier {
-  int _activeTabIndex = 0;
+  int? _activeTabIndex;
 
-  int get activeTabIndex => _activeTabIndex;
+  int? get activeTabIndex => _activeTabIndex;
 
-  void setActiveTabIndex(int index) {
-    _activeTabIndex = index;
+  void setActiveTabIndex(int? index) {
+    _activeTabIndex = index!;
   }
 
   @override

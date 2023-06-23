@@ -34,7 +34,9 @@ class MainApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CountdownProvider(
-            DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch,
+            DateTime.now()
+                .add(const Duration(hours: 1))
+                .millisecondsSinceEpoch,
           ),
         ),
         ChangeNotifierProvider(
