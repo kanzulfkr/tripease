@@ -28,7 +28,7 @@ class _HistorySearchState extends State<HistorySearch> {
               fontSize: 14.sp, fontWeight: FontWeight.w700, color: Colors.grey),
         ),
         Container(
-          height: 280.h,
+          height: 230.h,
           width: double.maxFinite,
           margin: EdgeInsets.only(top: 10.h),
           decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class _HistorySearchState extends State<HistorySearch> {
             ],
           ),
           child: ListView.builder(
-            itemCount: historyStationProv.histories.length,
+            itemCount: 4,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
@@ -71,11 +71,11 @@ class _HistorySearchState extends State<HistorySearch> {
                   } else {
                     print('Destination');
                     stationProv.setIdDestination(historyStationProv
-                        .histories[index].stationDestination!.stationId);
+                        .histories[index].stationOrigin!.stationId);
                     stationProv.setNameDestination(historyStationProv
-                        .histories[index].stationDestination!.name);
+                        .histories[index].stationOrigin!.name);
                     stationProv.setInitialDestination(historyStationProv
-                        .histories[index].stationDestination!.initial);
+                        .histories[index].stationOrigin!.initial);
                     print('id : ${stationProv.getIdDestination}');
                     print('Name :${stationProv.getNameDestination}');
                     print('init : ${stationProv.getInitialDestination}');

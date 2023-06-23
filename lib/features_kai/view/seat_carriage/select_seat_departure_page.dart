@@ -35,20 +35,20 @@ class _SelectSeatDepartureCarriageState
   @override
   void initState() {
     super.initState();
-    final carriageProv =
-        Provider.of<CarriageDepartureProvider>(context, listen: false);
+    // final carriageProv =
+    // Provider.of<CarriageDepartureProvider>(context, listen: false);
     final timerProv = Provider.of<TimerSeatProvider>(context, listen: false);
-    final departureProv =
-        Provider.of<DepartureProvider>(context, listen: false);
-    Future.microtask(() async {
-      await carriageProv.fetchCarriageDeparture(
-        trainId: departureProv
-            .departure[departureProv.selectedDepartIndex as int].trainId as int,
-        trainClass: departureProv
-            .departure[departureProv.selectedDepartIndex as int].datumClass,
-      );
-      debugPrint('prov: ${carriageProv.carriage.length}');
-    });
+    // final departureProv =
+    //     Provider.of<DepartureProvider>(context, listen: false);
+    // Future.microtask(() async {
+    //   await carriageProv.fetchCarriageDeparture(
+    //     trainId: departureProv
+    //         .departure[departureProv.selectedDepartIndex as int].trainId as int,
+    //     trainClass: departureProv
+    //         .departure[departureProv.selectedDepartIndex as int].datumClass,
+    //   );
+    //   debugPrint('prov: ${carriageProv.carriage.length}');
+    // });
 
     timerProv.stopCountDown();
     timerProv.startCountDown(context);

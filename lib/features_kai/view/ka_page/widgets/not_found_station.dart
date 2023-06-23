@@ -15,7 +15,7 @@ class NotFoundStation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 20.h, bottom: 12.h),
+          margin: EdgeInsets.only(top: 50.h, bottom: 12.h),
           child: Image.asset(
             'assets/images/not-found.png',
             height: 196,

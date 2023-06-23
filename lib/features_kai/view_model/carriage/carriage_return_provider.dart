@@ -19,8 +19,6 @@ class CarriageReturnProvider with ChangeNotifier {
   List<Seat> _seatE = [];
   List<Seat> get seatE => _seatE;
 
-  // String trainClass = 'ekonomi';
-
   int? _selectedTabIndex = 0;
   int? get selectedTabIndex => _selectedTabIndex;
 
@@ -43,10 +41,8 @@ class CarriageReturnProvider with ChangeNotifier {
       if (_carriage[_selectedTabIndex as int].seat != null) {
         List<Seat> seats = _carriage[_selectedTabIndex as int]
             .seat!
-            .map((seat) => Seat(
-                  id: seat.id,
-                  name: seat.name,
-                ))
+            .map((seat) =>
+                Seat(id: seat.id, name: seat.name, available: seat.available))
             .toList();
         _seatA = seats.where((seat) => seat.name!.startsWith('A')).toList();
         _seatB = seats.where((seat) => seat.name!.startsWith('B')).toList();
@@ -92,11 +88,10 @@ class CarriageReturnProvider with ChangeNotifier {
       page: page,
       limit: limit,
     );
-    print(response.data?[0].name);
 
     _carriage = response.data!;
     updateSeatLists();
-
+    print(_seatA[0].available);
     notifyListeners();
   }
 }

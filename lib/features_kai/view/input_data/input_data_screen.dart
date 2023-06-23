@@ -846,7 +846,11 @@ class _InputDataKaiState extends State<InputDataKai> {
                                                               .selectedDepartIndex
                                                           as int]
                                                       .datumClass,
+                                                  date: departureProv
+                                                      .departureDateParams,
                                                 );
+                                                print(departureProv
+                                                    .departureDateParams);
                                                 if (context.mounted) {
                                                   Navigator.push(
                                                     context,
@@ -1027,7 +1031,7 @@ class _InputDataKaiState extends State<InputDataKai> {
                     SizedBox(height: 30.h),
                     Center(
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           final selectedSeatsDepartureProv =
                               Provider.of<SelectedSeatsDepartureProvider>(
                                   context,
@@ -1051,17 +1055,36 @@ class _InputDataKaiState extends State<InputDataKai> {
                             if (stationProv.pulangPergi == false) {
                               if (selectedSeatsDepartureProv
                                   .selectedSeats.isEmpty) {
-                                print('seats departure masi kosong');
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                          content: Center(
+                                    child: Text(
+                                        'Harap pilih seats keberangkatan anda!'),
+                                  )));
+                                }
                               } else {
                                 showCustomAlertDialog(context);
                               }
                             } else if (stationProv.pulangPergi == true) {
                               if (selectedSeatsDepartureProv
                                   .selectedSeats.isEmpty) {
-                                print('seats departure masi kosong');
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                          content: Center(
+                                    child: Text(
+                                        'Harap pilih seats keberangkatan anda!'),
+                                  )));
+                                }
                               } else if (selectedSeatsReturnProv
                                   .selectedSeats.isEmpty) {
-                                print('seats return masi kosong');
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Harap pilih seats pulang anda!')));
+                                }
                               } else {
                                 showCustomAlertDialog(context);
                               }

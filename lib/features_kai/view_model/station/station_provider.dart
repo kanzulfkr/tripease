@@ -8,18 +8,12 @@ enum GetStationStatus { empty, loading, success, error }
 
 class StationProvider extends ChangeNotifier {
   bool loading = false;
-  List<dynamic> _allStation = [];
+  List<dynamic> _searchStation = [];
 
-  List<dynamic> get allStation => _allStation;
+  List<dynamic> get allStation => _searchStation;
 
   TextEditingController asalController = TextEditingController();
   TextEditingController tujuanController = TextEditingController();
-
-  Future<void> getSearchStation() async {
-    var response = await StationApi().getAllStation();
-    _allStation = response.data['data'];
-    notifyListeners();
-  }
 
   List<Datum> _station = [];
   List<Datum> get station => _station;
@@ -61,6 +55,12 @@ class StationProvider extends ChangeNotifier {
 
   bool _pulangPergi = false;
   bool get pulangPergi => _pulangPergi;
+
+  Future<void> getSearchStation() async {
+    var response = await StationApi().getAllStation();
+    _searchStation = response.data['data'];
+    notifyListeners();
+  }
 
   Future<void> getStation() async {
     _getStationStatus = GetStationStatus.loading;

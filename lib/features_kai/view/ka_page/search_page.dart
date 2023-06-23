@@ -2,6 +2,7 @@
 
 import 'package:capstone_project_tripease/features_kai/view/ka_page/widgets/history_search.dart';
 import 'package:capstone_project_tripease/features_kai/view/ka_page/widgets/not_found_station.dart';
+import 'package:capstone_project_tripease/features_kai/view/ka_page/widgets/popular_station.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/history_station_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class _SearchPageState extends State<SearchPage> {
         Provider.of<HistoryStationProvider>(context, listen: false);
     historyStationProv.fetchHistoryStation();
     stationProv.getSearchStation();
+    stationProv.getStation();
     foundStation = allStation;
     super.initState();
   }
@@ -126,16 +128,39 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: ListView(
         children: [
-          Container(
-            width: double.maxFinite,
-            height: 700.h,
-            color: Colors.grey.shade100,
-            child: ListView(
-              children: [
-                _searchController.text.isNotEmpty
-                    ? foundStation.isNotEmpty
-                        ? SizedBox(
-                            height: 500.h,
+          _searchController.text.isNotEmpty
+              ? foundStation.isNotEmpty
+                  ? Padding(
+                      padding: EdgeInsets.all(20.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Berhasil ditemukan ${foundStation.length} stasiun.',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.grey),
+                          ),
+                          Container(
+                            height: (60 * foundStation.length).h,
+                            width: double.maxFinite,
+                            margin: EdgeInsets.symmetric(vertical: 20.h),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.horizontal(
+                                left: Radius.circular(8),
+                                right: Radius.circular(8),
+                              ),
+                              color: const Color(0xF9FAFBFB),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
                             child: ListView.builder(
                               itemCount: foundStation.length,
                               itemBuilder: (context, index) {
@@ -179,16 +204,9 @@ class _SearchPageState extends State<SearchPage> {
                                     }
                                   },
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 20.w,
-                                            right: 20.w,
-                                            top: 15.h,
-                                            bottom: 15.h),
-                                        child: Column(
+                                      ListTile(
+                                        title: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
@@ -245,17 +263,23 @@ class _SearchPageState extends State<SearchPage> {
                                 );
                               },
                             ),
-                          )
-                        : NotFoundStation(
-                            value: _searchController.text,
-                          )
-                    : Padding(
-                        padding: EdgeInsets.all(20.w),
-                        child: HistorySearch(isOrigin: widget.isOrigin),
+                          ),
+                        ],
                       ),
-              ],
-            ),
-          ),
+                    )
+                  : NotFoundStation(
+                      value: _searchController.text,
+                    )
+              : Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    children: [
+                      PopularStation(isOrigin: widget.isOrigin),
+                      SizedBox(height: 40.h),
+                      HistorySearch(isOrigin: widget.isOrigin),
+                    ],
+                  ),
+                ),
         ],
       ),
     );

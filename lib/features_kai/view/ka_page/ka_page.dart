@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'widgets/not_found_station.dart';
 import '../../view_model/station/departure_provider.dart';
 import '../../view_model/station/station_provider.dart';
 import '../train_schedule/departure_schedule.dart';
@@ -59,9 +58,7 @@ class _KaPageState extends State<KaPage> {
   TextEditingController dewasaController = TextEditingController();
   TextEditingController anakAnakController = TextEditingController();
   TextEditingController jenisKAController = TextEditingController();
-  TextEditingController _searchController = TextEditingController();
 
-  // String? selectedValue;
   DateTime today = DateTime.now();
   DateTime arrivalDated = DateTime.now();
   DateTime returnDated = DateTime.now();
@@ -75,6 +72,7 @@ class _KaPageState extends State<KaPage> {
     final departureProvider =
         Provider.of<DepartureProvider>(context, listen: false);
     departureProvider.setDepartureDate(arrivalDated);
+    departureProvider.setDepartureDateParams(arrivalDated);
   }
 
   void returnDay() {
@@ -83,13 +81,7 @@ class _KaPageState extends State<KaPage> {
     final departureProvider =
         Provider.of<DepartureProvider>(context, listen: false);
     departureProvider.setReturnDate(returnDated);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Future.microtask(() =>
-    //     Provider.of<StationProvider>(context, listen: false).getStation());
+    departureProvider.setReturnDateParams(returnDated);
   }
 
   void _switchValue() {
@@ -313,146 +305,70 @@ class _KaPageState extends State<KaPage> {
                           children: [
                             Consumer<StationProvider>(
                               builder: (context, stationProvider, child) {
-                                return stationProvider.pulangPergi == false
-                                    ? Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Tanggal Keberangkatan',
-                                            style: GoogleFonts.openSans(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600),
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Tanggal Keberangkatan',
+                                      style: GoogleFonts.openSans(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 8.h),
+                                      width: 177.w,
+                                      child: TextFormField(
+                                        maxLines: 1,
+                                        readOnly: true,
+                                        controller: tglPergiController,
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: GoogleFonts.openSans(
+                                            fontSize: 14.sp.sp,
+                                            color: Colors.black),
+                                        decoration: InputDecoration(
+                                          hintText: 'Pilih Tanggal',
+                                          hintStyle: GoogleFonts.openSans(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: const Color(0x96989C9C),
                                           ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 8.h),
-                                            width: 177.w,
-                                            child: TextFormField(
-                                              maxLines: 1,
-                                              readOnly: true,
-                                              controller: tglPergiController,
-                                              autovalidateMode: AutovalidateMode
-                                                  .onUserInteraction,
-                                              style: GoogleFonts.openSans(
-                                                  fontSize: 14.sp.sp,
-                                                  color: Colors.black),
-                                              decoration: InputDecoration(
-                                                hintText: 'Pilih Tanggal',
-                                                hintStyle: GoogleFonts.openSans(
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0x96989C9C),
-                                                ),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 16.w,
-                                                        vertical: 10.h),
-                                                border: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 1,
-                                                      color: Color.fromRGBO(
-                                                          210, 215, 224, 1)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.r),
-                                                ),
-                                                suffixIcon: SizedBox(
-                                                  width: 48.w,
-                                                  height: 48.h,
-                                                  child: const Icon(
-                                                    Icons.calendar_month,
-                                                    color: Color.fromARGB(
-                                                        167, 118, 122, 122),
-                                                  ),
-                                                ),
-                                              ),
-                                              onChanged: (value) {
-                                                postOrder.setArrivalTime(value);
-                                              },
-                                              onTap: () {
-                                                _arrivalDateBottomSheet();
-                                              },
-                                              validator: (value) {
-                                                if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'Harap diisi';
-                                                }
-                                                return null;
-                                              },
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Tanggal Keberangkatan',
-                                            style: GoogleFonts.openSans(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 16.w, vertical: 10.h),
+                                          border: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 1,
+                                                color: Color.fromRGBO(
+                                                    210, 215, 224, 1)),
+                                            borderRadius:
+                                                BorderRadius.circular(8.r),
                                           ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 8.h),
-                                            width: 177.w,
-                                            child: TextFormField(
-                                              maxLines: 1,
-                                              readOnly: true,
-                                              controller: tglPergiController,
-                                              autovalidateMode: AutovalidateMode
-                                                  .onUserInteraction,
-                                              style: GoogleFonts.openSans(
-                                                  fontSize: 14.sp.sp,
-                                                  color: Colors.black),
-                                              decoration: InputDecoration(
-                                                hintText: 'Pilih Tanggal',
-                                                hintStyle: GoogleFonts.openSans(
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0x96989C9C),
-                                                ),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 16.w,
-                                                        vertical: 10.h),
-                                                border: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 1,
-                                                      color: Color.fromRGBO(
-                                                          210, 215, 224, 1)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.r),
-                                                ),
-                                                suffixIcon: SizedBox(
-                                                  width: 48.w,
-                                                  height: 48.h,
-                                                  child: const Icon(
-                                                    Icons.calendar_month,
-                                                    color: Color.fromARGB(
-                                                        167, 118, 122, 122),
-                                                  ),
-                                                ),
-                                              ),
-                                              onChanged: (value) {
-                                                postOrder.setArrivalTime(value);
-                                              },
-                                              onTap: () {
-                                                _arrivalDateBottomSheet();
-                                              },
-                                              validator: (value) {
-                                                if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'Harap diisi';
-                                                }
-                                                return null;
-                                              },
+                                          suffixIcon: SizedBox(
+                                            width: 48.w,
+                                            height: 48.h,
+                                            child: const Icon(
+                                              Icons.calendar_month,
+                                              color: Color.fromARGB(
+                                                  167, 118, 122, 122),
                                             ),
                                           ),
-                                          Column(
+                                        ),
+                                        onChanged: (value) {
+                                          postOrder.setArrivalTime(value);
+                                        },
+                                        onTap: () {
+                                          _arrivalDateBottomSheet();
+                                        },
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Harap diisi';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    stationProvider.pulangPergi == true
+                                        ? Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
@@ -537,9 +453,10 @@ class _KaPageState extends State<KaPage> {
                                                 ),
                                               ),
                                             ],
-                                          ),
-                                        ],
-                                      );
+                                          )
+                                        : const SizedBox(),
+                                  ],
+                                );
                               },
                             ),
                             Column(
@@ -791,6 +708,7 @@ class _KaPageState extends State<KaPage> {
                                         trainClass: trainClass,
                                       );
                                     }
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -830,327 +748,6 @@ class _KaPageState extends State<KaPage> {
         ),
       );
     });
-  }
-
-  Future<dynamic> _showCariBottomSheet(
-      BuildContext context, StationProvider stationProvider) {
-    return showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: const Color(0xF9FAFBFB),
-      builder: (context) {
-        final searchResult =
-            stationProvider.searchStation(stationProvider.query);
-        return FractionallySizedBox(
-          heightFactor: 0.9.h,
-          child: ListView(
-            children: [
-              Container(
-                height: 45.h,
-                margin: EdgeInsets.all(20.w),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xD2D7E0E0),
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xF9FAFBFB),
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Cari kota atau stasiun',
-                    hintStyle: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0x96989C9C),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: const Color(0X96989C9C),
-                      size: 20.sp,
-                    ),
-                    suffixIcon: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.close,
-                        color: const Color(0X96989C9C),
-                        size: 20.sp,
-                      ),
-                    ),
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (value) {
-                    stationProvider.updateSearchQuery(value);
-                  },
-                ),
-              ),
-              _searchController.text == ''
-                  ? NotFoundStation(
-                      value: _searchController.text,
-                    )
-                  : Expanded(
-                      child: Container(
-                        height: 300,
-                        width: double.maxFinite,
-                        margin: EdgeInsets.only(top: 10.h),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(8),
-                            right: Radius.circular(8),
-                          ),
-                          color: const Color(0xF9FAFBFB),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: searchResult.length,
-                          itemBuilder: (context, index) {
-                            final station = searchResult[index];
-                            return Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    stationProvider
-                                        .setIdOrigin(station.stationId);
-                                    stationProvider.setNameOrigin(station.name);
-                                    stationProvider
-                                        .setInitialOrigin(station.initial);
-                                    debugPrint(station.stationId.toString());
-                                    asalController.text =
-                                        '${station.name}(${station.initial})';
-                                    Navigator.pop(context);
-                                  },
-                                  child: ListTile(
-                                    title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              station.initial.toString(),
-                                              style: GoogleFonts.openSans(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            SizedBox(width: 8.h),
-                                            Container(
-                                              width: 5,
-                                              height: 5,
-                                              decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            SizedBox(width: 8.h),
-                                            Text(
-                                              station.origin.toString(),
-                                              style: GoogleFonts.openSans(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 4.h),
-                                        Text(
-                                          station.name.toString(),
-                                          style: GoogleFonts.openSans(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Divider(
-                                  height: 4.h,
-                                  thickness: 1,
-                                  color: Colors.grey,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Future<dynamic> _showCariBottomSheet2(
-      BuildContext context, StationProvider stationProvider) {
-    return showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: const Color(0xF9FAFBFB),
-      builder: (context) {
-        final searchResult =
-            stationProvider.searchStation(stationProvider.query);
-        return FractionallySizedBox(
-          heightFactor: 0.9.h,
-          child: ListView(
-            children: [
-              Container(
-                height: 45.h,
-                margin: EdgeInsets.all(20.w),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xD2D7E0E0),
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xF9FAFBFB),
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Cari kota atau stasiun',
-                    hintStyle: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0x96989C9C),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: const Color(0X96989C9C),
-                      size: 20.sp,
-                    ),
-                    suffixIcon: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.close,
-                        color: const Color(0X96989C9C),
-                        size: 20.sp,
-                      ),
-                    ),
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (value) {
-                    stationProvider.updateSearchQuery(value);
-                  },
-                ),
-              ),
-              _searchController.text == ''
-                  ? NotFoundStation(value: _searchController.text)
-                  : Expanded(
-                      child: Container(
-                        height: 300,
-                        width: double.maxFinite,
-                        margin: EdgeInsets.only(top: 10.h),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(8),
-                            right: Radius.circular(8),
-                          ),
-                          color: const Color(0xF9FAFBFB),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: searchResult.length,
-                          itemBuilder: (context, index) {
-                            final station = searchResult[index];
-                            return Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    stationProvider
-                                        .setIdDestination(station.stationId);
-                                    stationProvider
-                                        .setNameDestination(station.name);
-                                    stationProvider
-                                        .setInitialDestination(station.initial);
-                                    debugPrint(station.stationId.toString());
-                                    tujuanController.text =
-                                        '${station.name}(${station.initial})';
-                                    Navigator.pop(context);
-                                  },
-                                  child: ListTile(
-                                    title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              station.initial.toString(),
-                                              style: GoogleFonts.openSans(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            SizedBox(width: 8.h),
-                                            Container(
-                                              width: 5,
-                                              height: 5,
-                                              decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            SizedBox(width: 8.h),
-                                            Text(
-                                              station.origin.toString(),
-                                              style: GoogleFonts.openSans(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 4.h),
-                                        Text(
-                                          station.name.toString(),
-                                          style: GoogleFonts.openSans(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Divider(
-                                  height: 4.h,
-                                  thickness: 1,
-                                  color: Colors.grey,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-            ],
-          ),
-        );
-      },
-    );
   }
 
   void _arrivalDateBottomSheet() {

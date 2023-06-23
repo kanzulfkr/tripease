@@ -144,40 +144,44 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                       return InkWell(
                                         onTap: () {
                                           selectedSeatsProvider.selectedSeats;
-                                          if (isSeatSelected) {
-                                            selectedSeatsProvider
-                                                .deselectSeat(item.id);
-                                          } else {
-                                            selectedSeatsProvider
-                                                .selectSeat(item.id);
+                                          if (item.available == false) {
+                                            print('kursi sudah dibooking');
+                                          } else if (item.available == true) {
+                                            if (isSeatSelected) {
+                                              selectedSeatsProvider
+                                                  .deselectSeat(item.id);
+                                            } else {
+                                              selectedSeatsProvider
+                                                  .selectSeat(item.id);
+                                            }
+                                            carriageProvider
+                                                .setTrainSeatId(item.id);
+                                            print(
+                                                'Kursi berangkat : ${item.id}');
                                           }
-
-                                          carriageProvider
-                                              .setTrainSeatId(item.id);
-
-                                          print('Kursi berangkat : ${item.id}');
                                         },
                                         child: Container(
                                           height: 25.h,
                                           width: 25.w,
                                           margin: EdgeInsets.only(bottom: 8.h),
                                           decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey.shade400,
-                                                blurRadius: 4,
-                                                spreadRadius: 0,
-                                                offset: Offset.zero,
-                                              ),
-                                            ],
-                                            border: Border.all(
-                                                color: Colors.black38),
-                                            borderRadius:
-                                                BorderRadius.circular(8.r),
-                                            color: isSeatSelected
-                                                ? Colors.blue
-                                                : color,
-                                          ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.shade400,
+                                                  blurRadius: 4,
+                                                  spreadRadius: 0,
+                                                  offset: Offset.zero,
+                                                ),
+                                              ],
+                                              border: Border.all(
+                                                  color: Colors.black38),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
+                                              color: item.available == true
+                                                  ? isSeatSelected
+                                                      ? Colors.blue
+                                                      : color
+                                                  : Colors.red),
                                         ),
                                       );
                                     },
@@ -217,17 +221,20 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                     return InkWell(
                                       onTap: () {
                                         selectedSeatsProvider.selectedSeats;
-                                        if (isSeatSelected) {
-                                          selectedSeatsProvider
-                                              .deselectSeat(item.id);
-                                        } else {
-                                          selectedSeatsProvider
-                                              .selectSeat(item.id);
+                                        if (item.available == false) {
+                                          print('kursi sudah dibooking');
+                                        } else if (item.available == true) {
+                                          if (isSeatSelected) {
+                                            selectedSeatsProvider
+                                                .deselectSeat(item.id);
+                                          } else {
+                                            selectedSeatsProvider
+                                                .selectSeat(item.id);
+                                          }
+                                          carriageProvider
+                                              .setTrainSeatId(item.id);
+                                          print('Kursi berangkat : ${item.id}');
                                         }
-
-                                        carriageProvider
-                                            .setTrainSeatId(item.id);
-                                        print('Kursi berangkat : ${item.id}');
                                       },
                                       child: Container(
                                         height: 25.h,
@@ -246,7 +253,11 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                               Border.all(color: Colors.black38),
                                           borderRadius:
                                               BorderRadius.circular(8.r),
-                                          color: color,
+                                          color: item.available == true
+                                              ? isSeatSelected
+                                                  ? Colors.blue
+                                                  : color
+                                              : Colors.red,
                                         ),
                                       ),
                                     );
@@ -298,17 +309,21 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                       return InkWell(
                                         onTap: () {
                                           selectedSeatsProvider.selectedSeats;
-                                          if (isSeatSelected) {
-                                            selectedSeatsProvider
-                                                .deselectSeat(item.id);
-                                          } else {
-                                            selectedSeatsProvider
-                                                .selectSeat(item.id);
+                                          if (item.available == false) {
+                                            print('kursi sudah dibooking');
+                                          } else if (item.available == true) {
+                                            if (isSeatSelected) {
+                                              selectedSeatsProvider
+                                                  .deselectSeat(item.id);
+                                            } else {
+                                              selectedSeatsProvider
+                                                  .selectSeat(item.id);
+                                            }
+                                            carriageProvider
+                                                .setTrainSeatId(item.id);
+                                            print(
+                                                'Kursi berangkat : ${item.id}');
                                           }
-
-                                          carriageProvider
-                                              .setTrainSeatId(item.id);
-                                          print('Kursi berangkat : ${item.id}');
                                         },
                                         child: Container(
                                           height: 25.h,
@@ -327,7 +342,11 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                                 color: Colors.black38),
                                             borderRadius:
                                                 BorderRadius.circular(8.r),
-                                            color: color,
+                                            color: item.available == true
+                                                ? isSeatSelected
+                                                    ? Colors.blue
+                                                    : color
+                                                : Colors.red,
                                           ),
                                         ),
                                       );
@@ -368,17 +387,20 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                     return InkWell(
                                       onTap: () {
                                         selectedSeatsProvider.selectedSeats;
-                                        if (isSeatSelected) {
-                                          selectedSeatsProvider
-                                              .deselectSeat(item.id);
-                                        } else {
-                                          selectedSeatsProvider
-                                              .selectSeat(item.id);
+                                        if (item.available == false) {
+                                          print('kursi sudah dibooking');
+                                        } else if (item.available == true) {
+                                          if (isSeatSelected) {
+                                            selectedSeatsProvider
+                                                .deselectSeat(item.id);
+                                          } else {
+                                            selectedSeatsProvider
+                                                .selectSeat(item.id);
+                                          }
+                                          carriageProvider
+                                              .setTrainSeatId(item.id);
+                                          print('Kursi berangkat : ${item.id}');
                                         }
-
-                                        carriageProvider
-                                            .setTrainSeatId(item.id);
-                                        print('Kursi berangkat : ${item.id}');
                                       },
                                       child: Container(
                                         height: 25.h,
@@ -397,7 +419,11 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                               Border.all(color: Colors.black38),
                                           borderRadius:
                                               BorderRadius.circular(8),
-                                          color: color,
+                                          color: item.available == true
+                                              ? isSeatSelected
+                                                  ? Colors.blue
+                                                  : color
+                                              : Colors.red,
                                         ),
                                       ),
                                     );
@@ -448,18 +474,23 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                               onTap: () {
                                                 selectedSeatsProvider
                                                     .selectedSeats;
-                                                if (isSeatSelected) {
-                                                  selectedSeatsProvider
-                                                      .deselectSeat(item.id);
-                                                } else {
-                                                  selectedSeatsProvider
-                                                      .selectSeat(item.id);
+                                                if (item.available == false) {
+                                                  print(
+                                                      'kursi sudah dibooking');
+                                                } else if (item.available ==
+                                                    true) {
+                                                  if (isSeatSelected) {
+                                                    selectedSeatsProvider
+                                                        .deselectSeat(item.id);
+                                                  } else {
+                                                    selectedSeatsProvider
+                                                        .selectSeat(item.id);
+                                                  }
+                                                  carriageProvider
+                                                      .setTrainSeatId(item.id);
+                                                  print(
+                                                      'Kursi berangkat : ${item.id}');
                                                 }
-
-                                                carriageProvider
-                                                    .setTrainSeatId(item.id);
-                                                print(
-                                                    'Kursi berangkat : ${item.id}');
                                               },
                                               child: Container(
                                                 height: 25.h,
@@ -481,7 +512,11 @@ class _DepartureCarriagePageState extends State<DepartureCarriagePage> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           8.r),
-                                                  color: color,
+                                                  color: item.available == true
+                                                      ? isSeatSelected
+                                                          ? Colors.blue
+                                                          : color
+                                                      : Colors.red,
                                                 ),
                                               ),
                                             );

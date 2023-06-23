@@ -141,18 +141,20 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                       return InkWell(
                                         onTap: () {
                                           selectedSeatsProvider.selectedSeats;
-                                          if (isSeatSelected) {
-                                            selectedSeatsProvider
-                                                .deselectSeat(item.id);
-                                          } else {
-                                            selectedSeatsProvider
-                                                .selectSeat(item.id);
+                                          if (item.available == false) {
+                                            print('kursi sudah dibooking');
+                                          } else if (item.available == true) {
+                                            if (isSeatSelected) {
+                                              selectedSeatsProvider
+                                                  .deselectSeat(item.id);
+                                            } else {
+                                              selectedSeatsProvider
+                                                  .selectSeat(item.id);
+                                            }
+                                            carriageProvider
+                                                .setTrainSeatId(item.id);
+                                            print('Kursi pulang : ${item.id}');
                                           }
-
-                                          carriageProvider
-                                              .setTrainSeatId(item.id);
-
-                                          print('Kursi pulang : ${item.id}');
                                         },
                                         child: Container(
                                           height: 25.h,
@@ -171,9 +173,11 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                                 color: Colors.black38),
                                             borderRadius:
                                                 BorderRadius.circular(8.r),
-                                            color: isSeatSelected
-                                                ? Colors.blue
-                                                : color,
+                                            color: item.available == true
+                                                ? isSeatSelected
+                                                    ? Colors.blue
+                                                    : color
+                                                : Colors.red,
                                           ),
                                         ),
                                       );
@@ -194,16 +198,15 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                             width: 25.w,
                             margin: EdgeInsets.only(top: paddingTopClassB!.h),
                             child: Consumer<CarriageReturnProvider>(
-                              builder: (context, carriageReturnProv, child) {
+                              builder: (context, carriageProvider, child) {
                                 return ListView.builder(
-                                  itemCount: carriageReturnProv.seatB.length,
+                                  itemCount: carriageProvider.seatB.length,
                                   itemBuilder: (context, index) {
-                                    final selectedSeatsReturnProv = Provider.of<
+                                    final selectedSeatsProvider = Provider.of<
                                         SelectedSeatsReturnProvider>(context);
                                     final selectedSeats =
-                                        selectedSeatsReturnProv.selectedSeats;
-                                    final item =
-                                        carriageReturnProv.seatB[index];
+                                        selectedSeatsProvider.selectedSeats;
+                                    final item = carriageProvider.seatA[index];
                                     final isSeatSelected =
                                         selectedSeats.contains(item.id);
 
@@ -213,18 +216,21 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
 
                                     return InkWell(
                                       onTap: () {
-                                        selectedSeatsReturnProv.selectedSeats;
-                                        if (isSeatSelected) {
-                                          selectedSeatsReturnProv
-                                              .deselectSeat(item.id);
-                                        } else {
-                                          selectedSeatsReturnProv
-                                              .selectSeat(item.id);
+                                        selectedSeatsProvider.selectedSeats;
+                                        if (item.available == false) {
+                                          print('kursi sudah dibooking');
+                                        } else if (item.available == true) {
+                                          if (isSeatSelected) {
+                                            selectedSeatsProvider
+                                                .deselectSeat(item.id);
+                                          } else {
+                                            selectedSeatsProvider
+                                                .selectSeat(item.id);
+                                          }
+                                          carriageProvider
+                                              .setTrainSeatId(item.id);
+                                          print('Kursi pulang : ${item.id}');
                                         }
-
-                                        carriageReturnProv
-                                            .setTrainSeatId(item.id);
-                                        print('Kursi pulang : ${item.id}');
                                       },
                                       child: Container(
                                         height: 25.h,
@@ -243,7 +249,11 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                               Border.all(color: Colors.black38),
                                           borderRadius:
                                               BorderRadius.circular(8.r),
-                                          color: color,
+                                          color: item.available == true
+                                              ? isSeatSelected
+                                                  ? Colors.blue
+                                                  : color
+                                              : Colors.red,
                                         ),
                                       ),
                                     );
@@ -274,17 +284,16 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                               width: 25.w,
                               margin: EdgeInsets.only(top: paddingTopClassC!.h),
                               child: Consumer<CarriageReturnProvider>(
-                                builder: (context, carriageReturnProv, child) {
+                                builder: (context, carriageProvider, child) {
                                   return ListView.builder(
-                                    itemCount: carriageReturnProv.seatC.length,
+                                    itemCount: carriageProvider.seatC.length,
                                     itemBuilder: (context, index) {
-                                      final selectedSeatsReturnProv = Provider
-                                          .of<SelectedSeatsReturnProvider>(
-                                              context);
+                                      final selectedSeatsProvider = Provider.of<
+                                          SelectedSeatsReturnProvider>(context);
                                       final selectedSeats =
-                                          selectedSeatsReturnProv.selectedSeats;
+                                          selectedSeatsProvider.selectedSeats;
                                       final item =
-                                          carriageReturnProv.seatC[index];
+                                          carriageProvider.seatA[index];
                                       final isSeatSelected =
                                           selectedSeats.contains(item.id);
 
@@ -294,18 +303,21 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
 
                                       return InkWell(
                                         onTap: () {
-                                          selectedSeatsReturnProv.selectedSeats;
-                                          if (isSeatSelected) {
-                                            selectedSeatsReturnProv
-                                                .deselectSeat(item.id);
-                                          } else {
-                                            selectedSeatsReturnProv
-                                                .selectSeat(item.id);
+                                          selectedSeatsProvider.selectedSeats;
+                                          if (item.available == false) {
+                                            print('kursi sudah dibooking');
+                                          } else if (item.available == true) {
+                                            if (isSeatSelected) {
+                                              selectedSeatsProvider
+                                                  .deselectSeat(item.id);
+                                            } else {
+                                              selectedSeatsProvider
+                                                  .selectSeat(item.id);
+                                            }
+                                            carriageProvider
+                                                .setTrainSeatId(item.id);
+                                            print('Kursi pulang : ${item.id}');
                                           }
-
-                                          carriageReturnProv
-                                              .setTrainSeatId(item.id);
-                                          print('Kursi pulang : ${item.id}');
                                         },
                                         child: Container(
                                           height: 25.h,
@@ -324,7 +336,11 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                                 color: Colors.black38),
                                             borderRadius:
                                                 BorderRadius.circular(8.r),
-                                            color: color,
+                                            color: item.available == true
+                                                ? isSeatSelected
+                                                    ? Colors.blue
+                                                    : color
+                                                : Colors.red,
                                           ),
                                         ),
                                       );
@@ -345,16 +361,15 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                             width: 25.w,
                             margin: EdgeInsets.only(top: paddingTopClassD!.h),
                             child: Consumer<CarriageReturnProvider>(
-                              builder: (context, carriageReturnProv, child) {
+                              builder: (context, carriageProvider, child) {
                                 return ListView.builder(
-                                  itemCount: carriageReturnProv.seatD.length,
+                                  itemCount: carriageProvider.seatD.length,
                                   itemBuilder: (context, index) {
-                                    final selectedSeatsReturnProv = Provider.of<
+                                    final selectedSeatsProvider = Provider.of<
                                         SelectedSeatsReturnProvider>(context);
                                     final selectedSeats =
-                                        selectedSeatsReturnProv.selectedSeats;
-                                    final item =
-                                        carriageReturnProv.seatD[index];
+                                        selectedSeatsProvider.selectedSeats;
+                                    final item = carriageProvider.seatA[index];
                                     final isSeatSelected =
                                         selectedSeats.contains(item.id);
 
@@ -364,18 +379,21 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
 
                                     return InkWell(
                                       onTap: () {
-                                        selectedSeatsReturnProv.selectedSeats;
-                                        if (isSeatSelected) {
-                                          selectedSeatsReturnProv
-                                              .deselectSeat(item.id);
-                                        } else {
-                                          selectedSeatsReturnProv
-                                              .selectSeat(item.id);
+                                        selectedSeatsProvider.selectedSeats;
+                                        if (item.available == false) {
+                                          print('kursi sudah dibooking');
+                                        } else if (item.available == true) {
+                                          if (isSeatSelected) {
+                                            selectedSeatsProvider
+                                                .deselectSeat(item.id);
+                                          } else {
+                                            selectedSeatsProvider
+                                                .selectSeat(item.id);
+                                          }
+                                          carriageProvider
+                                              .setTrainSeatId(item.id);
+                                          print('Kursi pulang : ${item.id}');
                                         }
-
-                                        carriageReturnProv
-                                            .setTrainSeatId(item.id);
-                                        print('Kursi pulang : ${item.id}');
                                       },
                                       child: Container(
                                         height: 25.h,
@@ -394,7 +412,11 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                               Border.all(color: Colors.black38),
                                           borderRadius:
                                               BorderRadius.circular(8),
-                                          color: color,
+                                          color: item.available == true
+                                              ? isSeatSelected
+                                                  ? Colors.blue
+                                                  : color
+                                              : Colors.red,
                                         ),
                                       ),
                                     );
@@ -421,19 +443,19 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                         top: paddingTopClassE!.h),
                                     child: Consumer<CarriageReturnProvider>(
                                       builder:
-                                          (context, carriageReturnProv, child) {
+                                          (context, carriageProvider, child) {
                                         return ListView.builder(
                                           itemCount:
-                                              carriageReturnProv.seatE.length,
+                                              carriageProvider.seatE.length,
                                           itemBuilder: (context, index) {
-                                            final selectedSeatsReturnProv = Provider
+                                            final selectedSeatsProvider = Provider
                                                 .of<SelectedSeatsReturnProvider>(
                                                     context);
                                             final selectedSeats =
-                                                selectedSeatsReturnProv
+                                                selectedSeatsProvider
                                                     .selectedSeats;
                                             final item =
-                                                carriageReturnProv.seatE[index];
+                                                carriageProvider.seatA[index];
                                             final isSeatSelected =
                                                 selectedSeats.contains(item.id);
 
@@ -443,20 +465,25 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
 
                                             return InkWell(
                                               onTap: () {
-                                                selectedSeatsReturnProv
+                                                selectedSeatsProvider
                                                     .selectedSeats;
-                                                if (isSeatSelected) {
-                                                  selectedSeatsReturnProv
-                                                      .deselectSeat(item.id);
-                                                } else {
-                                                  selectedSeatsReturnProv
-                                                      .selectSeat(item.id);
+                                                if (item.available == false) {
+                                                  print(
+                                                      'kursi sudah dibooking');
+                                                } else if (item.available ==
+                                                    true) {
+                                                  if (isSeatSelected) {
+                                                    selectedSeatsProvider
+                                                        .deselectSeat(item.id);
+                                                  } else {
+                                                    selectedSeatsProvider
+                                                        .selectSeat(item.id);
+                                                  }
+                                                  carriageProvider
+                                                      .setTrainSeatId(item.id);
+                                                  print(
+                                                      'Kursi pulang : ${item.id}');
                                                 }
-
-                                                carriageReturnProv
-                                                    .setTrainSeatId(item.id);
-                                                print(
-                                                    'Kursi pulang : ${item.id}');
                                               },
                                               child: Container(
                                                 height: 25.h,
@@ -478,7 +505,11 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           8.r),
-                                                  color: color,
+                                                  color: item.available == true
+                                                      ? isSeatSelected
+                                                          ? Colors.blue
+                                                          : color
+                                                      : Colors.red,
                                                 ),
                                               ),
                                             );

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:capstone_project_tripease/features_kai/view_model/carriage/carriage_return_provider.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/return_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,14 +35,16 @@ class _SelectSeatReturnCarriageState extends State<SelectSeatReturnCarriage>
     final carriageProv =
         Provider.of<CarriageReturnProvider>(context, listen: false);
     final timerProv = Provider.of<TimerSeatProvider>(context, listen: false);
-    final departureProv = Provider.of<ReturnProvider>(context, listen: false);
+    final returnProv = Provider.of<ReturnProvider>(context, listen: false);
+    final departureProv =
+        Provider.of<DepartureProvider>(context, listen: false);
     Future.microtask(() async {
       await carriageProv.fetchCarriageReturn(
-        trainId: departureProv
-            .returns[departureProv.selectedDepartIndex as int].trainId as int,
-        trainClass: departureProv
-            .returns[departureProv.selectedDepartIndex as int].datumClass,
-      );
+          trainId: returnProv
+              .returns[returnProv.selectedDepartIndex as int].trainId as int,
+          trainClass: returnProv
+              .returns[returnProv.selectedDepartIndex as int].datumClass,
+          date: departureProv.returnDateParams);
       debugPrint('prov: ${carriageProv.carriage.length}');
     });
 

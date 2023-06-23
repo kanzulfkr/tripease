@@ -37,8 +37,14 @@ class DepartureProvider with ChangeNotifier {
   String _departureDate = '';
   String get departureDate => _departureDate;
 
+  String _departureDateParams = '';
+  String get departureDateParams => _departureDateParams;
+
   String _returnDate = '';
   String get returnDate => _returnDate;
+
+  String _returnDateParams = '';
+  String get returnDateParams => _returnDateParams;
 
   DepartureResponseModel? _departureResponse;
 
@@ -141,8 +147,18 @@ class DepartureProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setDepartureDateParams(DateTime date) {
+    _departureDateParams = DateFormat('yyyy-MM-dd', 'id_ID').format(date);
+    notifyListeners();
+  }
+
   void setReturnDate(DateTime date) {
     _returnDate = DateFormat('dd MMMM yyyy', 'id_ID').format(date);
+    notifyListeners();
+  }
+
+  void setReturnDateParams(DateTime date) {
+    _returnDateParams = DateFormat('yyyy-MM-dd', 'id_ID').format(date);
     notifyListeners();
   }
 
