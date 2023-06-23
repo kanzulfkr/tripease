@@ -1,6 +1,8 @@
+import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class NotFoundSchedule extends StatelessWidget {
   const NotFoundSchedule({
@@ -13,6 +15,7 @@ class NotFoundSchedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stationProv = Provider.of<StationProvider>(context, listen: false);
     return SizedBox(
       height: 350.h,
       child: Column(
@@ -28,7 +31,9 @@ class NotFoundSchedule extends StatelessWidget {
             ),
           ),
           Text(
-            "Tidak ditemukan jadwal kereta dari stasiun $value1 ke stasiun $value2 !",
+            stationProv.pulangPergi == false
+                ? "Tidak ditemukan jadwal kereta dari stasiun $value1 ke stasiun $value2 !"
+                : "Tidak ditemukan jadwal kereta dari stasiun $value2 ke stasiun $value1 !",
             style: GoogleFonts.openSans(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w600,

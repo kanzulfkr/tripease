@@ -2,6 +2,7 @@
 
 import 'package:capstone_project_tripease/features_kai/view/ka_page/widgets/history_search.dart';
 import 'package:capstone_project_tripease/features_kai/view/ka_page/widgets/not_found_station.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/history_station_provider.dart';
 import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,6 +33,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     final stationProv = Provider.of<StationProvider>(context, listen: false);
+    final historyStationProv =
+        Provider.of<HistoryStationProvider>(context, listen: false);
+    historyStationProv.fetchHistoryStation();
     stationProv.getSearchStation();
     foundStation = allStation;
     super.initState();
@@ -61,7 +65,9 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
         title: Text(
-          'Pencarian',
+          widget.isOrigin == true
+              ? 'Pencarian Stasiun Asal'
+              : 'Pencarian Stasiun Tujuan',
           style: GoogleFonts.openSans(
               fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
@@ -120,55 +126,6 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: ListView(
         children: [
-          // Container(
-          //   height: 90.h,
-          //   margin: EdgeInsets.only(bottom: 10.h),
-          //   padding: EdgeInsets.all(20.w),
-          //   child: TextFormField(
-          //     autovalidateMode: AutovalidateMode.onUserInteraction,
-          //     controller: _searchController,
-          //     decoration: InputDecoration(
-          //       hintText: 'Cari kota atau stasiun',
-          //       hintStyle: TextStyle(
-          //         fontFamily: 'OpenSans',
-          //         fontSize: 14.sp,
-          //         fontWeight: FontWeight.w400,
-          //         color: const Color(0x96989C9C),
-          //       ),
-          //       prefixIcon: Icon(
-          //         Icons.search,
-          //         color: const Color(0X96989C9C),
-          //         size: 20.sp,
-          //       ),
-          //       suffixIcon: InkWell(
-          //         onTap: () {
-          //           setState(() {
-          //             _searchController.text = '';
-          //           });
-          //         },
-          //         child: Icon(
-          //           Icons.close,
-          //           color: const Color(0X96989C9C),
-          //           size: 20.sp,
-          //         ),
-          //       ),
-          //       border: OutlineInputBorder(
-          //         borderSide: const BorderSide(
-          //             width: 1, color: Color.fromRGBO(210, 215, 224, 1)),
-          //         borderRadius: BorderRadius.circular(8.r),
-          //       ),
-          //     ),
-          //     onTap: () {
-          //       setState(() {
-          //         allStation = stationProv.allStation;
-          //         isTextFieldActive = true;
-          //       });
-          //     },
-          //     onChanged: (value) {
-          //       _runFilter(value);
-          //     },
-          //   ),
-          // ),
           Container(
             width: double.maxFinite,
             height: 700.h,
@@ -292,10 +249,10 @@ class _SearchPageState extends State<SearchPage> {
                         : NotFoundStation(
                             value: _searchController.text,
                           )
-                    : const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: HistorySearch(),
-                      )
+                    : Padding(
+                        padding: EdgeInsets.all(20.w),
+                        child: HistorySearch(isOrigin: widget.isOrigin),
+                      ),
               ],
             ),
           ),
