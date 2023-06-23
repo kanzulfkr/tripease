@@ -94,12 +94,11 @@ class _KeretaApiState extends State<KeretaApi>
     }
   }
 
-  void navigateToDetailPage() {
-    var detailTrain =
-        Provider.of<TrainOrderProvider>(context, listen: false).tabStatusTrain;
+  void navigateToDetailPage(int index) {
+    var detailTrain = Provider.of<TrainOrderProvider>(context, listen: false);
     List<Widget> destinationPages = [];
 
-    switch (detailTrain) {
+    switch (detailTrain.tabStatusTrain) {
       case TabStatusTrain.MENUNGGU:
         destinationPages.add(const OrderKaiPendingPage());
         break;
@@ -116,6 +115,18 @@ class _KeretaApiState extends State<KeretaApi>
         destinationPages.add(const OrderKaiCancelledPage());
         break;
       case TabStatusTrain.SEMUA:
+        if (detailTrain.trainOrder[index].status == 'unpaid') {
+          destinationPages.add(const OrderKaiPendingPage());
+        } else if (detailTrain.trainOrder[index].status == 'paid') {
+          destinationPages.add(const OrderDetailKai());
+        } else if (detailTrain.trainOrder[index].status == 'done') {
+          destinationPages.add(const OrderKaiDonePage());
+        } else if (detailTrain.trainOrder[index].status == 'canceled') {
+          destinationPages.add(const OrderKaiCancelledPage());
+        } else if (detailTrain.trainOrder[index].status == 'refund') {
+          destinationPages.add(const OrderKaiCancelledPage());
+        }
+        break;
       default:
         return;
     }
@@ -262,14 +273,8 @@ class _KeretaApiState extends State<KeretaApi>
                             var trainPrice = trainProvider
                                     .trainOrder[index].train?.trainPrice ??
                                 '';
-                            initializeDateFormatting('id_ID', null);
-                            var numberFormat = NumberFormat.currency(
-                                locale: 'id_ID',
-                                symbol: 'Rp.',
-                                decimalDigits: 0);
-                            String formattedTrainPrice = numberFormat
-                                .format(int.parse(trainPrice.toString()));
-                            orderDetail.setTrainPrice(formattedTrainPrice);
+                            orderDetail.setTrainPrice(trainPrice as int?);
+
                             var createdAt =
                                 trainProvider.trainOrder[index].createdAt ?? '';
                             orderDetail.setCreatedAt(createdAt.toString());
@@ -295,21 +300,21 @@ class _KeretaApiState extends State<KeretaApi>
                             var trainOrderId =
                                 trainProvider.trainOrder[index].ticketOrderId;
                             orderDetail.setTrainOrderId(trainOrderId);
-                            var qualityAdult =
+                            var quantityAdult =
                                 trainProvider.trainOrder[index].quantityAdult ??
                                     '';
                             orderDetail
-                                .setQualityAdult(qualityAdult.toString());
-                            var qualityInfant = trainProvider
+                                .setQuantityAdult(quantityAdult as int?);
+                            var quantityInfant = trainProvider
                                     .trainOrder[index].quantityInfant ??
                                 '';
                             orderDetail
-                                .setQualityInfant(qualityInfant.toString());
+                                .setQuantityInfant(quantityInfant.toString());
                             var nameOrder =
                                 trainProvider.trainOrder[index].nameOrder ?? '';
                             orderDetail.setNameOrder(nameOrder);
 
-                            navigateToDetailPage();
+                            navigateToDetailPage(index);
                           },
                           child: Column(
                             children: [

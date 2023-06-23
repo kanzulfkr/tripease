@@ -473,7 +473,7 @@ class _OrderActiveState extends State<OrderActive> {
                                     bottom: 10.h,
                                   ),
                                   child: Text(
-                                    'Free Wifi, Air Mineral, Snack',
+                                    orderDetail.getHotelFacilities ?? '',
                                     style: GoogleFonts.openSans(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,

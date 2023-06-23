@@ -100,7 +100,7 @@ class OrderSucces extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    orderDetail.getTypePayment ?? '',
+                                    '${orderDetail.getTypePayment} ${orderDetail.getNameBank}',
                                     style: GoogleFonts.openSans(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,

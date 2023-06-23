@@ -184,7 +184,7 @@ class OrderKaiDonePage extends StatelessWidget {
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,
                                       )),
-                                  Text(orderDetail.getTrainPrice ?? '',
+                                  Text('Rp. ${orderDetail.getTrainPrice}',
                                       style: GoogleFonts.openSans(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,

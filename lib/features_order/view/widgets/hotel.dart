@@ -94,12 +94,11 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
     }
   }
 
-  void navigateToDetailPage() {
-    var detailHotel =
-        Provider.of<HotelOrderProvider>(context, listen: false).tabStatusHotel;
+  void navigateToDetailPage(int index) {
+    var detailHotel = Provider.of<HotelOrderProvider>(context, listen: false);
     List<Widget> destinationPages = [];
 
-    switch (detailHotel) {
+    switch (detailHotel.tabStatusHotel) {
       case TabStatusHotel.MENUNGGU:
         destinationPages.add(const OrderPending());
         break;
@@ -116,6 +115,17 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
         destinationPages.add(const OrderCanccel());
         break;
       case TabStatusHotel.SEMUA:
+        if (detailHotel.hotelOrder[index].status == 'unpaid') {
+          destinationPages.add(const OrderPending());
+        } else if (detailHotel.hotelOrder[index].status == 'paid') {
+          destinationPages.add(const OrderActive());
+        } else if (detailHotel.hotelOrder[index].status == 'done') {
+          destinationPages.add(const OrderSucces());
+        } else if (detailHotel.hotelOrder[index].status == 'canceled') {
+          destinationPages.add(const OrderCanccel());
+        } else if (detailHotel.hotelOrder[index].status == 'refund') {
+          destinationPages.add(const OrderCanccel());
+        }
         break;
       default:
     }
@@ -215,6 +225,17 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                               Provider.of<HotelOrderDetailProvider>(context,
                                   listen: false);
 
+                          var nameBank =
+                              hotelProvider.hotelOrder[index].payment?.name ??
+                                  '';
+                          orderDetail.setNameBank(nameBank);
+
+                          var quantityAdult =
+                              hotelProvider.hotelOrder[index].quantityAdult ??
+                                  '';
+                          orderDetail
+                              .setQuantityAdult(quantityAdult.toString());
+
                           var nameHotel =
                               hotelProvider.hotelOrder[index].hotel?.name ?? '';
                           orderDetail.setNameHotel(nameHotel);
@@ -285,12 +306,26 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                               hotelProvider.hotelOrder[index].specialRequest ??
                                   '';
                           orderDetail.setSpecialRequest(specialRequest);
+
+                          // var hotelFacilities = hotelProvider.hotelOrder[index]
+                          //         .hotel?.hotelFacilities?[0].name ??
+                          //     '';
+                          // orderDetail
+                          //     .setHotelFacilities(hotelFacilities.toString());
+
                           var hotelFacilities = hotelProvider
                                   .hotelOrder[index].hotel?.hotelFacilities ??
-                              '';
+                              [];
+                          List<String>? names = [];
 
-                          orderDetail
-                              .setHotelFacilities(hotelFacilities.toString());
+                          if (hotelFacilities.isNotEmpty) {
+                            names = hotelFacilities
+                                .map((facility) => facility.name).cast<String>()
+                                .toList();
+                          }
+
+                          orderDetail.setHotelFacilities(names.join(", "));
+
                           var numberOfGuest = hotelProvider.hotelOrder[index]
                                   .hotel?.hotelRoom?.numberOfGuest ??
                               '';
@@ -342,7 +377,7 @@ class _HotelState extends State<Hotel> with SingleTickerProviderStateMixin {
                               .format(DateTime.parse(updateAt.toString()));
                           orderDetail.setUpdatedAt(formattedUpdateAt);
 
-                          navigateToDetailPage();
+                          navigateToDetailPage(index);
                         },
                         child: Column(
                           children: [

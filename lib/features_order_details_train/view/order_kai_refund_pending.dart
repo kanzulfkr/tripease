@@ -269,12 +269,12 @@ class OrderKaiRefundPendingPage extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                      '${orderDetail.getClassTrain ?? ''} Dewasa x${orderDetail.getQualityAdult ?? ''}, Anak x${orderDetail.getQualityInfant ?? ''}',
+                                      '${orderDetail.getClassTrain ?? ''} Dewasa x${orderDetail.getQuantityAdult ?? ''}, Anak x${orderDetail.getQuantityInfant ?? ''}',
                                       style: GoogleFonts.openSans(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                       )),
-                                  Text(orderDetail.getTrainPrice ?? '',
+                                  Text('${orderDetail.getTrainPrice}',
                                       style: GoogleFonts.openSans(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,

@@ -35,6 +35,12 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
       ),
       body: Consumer<TrainOrderDetailProvider>(
         builder: (context, orderDetail, _) {
+          int trainPrice = int.parse(orderDetail.getTrainPrice.toString());
+          int quantityAdult =
+              int.parse(orderDetail.getQuantityAdult.toString());
+
+          int totalTransfer = trainPrice * quantityAdult;
+
           return Padding(
             padding: EdgeInsets.all(16.sp),
             child: ListView(
@@ -249,13 +255,13 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                                       ),
                                       onEnd: () {
                                         var orderProvider = Provider.of<
-                                                  StatusOrderTrainUpdateProvider>(
-                                              context,
-                                              listen: false);
+                                                StatusOrderTrainUpdateProvider>(
+                                            context,
+                                            listen: false);
 
-                                          int? trainOrderId =
-                                              orderDetail.getTrainOrderId;
-                                          String status = 'canceled';
+                                        int? trainOrderId =
+                                            orderDetail.getTrainOrderId;
+                                        String status = 'canceled';
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
@@ -343,10 +349,12 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                       )),
-                                  Image.network(
-                                      orderDetail.getImagePayment ?? '',
-                                      width: 22.59.w,
-                                      height: 16.h)
+                                  Expanded(
+                                    child: Image.network(
+                                        orderDetail.getImagePayment ?? '',
+                                        width: 22.59.w,
+                                        height: 16.h),
+                                  )
                                 ],
                               ),
                               SizedBox(
@@ -418,12 +426,12 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                  '${orderDetail.getClassTrain ?? ''}, Dewasa x${orderDetail.getQualityAdult ?? ''}, Anak x${orderDetail.getQualityInfant ?? ''}',
+                                  '${orderDetail.getClassTrain ?? ''}, Dewasa x${orderDetail.getQuantityAdult ?? ''}, Anak x${orderDetail.getQuantityInfant ?? ''}',
                                   style: GoogleFonts.openSans(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   )),
-                              Text(orderDetail.getTrainPrice ?? '',
+                              Text('Rp. ${orderDetail.getTrainPrice}',
                                   style: GoogleFonts.openSans(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
@@ -432,39 +440,6 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                           ),
                           SizedBox(
                             height: 8.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Promo',
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  )),
-                              Text('-Rp  5.000',
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ))
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Pajak',
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  )),
-                              Text('Rp  38.924',
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ))
-                            ],
                           ),
                           Divider(
                             color: Colors.grey,
@@ -478,11 +453,13 @@ class _OrderKaiPendingPageState extends State<OrderKaiPendingPage> {
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,
                                   )),
-                              Text('Rp 513.924',
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ))
+                              Text(
+                                'Rp. ${totalTransfer.toStringAsFixed(2)}',
+                                style: GoogleFonts.openSans(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
                             ],
                           ),
                         ],

@@ -42,6 +42,11 @@ class _OrderDetailKaiState extends State<OrderDetailKai> {
       ),
       body: Consumer<TrainOrderDetailProvider>(
         builder: (context, orderDetail, _) {
+          int trainPrice = int.parse(orderDetail.getTrainPrice.toString());
+          int quantityAdult =
+              int.parse(orderDetail.getQuantityAdult.toString());
+
+          int totalTransfer = trainPrice * quantityAdult;
           return Padding(
             padding: EdgeInsets.all(16.sp),
             child: ListView(
@@ -225,7 +230,7 @@ class _OrderDetailKaiState extends State<OrderDetailKai> {
                   height: 12.h,
                 ),
                 SizedBox(
-                    height: 218.h,
+                    height: 140.h,
                     width: 328.w,
                     child: Card(
                         shadowColor: Colors.black.withOpacity(1),
@@ -255,40 +260,19 @@ class _OrderDetailKaiState extends State<OrderDetailKai> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Dewasa x ${orderDetail.getQualityAdult ?? ''}',
+                                    'Dewasa x ${orderDetail.getQuantityAdult ?? ''}',
                                     style: GoogleFonts.openSans(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   Text(
-                                    orderDetail.getTrainPrice ?? '',
+                                    'Rp. ${orderDetail.getTrainPrice}',
                                     style: GoogleFonts.openSans(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                ],
-                              ),
-                              Text('Layanan Tambahan',
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Asuransi x 1',
-                                      style: GoogleFonts.openSans(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  Text('Rp 5.000',
-                                      style: GoogleFonts.openSans(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ))
                                 ],
                               ),
                               Text('Metode Pembayaran',
@@ -327,7 +311,8 @@ class _OrderDetailKaiState extends State<OrderDetailKai> {
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,
                                       )),
-                                  Text('Rp 455.000',
+                                  Text(
+                                      'Rp. ${totalTransfer.toStringAsFixed(2)}',
                                       style: GoogleFonts.openSans(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,

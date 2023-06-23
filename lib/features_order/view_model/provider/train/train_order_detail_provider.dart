@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -16,13 +18,13 @@ class TrainOrderDetailProvider with ChangeNotifier {
   String? typePayment;
   String? namePayment;
   String? imagePayment;
-  String? trainPrice;
+  int? trainPrice;
   String? createdAt;
   String? updatedAt;
   String? accountName;
   String? accountNumber;
-  String? qualityAdult;
-  String? qualityInfant;
+  int? quantityAdult;
+  String? quantityInfant;
   String? totalAmount;
   String? nameOrder;
   String? emailOrder;
@@ -48,13 +50,13 @@ class TrainOrderDetailProvider with ChangeNotifier {
   String? get getTypePayment => typePayment;
   String? get getNamePayment => namePayment;
   String? get getImagePayment => imagePayment;
-  String? get getTrainPrice => trainPrice;
+  int? get getTrainPrice => trainPrice;
   String? get getCreatedAt => createdAt;
   String? get getUpdatedAt => updatedAt;
   String? get getAccountName => accountName;
   String? get getAccountNumber => accountNumber;
-  String? get getQualityAdult => qualityAdult;
-  String? get getQualityInfant => qualityInfant;
+  int? get getQuantityAdult => quantityAdult;
+  String? get getQuantityInfant => quantityInfant;
   String? get getTotalAmount => totalAmount;
 
   Future<void> setNameTrain(String? name) async {
@@ -129,7 +131,7 @@ class TrainOrderDetailProvider with ChangeNotifier {
     imagePayment = image;
     notifyListeners();
   }
-  Future<void> setTrainPrice(String? price) async {
+  Future<void> setTrainPrice(int? price) async {
     trainPrice = price;
     notifyListeners();
   }
@@ -149,12 +151,12 @@ class TrainOrderDetailProvider with ChangeNotifier {
     accountNumber = accountNu;
     notifyListeners();
   }
-  Future<void> setQualityAdult(String? qualityA) async {
-    qualityAdult = qualityA;
+  Future<void> setQuantityAdult(int? qualityA) async {
+    quantityAdult = qualityA;
     notifyListeners();
   }
-  Future<void> setQualityInfant(String? qualityI) async {
-    qualityInfant = qualityI;
+  Future<void> setQuantityInfant(String? qualityI) async {
+    quantityInfant = qualityI;
     notifyListeners();
   }
 
@@ -186,4 +188,31 @@ class TrainOrderDetailProvider with ChangeNotifier {
   //     print(error);
   //   }
   // }
+  TrainOrderDetailProvider({
+    this.nameTrain,
+    this.classTrain,
+    this.ticketOrderCode,
+    this.stationOrigin,
+    this.stationDestination,
+    this.depatureTime,
+    this.arriveTime,
+    this.dateTime,
+    this.typePayment,
+    this.namePayment,
+    this.imagePayment,
+    this.trainPrice,
+    this.createdAt,
+    this.updatedAt,
+    this.accountName,
+    this.accountNumber,
+    this.quantityAdult,
+    this.quantityInfant,
+    this.totalAmount,
+    this.nameOrder,
+    this.emailOrder,
+    this.idNumber,
+    this.trainCarriage,
+    this.trainSeat,
+    this.trainOrderId,
+  });
 }

@@ -437,14 +437,14 @@ class _OrderPendingState extends State<OrderPending> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "(x1) Standard Room (1 malam)",
+                                  "(x${orderDetail.getQuantityAdult}) ${orderDetail.getNameRoomHotel} (${orderDetail.getNumberOfNight} malam)",
                                   style: GoogleFonts.openSans(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 Text(
-                                  "Rp  480.000",
+                                  orderDetail.getPriceHotel ?? '',
                                   style: GoogleFonts.openSans(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
@@ -464,27 +464,7 @@ class _OrderPendingState extends State<OrderPending> {
                                   ),
                                 ),
                                 Text(
-                                  "-Rp  5.000",
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 8.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Pajak",
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                Text(
-                                  "Rp  38.924",
+                                  orderDetail.getDiscountPrice ?? '',
                                   style: GoogleFonts.openSans(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
@@ -506,7 +486,7 @@ class _OrderPendingState extends State<OrderPending> {
                                   ),
                                 ),
                                 Text(
-                                  "Rp  513.924",
+                                  orderDetail.getTotalAmount ?? '',
                                   style: GoogleFonts.openSans(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,

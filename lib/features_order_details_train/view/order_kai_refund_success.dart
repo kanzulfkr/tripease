@@ -225,8 +225,7 @@ class OrderKaiRefundSuccessPage extends StatelessWidget {
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                       )),
-                                  Image.asset(
-                                      orderDetail.getImagePayment ?? '',
+                                  Image.asset(orderDetail.getImagePayment ?? '',
                                       width: 22.59.w, height: 16.h)
                                 ],
                               ),
@@ -261,12 +260,13 @@ class OrderKaiRefundSuccessPage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('${orderDetail.getClassTrain ?? ''} Dewasa x${orderDetail.getQualityAdult ?? ''}, Anak x${orderDetail.getQualityInfant ?? ''}',
+                                  Text(
+                                      '${orderDetail.getClassTrain ?? ''} Dewasa x${orderDetail.getQuantityAdult ?? ''}, Anak x${orderDetail.getQuantityInfant ?? ''}',
                                       style: GoogleFonts.openSans(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                       )),
-                                  Text(orderDetail.getTrainPrice ?? '',
+                                  Text('${orderDetail.getTrainPrice}',
                                       style: GoogleFonts.openSans(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
