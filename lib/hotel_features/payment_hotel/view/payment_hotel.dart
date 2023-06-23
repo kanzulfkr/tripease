@@ -10,7 +10,7 @@ import '../../detail_kamar/viewmodel/hotel_room_detail_provider.dart';
 import '../../hotel_home/model/hotel_home_model.dart';
 import '../../hotel_home/viewmodel/search_hotel_provider.dart';
 import '../../input_guest/viewmodel/input_guest_provider.dart';
-import '../../list_hotel/model/list_hotel_model.dart';
+
 import '../../payment_result/view/minimarket_result.dart';
 import '../../payment_result/view/payment_result.dart';
 import '../../payment_result/view/va_result.dart';
@@ -45,6 +45,7 @@ class _PaymentPageHotelState extends State<PaymentPageHotel> {
   Datum? selectedVirtualAccountOption;
   Datum? selectedMinimarketOption;
   late Timer _timer;
+  bool isLanjut = false;
   int _secondsRemaining = 300;
   // String? getVirtualAccountOptionTitle() {
   //   if (paymentMethod == 'Virtual Account' &&
@@ -79,6 +80,8 @@ class _PaymentPageHotelState extends State<PaymentPageHotel> {
         setState(() {
           _secondsRemaining--;
         });
+      } else if(_secondsRemaining > 0 && isLanjut == true){
+        timer.cancel();
       } else {
         timer.cancel();
         showPopup();
@@ -767,7 +770,7 @@ class _PaymentPageHotelState extends State<PaymentPageHotel> {
                           Container(
                             padding:
                                 EdgeInsets.fromLTRB(16.sp, 8.sp, 16.sp, 8.sp),
-                            child: Column(
+                            child: const Column(
                               children: [
                                 // Container(
                                 //   padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
@@ -808,8 +811,10 @@ class _PaymentPageHotelState extends State<PaymentPageHotel> {
           child: SizedBox(
             height: 56.0,
             child: ElevatedButton(
-              onPressed:
-                  paymentMethod != null ? navigateToPaymentResultPage : null,
+              onPressed:() {
+                isLanjut = true;
+                paymentMethod != null ? navigateToPaymentResultPage : null;}
+                  ,
               style: ElevatedButton.styleFrom(
                 backgroundColor:
                     paymentMethod != null ? Colors.blue : Colors.grey,
