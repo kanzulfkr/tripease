@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../detail_hotel/model/detail_hotel_model.dart';
 import '../../list_hotel/model/list_hotel_model.dart';
@@ -33,7 +34,7 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_secondsRemaining > 0) {
         setState(() {
           _secondsRemaining--;
@@ -51,11 +52,11 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Waktu Pembayaran Habis'),
-          content: Text('Silakan kembali ke halaman sebelumnya.'),
+          title: const Text('Waktu Pembayaran Habis'),
+          content: const Text('Silakan kembali ke halaman sebelumnya.'),
           actions: [
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.pop(context); // Close the dialog
                 Navigator.pop(context); // Go back to the previous page
@@ -79,55 +80,53 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pembayaran'),
+        title: const Text('Pembayaran'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 32,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Waktu Pembayaran',
-                          style: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                            letterSpacing: 0.04,
-                          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Waktu Pembayaran',
+                        style: TextStyle(
+                          fontFamily: 'Open Sans',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          letterSpacing: 0.04,
                         ),
-                        Text(
-                          formatTime(_secondsRemaining),
-                          style: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                            letterSpacing: 0.04,
-                          ),
+                      ),
+                      Text(
+                        formatTime(_secondsRemaining),
+                        style: const TextStyle(
+                          fontFamily: 'Open Sans',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          letterSpacing: 0.04,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
                   Container(
                     width: 280,
-                    padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
                       border: Border.all(color: Colors.grey),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
                         // Container(
                         //   child: Image.asset(
@@ -136,43 +135,41 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
                         // ),
                         SizedBox(width: 12),
                         Expanded(
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Text(
-                                //   widget.paymentMethod.subtitle,
-                                //   style: TextStyle(
-                                //     fontFamily: 'Open Sans',
-                                //     fontWeight: FontWeight.w400,
-                                //     fontSize: 10,
-                                //     letterSpacing: 0.15,
-                                //   ),
-                                // ),
-                                SizedBox(
-                                  height: 2,
-                                ),
-                                // Text(
-                                //   widget.room.total,
-                                //   style: TextStyle(
-                                //     fontFamily: 'Open Sans',
-                                //     fontWeight: FontWeight.w400,
-                                //     fontSize: 14,
-                                //     letterSpacing: 0.04,
-                                //   ),
-                                // ),
-                              ],
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Text(
+                              //   widget.paymentMethod.subtitle,
+                              //   style: TextStyle(
+                              //     fontFamily: 'Open Sans',
+                              //     fontWeight: FontWeight.w400,
+                              //     fontSize: 10,
+                              //     letterSpacing: 0.15,
+                              //   ),
+                              // ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              // Text(
+                              //   widget.room.total,
+                              //   style: TextStyle(
+                              //     fontFamily: 'Open Sans',
+                              //     fontWeight: FontWeight.w400,
+                              //     fontSize: 14,
+                              //     letterSpacing: 0.04,
+                              //   ),
+                              // ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   ExpansionTile(
-                    title: Text(
+                    title: const Text(
                       'Cara Pembayaran',
                       style: TextStyle(
                         fontFamily: 'Open Sans',
@@ -183,7 +180,7 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
                     ),
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                         // child: Column(
                         //   children: [
                         //     for (final howTo in widget.paymentMethod.howTo)
@@ -212,7 +209,7 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
                       )
                     ],
                   ),
-                  DividerTheme(
+                  const DividerTheme(
                     data: DividerThemeData(
                       color: Colors.black, // Set the color to black
                       thickness:
@@ -228,9 +225,9 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 20.0),
-          child: Container(
-            height: 56.0,
+          padding: EdgeInsets.fromLTRB(16.0.sp, 20.0.sp, 16.0.sp, 20.0.sp),
+          child: SizedBox(
+            height: 56.0.h,
             child: ElevatedButton(
               onPressed: () {
                 // Navigator.push(
@@ -246,7 +243,7 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
               },
               child: Text(
                 'Bayar',
-                style: TextStyle(fontSize: 18.0),
+                style: TextStyle(fontSize: 18.0.sp),
               ),
             ),
           ),

@@ -138,19 +138,20 @@ class _FakturHotelState extends State<FakturHotel> {
                                   SizedBox(
                                     height: 7.h,
                                   ),
-                                  const Row(
-                                    children: [
-                                      Icon(Icons.star,
-                                          size: 16, color: Colors.yellow),
-                                      Icon(Icons.star,
-                                          size: 16, color: Colors.yellow),
-                                      Icon(Icons.star,
-                                          size: 16, color: Colors.yellow),
-                                      Icon(Icons.star,
-                                          size: 16, color: Colors.yellow),
-                                      Icon(Icons.star,
-                                          size: 16, color: Colors.yellow),
-                                    ],
+                                  RatingBarIndicator(
+                                    itemBuilder: (context, index) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    rating: patchOrderProv
+                                            .data.hotel?.hotelClass
+                                            ?.toDouble() ??
+                                        0.0,
+                                    itemCount:
+                                        patchOrderProv.data.hotel?.hotelClass ??
+                                            0,
+                                    itemSize: 12.0,
+                                    direction: Axis.horizontal,
                                   ),
                                   SizedBox(
                                     height: 6.h,

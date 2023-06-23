@@ -21,6 +21,7 @@ class VirtualAccountPage extends StatefulWidget {
 class VirtualAccountPageState extends State<VirtualAccountPage> {
   late Timer _timer;
   int _secondsRemaining = 600;
+  bool isBayar = false;
 
   @override
   void initState() {
@@ -49,6 +50,8 @@ class VirtualAccountPageState extends State<VirtualAccountPage> {
         setState(() {
           _secondsRemaining--;
         });
+      } else if (_secondsRemaining > 0 && isBayar == true) {
+        timer.cancel();
       } else {
         timer.cancel();
         showPopup();
@@ -255,7 +258,7 @@ class VirtualAccountPageState extends State<VirtualAccountPage> {
 
                 await patchOrder.patchOrderHotel(
                     orderProv.data.hotelOrderId as int, "paid");
-
+                isBayar = true;
                 await Future.delayed(const Duration(seconds: 2), () {
                   Navigator.push(
                     context,
