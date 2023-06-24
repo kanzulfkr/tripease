@@ -51,13 +51,8 @@ class _SplashScreenState extends State<SplashScreen> {
             Image.asset(
               'assets/images/Logo.png',
               width: 100.w,
-              height: 115.38.h,
+              height: 148.38.h,
             ),
-            Text(
-              'Tripease',
-              style: GoogleFonts.openSans(
-                  fontSize: 24.sp, fontWeight: FontWeight.w600),
-            )
           ],
         ),
       ),

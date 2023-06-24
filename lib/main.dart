@@ -6,6 +6,7 @@ import 'features_kai/view_model/order_ticket/payment_provider.dart';
 import 'features_kai/view_model/order_ticket/response_order_train_provider.dart';
 import 'features_kai/view_model/station/history_station_provider.dart';
 import 'features_kai/view_model/timer/time_payment_provider.dart';
+import 'features_kai/view_model/timer/timer_seat_provider.dart';
 import 'features_kai/view_model/train/train_provider.dart';
 import 'features_onboard/view/splash.dart';
 import 'features_onboard/view_model/register_provider.dart';
@@ -73,118 +74,110 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 800),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MultiProvider(
-            providers: [
-              ChangeNotifierProvider<SearchProvider>(
-                  create: (context) => SearchProvider()),
-              ChangeNotifierProvider<AddressProvider>(
-                  create: (context) => AddressProvider()),
-              ChangeNotifierProvider<DetailHotelProvider>(
-                  create: (context) => DetailHotelProvider()),
-              ChangeNotifierProvider<DetailHotelRoomProvider>(
-                  create: (context) => DetailHotelRoomProvider()),
-              ChangeNotifierProvider<InputGuestProvider>(
-                  create: (context) => InputGuestProvider()),
-              ChangeNotifierProvider(
-                  create: (context) => PaymentHotelProvider()),
-              ChangeNotifierProvider<DetailPaymentProvider>(
-                  create: (context) => DetailPaymentProvider()),
-              ChangeNotifierProvider<OrderProviderHotel>(
-                  create: (context) => OrderProviderHotel()),
-              ChangeNotifierProvider<PatchOrderProvider>(
-                  create: (context) => PatchOrderProvider()),
-              ChangeNotifierProvider(create: (_) => LoginProvider()),
-              ChangeNotifierProvider(create: (_) => RegisterProvider()),
-              ChangeNotifierProvider(create: (_) => UserProfileProvider()),
-              ChangeNotifierProvider(create: (_) => ArticleProvider()),
-              ChangeNotifierProvider(create: (context) => HotelSeenProvider()),
-              ChangeNotifierProvider(
-                  create: (context) => HotelRecommendProvider()),
-              // select seat
-              ChangeNotifierProvider(
-                  create: (_) => SelectedSeatsDepartureProvider()),
-              ChangeNotifierProvider(
-                  create: (_) => SelectedSeatsReturnProvider()),
-              // station,shedule
-              ChangeNotifierProvider(create: (_) => StationProvider()),
-              ChangeNotifierProvider(create: (_) => DepartureProvider()),
-              ChangeNotifierProvider(create: (_) => ReturnProvider()),
-              ChangeNotifierProvider(create: (_) => HistoryStationProvider()),
-              // order
-              ChangeNotifierProvider(create: (_) => PostOrderTrainProvider()),
-              ChangeNotifierProvider(
-                  create: (_) => ResponseOrderTrainProvider()),
-              ChangeNotifierProvider(create: (_) => PatchTrainProvider()),
-              // carriage
-              ChangeNotifierProvider(
-                  create: (_) => CarriageDepartureProvider()),
-              ChangeNotifierProvider(create: (_) => CarriageReturnProvider()),
-              // train
-              ChangeNotifierProvider(create: (_) => TrainProvider()),
-              // payment
-              ChangeNotifierProvider(create: (_) => PaymentProvider()),
-              // timer
-              ChangeNotifierProvider(create: (_) => TimerPaymentProvider()),
-              ChangeNotifierProvider(
-                create: (context) => TabProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => CountdownProvider(
-                  DateTime.now()
-                      .add(const Duration(hours: 1))
-                      .millisecondsSinceEpoch,
-                ),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => TrainSearchProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => TrainOrderProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => TrainOrderDetailProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => HotelOrderProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => HotelOrderDetailProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => StatusOrderHotelUpdateProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => StatusOrderTrainUpdateProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => TrainSearchProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => TrainOrderFilterProvider(),
-              ),
-              ChangeNotifierProvider(create: (context) => NavBarProvider())
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<SearchProvider>(
+              create: (context) => SearchProvider()),
+          ChangeNotifierProvider<AddressProvider>(
+              create: (context) => AddressProvider()),
+          ChangeNotifierProvider<DetailHotelProvider>(
+              create: (context) => DetailHotelProvider()),
+          ChangeNotifierProvider<DetailHotelRoomProvider>(
+              create: (context) => DetailHotelRoomProvider()),
+          ChangeNotifierProvider<InputGuestProvider>(
+              create: (context) => InputGuestProvider()),
+          ChangeNotifierProvider(create: (context) => PaymentHotelProvider()),
+          ChangeNotifierProvider<DetailPaymentProvider>(
+              create: (context) => DetailPaymentProvider()),
+          ChangeNotifierProvider<OrderProviderHotel>(
+              create: (context) => OrderProviderHotel()),
+          ChangeNotifierProvider<PatchOrderProvider>(
+              create: (context) => PatchOrderProvider()),
+          ChangeNotifierProvider(create: (_) => LoginProvider()),
+          ChangeNotifierProvider(create: (_) => RegisterProvider()),
+          ChangeNotifierProvider(create: (_) => UserProfileProvider()),
+          ChangeNotifierProvider(create: (_) => ArticleProvider()),
+          ChangeNotifierProvider(create: (context) => HotelSeenProvider()),
+          ChangeNotifierProvider(create: (context) => HotelRecommendProvider()),
+          // select seat
+          ChangeNotifierProvider(
+              create: (_) => SelectedSeatsDepartureProvider()),
+          ChangeNotifierProvider(create: (_) => SelectedSeatsReturnProvider()),
+          // station,shedule
+          ChangeNotifierProvider(create: (_) => StationProvider()),
+          ChangeNotifierProvider(create: (_) => DepartureProvider()),
+          ChangeNotifierProvider(create: (_) => ReturnProvider()),
+          ChangeNotifierProvider(create: (_) => HistoryStationProvider()),
+          // order
+          ChangeNotifierProvider(create: (_) => PostOrderTrainProvider()),
+          ChangeNotifierProvider(create: (_) => ResponseOrderTrainProvider()),
+          ChangeNotifierProvider(create: (_) => PatchTrainProvider()),
+          // carriage
+          ChangeNotifierProvider(create: (_) => CarriageDepartureProvider()),
+          ChangeNotifierProvider(create: (_) => CarriageReturnProvider()),
+          // train
+          ChangeNotifierProvider(create: (_) => TrainProvider()),
+          // payment
+          ChangeNotifierProvider(create: (_) => PaymentProvider()),
+          // timer
+          ChangeNotifierProvider(create: (_) => TimerPaymentProvider()),
+          ChangeNotifierProvider(create: (_) => TimerSeatProvider()),
+          ChangeNotifierProvider(
+            create: (context) => TabProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CountdownProvider(
+              DateTime.now()
+                  .add(const Duration(hours: 1))
+                  .millisecondsSinceEpoch,
+            ),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TrainSearchProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TrainOrderProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TrainOrderDetailProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => HotelOrderProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => HotelOrderDetailProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => StatusOrderHotelUpdateProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => StatusOrderTrainUpdateProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TrainSearchProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TrainOrderFilterProvider(),
+          ),
+          ChangeNotifierProvider(create: (context) => NavBarProvider())
+        ],
+        child: ScreenUtilInit(
+          designSize: const Size(360, 800),
+          builder: (BuildContext context, Widget? widget) => MaterialApp(
+            supportedLocales: const [
+              Locale('id', 'ID'),
             ],
-            child: MaterialApp(
-              supportedLocales: const [
-                Locale('id', 'ID'),
-              ],
-              localizationsDelegates: const [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: const SplashScreen(),
-            ));
-      },
-    );
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: const SplashScreen(),
+          ),
+        ));
   }
 }

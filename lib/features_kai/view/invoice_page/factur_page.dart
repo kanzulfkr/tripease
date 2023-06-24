@@ -35,8 +35,8 @@ class _FacturPageState extends State<FacturPage> {
         backgroundColor: const Color(0XFF0080FF),
         title: Text(
           'Faktur',
-          style: GoogleFonts.openSans(
-              fontSize: 16.sp, fontWeight: FontWeight.w600),
+          style:
+              GoogleFonts.openSans(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -46,19 +46,19 @@ class _FacturPageState extends State<FacturPage> {
 
           // int price
           return Padding(
-            padding: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
+            padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
             child: ListView(
               children: [
                 Text(
                   'No. ${responseProv.dataOrder.ticketOrderCode}',
                   style: GoogleFonts.openSans(
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 const TicketBooking(),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 stationProv.pulangPergi
                     ? Container(
                         height: 160.h,
@@ -99,15 +99,15 @@ class _FacturPageState extends State<FacturPage> {
                                           returnProv.selectedDepartIndex as int]
                                       .name
                                       .toString(),
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
+                                  style: const TextStyle(
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 Text(
                                   'Rp. ${returnProv.returns[returnProv.selectedDepartIndex as int].price},-',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
+                                  style: const TextStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -118,15 +118,15 @@ class _FacturPageState extends State<FacturPage> {
                               children: [
                                 Text(
                                   'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![0].station!.origin.toString()}',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
+                                  style: const TextStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 Text(
                                   'Stasiun ${returnProv.returns[returnProv.selectedDepartIndex as int].route![1].station!.origin.toString()}',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
+                                  style: const TextStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -141,19 +141,18 @@ class _FacturPageState extends State<FacturPage> {
                                           returnProv.selectedDepartIndex as int]
                                       .datumClass
                                       .toString(),
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
+                                  style: const TextStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w400,
-                                    color:
-                                        const Color.fromRGBO(113, 114, 117, 1),
+                                    color: Color.fromRGBO(113, 114, 117, 1),
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   'Tersedia',
                                   style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w600,
-                                    color: const Color.fromRGBO(61, 175, 29, 1),
+                                    color: Color.fromRGBO(61, 175, 29, 1),
                                   ),
                                 )
                               ],
@@ -168,8 +167,8 @@ class _FacturPageState extends State<FacturPage> {
                                       .route![0]
                                       .arriveTime
                                       .toString(),
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
+                                  style: const TextStyle(
+                                    fontSize: 12,
                                   ),
                                 ),
                                 const Icon(Icons.arrow_forward),
@@ -180,8 +179,8 @@ class _FacturPageState extends State<FacturPage> {
                                       .route![1]
                                       .arriveTime
                                       .toString(),
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
+                                  style: const TextStyle(
+                                    fontSize: 12,
                                   ),
                                 )
                               ],
@@ -194,10 +193,9 @@ class _FacturPageState extends State<FacturPage> {
                                       ? DateFormat('dd MMMM yyyy', 'id_ID')
                                           .format(DateTime.now())
                                       : departureProv.returnDate,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color:
-                                        const Color.fromRGBO(113, 114, 117, 1),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Color.fromRGBO(113, 114, 117, 1),
                                   ),
                                 ),
                                 Text(
@@ -212,10 +210,9 @@ class _FacturPageState extends State<FacturPage> {
                                               .selectedDepartIndex as int]
                                           .route![1]
                                           .arriveTime!),
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color:
-                                        const Color.fromRGBO(113, 114, 117, 1),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Color.fromRGBO(113, 114, 117, 1),
                                   ),
                                 ),
                                 Text(
@@ -223,10 +220,9 @@ class _FacturPageState extends State<FacturPage> {
                                       ? DateFormat('dd MMMM yyyy', 'id_ID')
                                           .format(DateTime.now())
                                       : departureProv.returnDate,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color:
-                                        const Color.fromRGBO(113, 114, 117, 1),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Color.fromRGBO(113, 114, 117, 1),
                                   ),
                                 )
                               ],
@@ -234,8 +230,8 @@ class _FacturPageState extends State<FacturPage> {
                           ],
                         ),
                       )
-                    : SizedBox(),
-                SizedBox(height: 25.h),
+                    : const SizedBox(),
+                const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -243,34 +239,34 @@ class _FacturPageState extends State<FacturPage> {
                     Text(
                       stationProv.pulangPergi ? 'Tiket Keberangkatan' : 'Tiket',
                       style: GoogleFonts.openSans(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                          fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SizedBox(
-                          height: 30.h,
+                          height: 30,
                           child: Text(
                             '$quantityAdult x Rp. ${departureProv.departure[departureProv.selectedDepartIndex as int].price!}',
                             style: GoogleFonts.openSans(
-                                fontSize: 14.sp, fontWeight: FontWeight.w600),
+                                fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
                     )
                   ],
                 ),
-                SizedBox(height: 17.h),
+                const SizedBox(height: 17),
                 stationProv.pulangPergi
                     ? Padding(
-                        padding: EdgeInsets.only(bottom: 17.h),
+                        padding: const EdgeInsets.only(bottom: 17),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               'Tiket Pulang',
                               style: GoogleFonts.openSans(
-                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
+                                  fontSize: 14, fontWeight: FontWeight.w600),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -278,7 +274,7 @@ class _FacturPageState extends State<FacturPage> {
                                 Text(
                                   '$quantityAdult x Rp.${returnProv.returns[returnProv.selectedDepartIndex as int].price!}',
                                   style: GoogleFonts.openSans(
-                                      fontSize: 14.sp,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w600),
                                 ),
                               ],
@@ -286,13 +282,13 @@ class _FacturPageState extends State<FacturPage> {
                           ],
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
                 Container(
-                  width: 400.w,
-                  height: 1.h,
+                  width: 400,
+                  height: 1,
                   color: Colors.black,
                 ),
-                SizedBox(height: 17.h),
+                const SizedBox(height: 17),
                 Column(
                   children: [
                     Row(
@@ -301,37 +297,37 @@ class _FacturPageState extends State<FacturPage> {
                         Text(
                           'Total',
                           style: GoogleFonts.openSans(
-                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                              fontSize: 14, fontWeight: FontWeight.w600),
                         ),
                         Text(
                           stationProv.pulangPergi
                               ? 'Rp.${quantityAdult * ((returnProv.returns[returnProv.selectedDepartIndex as int].price!) + (departureProv.departure[departureProv.selectedDepartIndex as int].price!))}'
                               : 'Rp. ${(departureProv.departure[departureProv.selectedDepartIndex as int].price!) * quantityAdult}',
                           style: GoogleFonts.openSans(
-                              fontSize: 14.sp, fontWeight: FontWeight.w600),
+                              fontSize: 14, fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(height: 17.h),
+                const SizedBox(height: 17),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Pay With',
                       style: GoogleFonts.openSans(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                          fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     Image.network(
                       '${responseProv.dataOrder.payment!.imageUrl}',
-                      width: 50.w,
-                      height: 30.h,
+                      width: 50,
+                      height: 30,
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 40.h,
+                const SizedBox(
+                  height: 40,
                 ),
                 Center(
                   child: ElevatedButton(

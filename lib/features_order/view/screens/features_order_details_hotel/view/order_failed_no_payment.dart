@@ -229,7 +229,7 @@ class OrderFailedNoPayment extends StatelessWidget {
                           ),
                           SizedBox(
                             width: 30.w,
-                            child: Image.asset('assets/images/bri.jpeg'),
+                            child: Image.asset('assets/images/BRI.jpeg'),
                           )
                         ],
                       ),

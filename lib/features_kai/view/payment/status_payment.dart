@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/order_ticket/order_train_provider.dart';
@@ -49,8 +50,8 @@ class _PaymentStatusState extends State<PaymentStatus> {
         backgroundColor: const Color(0XFF0080FF),
         title: Text(
           'Status Pembayaran',
-          style: GoogleFonts.openSans(
-              fontSize: 16.sp, fontWeight: FontWeight.w600),
+          style:
+              GoogleFonts.openSans(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -62,50 +63,49 @@ class _PaymentStatusState extends State<PaymentStatus> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset('assets/images/paymentstatus.png'),
-              SizedBox(height: 135.h),
+              const SizedBox(height: 135),
               Text(
                 'Pembayaran Berhasil!',
                 style: GoogleFonts.openSans(
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.green),
               ),
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.train),
-                    SizedBox(width: 10.w),
+                    const SizedBox(width: 10),
                     SizedBox(
-                      width: 100.w,
+                      width: 100,
                       child: Text(
                         '${departureProv.departure[departureProv.selectedDepartIndex as int].name}',
                         style: GoogleFonts.openSans(
-                            fontSize: 14.sp, fontWeight: FontWeight.w400),
+                            fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 20),
               // payment status,
               stationProv.pulangPergi
                   ? Center(
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20.h),
+                        padding: EdgeInsets.only(bottom: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.train),
-                            SizedBox(width: 10.w),
+                            SizedBox(width: 10),
                             SizedBox(
-                              width: 100.w,
+                              width: 100,
                               child: Text(
                                 '${returnProv.returns[returnProv.selectedDepartIndex as int].name}',
                                 style: GoogleFonts.openSans(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400),
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                             ),
                           ],
@@ -118,33 +118,33 @@ class _PaymentStatusState extends State<PaymentStatus> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.person),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                     SizedBox(
-                      width: 100.w,
+                      width: 100,
                       child: Text(
                         '${(quantityAdult).toString()} Orang',
                         style: GoogleFonts.openSans(
-                            fontSize: 14.sp, fontWeight: FontWeight.w400),
+                            fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 20),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.payments),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                     SizedBox(
-                      width: 100.w,
+                      width: 100,
                       child: Text(
                         stationProv.pulangPergi
                             ? 'Rp.${quantityAdult * ((returnProv.returns[returnProv.selectedDepartIndex as int].price!) + (departureProv.departure[departureProv.selectedDepartIndex as int].price!))}'
                             : 'Rp. ${(departureProv.departure[departureProv.selectedDepartIndex as int].price!) * quantityAdult}',
                         style: GoogleFonts.openSans(
-                            fontSize: 14.sp, fontWeight: FontWeight.w400),
+                            fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
