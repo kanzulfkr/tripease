@@ -25,12 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.h),
+        preferredSize: Size.fromHeight(70),
         child: AppBar(
           backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
           actions: [
             IconButton(
-              padding: EdgeInsets.only(top: 12.sp, bottom: 8.sp),
+              padding: EdgeInsets.only(top: 12, bottom: 8),
               icon: const Icon(Icons.notifications),
               onPressed: () {
                 // Add your notification button action here
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 30.25.w,
             ),
             IconButton(
-              padding: EdgeInsets.only(top: 12.sp, bottom: 8.sp),
+              padding: EdgeInsets.only(top: 12, bottom: 8),
               icon: const Icon(Icons.chat),
               onPressed: () {
                 // Add your chat button action here
@@ -51,21 +51,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
           title: PreferredSize(
-            preferredSize: Size.fromHeight(48.0.h),
+            preferredSize: Size.fromHeight(48.0),
             child: Padding(
-              padding: EdgeInsets.only(top: 12.sp, right: 19.75.sp),
+              padding: EdgeInsets.only(top: 12, right: 19.75),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Pencarian',
                   hintStyle: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w400),
+                      fontSize: 14, fontWeight: FontWeight.w400),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: EdgeInsets.symmetric(vertical: 4.sp),
+                  contentPadding: EdgeInsets.symmetric(vertical: 4),
                   prefixIcon: const Icon(Icons.search),
                 ),
               ),
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: Row(
               children: [
                 InkWell(
@@ -92,13 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ));
                   },
                   child: Container(
-                    height: 40.h,
-                    width: 160.w,
-                    padding: EdgeInsets.symmetric(horizontal: 32.5.w),
+                    height: 40,
+                    width: 160,
+                    padding: EdgeInsets.symmetric(horizontal: 32.5),
                     decoration: BoxDecoration(
                       color: const Color.fromRGBO(51, 153, 255, 1),
                       borderRadius: BorderRadius.horizontal(
-                        left: Radius.circular(8.h),
+                        left: Radius.circular(8),
                       ),
                     ),
                     child: Row(
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'Kereta Api',
                           style: GoogleFonts.openSans(
-                              fontSize: 12.sp, fontWeight: FontWeight.w400),
+                              fontSize: 12, fontWeight: FontWeight.w400),
                         )
                       ],
                     ),
@@ -125,13 +125,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (context) => const HotelHome()));
                   },
                   child: Container(
-                    height: 40.h,
-                    width: 160.w,
-                    padding: EdgeInsets.symmetric(horizontal: 36.5.w),
+                    height: 40,
+                    width: 160,
+                    padding: EdgeInsets.symmetric(horizontal: 36.5),
                     decoration: BoxDecoration(
                       color: const Color.fromRGBO(255, 143, 51, 1),
                       borderRadius: BorderRadius.horizontal(
-                        right: Radius.circular(8.h),
+                        right: Radius.circular(8),
                       ),
                     ),
                     child: Row(
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Icons.apartment_outlined,
                           color: Colors.black,
                         ),
-                        SizedBox(width: 59.h, child: const Text('Hotel'))
+                        SizedBox(width: 59, child: const Text('Hotel'))
                       ],
                     ),
                   ),
@@ -152,11 +152,11 @@ class _HomeScreenState extends State<HomeScreen> {
           popUpNotification
               ? Container(
                   height: 79.h,
-                  margin: EdgeInsets.symmetric(horizontal: 20.w),
-                  padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(255, 231, 153, 1),
-                    borderRadius: BorderRadius.circular(8.r),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -165,12 +165,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       Center(
                         child: Image.asset(
                           'assets/images/pop_up_notification.png',
-                          width: 40.w,
-                          height: 40.h,
+                          width: 40,
+                          height: 40,
                         ),
                       ),
                       SizedBox(
-                        width: 236.w,
+                        width: 236,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               'Peringatan keamanan hilang, pembaruan pemesanan, dan balasan obrolan.',
                               style: GoogleFonts.openSans(
-                                fontSize: 12.sp,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -187,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Text(
                                 'Check notification settings',
                                 style: GoogleFonts.openSans(
-                                  fontSize: 14.sp,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: const Color.fromRGBO(0, 128, 255, 1),
                                 ),
@@ -212,36 +212,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               : const SizedBox(),
           Padding(
-            padding: EdgeInsets.only(
-                top: 24.h, left: 20.w, right: 20.w, bottom: 8.h),
+            padding: EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
             child: Text(
               'Anda baru saja melihat',
               style: GoogleFonts.openSans(
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
           YouJustSaw(),
           Padding(
-            padding: EdgeInsets.only(
-                top: 24.h, left: 20.w, right: 20.w, bottom: 8.h),
+            padding: EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
             child: Text(
               'Hotel pilihan untuk anda',
               style: GoogleFonts.openSans(
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
           ForYou(),
           Padding(
-            padding: EdgeInsets.only(
-                top: 24.h, left: 20.w, right: 20.w, bottom: 8.h),
+            padding: EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
             child: Text(
               'Anda baru saja mencari',
               style: GoogleFonts.openSans(
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),

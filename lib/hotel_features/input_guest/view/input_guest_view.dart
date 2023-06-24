@@ -24,6 +24,11 @@ class InputGuestPage extends StatefulWidget {
   InputGuestPageState createState() => InputGuestPageState();
 }
 
+class GuestData {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController nikController = TextEditingController();
+}
+
 class InputGuestPageState extends State<InputGuestPage> {
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
@@ -32,12 +37,26 @@ class InputGuestPageState extends State<InputGuestPage> {
   int _wordCount = 0;
   int _maxWordCount = 400;
   bool _isConfirmed = false;
-
+  List<GuestData>? guestDataList = [];
   List<String> imagesRoom = [
     'assets/images/detail_k1.jpeg',
     'assets/images/detail_k2.jpeg',
     'assets/images/detail_k3.jpeg'
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final guest = Provider.of<SearchProvider>(context, listen: false);
+    if (guestDataList == null ||
+        guestDataList?.length != guest.jumlahDewasa ||
+        guestDataList!.isEmpty) {
+      guestDataList =
+          List.generate(guest.jumlahDewasa as int, (index) => GuestData());
+    }
+  }
+
   @override
   void dispose() {
     _textEditingController.dispose();
@@ -678,6 +697,20 @@ class InputGuestPageState extends State<InputGuestPage> {
                                         ),
                                         ElevatedButton(
                                           onPressed: () {
+                                            setState(() {
+                                              final GuestData guest =
+                                                  guestDataList![0];
+
+                                              guest.nameController.text =
+                                                  inputGuestProv.orderName
+                                                      .toString();
+                                            });
+
+                                            inputGuestProv.travelerDetail![0]
+                                                    .fullName =
+                                                inputGuestProv.orderName
+                                                    .toString();
+
                                             // Add your button's onPressed logic here
                                           },
                                           child: const Text(
@@ -740,6 +773,9 @@ class InputGuestPageState extends State<InputGuestPage> {
                                             index
                                         ? inputGuestProv.travelerDetail![index]
                                         : TravelerDetail();
+
+                                final GuestData guestData =
+                                    guestDataList![index];
                                 return Form(
                                   key: formKeyList[index],
                                   child: Column(
@@ -837,6 +873,8 @@ class InputGuestPageState extends State<InputGuestPage> {
                                                                       10.0.r),
                                                         ),
                                                         child: TextFormField(
+                                                          controller: guestData
+                                                              .nikController,
                                                           autovalidateMode: // Add this line
                                                               AutovalidateMode
                                                                   .always,
@@ -902,6 +940,8 @@ class InputGuestPageState extends State<InputGuestPage> {
                                                                       10.0.r),
                                                         ),
                                                         child: TextFormField(
+                                                          controller: guestData
+                                                              .nameController,
                                                           autovalidateMode:
                                                               AutovalidateMode
                                                                   .always,

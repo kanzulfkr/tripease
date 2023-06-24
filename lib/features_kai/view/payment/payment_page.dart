@@ -80,46 +80,6 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  // Future<void> order() async {
-  //   final orderTrain =
-  //       Provider.of<PostOrderTrainProvider>(context, listen: false);
-  //   PostOrderTrainModel postOrder = PostOrderTrainModel(
-  //     emailOrder: orderTrain.getEmail,
-  //     nameOrder: orderTrain.getName,
-  //     paymentId: 1,
-  //     phoneNumberOrder: orderTrain.getPhoneNumber,
-  //     quantityAdult: orderTrain.getQuantityAdult,
-  //     quantityInfant: orderTrain.getQuantityInfant,
-  //     ticketTravelerDetailDeparture: orderTrain.getTicketTravelerDetail,
-  //     travelerDetail: orderTrain.travelerDetail,
-  //     withReturn: false,
-  //   );
-  //   await orderTrain.postOrderTrain(postOrder);
-  // }
-  // void cekData() {
-  //   final orderTrain =
-  //       Provider.of<PostOrderTrainProvider>(context, listen: false);
-  //   print('email : ${orderTrain.getEmail}');
-  //   print('name : ${orderTrain.getName}');
-  //   print('paymentID : ${orderTrain.getPaymentId}');
-  //   print('notelp : ${orderTrain.getPhoneNumber}');
-  //   print('return : ${orderTrain.getWithReturn}');
-  //   print('adut : ${orderTrain.getQuantityAdult}');
-  //   print('infant : ${orderTrain.getQuantityInfant}');
-  //   print('tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].date}');
-  //   print(
-  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].stationDestinationId}');
-  //   print(
-  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].stationOriginId}');
-  //   print(
-  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].trainCarriageId}');
-  //   print(
-  //       'tkt traveler dtl : ${orderTrain.getTicketTravelerDetail![0].trainSeatId}');
-  //   print('traveler dtl : ${orderTrain.travelerDetail![0].fullName}');
-  //   print('traveler dtl : ${orderTrain.travelerDetail![0].idCardNumber}');
-  //   print('traveler dtl : ${orderTrain.travelerDetail![0].title}');
-  // }
-
   @override
   void dispose() {
     countdownTimer?.cancel();
@@ -153,13 +113,13 @@ class _PaymentPageState extends State<PaymentPage> {
                 Text(
                   'Waktu Pembayaran',
                   style: GoogleFonts.openSans(
-                      fontSize: 12.sp, fontWeight: FontWeight.w600),
+                      fontSize: 12, fontWeight: FontWeight.w600),
                 ),
                 Consumer<TimerPaymentProvider>(
                   builder: (context, timerSeat, _) {
                     return Text(timerSeat.timer,
                         style: GoogleFonts.openSans(
-                            fontSize: 14.sp, fontWeight: FontWeight.w600));
+                            fontSize: 14, fontWeight: FontWeight.w600));
                   },
                 ),
               ],
@@ -174,7 +134,8 @@ class _PaymentPageState extends State<PaymentPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Image.network(
-                          paymentProv.getImageUrl!,
+                          paymentProv.getImageUrl ??
+                              'https://res.cloudinary.com/dt3wofhpk/image/upload/v1686845736/go-cloudinary/qnkgyrgwgksdmmhs1tz5.png',
                           height: 60.h,
                           width: 60.w,
                         ),
@@ -188,7 +149,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   fontSize: 14.sp, fontWeight: FontWeight.w600),
                             ),
                             Text(
-                              paymentProv.getAccountNumber!,
+                              paymentProv.getAccountNumber ?? 'No data',
                               style: GoogleFonts.openSans(
                                   fontSize: 14.sp, fontWeight: FontWeight.w600),
                             ),

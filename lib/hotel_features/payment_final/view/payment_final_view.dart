@@ -58,7 +58,7 @@ class _PaymentFinalState extends State<PaymentFinal> {
                         child: Image.asset('assets/images/verified.jpeg'),
                       ),
                       SizedBox(
-                        height: 135.h,
+                        height: 100.h,
                       ),
                       Column(
                         children: [
@@ -71,16 +71,8 @@ class _PaymentFinalState extends State<PaymentFinal> {
                                 letterSpacing: 0.05,
                                 color: Colors.green),
                           ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
                           Column(
                             children: [
-                              // SizedBox(
-                              //   width: 24.w,
-                              //   height: 24.h,
-                              //   child: Image.asset('assets/images/Hotel.jpeg'),
-                              // ),
                               SizedBox(
                                 width: 20.w,
                               ),

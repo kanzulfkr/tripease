@@ -381,7 +381,7 @@ class _PaymentPageHotelState extends State<PaymentPageHotel> {
                                 ),
                                 Container(
                                   height: 44,
-                                  width: 169,
+                                  width: 165,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16.sp, vertical: 2.sp),
                                   decoration: BoxDecoration(

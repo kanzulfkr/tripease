@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.CAMERA"/>
     <application
-        android:label="capstone_project_tripease"
+        android:label="Tripease"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
