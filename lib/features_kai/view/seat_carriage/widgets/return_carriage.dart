@@ -206,7 +206,7 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                         SelectedSeatsReturnProvider>(context);
                                     final selectedSeats =
                                         selectedSeatsProvider.selectedSeats;
-                                    final item = carriageProvider.seatA[index];
+                                    final item = carriageProvider.seatB[index];
                                     final isSeatSelected =
                                         selectedSeats.contains(item.id);
 
@@ -293,7 +293,7 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                       final selectedSeats =
                                           selectedSeatsProvider.selectedSeats;
                                       final item =
-                                          carriageProvider.seatA[index];
+                                          carriageProvider.seatC[index];
                                       final isSeatSelected =
                                           selectedSeats.contains(item.id);
 
@@ -369,7 +369,7 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                         SelectedSeatsReturnProvider>(context);
                                     final selectedSeats =
                                         selectedSeatsProvider.selectedSeats;
-                                    final item = carriageProvider.seatA[index];
+                                    final item = carriageProvider.seatD[index];
                                     final isSeatSelected =
                                         selectedSeats.contains(item.id);
 
@@ -455,7 +455,7 @@ class _ReturnCarriagePageState extends State<ReturnCarriagePage> {
                                                 selectedSeatsProvider
                                                     .selectedSeats;
                                             final item =
-                                                carriageProvider.seatA[index];
+                                                carriageProvider.seatE[index];
                                             final isSeatSelected =
                                                 selectedSeats.contains(item.id);
 

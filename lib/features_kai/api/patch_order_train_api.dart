@@ -1,8 +1,8 @@
-import 'package:capstone_project_tripease/features_kai/model/response_order_train_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../onboard_feature/utils/token_manager.dart';
+import '../../features_onboard/utils/token_manager.dart';
+
 import '../model/patch_order_model.dart';
 
 class PatchOrderTrainApi {

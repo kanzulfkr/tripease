@@ -92,14 +92,22 @@ class _HistorySearchState extends State<HistorySearch> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                historyStationProv
-                                    .histories[index].stationOrigin!.name!,
-                                style: GoogleFonts.openSans(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              historyStationProv.histories.isNotEmpty
+                                  ? Text(
+                                      historyStationProv.histories[index]
+                                          .stationOrigin!.name!,
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    )
+                                  : Text(
+                                      'No Data',
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                               SizedBox(width: 8.h),
                               Container(
                                 width: 5,
@@ -110,25 +118,41 @@ class _HistorySearchState extends State<HistorySearch> {
                                 ),
                               ),
                               SizedBox(width: 8.h),
-                              Text(
-                                historyStationProv
-                                    .histories[index].stationOrigin!.initial!,
-                                style: GoogleFonts.openSans(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              historyStationProv.histories.isNotEmpty
+                                  ? Text(
+                                      historyStationProv.histories[index]
+                                          .stationOrigin!.initial!,
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    )
+                                  : Text(
+                                      'No Data',
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                             ],
                           ),
                           SizedBox(height: 4.h),
-                          Text(
-                            historyStationProv
-                                .histories[index].stationOrigin!.origin!,
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                          historyStationProv.histories.isNotEmpty
+                              ? Text(
+                                  historyStationProv
+                                      .histories[index].stationOrigin!.origin!,
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              : Text(
+                                  'No Data',
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                         ],
                       ),
                     ),

@@ -23,7 +23,7 @@ class TimerSeatProvider extends ChangeNotifier {
     countdownTimer = Timer.periodic(oneSec, (timer) {
       if (totalSeconds <= 0) {
         timer.cancel();
-        showTimeUpDialog(context); // Show the alert dialog when time is up
+        // showTimeUpDialog(context); // Show the alert dialog when time is up
       } else {
         totalSeconds--;
         updateTimer(totalSeconds);
@@ -39,17 +39,17 @@ class TimerSeatProvider extends ChangeNotifier {
     notifyListeners(); // Notify listeners about the updated timer value
   }
 
-  void showTimeUpDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text('Time Up'),
-          content: Text('The time has run out.'),
-        );
-      },
-    );
-  }
+  // void showTimeUpDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext dialogContext) {
+  //       return const AlertDialog(
+  //         title: Text('Time Up'),
+  //         content: Text('The time has run out.'),
+  //       );
+  //     },
+  //   );
+  // }
 
   void stopCountDown() {
     countdownTimer?.cancel();

@@ -36,9 +36,9 @@ class _SearchPageState extends State<SearchPage> {
     final stationProv = Provider.of<StationProvider>(context, listen: false);
     final historyStationProv =
         Provider.of<HistoryStationProvider>(context, listen: false);
-    historyStationProv.fetchHistoryStation();
-    stationProv.getSearchStation();
-    stationProv.getStation();
+    Future.microtask(() => historyStationProv.fetchHistoryStation());
+    Future.microtask(() => stationProv.getSearchStation());
+    Future.microtask(() => stationProv.getStation());
     foundStation = allStation;
     super.initState();
   }

@@ -1,7 +1,7 @@
 import 'package:capstone_project_tripease/features_kai/model/response_order_train_model.dart';
 import 'package:dio/dio.dart';
 
-import '../../onboard_feature/utils/token_manager.dart';
+import '../../features_onboard/utils/token_manager.dart';
 
 class ResponseOrderTrainApi {
   Dio dio = Dio();

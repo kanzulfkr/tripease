@@ -84,13 +84,21 @@ class PopularStation extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                stationProv.station[index].name!,
-                                style: GoogleFonts.openSans(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              stationProv.station.isNotEmpty
+                                  ? Text(
+                                      stationProv.station[index].name!,
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    )
+                                  : Text(
+                                      'No Data',
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                               SizedBox(width: 8.h),
                               Container(
                                 width: 5,
@@ -101,23 +109,39 @@ class PopularStation extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 8.h),
-                              Text(
-                                stationProv.station[index].initial!,
-                                style: GoogleFonts.openSans(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              stationProv.station.isNotEmpty
+                                  ? Text(
+                                      stationProv.station[index].initial!,
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    )
+                                  : Text(
+                                      'No Data',
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                             ],
                           ),
                           SizedBox(height: 4.h),
-                          Text(
-                            stationProv.station[index].origin!,
-                            style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                          stationProv.station.isNotEmpty
+                              ? Text(
+                                  stationProv.station[index].origin!,
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              : Text(
+                                  'No Data',
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                         ],
                       ),
                     ),

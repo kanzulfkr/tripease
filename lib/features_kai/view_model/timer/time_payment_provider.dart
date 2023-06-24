@@ -23,7 +23,7 @@ class TimerPaymentProvider extends ChangeNotifier {
     countdownTimer = Timer.periodic(oneSec, (timer) {
       if (totalSeconds <= 0) {
         timer.cancel();
-        showTimeUpDialog(context); // Show the alert dialog when time is up
+        // showTimeUpDialog(context); // Show the alert dialog when time is up
       } else {
         totalSeconds--;
         updateTimer(totalSeconds);
