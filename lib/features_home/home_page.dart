@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             SizedBox(
-              width: 30.25.w,
+              width: 30.25,
             ),
             IconButton(
               padding: EdgeInsets.only(top: 12, bottom: 8),
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             SizedBox(
-              width: 18.96.w,
+              width: 18.96,
             ),
           ],
           title: PreferredSize(
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.r),
+                    borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
                   ),
                   contentPadding: EdgeInsets.symmetric(vertical: 4),
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           popUpNotification
               ? Container(
-                  height: 79.h,
+                  height: 79,
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                   decoration: BoxDecoration(
