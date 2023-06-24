@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_1/features_order/view/screens/pesanan_screen.dart';
 import 'package:hotel_1/hotel_features/detail_hotel/viewmodel/detail_hotel_provider.dart';
+import 'package:hotel_1/main_page.dart';
 
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../../features_order/view_model/provider/tab_provider.dart';
+import '../../../selected_tab.dart';
 import '../../payment_result/viewmodel/patch_order_viewmodel.dart';
 
 class FakturHotel extends StatefulWidget {
@@ -977,7 +981,23 @@ class _FakturHotelState extends State<FakturHotel> {
               child: SizedBox(
                 height: 56.0.h,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final tabProvider =
+                        Provider.of<TabProvider>(context, listen: false);
+
+                    final NavBarProv =
+                        Provider.of<NavBarProvider>(context, listen: false);
+                    tabProvider.setInitialIndex(0);
+                    NavBarProv.setSelectedIndex(1);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MainPage(),
+                      ),
+                      (route) =>
+                          false, // Condition to remove all previous routes
+                    );
+                  },
                   child: Text(
                     'Cek Pesanan',
                     style: TextStyle(fontSize: 18.0.sp),

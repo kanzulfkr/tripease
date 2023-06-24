@@ -1,3 +1,5 @@
+import '../../../features_order/view_model/provider/tab_provider.dart';
+import '../../../selected_tab.dart';
 import '/features_kai/view_model/order_ticket/response_order_train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -334,10 +336,20 @@ class _FacturPageState extends State<FacturPage> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
-                      Navigator.pushReplacement(
+                      final tabProvider =
+                          Provider.of<TabProvider>(context, listen: false);
+
+                      final NavBarProv =
+                          Provider.of<NavBarProvider>(context, listen: false);
+                      tabProvider.setInitialIndex(1);
+                      NavBarProv.setSelectedIndex(1);
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MainPage()),
+                          builder: (context) => const MainPage(),
+                        ),
+                        (route) =>
+                            false, // Condition to remove all previous routes
                       );
                     },
                     style: ElevatedButton.styleFrom(

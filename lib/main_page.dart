@@ -1,4 +1,7 @@
-import '/features_pesanan/pesanan_screen.dart';
+import 'package:hotel_1/selected_tab.dart';
+import 'package:provider/provider.dart';
+
+import 'features_order/view/screens/pesanan_screen.dart';
 import '/features_profile/view/profile_screen.dart';
 import '/features_home/home_page.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +14,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
-
   final _screens = [
     const HomeScreen(),
     const PesananScreen(),
@@ -21,15 +22,14 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomNavProv = Provider.of<NavBarProvider>(context);
     Widget customNavBar() {
       return BottomNavigationBar(
-        currentIndex: _selectedIndex,
+        currentIndex: bottomNavProv.selectedIndex,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: const TextStyle(color: Colors.grey),
         unselectedLabelStyle: const TextStyle(color: Colors.grey),
-        onTap: (i) => setState(
-          () => _selectedIndex = i,
-        ),
+        onTap: (i) => bottomNavProv.setSelectedIndex(i),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.cottage),
@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: customNavBar(),
       body: SafeArea(
         child: IndexedStack(
-          index: _selectedIndex,
+          index: bottomNavProv.selectedIndex,
           children: _screens,
         ),
       ),

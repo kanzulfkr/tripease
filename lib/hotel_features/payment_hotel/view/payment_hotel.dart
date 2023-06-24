@@ -119,7 +119,7 @@ class _PaymentPageHotelState extends State<PaymentPageHotel> {
       await orderProv.postOrderHotel(order);
       debugPrint('ID ORDER :${orderProv.data.hotelOrderId}');
       if (context.mounted) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const VirtualAccountPage(),

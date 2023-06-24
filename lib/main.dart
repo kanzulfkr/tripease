@@ -1,3 +1,4 @@
+import 'package:hotel_1/selected_tab.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'features_kai/view_model/order_ticket/patch_order_provider.dart';
@@ -29,6 +30,16 @@ import 'features_kai/view_model/station/return_provider.dart';
 import 'features_kai/view_model/station/station_provider.dart';
 
 import 'features_home/view_ model/hotel_seen_provider.dart';
+import 'features_order/view_model/provider/coundown_provider.dart';
+import 'features_order/view_model/provider/hotel/hotel_order_detail_provider.dart';
+import 'features_order/view_model/provider/hotel/hotel_order_provider.dart';
+import 'features_order/view_model/provider/hotel/hotel_order_update_provider.dart';
+import 'features_order/view_model/provider/tab_provider.dart';
+import 'features_order/view_model/provider/train/train_order_detail_provider.dart';
+import 'features_order/view_model/provider/train/train_order_filter_provider.dart';
+import 'features_order/view_model/provider/train/train_order_provider.dart';
+import 'features_order/view_model/provider/train/train_order_update_provider.dart';
+import 'features_order/view_model/provider/train/train_search_provider.dart';
 import 'features_profile/view_model/article_provider.dart';
 
 import 'hotel_features/detail_hotel/viewmodel/detail_hotel_provider.dart';
@@ -119,6 +130,44 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => PaymentProvider()),
               // timer
               ChangeNotifierProvider(create: (_) => TimerPaymentProvider()),
+              ChangeNotifierProvider(
+                create: (context) => TabProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => CountdownProvider(
+                  DateTime.now()
+                      .add(const Duration(hours: 1))
+                      .millisecondsSinceEpoch,
+                ),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => TrainSearchProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => TrainOrderProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => TrainOrderDetailProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => HotelOrderProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => HotelOrderDetailProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => StatusOrderHotelUpdateProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => StatusOrderTrainUpdateProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => TrainSearchProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => TrainOrderFilterProvider(),
+              ),
+              ChangeNotifierProvider(create: (context) => NavBarProvider())
             ],
             child: MaterialApp(
               supportedLocales: const [
