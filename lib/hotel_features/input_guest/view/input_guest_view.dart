@@ -708,8 +708,12 @@ class InputGuestPageState extends State<InputGuestPage> {
 
                                             inputGuestProv.travelerDetail![0]
                                                     .fullName =
-                                                inputGuestProv.orderName
-                                                    .toString();
+                                                guestDataList![0]
+                                                    .nameController
+                                                    .text;
+
+                                            print(inputGuestProv
+                                                .travelerDetail![0].fullName);
 
                                             // Add your button's onPressed logic here
                                           },
