@@ -234,310 +234,365 @@ class HotelHomeState extends State<HotelHome> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.topCenter,
-          padding: EdgeInsets.symmetric(
-            horizontal: 20.sp,
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 12.h,
-              ),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0.2.w,
-                  ),
-                  borderRadius: BorderRadius.circular(15.0.r),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF66B2FF),
+                Color(0xFFF9FAFB),
+                Color(0xFFF9FAFB),
+                Color(0xFFF9FAFB),
+                Color(0xFF66B2FF),
+                Color(0xFFF9FAFB),
+                Color(0xFFF9FAFB),
+              ],
+            ),
+        ),
+        child: SingleChildScrollView(
+          child: Container(
+            alignment: Alignment.topCenter,
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.sp,
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 12.h,
                 ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(left: 20.sp, right: 20.sp, top: 20.sp),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              'Address',
-                              style: TextStyle(
-                                fontFamily: 'Open Sans',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                letterSpacing: 0.25,
-                              ),
-                            ),
-                            SizedBox(height: 12.h),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.location_on),
-                          SizedBox(width: 8.w),
-                          Expanded(
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      side:
-                                          const BorderSide(color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return const HotelSearchView();
-                                    },
-                                  );
-                                },
-                                child: Consumer<SearchProvider>(
-                                  builder: (context, searchProvider, child) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12.0),
-                                      child: searchProvider.address == null
-                                          ? Text(
-                                              'Medan',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 16.sp,
-                                              ),
-                                            )
-                                          : Text(
-                                              searchProvider.address.toString(),
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 16.sp,
-                                              ),
-                                            ),
-                                    );
-                                  },
-                                )),
-                          ),
-                          SizedBox(width: 8.w),
-                          const Icon(Icons.my_location),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 26.h,
-                      ),
-                      Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Tanggal',
-                                  style: TextStyle(
-                                    fontFamily: 'Open Sans',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16.sp,
-                                    letterSpacing: 0.25,
-                                  ),
-                                ),
-                                SizedBox(height: 12.h),
-                              ],
-                            ),
-                          ),
-                          Row(
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      width: 0.2.w,
+                    ),
+                    borderRadius: BorderRadius.circular(15.0.r),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 20.sp, right: 20.sp, top: 20.sp),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
                             children: [
-                              Expanded(
-                                  child: GestureDetector(
-                                onTap: () {
-                                  _showDateBottomSheet(context);
-                                },
-                                child: Consumer<DateProvider>(
-                                  builder: (context, dateProv, child) {
-                                    return Form(
-                                      key: formKey,
-                                      child: Container(
-                                        padding: EdgeInsets.only(left: 16.sp),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0.r),
-                                          border: Border.all(),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 8.0.sp),
-                                                child: dateProv.checkInDate !=
-                                                            null &&
-                                                        dateProv.checkOutDate !=
-                                                            null
-                                                    ? Text(
-                                                        '${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkInDate!)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkOutDate!)}',
-                                                      )
-                                                    : TextFormField(
-                                                        enabled: false,
-                                                        onTap: () {
-                                                          _showDateBottomSheet(
-                                                              context);
-                                                        },
-                                                        validator: (value) {
-                                                          if (value == null ||
-                                                              value.isEmpty) {
-                                                            return 'Tolong pilih tanggal check in dan Check out';
-                                                          }
-                                                          return null;
-                                                        },
-                                                        decoration:
-                                                            const InputDecoration(
-                                                          hintText:
-                                                              'Pilih Tanggal',
-                                                          border:
-                                                              InputBorder.none,
-                                                        ),
-                                                      ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              icon: const Icon(
-                                                  Icons.calendar_month),
-                                              onPressed: () {
-                                                _showDateBottomSheet(context);
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
+                              Text(
+                                'Address',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                  letterSpacing: 0.25,
                                 ),
-                              )
-
-                                  //     GestureDetector(
-                                  //   onTap: () {
-                                  //     _showDateBottomSheet(context);
-                                  //   },
-                                  //   child: Consumer<DateProvider>(
-                                  //     builder: (context, dateProv, child) {
-                                  //       return Container(
-                                  //         padding: EdgeInsets.only(left: 16.sp),
-                                  //         decoration: BoxDecoration(
-                                  //           borderRadius:
-                                  //               BorderRadius.circular(10.0.r),
-                                  //           border: Border.all(),
-                                  //         ),
-                                  //         child: Row(
-                                  //           mainAxisAlignment:
-                                  //               MainAxisAlignment.spaceBetween,
-                                  //           children: [
-                                  //             Padding(
-                                  //               padding: EdgeInsets.symmetric(
-                                  //                   vertical: 8.0.sp),
-                                  //               child: dateProv.checkInDate !=
-                                  //                           null &&
-                                  //                       dateProv.checkOutDate !=
-                                  //                           null
-                                  //                   ? Text(
-                                  //                       '${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkInDate!)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkOutDate!)}',
-                                  //                     )
-                                  //                   : Text(
-                                  //                       '${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now())} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now().add(const Duration(days: 1)))}'),
-                                  //             ),
-                                  //             IconButton(
-                                  //               icon: const Icon(
-                                  //                   Icons.calendar_month),
-                                  //               onPressed: () {
-                                  //                 _showDateBottomSheet(context);
-                                  //               },
-                                  //             ),
-                                  //           ],
-                                  //         ),
-                                  //       );
-                                  //     },
-                                  //   ),
-                                  // ),
-                                  ),
+                              ),
+                              SizedBox(height: 12.h),
                             ],
                           ),
-                          SizedBox(height: 36.h),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text('Jumlah Kamar'),
-                                  SizedBox(width: 10.w),
-                                  Flexible(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        border: Border.all(
-                                            color: Colors.grey, width: 1.0),
-                                      ),
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        textAlign: TextAlign.center,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 10.0.sp),
-                                          hintText: '0',
-                                        ),
-                                        controller:
-                                            TextEditingController(text: ''),
-                                        onChanged: (value) {
-                                          _viewModel.roomCount =
-                                              int.parse(value);
-                                        },
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.location_on),
+                            SizedBox(width: 8.w),
+                            Expanded(
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        side:
+                                            const BorderSide(color: Colors.grey),
                                       ),
                                     ),
                                   ),
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return const HotelSearchView();
+                                      },
+                                    );
+                                  },
+                                  child: Consumer<SearchProvider>(
+                                    builder: (context, searchProvider, child) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12.0),
+                                        child: searchProvider.address == null
+                                            ? Text(
+                                                'Medan',
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16.sp,
+                                                ),
+                                              )
+                                            : Text(
+                                                searchProvider.address.toString(),
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16.sp,
+                                                ),
+                                              ),
+                                      );
+                                    },
+                                  )),
+                            ),
+                            SizedBox(width: 8.w),
+                            const Icon(Icons.my_location),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 26.h,
+                        ),
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Tanggal',
+                                    style: TextStyle(
+                                      fontFamily: 'Open Sans',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.sp,
+                                      letterSpacing: 0.25,
+                                    ),
+                                  ),
+                                  SizedBox(height: 12.h),
                                 ],
                               ),
-                              SizedBox(height: 35.h),
-                              Column(
-                                children: [
-                                  Consumer<SearchProvider>(
-                                    builder: (context, searchProvider, child) {
-                                      return Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Text('Dewasa'),
-                                          SizedBox(width: 12.w),
-                                          Flexible(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                    color: Colors.grey,
-                                                    width: 1.0),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    _showDateBottomSheet(context);
+                                  },
+                                  child: Consumer<DateProvider>(
+                                    builder: (context, dateProv, child) {
+                                      return Form(
+                                        key: formKey,
+                                        child: Container(
+                                          padding: EdgeInsets.only(left: 16.sp),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0.r),
+                                            border: Border.all(),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 8.0.sp),
+                                                  child: dateProv.checkInDate !=
+                                                              null &&
+                                                          dateProv.checkOutDate !=
+                                                              null
+                                                      ? Text(
+                                                          '${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkInDate!)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkOutDate!)}',
+                                                        )
+                                                      : TextFormField(
+                                                          enabled: false,
+                                                          onTap: () {
+                                                            _showDateBottomSheet(
+                                                                context);
+                                                          },
+                                                          validator: (value) {
+                                                            if (value == null ||
+                                                                value.isEmpty) {
+                                                              return 'Tolong pilih tanggal check in dan Check out';
+                                                            }
+                                                            return null;
+                                                          },
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            hintText:
+                                                                'Pilih Tanggal',
+                                                            border:
+                                                                InputBorder.none,
+                                                          ),
+                                                        ),
+                                                ),
                                               ),
-                                              child: Form(
-                                                key: formKey2,
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.calendar_month),
+                                                onPressed: () {
+                                                  _showDateBottomSheet(context);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+      
+                                    //     GestureDetector(
+                                    //   onTap: () {
+                                    //     _showDateBottomSheet(context);
+                                    //   },
+                                    //   child: Consumer<DateProvider>(
+                                    //     builder: (context, dateProv, child) {
+                                    //       return Container(
+                                    //         padding: EdgeInsets.only(left: 16.sp),
+                                    //         decoration: BoxDecoration(
+                                    //           borderRadius:
+                                    //               BorderRadius.circular(10.0.r),
+                                    //           border: Border.all(),
+                                    //         ),
+                                    //         child: Row(
+                                    //           mainAxisAlignment:
+                                    //               MainAxisAlignment.spaceBetween,
+                                    //           children: [
+                                    //             Padding(
+                                    //               padding: EdgeInsets.symmetric(
+                                    //                   vertical: 8.0.sp),
+                                    //               child: dateProv.checkInDate !=
+                                    //                           null &&
+                                    //                       dateProv.checkOutDate !=
+                                    //                           null
+                                    //                   ? Text(
+                                    //                       '${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkInDate!)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(dateProv.checkOutDate!)}',
+                                    //                     )
+                                    //                   : Text(
+                                    //                       '${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now())} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(DateTime.now().add(const Duration(days: 1)))}'),
+                                    //             ),
+                                    //             IconButton(
+                                    //               icon: const Icon(
+                                    //                   Icons.calendar_month),
+                                    //               onPressed: () {
+                                    //                 _showDateBottomSheet(context);
+                                    //               },
+                                    //             ),
+                                    //           ],
+                                    //         ),
+                                    //       );
+                                    //     },
+                                    //   ),
+                                    // ),
+                                    ),
+                              ],
+                            ),
+                            SizedBox(height: 36.h),
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text('Jumlah Kamar'),
+                                    SizedBox(width: 10.w),
+                                    Flexible(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          border: Border.all(
+                                              color: Colors.grey, width: 1.0),
+                                        ),
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          textAlign: TextAlign.center,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            contentPadding: EdgeInsets.symmetric(
+                                                horizontal: 10.0.sp),
+                                            hintText: '0',
+                                          ),
+                                          controller:
+                                              TextEditingController(text: ''),
+                                          onChanged: (value) {
+                                            _viewModel.roomCount =
+                                                int.parse(value);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 35.h),
+                                Column(
+                                  children: [
+                                    Consumer<SearchProvider>(
+                                      builder: (context, searchProvider, child) {
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Text('Dewasa'),
+                                            SizedBox(width: 12.w),
+                                            Flexible(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10.0),
+                                                  border: Border.all(
+                                                      color: Colors.grey,
+                                                      width: 1.0),
+                                                ),
+                                                child: Form(
+                                                  key: formKey2,
+                                                  child: TextFormField(
+                                                    autovalidateMode:
+                                                        AutovalidateMode
+                                                            .onUserInteraction,
+                                                    validator: (value) {
+                                                      if (value!.isEmpty ||
+                                                          value == '0' ||
+                                                          value == null) {
+                                                        return 'Masukkan jumlah Dewasa';
+                                                      }
+                                                      return null;
+                                                    },
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    textAlign: TextAlign.center,
+                                                    decoration: InputDecoration(
+                                                      border: InputBorder.none,
+                                                      contentPadding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal:
+                                                                  10.0.sp),
+                                                      hintText: '0',
+                                                    ),
+                                                    controller: adultController,
+                                                    onChanged: (value) {
+                                                      searchProvider
+                                                          .setJumlahDewasa(
+                                                              int.tryParse(
+                                                                      value) ??
+                                                                  0);
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 19.w,
+                                            ),
+                                            const Text('Anak'),
+                                            SizedBox(width: 12.w),
+                                            Flexible(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10.0),
+                                                  border: Border.all(
+                                                      color: Colors.grey,
+                                                      width: 1.0),
+                                                ),
                                                 child: TextFormField(
-                                                  autovalidateMode:
-                                                      AutovalidateMode
-                                                          .onUserInteraction,
-                                                  validator: (value) {
-                                                    if (value!.isEmpty ||
-                                                        value == '0' ||
-                                                        value == null) {
-                                                      return 'Masukkan jumlah Dewasa';
-                                                    }
-                                                    return null;
-                                                  },
                                                   keyboardType:
                                                       TextInputType.number,
                                                   textAlign: TextAlign.center,
@@ -545,579 +600,544 @@ class HotelHomeState extends State<HotelHome> {
                                                     border: InputBorder.none,
                                                     contentPadding:
                                                         EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                10.0.sp),
+                                                            horizontal: 10.0.sp),
                                                     hintText: '0',
                                                   ),
-                                                  controller: adultController,
+                                                  controller:
+                                                      TextEditingController(
+                                                          text: ''),
                                                   onChanged: (value) {
-                                                    searchProvider
-                                                        .setJumlahDewasa(
-                                                            int.tryParse(
-                                                                    value) ??
-                                                                0);
+                                                    searchProvider.setJumlaAnak(
+                                                        int.parse(value));
                                                   },
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 19.w,
-                                          ),
-                                          const Text('Anak'),
-                                          SizedBox(width: 12.w),
-                                          Flexible(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                    color: Colors.grey,
-                                                    width: 1.0),
-                                              ),
-                                              child: TextFormField(
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                decoration: InputDecoration(
-                                                  border: InputBorder.none,
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          horizontal: 10.0.sp),
-                                                  hintText: '0',
-                                                ),
-                                                controller:
-                                                    TextEditingController(
-                                                        text: ''),
-                                                onChanged: (value) {
-                                                  searchProvider.setJumlaAnak(
-                                                      int.parse(value));
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 250,
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            final searchHotel =
-                                                Provider.of<SearchProvider>(
-                                                    context,
-                                                    listen: false);
-                                            if (formKey.currentState!
-                                                    .validate() &&
-                                                formKey2.currentState!
-                                                    .validate()) {
-                                              if (searchHotel.address != null) {
-                                                await searchHotel.searchHotel(
-                                                    address:
-                                                        searchHotel.address);
-                                                if (context.mounted) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ListHotelView()),
-                                                  );
-                                                }
-                                              } else if (searchHotel
-                                                          .values.start !=
-                                                      null &&
-                                                  searchHotel.values.end !=
-                                                      null) {
-                                                await searchHotel.searchHotel(
-                                                    minimumPrice: searchHotel
-                                                        .values.start
-                                                        .truncate(),
-                                                    maximumPrice: searchHotel
-                                                        .values.end
-                                                        .truncate());
-                                                // debugPrint(
-                                                //     'Data harga: ${searchHotel.hotel[0].hotelRoomStart ?? 'No data'}');
-                                                if (context.mounted) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ListHotelView()),
-                                                  );
-                                                }
-                                              } else if (searchHotel
-                                                      .ratinglass !=
-                                                  0) {
-                                                await searchHotel.searchHotel(
-                                                    ratingClass:
-                                                        searchHotel.ratinglass);
-                                                if (context.mounted) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ListHotelView()),
-                                                  );
-                                                }
-                                              } else if (searchHotel.address !=
-                                                      null &&
-                                                  searchHotel.values.start !=
-                                                      null &&
-                                                  searchHotel.values.end !=
-                                                      null) {
-                                                await searchHotel.searchHotel(
-                                                  minimumPrice: searchHotel
-                                                      .values.start
-                                                      .truncate(),
-                                                  maximumPrice: searchHotel
-                                                      .values.end
-                                                      .truncate(),
-                                                  address: searchHotel.address,
-                                                );
-                                                if (context.mounted) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ListHotelView()),
-                                                  );
-                                                }
-                                              } else if (searchHotel.address !=
-                                                      null &&
-                                                  searchHotel.values.start !=
-                                                      null &&
-                                                  searchHotel.values.end !=
-                                                      null &&
-                                                  searchHotel.ratinglass != 0) {
-                                                await searchHotel.searchHotel(
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 250,
+                                          child: ElevatedButton(
+                                            onPressed: () async {
+                                              final searchHotel =
+                                                  Provider.of<SearchProvider>(
+                                                      context,
+                                                      listen: false);
+                                              if (formKey.currentState!
+                                                      .validate() &&
+                                                  formKey2.currentState!
+                                                      .validate()) {
+                                                if (searchHotel.address != null) {
+                                                  await searchHotel.searchHotel(
+                                                      address:
+                                                          searchHotel.address);
+                                                  if (context.mounted) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ListHotelView()),
+                                                    );
+                                                  }
+                                                } else if (searchHotel
+                                                            .values.start !=
+                                                        null &&
+                                                    searchHotel.values.end !=
+                                                        null) {
+                                                  await searchHotel.searchHotel(
+                                                      minimumPrice: searchHotel
+                                                          .values.start
+                                                          .truncate(),
+                                                      maximumPrice: searchHotel
+                                                          .values.end
+                                                          .truncate());
+                                                  // debugPrint(
+                                                  //     'Data harga: ${searchHotel.hotel[0].hotelRoomStart ?? 'No data'}');
+                                                  if (context.mounted) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ListHotelView()),
+                                                    );
+                                                  }
+                                                } else if (searchHotel
+                                                        .ratinglass !=
+                                                    0) {
+                                                  await searchHotel.searchHotel(
+                                                      ratingClass:
+                                                          searchHotel.ratinglass);
+                                                  if (context.mounted) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ListHotelView()),
+                                                    );
+                                                  }
+                                                } else if (searchHotel.address !=
+                                                        null &&
+                                                    searchHotel.values.start !=
+                                                        null &&
+                                                    searchHotel.values.end !=
+                                                        null) {
+                                                  await searchHotel.searchHotel(
                                                     minimumPrice: searchHotel
                                                         .values.start
                                                         .truncate(),
                                                     maximumPrice: searchHotel
                                                         .values.end
                                                         .truncate(),
-                                                    ratingClass:
-                                                        searchHotel.ratinglass,
-                                                    address:
-                                                        searchHotel.address);
-                                                if (context.mounted) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ListHotelView()),
+                                                    address: searchHotel.address,
                                                   );
+                                                  if (context.mounted) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ListHotelView()),
+                                                    );
+                                                  }
+                                                } else if (searchHotel.address !=
+                                                        null &&
+                                                    searchHotel.values.start !=
+                                                        null &&
+                                                    searchHotel.values.end !=
+                                                        null &&
+                                                    searchHotel.ratinglass != 0) {
+                                                  await searchHotel.searchHotel(
+                                                      minimumPrice: searchHotel
+                                                          .values.start
+                                                          .truncate(),
+                                                      maximumPrice: searchHotel
+                                                          .values.end
+                                                          .truncate(),
+                                                      ratingClass:
+                                                          searchHotel.ratinglass,
+                                                      address:
+                                                          searchHotel.address);
+                                                  if (context.mounted) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ListHotelView()),
+                                                    );
+                                                  }
+                                                } else {
+                                                  await searchHotel.searchHotel();
+                                                  if (context.mounted) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const ListHotelView()),
+                                                    );
+                                                  }
                                                 }
                                               } else {
-                                                await searchHotel.searchHotel();
-                                                if (context.mounted) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ListHotelView()),
-                                                  );
-                                                }
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'Harap isi data tanggal Check In dan Check Out, serta jumlah Dewasa'),
+                                                  ),
+                                                );
                                               }
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                const SnackBar(
-                                                  content: Text(
-                                                      'Harap isi data tanggal Check In dan Check Out, serta jumlah Dewasa'),
-                                                ),
+                                            },
+                                            child: const Text('Cari'),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 16.w,
+                                        ),
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return CustomBottomSheet(); // Replace with the desired bottom sheet widget
+                                                },
                                               );
-                                            }
-                                          },
-                                          child: const Text('Cari'),
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                              ),
+                                              backgroundColor:
+                                                  const Color(0xFFF0F0F0),
+                                            ),
+                                            child: const Icon(Icons.tune,
+                                                color: Colors.blue),
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 16.w,
-                                      ),
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            showModalBottomSheet(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return CustomBottomSheet(); // Replace with the desired bottom sheet widget
-                                              },
-                                            );
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.r),
-                                            ),
-                                            backgroundColor:
-                                                const Color(0xFFF0F0F0),
-                                          ),
-                                          child: const Icon(Icons.tune,
-                                              color: Colors.blue),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Hotel Populer',
-                              style: TextStyle(
-                                fontFamily: 'Open Sans',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                letterSpacing: 0.25,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
                           ],
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: _viewModel.popularHotels
-                                .map((hotel) => Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 2.sp),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 150,
-                                            height: 84,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(4.r),
-                                                topRight: Radius.circular(4.r),
-                                                bottomLeft: Radius.zero,
-                                                bottomRight: Radius.zero,
-                                              ),
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                            child: Image.asset(hotel.image),
-                                          ),
-                                          Container(
-                                            width: 150.w,
-                                            height: 140.h,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(8.r),
-                                                bottomRight:
-                                                    Radius.circular(8.r),
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 8.sp,
-                                                  right: 8.sp,
-                                                  top: 16.sp),
-                                              child: Column(
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Text(
-                                                      hotel.name,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Open Sans',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 12.sp,
-                                                        letterSpacing: 0.25,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 4.h),
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                          Icons.location_on),
-                                                      Flexible(
-                                                        child: Column(
-                                                          children: [
-                                                            Text(
-                                                              hotel.location,
-                                                              softWrap: true,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .visible,
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Open Sans',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontSize: 10.sp,
-                                                                letterSpacing:
-                                                                    0.015,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 4.h,
-                                                  ),
-                                                  const Row(
-                                                    children: [
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 4.h,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        hotel.price,
-                                                        softWrap: true,
-                                                        overflow: TextOverflow
-                                                            .visible,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Open Sans',
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 14.sp,
-                                                          letterSpacing: 0.025,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 12.h),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Sedang Promo',
-                              style: TextStyle(
-                                fontFamily: 'Open Sans',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                letterSpacing: 0.25,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: _viewModel.popularHotels
-                                .map((hotel) => Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 2.sp),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 150,
-                                            height: 84,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(4.r),
-                                                topRight: Radius.circular(4.r),
-                                                bottomLeft: Radius.zero,
-                                                bottomRight: Radius.zero,
-                                              ),
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                            child: Image.asset(hotel.image),
-                                          ),
-                                          Container(
-                                            width: 150,
-                                            height: 140,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(8.r),
-                                                bottomRight:
-                                                    Radius.circular(8.r),
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 8.sp,
-                                                  right: 8.sp,
-                                                  top: 16.sp),
-                                              child: Column(
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Text(
-                                                      hotel.name,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Open Sans',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 12.sp,
-                                                        letterSpacing: 0.25,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 4.h),
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                          Icons.location_on),
-                                                      Flexible(
-                                                        child: Column(
-                                                          children: [
-                                                            Text(
-                                                              hotel.location,
-                                                              softWrap: true,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .visible,
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Open Sans',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontSize: 10.sp,
-                                                                letterSpacing:
-                                                                    0.015,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 4.h,
-                                                  ),
-                                                  const Row(
-                                                    children: [
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                      Icon(Icons.star,
-                                                          size: 16,
-                                                          color: Colors.yellow),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 4.h,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        hotel.price,
-                                                        softWrap: true,
-                                                        overflow: TextOverflow
-                                                            .visible,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Open Sans',
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 14.sp,
-                                                          letterSpacing: 0.025,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 12.h),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
                         )
                       ],
                     ),
-                  )
-                ],
-              )
-            ],
+                  ),
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'Hotel Populer',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                  letterSpacing: 0.25,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: _viewModel.popularHotels
+                                  .map((hotel) => Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 2.sp),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 150,
+                                              height: 84,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(4.r),
+                                                  topRight: Radius.circular(4.r),
+                                                  bottomLeft: Radius.zero,
+                                                  bottomRight: Radius.zero,
+                                                ),
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              child: Image.asset(hotel.image),
+                                            ),
+                                            Container(
+                                              width: 150.w,
+                                              height: 140.h,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(8.r),
+                                                  bottomRight:
+                                                      Radius.circular(8.r),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 8.sp,
+                                                    right: 8.sp,
+                                                    top: 16.sp),
+                                                child: Column(
+                                                  children: [
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        hotel.name,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Open Sans',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 12.sp,
+                                                          letterSpacing: 0.25,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 4.h),
+                                                    Row(
+                                                      children: [
+                                                        const Icon(
+                                                            Icons.location_on),
+                                                        Flexible(
+                                                          child: Column(
+                                                            children: [
+                                                              Text(
+                                                                hotel.location,
+                                                                softWrap: true,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .visible,
+                                                                style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Open Sans',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 10.sp,
+                                                                  letterSpacing:
+                                                                      0.015,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 4.h,
+                                                    ),
+                                                    const Row(
+                                                      children: [
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 4.h,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          hotel.price,
+                                                          softWrap: true,
+                                                          overflow: TextOverflow
+                                                              .visible,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Open Sans',
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 14.sp,
+                                                            letterSpacing: 0.025,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 12.h),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Sedang Promo',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                  letterSpacing: 0.25,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: _viewModel.popularHotels
+                                  .map((hotel) => Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 2.sp),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 150,
+                                              height: 84,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(4.r),
+                                                  topRight: Radius.circular(4.r),
+                                                  bottomLeft: Radius.zero,
+                                                  bottomRight: Radius.zero,
+                                                ),
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              child: Image.asset(hotel.image),
+                                            ),
+                                            Container(
+                                              width: 150,
+                                              height: 140,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(8.r),
+                                                  bottomRight:
+                                                      Radius.circular(8.r),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 8.sp,
+                                                    right: 8.sp,
+                                                    top: 16.sp),
+                                                child: Column(
+                                                  children: [
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        hotel.name,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Open Sans',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 12.sp,
+                                                          letterSpacing: 0.25,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 4.h),
+                                                    Row(
+                                                      children: [
+                                                        const Icon(
+                                                            Icons.location_on),
+                                                        Flexible(
+                                                          child: Column(
+                                                            children: [
+                                                              Text(
+                                                                hotel.location,
+                                                                softWrap: true,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .visible,
+                                                                style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Open Sans',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 10.sp,
+                                                                  letterSpacing:
+                                                                      0.015,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 4.h,
+                                                    ),
+                                                    const Row(
+                                                      children: [
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                        Icon(Icons.star,
+                                                            size: 16,
+                                                            color: Colors.yellow),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 4.h,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          hotel.price,
+                                                          softWrap: true,
+                                                          overflow: TextOverflow
+                                                              .visible,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Open Sans',
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 14.sp,
+                                                            letterSpacing: 0.025,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 12.h),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

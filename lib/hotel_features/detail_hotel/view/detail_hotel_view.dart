@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +24,7 @@ class DetailView extends StatefulWidget {
 
 class _DetailViewState extends State<DetailView> {
   final formatter = NumberFormat.simpleCurrency(locale: 'id_ID');
+  int _currentSlide = 0;
   @override
   void initState() {
     super.initState();
@@ -48,10 +50,18 @@ class _DetailViewState extends State<DetailView> {
                 SizedBox(height: 12.h),
                 SizedBox(
                   height: 192.h,
-                  child: PageView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: detailHotelProv.detailHotel.hotelImage?.length,
-                    itemBuilder: (BuildContext context, int index) {
+                  child: CarouselSlider.builder(
+                    itemCount: detailHotelProv.detailHotel.hotelImage?.length ?? 0,
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      viewportFraction: 1.0,
+                      onPageChanged: (index, _) {
+                        setState(() {
+                          _currentSlide = index;
+                        });
+                      },
+                    ),
+                    itemBuilder: (BuildContext context, int index, _) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: detailHotelProv.detailHotel.hotelImage?[index]

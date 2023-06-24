@@ -433,6 +433,7 @@ class MyCustomBottomSheetState extends State<MyCustomBottomSheet> {
                     await searchHotel.searchHotel();
                     debugPrint('PAnjang : ${searchHotel.hotelFiltered.length}');
                   }
+                  Navigator.pop(context);
                   // Function
                 },
                 style: ElevatedButton.styleFrom(
