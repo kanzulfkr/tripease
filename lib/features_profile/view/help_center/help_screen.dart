@@ -1,8 +1,8 @@
-import 'package:capstone_project_tripease/features_profile/view/help_center/detail_topic.dart';
-import 'package:capstone_project_tripease/features_profile/view/help_center/widgets/not_found_keywords.dart';
-import 'package:capstone_project_tripease/features_profile/view/help_center/widgets/popular_keywords.dart';
-import 'package:capstone_project_tripease/features_profile/view/help_center/widgets/popular_topic.dart';
-import 'package:capstone_project_tripease/features_profile/view_model/article_provider.dart';
+import '/features_profile/view/help_center/detail_topic.dart';
+import '/features_profile/view/help_center/widgets/not_found_keywords.dart';
+import '/features_profile/view/help_center/widgets/popular_keywords.dart';
+import '/features_profile/view/help_center/widgets/popular_topic.dart';
+import '/features_profile/view_model/article_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

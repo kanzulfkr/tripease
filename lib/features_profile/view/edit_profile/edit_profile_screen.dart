@@ -1,9 +1,9 @@
 // ignore: depend_on_referenced_packages
-import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/view/edit_profile/edit_photo_screen.dart';
-import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
-import 'package:capstone_project_tripease/features_profile/view_model/user_profile_provider.dart';
-import 'package:capstone_project_tripease/main_page.dart';
+import '/features_profile/view/widgets/button_active.dart';
+import '/features_profile/view/edit_profile/edit_photo_screen.dart';
+import '/features_profile/view/widgets/button_inactive.dart';
+import '/features_profile/view_model/user_profile_provider.dart';
+import '/main_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,13 +67,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
     final user = Provider.of<UserProfileProvider>(context, listen: false);
-    user.getUserProfile();
+    Future.microtask(() async {
+      await user.getUserProfile();
+    });
 
-    fullNameController.text = user.result!.fullName ?? '';
-    phoneNumberController.text = user.result!.phoneNumber ?? '';
-    birthDateController.text = user.result!.birthDate ?? '';
-    citizenController.text = user.result!.citizen ?? '';
+    fullNameController.text = user.result?.fullName ?? '';
+    phoneNumberController.text = user.result?.phoneNumber ?? '';
+    birthDateController.text = user.result?.birthDate ?? '';
+    citizenController.text = user.result?.citizen ?? '';
   }
+
   void _showDateBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -91,7 +94,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 Padding(
                   padding:
-                  EdgeInsets.only(top: 16.sp, left: 24.sp, bottom: 24.sp),
+                      EdgeInsets.only(top: 16.sp, left: 24.sp, bottom: 24.sp),
                   child: Text(
                     'Pilih Tanggal',
                     style: GoogleFonts.openSans(
@@ -135,7 +138,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   headerStyle: const HeaderStyle(
                     formatButtonTextStyle: TextStyle(color: Colors.transparent),
                     formatButtonDecoration:
-                    BoxDecoration(color: Colors.transparent),
+                        BoxDecoration(color: Colors.transparent),
                   ),
                   calendarStyle: CalendarStyle(
                     isTodayHighlighted: true,
@@ -196,13 +199,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProfileProvider>(context);
-
-
-
     return Consumer<UserProfileProvider>(
       builder: (context, value, child) => Scaffold(
         resizeToAvoidBottomInset: false,
@@ -245,20 +243,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             CircleAvatar(
                               radius: 50.r,
                               backgroundColor:
-                              const Color.fromARGB(255, 224, 226, 231),
-                              child: user.loading
+                                  const Color.fromARGB(255, 224, 226, 231),
+                              child: value.loading
                                   ? SizedBox(
-                                  height: 100.h,
-                                  width: 100.w,
-                                  child: const CircularProgressIndicator())
+                                      height: 100.h,
+                                      width: 100.w,
+                                      child: const CircularProgressIndicator())
                                   : CircleAvatar(
-                                radius: 47.r,
-                                backgroundImage:
-                                // AssetImage('assets/images/user.jfif'),
-                                NetworkImage(
-                                  user.result!.profilePictureUrl ?? '',
-                                ),
-                              ),
+                                      radius: 47.r,
+                                      backgroundImage:
+                                          // AssetImage('assets/images/user.jfif'),
+                                          NetworkImage(value
+                                                  .result?.profilePictureUrl ??
+                                              'https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg'),
+                                    ),
                             ),
                             Positioned(
                               bottom: 0.sp,
@@ -266,7 +264,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               child: CircleAvatar(
                                 radius: 15.r,
                                 backgroundColor:
-                                const Color.fromRGBO(240, 240, 248, 1),
+                                    const Color.fromRGBO(240, 240, 248, 1),
                                 child: const Icon(
                                   Icons.border_color_outlined,
                                   color: Colors.black,
@@ -280,14 +278,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   Center(
                     child: Text(
-                      user.loading ? '' : user.result!.fullName ?? '',
+                      value.loading ? '' : value.result?.fullName ?? '',
                       style: GoogleFonts.openSans(
                           fontSize: 16.sp, fontWeight: FontWeight.w600),
                     ),
                   ),
                   Center(
                     child: Text(
-                      user.loading ? '' : user.result!.email ?? '',
+                      value.loading ? '' : value.result!.email ?? '',
                       style: GoogleFonts.openSans(
                           fontSize: 14.sp, fontWeight: FontWeight.w400),
                     ),
@@ -411,6 +409,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                   TextFormField(
+                    onTap: () {
+                      _showDateBottomSheet();
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Tanggal Lahir tidak boleh kosong';
+                      } else if (DateTime.tryParse(value)!
+                          .isAfter(DateTime.now())) {
+                        return 'Birthday date cannot be in the future.';
+                      }
+                      return null;
+                    },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     readOnly: true,
                     controller: birthDateController,
@@ -421,14 +431,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       hintStyle: GoogleFonts.openSans(color: Colors.grey),
                       contentPadding: EdgeInsets.symmetric(
                           horizontal: 16.w, vertical: 10.h),
-                      suffixIcon: InkWell(
-                        onTap: () {
-                          _showDateBottomSheet();
-                        },
-                        child: const Icon(
-                          Icons.date_range_rounded,
-                          color: Colors.grey,
-                        ),
+                      suffixIcon: const Icon(
+                        Icons.date_range_rounded,
+                        color: Colors.grey,
                       ),
                       focusColor: Colors.white,
                       focusedBorder: OutlineInputBorder(
@@ -509,56 +514,55 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SizedBox(height: 30.h),
                   isActive
                       ? ButtonActive(
-                    text: 'Simpan',
-                    onTap: () async {
-                      String fullName = fullNameController.text;
-                      String phoneNumber = phoneNumberController.text;
-                      String birthDate = birthDateController.text;
-                      String citizen = citizenController.text;
+                          text: 'Simpan',
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              String fullName = fullNameController.text;
+                              String phoneNumber = phoneNumberController.text;
+                              String birthDate = birthDateController.text;
+                              String citizen = citizenController.text;
+                              await value.updateUserProfile(
+                                  fullName, phoneNumber, birthDate, citizen);
+                              if (value.updateStatus == UpdateStatus.success) {
+                                if (context.mounted) {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MainPage()),
+                                      (route) => false);
+                                }
+                              } else if (value.updateStatus ==
+                                  UpdateStatus.error) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          'Profil telah berhasil di simpan'),
+                                    ),
+                                  );
+                                }
+                              }
 
-                      if (_formKey.currentState!.validate()) {
-                        await value.updateUserProfile(
-                            fullName, phoneNumber, birthDate, citizen);
-                        if (value.updateStatus == UpdateStatus.success) {
-                          if (context.mounted) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                    const MainPage()),
-                                    (route) => false);
-                          }
-                        } else if (value.updateStatus ==
-                            UpdateStatus.error) {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    'Profil telah berhasil di simpan'),
-                              ),
-                            );
-                          }
-                        }
-
-                        const snackBar = SnackBar(
-                          content: Center(
-                            child: Text(
-                              'Profil telah berhasil di simpan',
-                            ),
-                          ),
-                          backgroundColor: Color.fromRGBO(61, 175, 29, 1),
-                          showCloseIcon: true,
-                          closeIconColor: Colors.white,
-                        );
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBar);
-                      }
-                    },
-                  )
+                              const snackBar = SnackBar(
+                                content: Center(
+                                  child: Text(
+                                    'Profil telah berhasil di simpan',
+                                  ),
+                                ),
+                                backgroundColor: Color.fromRGBO(61, 175, 29, 1),
+                                showCloseIcon: true,
+                                closeIconColor: Colors.white,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
+                        )
                       : ButtonInactive(
-                    text: 'Simpan',
-                    onTap: () {},
-                  )
+                          text: 'Simpan',
+                          onTap: () {},
+                        )
                 ],
               ),
             ),

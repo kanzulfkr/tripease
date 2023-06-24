@@ -1,6 +1,6 @@
-import 'package:capstone_project_tripease/features_profile/view/widgets/button_active.dart';
-import 'package:capstone_project_tripease/features_profile/view/widgets/button_inactive.dart';
-import 'package:capstone_project_tripease/features_profile/view/change_password/email_verification.dart';
+import '/features_profile/view/widgets/button_active.dart';
+import '/features_profile/view/widgets/button_inactive.dart';
+import '/features_profile/view/change_password/email_verification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

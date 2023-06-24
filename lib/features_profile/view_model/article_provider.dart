@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:capstone_project_tripease/features_profile/api/article_service.dart';
-import 'package:capstone_project_tripease/features_profile/model/article.dart';
+import '/features_profile/api/article_service.dart';
+import '/features_profile/model/article.dart';
 import 'package:flutter/material.dart';
 
 class ArticleProvider extends ChangeNotifier {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:capstone_project_tripease/features_profile/model/article.dart';
+import '/features_profile/model/article.dart';
 import 'package:http/http.dart' as http;
 
 class ArticleService {

@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
-import 'package:capstone_project_tripease/features_profile/api/user_profile_service.dart';
-import 'package:capstone_project_tripease/features_profile/model/user_profile.dart';
+import '/features_profile/api/user_profile_service.dart';
+import '/features_profile/model/user_profile.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class UserProfileProvider extends ChangeNotifier {
 
   Future<void> getUserProfile() async {
     loading = true;
-    result = (await UserProfileService().getUser())!;
+    result = await UserProfileService().getUser();
     loading = false;
     notifyListeners();
   }

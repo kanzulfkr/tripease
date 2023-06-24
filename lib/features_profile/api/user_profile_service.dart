@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:capstone_project_tripease/features_onboard/utils/token_manager.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:capstone_project_tripease/features_profile/model/user_profile.dart';
+import '../../features_onboard/utils/token_manager.dart';
+import '/features_profile/model/user_profile.dart';
 
 class UserProfileService {
   final baseUrl = 'https://api.tripease.my.id/api/v1';
@@ -24,8 +25,10 @@ class UserProfileService {
         },
       );
       if (response.statusCode == 200) {
+        print('response: ${response.body}');
         final item = json.decode(response.body);
         result = Data.fromJson(item['data']);
+        print('Result : $result');
       } else {
         final errorMessage = json.decode(response.body);
         _message = errorMessage;

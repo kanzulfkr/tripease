@@ -1,11 +1,14 @@
-import 'package:capstone_project_tripease/features_home/widgets/for_you.dart';
-import 'package:capstone_project_tripease/features_home/widgets/you_just_saw.dart';
-import 'package:capstone_project_tripease/features_home/widgets/you_just_search.dart';
-import 'package:capstone_project_tripease/features_kai/view/ka_page/ka_page.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
+import 'package:hotel_1/hotel_features/hotel_home/view/clone.dart';
+
+import '/features_home/widgets/for_you.dart';
+import '/features_home/widgets/you_just_saw.dart';
+import '/features_home/widgets/you_just_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '/features_kai/view/ka_page/ka_page.dart';
+import '/features_kai/view_model/station/station_provider.dart';
+
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -115,7 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HotelHome()));
+                  },
                   child: Container(
                     height: 40.h,
                     width: 160.w,
@@ -214,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const YouJustSaw(),
+          YouJustSaw(),
           Padding(
             padding: EdgeInsets.only(
                 top: 24.h, left: 20.w, right: 20.w, bottom: 8.h),
@@ -226,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const ForYou(),
+          ForYou(),
           Padding(
             padding: EdgeInsets.only(
                 top: 24.h, left: 20.w, right: 20.w, bottom: 8.h),

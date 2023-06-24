@@ -1,10 +1,10 @@
-import 'package:capstone_project_tripease/features_profile/view/change_password/change_password_screen.dart';
-import 'package:capstone_project_tripease/features_profile/view/widgets/custom_dialog.dart';
-import 'package:capstone_project_tripease/features_profile/view/widgets/menu_profile.dart';
-import 'package:capstone_project_tripease/features_profile/view/edit_profile/edit_profile_screen.dart';
-import 'package:capstone_project_tripease/features_profile/view/help_center/help_screen.dart';
-import 'package:capstone_project_tripease/features_profile/view/language/language_screen.dart';
-import 'package:capstone_project_tripease/features_profile/view_model/user_profile_provider.dart';
+import '/features_profile/view/change_password/change_password_screen.dart';
+import '/features_profile/view/widgets/custom_dialog.dart';
+import '/features_profile/view/widgets/menu_profile.dart';
+import '/features_profile/view/edit_profile/edit_profile_screen.dart';
+import '/features_profile/view/help_center/help_screen.dart';
+import '/features_profile/view/language/language_screen.dart';
+import '/features_profile/view_model/user_profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               : CircleAvatar(
                                   radius: 29.r,
                                   backgroundImage: NetworkImage(
-                                    user.result!.profilePictureUrl ?? '',
+                                    user.result?.profilePictureUrl ?? '',
                                   ),
                                 )),
                       Container(
@@ -85,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Text(
                               user.loading
                                   ? 'User name'
-                                  : user.result!.fullName ?? '',
+                                  : user.result?.fullName ?? '',
                               style: GoogleFonts.openSans(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Text(
                               user.loading
                                   ? 'me@email.com'
-                                  : user.result!.email ?? '',
+                                  : user.result?.email ?? '',
                               style: GoogleFonts.openSans(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,

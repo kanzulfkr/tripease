@@ -1,4 +1,4 @@
-name: capstone_project_tripease
+name: hotel_1
 description: A new Flutter project.
 publish_to: "none"
 version: 0.1.0
@@ -31,9 +31,18 @@ dependencies:
   qr_flutter: ^4.1.0
   random_string: ^2.3.1
 
+  cupertino_icons: ^1.0.2
+
+  syncfusion_flutter_sliders: ^21.2.6
+
+  http: ^0.13.4
+
+  carousel_slider: ^4.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   flutter_lints: ^2.0.0
 
 flutter:
@@ -41,3 +50,34 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/images/hotel1.jpeg
+    - assets/images/hotel2.jpeg
+    - assets/images/hotel3.jpeg
+    - assets/images/hotel4.jpeg
+    - assets/images/hotel5.jpeg
+    - assets/images/hotel6.jpeg
+    - assets/images/search1.jpeg
+    - assets/images/flagID.jpeg
+    - assets/images/flagSG.jpeg
+    - assets/images/flagMY.jpeg
+    - assets/images/flagTH.jpeg
+    - assets/images/detail_h1.jpeg
+    - assets/images/detail_h2.jpeg
+    - assets/images/detail_h3.jpeg
+    - assets/images/vector.jpeg
+    - assets/images/VA.jpeg
+    - assets/images/OVO.jpeg
+    - assets/images/Gopay.jpeg
+    - assets/images/Minimarket.jpeg
+    - assets/images/Hotel.jpeg
+    - assets/images/BCA.jpeg
+    - assets/images/BRI.jpeg
+    - assets/images/MANDIRI.jpeg
+    - assets/images/CC.jpeg
+    - assets/images/indomaret.png
+    - assets/images/alfamart.png
+    - assets/images/verified.jpeg
+    - assets/images/type.jpeg
+    - assets/images/detail_k1.jpeg
+    - assets/images/detail_k2.jpeg
+    - assets/images/detail_k3.jpeg
