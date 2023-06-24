@@ -160,43 +160,28 @@ class _HotelSearchViewState extends State<HotelSearchView> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      Text(
-                                                        hotel.address
-                                                            .toString(),
-                                                        style: GoogleFonts
-                                                            .openSans(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
+                                                      Flexible(
+                                                        child: Text(
+                                                          hotel.address
+                                                              .toString(),
+                                                          style: GoogleFonts
+                                                              .openSans(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                          softWrap: true,
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
                                                       ),
                                                       SizedBox(width: 8.h),
-                                                      // Container(
-                                                      //   width: 5,
-                                                      //   height: 5,
-                                                      //   decoration: const BoxDecoration(
-                                                      //     shape: BoxShape.circle,
-                                                      //     color: Colors.black,
-                                                      //   ),
-                                                      // ),
-                                                      // SizedBox(width: 8.h),
-                                                      // Text(
-                                                      //   station.origin.toString(),
-                                                      //   style: GoogleFonts.openSans(
-                                                      //     fontSize: 12.sp,
-                                                      //     fontWeight: FontWeight.w600,
-                                                      //   ),
-                                                      // ),
+                                                      // Other widgets in the Row
                                                     ],
                                                   ),
                                                   SizedBox(height: 4.h),
-                                                  // Text(
-                                                  //   station.name.toString(),
-                                                  //   style: GoogleFonts.openSans(
-                                                  //     fontSize: 12.sp,
-                                                  //     fontWeight: FontWeight.w600,
-                                                  //   ),
-                                                  // ),
+                                                  // Other widgets in the Column
                                                 ],
                                               ),
                                             ),

@@ -48,21 +48,23 @@ class _DetailViewState extends State<DetailView> {
             return Column(
               children: [
                 SizedBox(height: 12.h),
-                SizedBox(
-                  height: 192.h,
-                  child: CarouselSlider.builder(
-                    itemCount: detailHotelProv.detailHotel.hotelImage?.length ?? 0,
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      viewportFraction: 1.0,
-                      onPageChanged: (index, _) {
-                        setState(() {
-                          _currentSlide = index;
-                        });
-                      },
-                    ),
-                    itemBuilder: (BuildContext context, int index, _) {
-                      return Padding(
+                CarouselSlider.builder(
+                  itemCount:
+                      detailHotelProv.detailHotel.hotelImage?.length ?? 0,
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    viewportFraction: 1.0,
+                    onPageChanged: (index, _) {
+                      setState(() {
+                        _currentSlide = index;
+                      });
+                    },
+                  ),
+                  itemBuilder: (BuildContext context, int index, _) {
+                    return SizedBox(
+                      height: 200.h,
+                      width: double.infinity,
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: detailHotelProv.detailHotel.hotelImage?[index]
                                         .imageUrl !=
@@ -83,9 +85,9 @@ class _DetailViewState extends State<DetailView> {
                                 hotelAssetsList[index],
                                 fit: BoxFit.cover,
                               ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(height: 12.h),
                 Container(

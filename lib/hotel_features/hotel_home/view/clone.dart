@@ -235,20 +235,20 @@ class HotelHomeState extends State<HotelHome> {
         centerTitle: true,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF66B2FF),
-                Color(0xFFF9FAFB),
-                Color(0xFFF9FAFB),
-                Color(0xFFF9FAFB),
-                Color(0xFF66B2FF),
-                Color(0xFFF9FAFB),
-                Color(0xFFF9FAFB),
-              ],
-            ),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF66B2FF),
+              Color(0xFFF9FAFB),
+              Color(0xFFF9FAFB),
+              Color(0xFFF9FAFB),
+              Color(0xFF66B2FF),
+              Color(0xFFF9FAFB),
+              Color(0xFFF9FAFB),
+            ],
+          ),
         ),
         child: SingleChildScrollView(
           child: Container(
@@ -304,17 +304,21 @@ class HotelHomeState extends State<HotelHome> {
                                     shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        side:
-                                            const BorderSide(color: Colors.grey),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        side: const BorderSide(
+                                            color: Colors.grey),
                                       ),
                                     ),
                                   ),
                                   onPressed: () {
                                     showModalBottomSheet(
+                                      isScrollControlled: true,
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return const HotelSearchView();
+                                        return FractionallySizedBox(
+                                            heightFactor: 0.9.h,
+                                            child: const HotelSearchView());
                                       },
                                     );
                                   },
@@ -332,7 +336,8 @@ class HotelHomeState extends State<HotelHome> {
                                                 ),
                                               )
                                             : Text(
-                                                searchProvider.address.toString(),
+                                                searchProvider.address
+                                                    .toString(),
                                                 style: TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 16.sp,
@@ -418,8 +423,8 @@ class HotelHomeState extends State<HotelHome> {
                                                               const InputDecoration(
                                                             hintText:
                                                                 'Pilih Tanggal',
-                                                            border:
-                                                                InputBorder.none,
+                                                            border: InputBorder
+                                                                .none,
                                                           ),
                                                         ),
                                                 ),
@@ -438,7 +443,7 @@ class HotelHomeState extends State<HotelHome> {
                                     },
                                   ),
                                 )
-      
+
                                     //     GestureDetector(
                                     //   onTap: () {
                                     //     _showDateBottomSheet(context);
@@ -488,44 +493,46 @@ class HotelHomeState extends State<HotelHome> {
                             SizedBox(height: 36.h),
                             Column(
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text('Jumlah Kamar'),
-                                    SizedBox(width: 10.w),
-                                    Flexible(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          border: Border.all(
-                                              color: Colors.grey, width: 1.0),
-                                        ),
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          textAlign: TextAlign.center,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            contentPadding: EdgeInsets.symmetric(
-                                                horizontal: 10.0.sp),
-                                            hintText: '0',
-                                          ),
-                                          controller:
-                                              TextEditingController(text: ''),
-                                          onChanged: (value) {
-                                            _viewModel.roomCount =
-                                                int.parse(value);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 35.h),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: [
+                                //     const Text('Jumlah Kamar'),
+                                //     SizedBox(width: 10.w),
+                                //     Flexible(
+                                //       child: Container(
+                                //         decoration: BoxDecoration(
+                                //           borderRadius:
+                                //               BorderRadius.circular(10.0),
+                                //           border: Border.all(
+                                //               color: Colors.grey, width: 1.0),
+                                //         ),
+                                //         child: TextFormField(
+                                //           keyboardType: TextInputType.number,
+                                //           textAlign: TextAlign.center,
+                                //           decoration: InputDecoration(
+                                //             border: InputBorder.none,
+                                //             contentPadding:
+                                //                 EdgeInsets.symmetric(
+                                //                     horizontal: 10.0.sp),
+                                //             hintText: '0',
+                                //           ),
+                                //           controller:
+                                //               TextEditingController(text: ''),
+                                //           onChanged: (value) {
+                                //             _viewModel.roomCount =
+                                //                 int.parse(value);
+                                //           },
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(height: 35.h),
                                 Column(
                                   children: [
                                     Consumer<SearchProvider>(
-                                      builder: (context, searchProvider, child) {
+                                      builder:
+                                          (context, searchProvider, child) {
                                         return Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -536,7 +543,8 @@ class HotelHomeState extends State<HotelHome> {
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(10.0),
+                                                      BorderRadius.circular(
+                                                          10.0),
                                                   border: Border.all(
                                                       color: Colors.grey,
                                                       width: 1.0),
@@ -587,7 +595,8 @@ class HotelHomeState extends State<HotelHome> {
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(10.0),
+                                                      BorderRadius.circular(
+                                                          10.0),
                                                   border: Border.all(
                                                       color: Colors.grey,
                                                       width: 1.0),
@@ -600,7 +609,8 @@ class HotelHomeState extends State<HotelHome> {
                                                     border: InputBorder.none,
                                                     contentPadding:
                                                         EdgeInsets.symmetric(
-                                                            horizontal: 10.0.sp),
+                                                            horizontal:
+                                                                10.0.sp),
                                                     hintText: '0',
                                                   ),
                                                   controller:
@@ -621,7 +631,8 @@ class HotelHomeState extends State<HotelHome> {
                                       height: 20.h,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         SizedBox(
                                           width: 250,
@@ -635,7 +646,8 @@ class HotelHomeState extends State<HotelHome> {
                                                       .validate() &&
                                                   formKey2.currentState!
                                                       .validate()) {
-                                                if (searchHotel.address != null) {
+                                                if (searchHotel.address !=
+                                                    null) {
                                                   await searchHotel.searchHotel(
                                                       address:
                                                           searchHotel.address);
@@ -650,7 +662,8 @@ class HotelHomeState extends State<HotelHome> {
                                                 } else if (searchHotel
                                                             .values.start !=
                                                         null &&
-                                                    searchHotel.values.end !=
+                                                    searchHotel
+                                                            .values.end !=
                                                         null) {
                                                   await searchHotel.searchHotel(
                                                       minimumPrice: searchHotel
@@ -673,8 +686,8 @@ class HotelHomeState extends State<HotelHome> {
                                                         .ratinglass !=
                                                     0) {
                                                   await searchHotel.searchHotel(
-                                                      ratingClass:
-                                                          searchHotel.ratinglass);
+                                                      ratingClass: searchHotel
+                                                          .ratinglass);
                                                   if (context.mounted) {
                                                     Navigator.push(
                                                       context,
@@ -683,7 +696,8 @@ class HotelHomeState extends State<HotelHome> {
                                                               const ListHotelView()),
                                                     );
                                                   }
-                                                } else if (searchHotel.address !=
+                                                } else if (searchHotel
+                                                            .address !=
                                                         null &&
                                                     searchHotel.values.start !=
                                                         null &&
@@ -696,7 +710,8 @@ class HotelHomeState extends State<HotelHome> {
                                                     maximumPrice: searchHotel
                                                         .values.end
                                                         .truncate(),
-                                                    address: searchHotel.address,
+                                                    address:
+                                                        searchHotel.address,
                                                   );
                                                   if (context.mounted) {
                                                     Navigator.push(
@@ -706,13 +721,15 @@ class HotelHomeState extends State<HotelHome> {
                                                               const ListHotelView()),
                                                     );
                                                   }
-                                                } else if (searchHotel.address !=
+                                                } else if (searchHotel
+                                                            .address !=
                                                         null &&
                                                     searchHotel.values.start !=
                                                         null &&
                                                     searchHotel.values.end !=
                                                         null &&
-                                                    searchHotel.ratinglass != 0) {
+                                                    searchHotel.ratinglass !=
+                                                        0) {
                                                   await searchHotel.searchHotel(
                                                       minimumPrice: searchHotel
                                                           .values.start
@@ -720,8 +737,8 @@ class HotelHomeState extends State<HotelHome> {
                                                       maximumPrice: searchHotel
                                                           .values.end
                                                           .truncate(),
-                                                      ratingClass:
-                                                          searchHotel.ratinglass,
+                                                      ratingClass: searchHotel
+                                                          .ratinglass,
                                                       address:
                                                           searchHotel.address);
                                                   if (context.mounted) {
@@ -733,7 +750,8 @@ class HotelHomeState extends State<HotelHome> {
                                                     );
                                                   }
                                                 } else {
-                                                  await searchHotel.searchHotel();
+                                                  await searchHotel
+                                                      .searchHotel();
                                                   if (context.mounted) {
                                                     Navigator.push(
                                                       context,
@@ -764,7 +782,8 @@ class HotelHomeState extends State<HotelHome> {
                                             onPressed: () {
                                               showModalBottomSheet(
                                                 context: context,
-                                                builder: (BuildContext context) {
+                                                builder:
+                                                    (BuildContext context) {
                                                   return CustomBottomSheet(); // Replace with the desired bottom sheet widget
                                                 },
                                               );
@@ -834,7 +853,8 @@ class HotelHomeState extends State<HotelHome> {
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(4.r),
-                                                  topRight: Radius.circular(4.r),
+                                                  topRight:
+                                                      Radius.circular(4.r),
                                                   bottomLeft: Radius.zero,
                                                   bottomRight: Radius.zero,
                                                 ),
@@ -873,7 +893,8 @@ class HotelHomeState extends State<HotelHome> {
                                                       child: Text(
                                                         hotel.name,
                                                         style: TextStyle(
-                                                          fontFamily: 'Open Sans',
+                                                          fontFamily:
+                                                              'Open Sans',
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 12.sp,
@@ -895,13 +916,15 @@ class HotelHomeState extends State<HotelHome> {
                                                                 overflow:
                                                                     TextOverflow
                                                                         .visible,
-                                                                style: TextStyle(
+                                                                style:
+                                                                    TextStyle(
                                                                   fontFamily:
                                                                       'Open Sans',
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
-                                                                  fontSize: 10.sp,
+                                                                  fontSize:
+                                                                      10.sp,
                                                                   letterSpacing:
                                                                       0.015,
                                                                 ),
@@ -918,19 +941,24 @@ class HotelHomeState extends State<HotelHome> {
                                                       children: [
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                       ],
                                                     ),
                                                     SizedBox(
@@ -949,7 +977,8 @@ class HotelHomeState extends State<HotelHome> {
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 14.sp,
-                                                            letterSpacing: 0.025,
+                                                            letterSpacing:
+                                                                0.025,
                                                           ),
                                                         )
                                                       ],
@@ -1000,7 +1029,8 @@ class HotelHomeState extends State<HotelHome> {
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(4.r),
-                                                  topRight: Radius.circular(4.r),
+                                                  topRight:
+                                                      Radius.circular(4.r),
                                                   bottomLeft: Radius.zero,
                                                   bottomRight: Radius.zero,
                                                 ),
@@ -1039,7 +1069,8 @@ class HotelHomeState extends State<HotelHome> {
                                                       child: Text(
                                                         hotel.name,
                                                         style: TextStyle(
-                                                          fontFamily: 'Open Sans',
+                                                          fontFamily:
+                                                              'Open Sans',
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 12.sp,
@@ -1061,13 +1092,15 @@ class HotelHomeState extends State<HotelHome> {
                                                                 overflow:
                                                                     TextOverflow
                                                                         .visible,
-                                                                style: TextStyle(
+                                                                style:
+                                                                    TextStyle(
                                                                   fontFamily:
                                                                       'Open Sans',
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
-                                                                  fontSize: 10.sp,
+                                                                  fontSize:
+                                                                      10.sp,
                                                                   letterSpacing:
                                                                       0.015,
                                                                 ),
@@ -1084,19 +1117,24 @@ class HotelHomeState extends State<HotelHome> {
                                                       children: [
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                         Icon(Icons.star,
                                                             size: 16,
-                                                            color: Colors.yellow),
+                                                            color:
+                                                                Colors.yellow),
                                                       ],
                                                     ),
                                                     SizedBox(
@@ -1115,7 +1153,8 @@ class HotelHomeState extends State<HotelHome> {
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 14.sp,
-                                                            letterSpacing: 0.025,
+                                                            letterSpacing:
+                                                                0.025,
                                                           ),
                                                         )
                                                       ],
