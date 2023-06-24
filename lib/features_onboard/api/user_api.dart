@@ -33,12 +33,14 @@ class UserApi {
       print('error: $error');
 
       return UserResponseModel.fromJson(response.data);
+
     } else if (response.statusCode == 404) {
       error = response.statusMessage.toString();
 
       print('error: $error');
 
       return UserResponseModel.fromJson(response.data);
+
     } else {
       throw Exception('Failed to login');
     }

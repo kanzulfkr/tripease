@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool popUpNotification = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
