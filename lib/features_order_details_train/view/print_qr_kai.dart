@@ -59,7 +59,7 @@ class PrintQrKai extends StatelessWidget {
                                 height: 21.h,
                                 width: 50.84.w,
                                 child: Image.asset(
-                                  'assets/images/KAI.png',
+                                  'assets/images/kai.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),

@@ -704,13 +704,12 @@ class InputGuestPageState extends State<InputGuestPage> {
                                               guest.nameController.text =
                                                   inputGuestProv.orderName
                                                       .toString();
-                                            });
 
-                                            inputGuestProv.travelerDetail![0]
-                                                    .fullName =
-                                                guestDataList![0]
-                                                    .nameController
-                                                    .text;
+                                              inputGuestProv.travelerDetail![0]
+                                                      .fullName =
+                                                  inputGuestProv.orderName
+                                                      .toString();
+                                            });
 
                                             print(inputGuestProv
                                                 .travelerDetail![0].fullName);
