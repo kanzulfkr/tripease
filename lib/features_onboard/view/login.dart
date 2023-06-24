@@ -140,7 +140,9 @@ class _LoginPageState extends State<LoginPage> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Tolong masukkan kata sandi';
+
                                     } else if (value.length < 8) {
+
                                       return 'Kata sandi tidak boleh kurang dari 8 karakter';
                                     }
 
@@ -211,6 +213,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         GestureDetector(
                           onTap: () async {
+
+                            print('onTap');
+
                             if (_formKey.currentState!.validate()) {
                               String email = _emailController.text;
                               String password = _passwordController.text;
@@ -225,8 +230,10 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               } else if (value.loginStatus ==
                                   LoginStatus.success) {
+
+                                LoginManager.saveLogin(true);
                                 if (context.mounted) {
-                                  LoginManager.saveLogin(true);
+
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (context) => const MainPage(),

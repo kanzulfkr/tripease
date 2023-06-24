@@ -1,9 +1,12 @@
 import 'package:capstone_project_tripease/features_home/widgets/for_you.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_saw.dart';
 import 'package:capstone_project_tripease/features_home/widgets/you_just_search.dart';
+import 'package:capstone_project_tripease/features_kai/view/ka_page/ka_page.dart';
+import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.h),
         child: AppBar(
+          backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
           actions: [
             IconButton(
               padding: EdgeInsets.only(top: 12.sp, bottom: 8.sp),
@@ -66,54 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-
-      // AppBar(
-      //   backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
-      //   bottom: PreferredSize(
-      //     preferredSize: Size.fromHeight(20.h),
-      //     child: Container(
-      //       padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-      //       width: double.infinity,
-      //       height: 72.h,
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           Container(
-      //             width: 233.h,
-      //             decoration: const BoxDecoration(
-      //               color: Colors.white,
-      //               borderRadius: BorderRadius.all(Radius.circular(8)),
-      //             ),
-      //             child: TextField(
-      //               decoration: InputDecoration(
-      //                 hintText: 'Search for something',
-      //                 hintStyle: GoogleFonts.openSans(
-      //                     fontSize: 14.sp, fontWeight: FontWeight.w400),
-      //                 contentPadding: EdgeInsets.symmetric(vertical: 8.h),
-      //                 prefixIcon: const Icon(Icons.search),
-      //                 prefixIconColor: const Color.fromRGBO(150, 152, 156, 1),
-      //               ),
-      //             ),
-      //           ),
-      //           SizedBox(
-      //             width: 40.h,
-      //             child: const Icon(
-      //               Icons.notifications_none,
-      //               color: Colors.white,
-      //             ),
-      //           ),
-      //           SizedBox(
-      //             width: 40.h,
-      //             child: const Icon(
-      //               Icons.chat,
-      //               color: Colors.white,
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: ListView(
         children: [
           Padding(
@@ -122,7 +78,15 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    // getDataWithDio();
+                    Provider.of<StationProvider>(context, listen: false)
+                        .setAsalController('');
+                    Provider.of<StationProvider>(context, listen: false)
+                        .setTujuanController('');
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const KaPage();
+                      },
+                    ));
                   },
                   child: Container(
                     height: 40.h,
