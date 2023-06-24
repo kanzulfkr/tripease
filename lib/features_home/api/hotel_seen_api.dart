@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_1/features_home/models/hotel_seen_model.dart';
-import 'package:hotel_1/onboard_feature/utils/token_manager.dart';
+
+import '../../features_onboard/utils/token_manager.dart';
 
 class HotelSeenApi {
   final Dio dio = Dio();

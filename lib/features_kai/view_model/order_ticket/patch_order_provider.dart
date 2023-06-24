@@ -1,5 +1,5 @@
-import 'package:capstone_project_tripease/features_kai/api/patch_order_train_api.dart';
-import 'package:capstone_project_tripease/features_kai/model/patch_order_model.dart';
+import '/features_kai/api/patch_order_train_api.dart';
+import '/features_kai/model/patch_order_model.dart';
 import 'package:flutter/material.dart';
 
 class PatchTrainProvider with ChangeNotifier {

@@ -1,7 +1,7 @@
-import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_departure_page.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/return_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
+import '/features_kai/view/seat_carriage/select_seat_departure_page.dart';
+import '/features_kai/view_model/station/departure_provider.dart';
+import '/features_kai/view_model/station/return_provider.dart';
+import '/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

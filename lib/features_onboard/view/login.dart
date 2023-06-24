@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_onboard/view/register.dart';
+import '/features_onboard/view/register.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main_page.dart';
@@ -140,9 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Tolong masukkan kata sandi';
-
                                     } else if (value.length < 8) {
-
                                       return 'Kata sandi tidak boleh kurang dari 8 karakter';
                                     }
 
@@ -213,7 +211,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         GestureDetector(
                           onTap: () async {
-
                             print('onTap');
 
                             if (_formKey.currentState!.validate()) {
@@ -230,10 +227,8 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               } else if (value.loginStatus ==
                                   LoginStatus.success) {
-
                                 LoginManager.saveLogin(true);
                                 if (context.mounted) {
-
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (context) => const MainPage(),

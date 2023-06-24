@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_print
-import 'package:capstone_project_tripease/features_kai/view_model/station/return_provider.dart';
+import '/features_kai/view_model/station/return_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

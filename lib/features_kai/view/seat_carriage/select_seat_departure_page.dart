@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
-import 'package:capstone_project_tripease/features_kai/view/seat_carriage/select_seat_return_page.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/station_provider.dart';
+import '/features_kai/view/seat_carriage/select_seat_return_page.dart';
+import '/features_kai/view_model/station/station_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

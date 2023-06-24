@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../onboard_feature/utils/token_manager.dart';
+import '../../features_onboard/utils/token_manager.dart';
 import '../detail_hotel/model/detail_hotel.dart';
 
 class HotelDetailApi {

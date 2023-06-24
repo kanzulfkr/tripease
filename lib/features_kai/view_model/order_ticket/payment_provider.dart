@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_kai/api/payment_api.dart';
+import '/features_kai/api/payment_api.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 

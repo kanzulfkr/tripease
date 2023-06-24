@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:capstone_project_tripease/features_kai/view_model/carriage/carriage_return_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/departure_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/station/return_provider.dart';
+import '/features_kai/view_model/carriage/carriage_return_provider.dart';
+import '/features_kai/view_model/station/departure_provider.dart';
+import '/features_kai/view_model/station/return_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

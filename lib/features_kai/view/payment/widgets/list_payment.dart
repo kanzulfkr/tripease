@@ -1,7 +1,7 @@
-import 'package:capstone_project_tripease/features_kai/view/payment/payment_page.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/payment_provider.dart';
-import 'package:capstone_project_tripease/features_kai/view_model/train/train_provider.dart';
+import '/features_kai/view/payment/payment_page.dart';
+import '/features_kai/view_model/order_ticket/order_train_provider.dart';
+import '/features_kai/view_model/order_ticket/payment_provider.dart';
+import '/features_kai/view_model/train/train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

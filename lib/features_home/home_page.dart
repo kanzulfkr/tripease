@@ -1,4 +1,4 @@
-import 'package:hotel_1/hotel_features/hotel_home/view/clone.dart';
+import '/hotel_features/hotel_home/view/clone.dart';
 
 import '/features_home/widgets/for_you.dart';
 import '/features_home/widgets/you_just_saw.dart';

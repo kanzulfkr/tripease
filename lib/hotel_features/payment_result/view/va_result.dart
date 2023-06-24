@@ -259,6 +259,13 @@ class VirtualAccountPageState extends State<VirtualAccountPage> {
                 await patchOrder.patchOrderHotel(
                     orderProv.data.hotelOrderId as int, "paid");
                 isBayar = true;
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Tunggu Sebentar'),
+                    ),
+                  );
+                }
                 await Future.delayed(const Duration(seconds: 2), () {
                   Navigator.push(
                     context,

@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_kai/model/response_order_train_model.dart';
+import '/features_kai/model/response_order_train_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../features_onboard/utils/token_manager.dart';

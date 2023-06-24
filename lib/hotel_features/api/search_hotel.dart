@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../onboard_feature/utils/token_manager.dart';
+import '../../features_onboard/utils/token_manager.dart';
 import '../hotel_home/model/search_hotel.dart';
 
 class SearchHotelAPI {

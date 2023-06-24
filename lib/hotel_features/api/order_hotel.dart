@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../onboard_feature/utils/token_manager.dart';
+import '../../features_onboard/utils/token_manager.dart';
 import '../payment_hotel/model/data_order_response_model.dart';
 import '../payment_hotel/model/order_model.dart';
 

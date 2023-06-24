@@ -530,6 +530,12 @@ class _FakturHotelState extends State<FakturHotel> {
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: patchOrderProv
+                                                .data
+                                                .hotel!
+                                                .hotelRoom!
+                                                .hotelRoomImage!
+                                                .isNotEmpty &&
+                                            patchOrderProv
                                                     .data
                                                     .hotel
                                                     ?.hotelRoom

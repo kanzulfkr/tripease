@@ -1,4 +1,4 @@
-import 'package:capstone_project_tripease/features_kai/view_model/order_ticket/order_train_provider.dart';
+import '/features_kai/view_model/order_ticket/order_train_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
