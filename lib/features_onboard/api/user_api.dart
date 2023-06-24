@@ -1,6 +1,6 @@
-import '/onboard_feature/model/register_model.dart';
-import '/onboard_feature/model/user_model.dart';
-import '/onboard_feature/utils/token_manager.dart';
+import '/features_onboard/model/register_model.dart';
+import '/features_onboard/model/user_model.dart';
+import '/features_onboard/utils/token_manager.dart';
 import 'package:dio/dio.dart';
 
 class UserApi {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:capstone_project_tripease/onboard_feature/utils/token_manager.dart';
+import 'package:capstone_project_tripease/features_onboard/utils/token_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

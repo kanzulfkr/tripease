@@ -1,13 +1,14 @@
+import 'package:capstone_project_tripease/features_onboard/view/register.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main_page.dart';
 import '../utils/token_manager.dart';
-import '/onboard_feature/view/register.dart';
-import '/onboard_feature/view_model/login_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../view_model/login_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
