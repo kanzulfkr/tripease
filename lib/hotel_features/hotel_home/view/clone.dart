@@ -325,25 +325,51 @@ class HotelHomeState extends State<HotelHome> {
                                   child: Consumer<SearchProvider>(
                                     builder: (context, searchProvider, child) {
                                       return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 12.0),
-                                        child: searchProvider.address == null
-                                            ? Text(
-                                                'Medan',
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 16.sp,
-                                                ),
-                                              )
-                                            : Text(
-                                                searchProvider.address
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 16.sp,
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 12.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Flexible(
+                                                child: Column(
+                                                  children: [
+                                                    searchProvider.address ==
+                                                            null
+                                                        ? Text(
+                                                            'Medan',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.grey,
+                                                              fontSize: 16.sp,
+                                                            ),
+                                                          )
+                                                        : Text(
+                                                            searchProvider
+                                                                .address
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.grey,
+                                                              fontSize: 16.sp,
+                                                            ),
+                                                            softWrap: true,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 2,
+                                                          ),
+                                                  ],
                                                 ),
                                               ),
-                                      );
+                                              TextButton(
+                                                  onPressed: () {
+                                                    searchProvider
+                                                        .clearAddress();
+                                                  },
+                                                  child: const Text('Clear'))
+                                            ],
+                                          ));
                                     },
                                   )),
                             ),

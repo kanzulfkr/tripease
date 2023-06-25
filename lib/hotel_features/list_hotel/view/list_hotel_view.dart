@@ -595,7 +595,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                     Container(
                       padding:
                           EdgeInsets.fromLTRB(16.sp, 10.5.sp, 16.sp, 10.5.sp),
-                      width: 124,
+                      width: 121.w,
                       height: 40.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -691,40 +691,37 @@ class _ListHotelViewState extends State<ListHotelView> {
                               }
                               // Function
                             },
-
-                            items: const <DropdownMenuItem<SortingOptions>>[
+                            items: <DropdownMenuItem<SortingOptions>>[
                               DropdownMenuItem<SortingOptions>(
                                   value: SortingOptions.empty,
-                                  child: Text('Pilih')),
+                                  child: Container(
+                                      width: double.infinity,
+                                      child: Text('Pilih'))),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.recommended,
-                                child: Text('Rekomendasi'),
+                                child: Container(
+                                    width: double.infinity,
+                                    child: Text('Rekomendasi')),
                               ),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.asc,
-                                child: Text('Harga Terendah'),
+                                child: Container(
+                                    width: double.infinity,
+                                    child: Text('Harga Terendah')),
                               ),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.desc,
-                                child: Text('Harga Tertinggi'),
+                                child: Container(
+                                    width: double.infinity,
+                                    child: Text('Harga Tertinggi')),
                               ),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.rating,
-                                child: Text('Kelas Hotel'),
+                                child: Container(
+                                    width: double.infinity,
+                                    child: Text('Kelas Hotel')),
                               ),
                             ],
-                            // items: <String>[
-                            //   'Pilih',
-                            //   'Rekomendasi',
-                            //   'Harga Terendah',
-                            //   'Harga Tertinggi',
-                            //   'Kelas Hotel',
-                            // ].map<DropdownMenuItem<String>>((String value) {
-                            //   return DropdownMenuItem<String>(
-                            //     value: value,
-                            //     child: Text(value),
-                            //   );
-                            // }).toList(),
                           );
                         },
                       ),
