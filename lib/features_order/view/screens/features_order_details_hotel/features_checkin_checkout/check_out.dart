@@ -1,3 +1,5 @@
+import '../../../../../selected_tab.dart';
+import '../../../../view_model/provider/tab_provider.dart';
 import '/features_order/view_model/provider/hotel/hotel_order_detail_provider.dart';
 import '/features_order/view_model/provider/hotel/hotel_order_update_provider.dart';
 import 'package:flutter/material.dart';
@@ -205,6 +207,16 @@ class _CheckOutState extends State<CheckOut> {
                                       child: ButtonClose(
                                         text: 'Ya',
                                         onTap: () {
+                                          final tabProvider =
+                                              Provider.of<TabProvider>(context,
+                                                  listen: false);
+
+                                          final navBarProv =
+                                              Provider.of<NavBarProvider>(
+                                                  context,
+                                                  listen: false);
+                                          tabProvider.setInitialIndex(0);
+                                          navBarProv.setSelectedIndex(1);
                                           var orderProvider = Provider.of<
                                                   StatusOrderHotelUpdateProvider>(
                                               context,

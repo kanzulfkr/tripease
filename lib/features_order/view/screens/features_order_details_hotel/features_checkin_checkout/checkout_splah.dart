@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../pesanan_screen.dart';
+import 'package:hotel_1/main_page.dart';
 
 class CheckOutSplash extends StatefulWidget {
   const CheckOutSplash({super.key});
@@ -17,10 +16,15 @@ class _CheckOutSplashState extends State<CheckOutSplash> {
   void initState() {
     Timer(
       const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PesananScreen()),
-      ),
+      () {
+        if (mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const MainPage()),
+            (route) => false,
+          );
+        }
+      },
     );
     super.initState();
   }
