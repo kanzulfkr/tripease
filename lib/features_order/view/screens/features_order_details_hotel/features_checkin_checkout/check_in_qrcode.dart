@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hotel_1/main_page.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../../../../selected_tab.dart';
+import '../../../../view_model/provider/tab_provider.dart';
 import '../../pesanan_screen.dart';
 import 'check_out.dart';
 import 'component/button_active.dart';
@@ -121,10 +125,18 @@ class _CheckInQrcodeState extends State<CheckInQrcode> {
             ButtonActive(
               text: 'Hubungi Reservasi',
               onTap: () {
-                Navigator.of(context).push(
+                final tabProvider =
+                    Provider.of<TabProvider>(context, listen: false);
+
+                final navBarProv =
+                    Provider.of<NavBarProvider>(context, listen: false);
+                tabProvider.setInitialIndex(0);
+                navBarProv.setSelectedIndex(1);
+                Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => PesananScreen(),
+                    builder: (context) => const MainPage(),
                   ),
+                  (route) => false,
                 );
               },
             )

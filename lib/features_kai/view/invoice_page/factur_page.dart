@@ -335,10 +335,10 @@ class _FacturPageState extends State<FacturPage> {
                       final tabProvider =
                           Provider.of<TabProvider>(context, listen: false);
 
-                      final NavBarProv =
+                      final navBarProv =
                           Provider.of<NavBarProvider>(context, listen: false);
                       tabProvider.setInitialIndex(1);
-                      NavBarProv.setSelectedIndex(1);
+                      navBarProv.setSelectedIndex(1);
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
