@@ -27,96 +27,96 @@ class _HotelSearchViewState extends State<HotelSearchView> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HotelSearchViewModel>(
       create: (_) => HotelSearchViewModel(),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            alignment: Alignment.topCenter,
-            padding: EdgeInsets.all(20.sp),
-            child: Consumer<AddressProvider>(
-              builder: (context, addressProvider, child) {
-                final result =
-                    addressProvider.searchAddress(addressProvider.query);
-                return Column(
-                  children: [
-                    SizedBox(height: 20.h),
-                    Container(
-                      height: 44,
-                      padding: EdgeInsets.fromLTRB(17.sp, 3.sp, 17.sp, 3.sp),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(22),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 1,
+      child: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              alignment: Alignment.topCenter,
+              padding: EdgeInsets.all(20.sp),
+              child: Consumer<AddressProvider>(
+                builder: (context, addressProvider, child) {
+                  final result =
+                      addressProvider.searchAddress(addressProvider.query);
+                  return Column(
+                    children: [
+                      SizedBox(height: 20.h),
+                      Container(
+                        height: 44,
+                        padding: EdgeInsets.fromLTRB(17.sp, 3.sp, 17.sp, 3.sp),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.search),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: TextFormField(
-                              onChanged: (value) {
-                                addressProvider.updateSearchQuery(value);
-                              },
-                              controller: searchController,
-                              decoration: const InputDecoration(
-                                hintText: 'Cari kota atau negara',
-                                border: InputBorder.none,
+                        child: Row(
+                          children: [
+                            const Icon(Icons.search),
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  addressProvider.updateSearchQuery(value);
+                                },
+                                controller: searchController,
+                                decoration: const InputDecoration(
+                                  hintText: 'Cari kota atau negara',
+                                  border: InputBorder.none,
+                                ),
                               ),
                             ),
-                          ),
-                          IconButton(
-                              icon: const Icon(Icons.close),
-                              onPressed: () {
-                                searchController.clear();
-                              }),
-                        ],
+                            IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () {
+                                  searchController.clear();
+                                }),
+                          ],
+                        ),
                       ),
-                    ),
-                    // SearchInput(),
-                    SizedBox(height: 20.h),
-                    SizedBox(
-                        height: 252.h,
-                        child: searchController.text == ''
-                            ? Column(
-                                children: [
-                                  SizedBox(
-                                    width: 202.w,
-                                    height: 196.h,
-                                    child: Image.asset(
-                                        'assets/images/search1.jpeg'),
-                                  ),
-                                  SizedBox(height: 12.h),
-                                  Center(
-                                    child: Text(
-                                      "Tidak ditemukan hasil untuk 'Makau'!",
-                                      style: TextStyle(
-                                        fontFamily: 'Open Sans',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                        letterSpacing: 0.025,
-                                        color: const Color(0xFFDB2D24),
-                                      ),
-                                      textAlign: TextAlign.center,
+                      // SearchInput(),
+                      SizedBox(height: 20.h),
+                      SizedBox(
+                          height: 252.h,
+                          child: searchController.text == ''
+                              ? Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 202.w,
+                                      height: 196.h,
+                                      child: Image.asset(
+                                          'assets/images/search1.jpeg'),
                                     ),
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      "Mohon untuk menginput kata kunci berbeda",
-                                      style: TextStyle(
-                                        fontFamily: 'Open Sans',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                        letterSpacing: 0.025,
-                                        color: const Color(0xFFDB2D24),
+                                    SizedBox(height: 12.h),
+                                    Center(
+                                      child: Text(
+                                        "Tidak ditemukan hasil untuk 'Makau'!",
+                                        style: TextStyle(
+                                          fontFamily: 'Open Sans',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14.sp,
+                                          letterSpacing: 0.025,
+                                          color: const Color(0xFFDB2D24),
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
-                                  ),
-                                ],
-                              )
-                            : Expanded(
-                                child: Container(
+                                    Center(
+                                      child: Text(
+                                        "Mohon untuk menginput kata kunci berbeda",
+                                        style: TextStyle(
+                                          fontFamily: 'Open Sans',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14.sp,
+                                          letterSpacing: 0.025,
+                                          color: const Color(0xFFDB2D24),
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(
                                   height: 300,
                                   width: double.maxFinite,
                                   margin: EdgeInsets.only(top: 10.h),
@@ -195,16 +195,16 @@ class _HotelSearchViewState extends State<HotelSearchView> {
                                       );
                                     },
                                   ),
-                                ),
-                              )),
-                    // SearchResults(),
-                    SizedBox(height: 20.h),
-                    const SearchHistory(),
-                    SizedBox(height: 20.h),
-                    const PopularCities(),
-                  ],
-                );
-              },
+                                )),
+                      // SearchResults(),
+                      SizedBox(height: 20.h),
+                      const SearchHistory(),
+                      SizedBox(height: 20.h),
+                      const PopularCities(),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),
