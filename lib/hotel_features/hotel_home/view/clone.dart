@@ -316,9 +316,9 @@ class HotelHomeState extends State<HotelHome> {
                                       isScrollControlled: true,
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return FractionallySizedBox(
-                                            heightFactor: 0.9.h,
-                                            child: const HotelSearchView());
+                                        return const FractionallySizedBox(
+                                            heightFactor: 1.0,
+                                            child: HotelSearchView());
                                       },
                                     );
                                   },
