@@ -148,6 +148,11 @@ class SearchProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearAddress() {
+    _address = null;
+    notifyListeners();
+  }
+
   void setName(String? name) {
     _name = name;
     notifyListeners();
