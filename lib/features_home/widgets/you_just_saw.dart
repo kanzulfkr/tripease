@@ -153,7 +153,9 @@ class _YouJustSawState extends State<YouJustSaw> {
                     );
                   },
                 )
-              : Container();
+              : const Center(
+                  child: Text('No data'),
+                );
         },
       ),
     );
