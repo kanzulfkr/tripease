@@ -92,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ));
                   },
                   child: Container(
-                    height: 40,
-                    width: 160,
+                    height: 40.h,
+                    width: 160.w,
                     padding: const EdgeInsets.symmetric(horizontal: 32.5),
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(51, 153, 255, 1),
@@ -125,8 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (context) => const HotelHome()));
                   },
                   child: Container(
-                    height: 40,
-                    width: 160,
+                    height: 40.h,
+                    width: 160.w,
                     padding: const EdgeInsets.symmetric(horizontal: 36.5),
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(255, 143, 51, 1),
