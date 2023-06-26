@@ -894,12 +894,7 @@ class _ListHotelViewState extends State<ListHotelView> {
                                                       .hotel[index]
                                                       .hotelImage![0]
                                                       .imageUrl !=
-                                                  "m.jpg" &&
-                                              searchProvider
-                                                      .hotel[index]
-                                                      .hotelImage![0]
-                                                      .imageUrl !=
-                                                  "s.jpg"
+                                                  "m.jpg"
                                           ? Image.network(
                                               searchProvider.hotel[index]
                                                   .hotelImage![0].imageUrl!,
