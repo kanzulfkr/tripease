@@ -1,3 +1,5 @@
+import '../../features_onboard/utils/token_manager.dart';
+import '../../features_onboard/view/login.dart';
 import '/features_profile/view/change_password/change_password_screen.dart';
 import '/features_profile/view/widgets/custom_dialog.dart';
 import '/features_profile/view/widgets/menu_profile.dart';
@@ -9,9 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../../features_onboard/utils/token_manager.dart';
-import '../../features_onboard/view/login.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -76,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 )),
                       Container(
-                        width: 170.h,
+                        width: 150.w,
                         margin: EdgeInsets.only(left: 14.h, right: 26.h),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -104,19 +103,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: 40.h,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const EditProfileScreen(
-                                title: 'Ubah Profile',
-                              ),
-                            ));
-                          },
-                          child: const Icon(
-                            Icons.edit_outlined,
-                            color: Colors.white,
+                      Expanded(
+                        child: SizedBox(
+                          width: 40.h,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const EditProfileScreen(
+                                  title: 'Ubah Profile',
+                                ),
+                              ));
+                            },
+                            child: const Icon(
+                              Icons.edit_outlined,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -126,63 +127,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Container(
                 width: double.maxFinite,
-                height: 224.w,
+                height: 200.w,
                 color: Colors.white,
                 margin: EdgeInsets.only(bottom: 20.w),
                 child: Column(
                   children: [
-                    MenuProfile(
-                      iconName: Icons.person_2_outlined,
-                      name: 'Ubah Profile',
-                      description: 'Ubah profile Anda',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const EditProfileScreen(
-                            title: 'Ubah Profile',
-                          ),
-                        ));
-                      },
+                    Expanded(
+                      child: MenuProfile(
+                        iconName: Icons.person_2_outlined,
+                        name: 'Ubah Profile',
+                        description: 'Ubah profile Anda',
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const EditProfileScreen(
+                              title: 'Ubah Profile',
+                            ),
+                          ));
+                        },
+                      ),
                     ),
-                    MenuProfile(
-                      iconName: Icons.lock_outline,
-                      name: 'Ubah Kata Sandi',
-                      description: 'Ubah kata sandi Anda',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ChangePasswordScreen(
-                            title: 'Ubah Kata Sandi',
-                          ),
-                        ));
-                      },
+                    Expanded(
+                      child: MenuProfile(
+                        iconName: Icons.lock_outline,
+                        name: 'Ubah Kata Sandi',
+                        description: 'Ubah kata sandi Anda',
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const ChangePasswordScreen(
+                              title: 'Ubah Kata Sandi',
+                            ),
+                          ));
+                        },
+                      ),
                     ),
-                    MenuProfile(
-                      iconName: Icons.logout_outlined,
-                      name: 'Keluar',
-                      description: 'Keluar dari akun Anda',
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return LogoutDialog(
-                              title: 'Keluar dari akun',
-                              content:
-                                  'Sayang sekali, banyak keuntungan yang anda lewatkan. Apakah anda yakin untuk keluar?',
-                              btnActive: 'Ya',
-                              btnInactive: 'Tidak',
-                              onTapActive: () {
-                                TokenManager.removeToken();
-                                LoginManager.removeLogin();
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginPage()),
-                                    (route) => false);
-                              },
-                            );
-                          },
-                        );
-                      },
+                    Expanded(
+                      child: MenuProfile(
+                        iconName: Icons.logout_outlined,
+                        name: 'Keluar',
+                        description: 'Keluar dari akun Anda',
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return LogoutDialog(
+                                title: 'Keluar dari akun',
+                                content:
+                                    'Sayang sekali, banyak keuntungan yang anda lewatkan. Apakah anda yakin untuk keluar?',
+                                btnActive: 'Ya',
+                                btnInactive: 'Tidak',
+                                onTapActive: () {
+                                  TokenManager.removeToken();
+                                  LoginManager.removeLogin();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage()),
+                                      (route) => false);
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -199,29 +206,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 margin: EdgeInsets.only(top: 20.h),
                 child: Column(
                   children: [
-                    MenuProfile(
-                      iconName: Icons.question_mark_outlined,
-                      name: 'Pusat Bantuan',
-                      description: 'Temukan jawaban terbaik Anda',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const HelpScreen(
-                            title: 'Pusat Bantuan',
-                          ),
-                        ));
-                      },
+                    Expanded(
+                      child: MenuProfile(
+                        iconName: Icons.question_mark_outlined,
+                        name: 'Pusat Bantuan',
+                        description: 'Temukan jawaban terbaik Anda',
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const HelpScreen(
+                              title: 'Pusat Bantuan',
+                            ),
+                          ));
+                        },
+                      ),
                     ),
-                    MenuProfile(
-                      iconName: Icons.g_translate_outlined,
-                      name: 'Bahasa / Language',
-                      description: 'Pilih bahasa yang Anda inginkan',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const LanguageScreen(
-                            title: 'Bahasa',
-                          ),
-                        ));
-                      },
+                    Expanded(
+                      child: MenuProfile(
+                        iconName: Icons.g_translate_outlined,
+                        name: 'Bahasa / Language',
+                        description: 'Pilih bahasa yang Anda inginkan',
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const LanguageScreen(
+                              title: 'Bahasa',
+                            ),
+                          ));
+                        },
+                      ),
                     ),
                   ],
                 ),

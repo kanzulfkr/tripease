@@ -77,7 +77,10 @@ class _YouJustSawState extends State<YouJustSaw> {
                                     "string" &&
                                 hotelSeenProv.hotelSeen[index].hotel
                                         ?.hotelImage?[0].imageUrl !=
-                                    "c.jpg"
+                                    "c.jpg" &&
+                                hotelSeenProv.hotelSeen[index].hotel
+                                        ?.hotelImage?[0].imageUrl !=
+                                    "m.jpg"
                             ? Image.network(
                                 hotelSeenProv.hotelSeen[index].hotel!
                                     .hotelImage![0].imageUrl!,

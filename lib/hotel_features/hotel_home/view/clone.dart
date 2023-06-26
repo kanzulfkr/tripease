@@ -167,7 +167,7 @@ class HotelHomeState extends State<HotelHome> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 252.sp),
+                          padding: EdgeInsets.only(left: 247.sp),
                           child: TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -1205,22 +1205,6 @@ class HotelHomeState extends State<HotelHome> {
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Pesanan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
-          ),
-        ],
       ),
     );
   }
