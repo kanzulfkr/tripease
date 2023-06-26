@@ -51,14 +51,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
           title: PreferredSize(
-            preferredSize: Size.fromHeight(48.0.h),
+            preferredSize: const Size.fromHeight(48.0),
             child: Padding(
               padding: const EdgeInsets.only(top: 12, right: 19.75),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Pencarian',
                   hintStyle: GoogleFonts.openSans(
-                      fontSize: 14.sp, fontWeight: FontWeight.w400),
+                      fontSize: 14, fontWeight: FontWeight.w400),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -92,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ));
                   },
                   child: Container(
-                    height: 40.h,
-                    width: 160.w,
+                    height: 40,
+                    width: 160,
                     padding: const EdgeInsets.symmetric(horizontal: 32.5),
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(51, 153, 255, 1),
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'Kereta Api',
                           style: GoogleFonts.openSans(
-                              fontSize: 12.sp, fontWeight: FontWeight.w400),
+                              fontSize: 12, fontWeight: FontWeight.w400),
                         )
                       ],
                     ),
@@ -125,23 +125,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (context) => const HotelHome()));
                   },
                   child: Container(
-                    height: 40.h,
-                    width: 160.w,
+                    height: 40,
+                    width: 160,
                     padding: const EdgeInsets.symmetric(horizontal: 36.5),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 143, 51, 1),
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(255, 143, 51, 1),
                       borderRadius: BorderRadius.horizontal(
-                        right: Radius.circular(8.r),
+                        right: Radius.circular(8),
                       ),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.apartment_outlined,
                           color: Colors.black,
                         ),
-                        SizedBox(width: 59.w, child: const Text('Hotel'))
+                        SizedBox(width: 59, child: Text('Hotel'))
                       ],
                     ),
                   ),
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           popUpNotification
               ? Container(
-                  height: 79.h,
+                  height: 79,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
@@ -230,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               'Hotel pilihan untuk anda',
               style: GoogleFonts.openSans(
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               'Anda baru saja mencari',
               style: GoogleFonts.openSans(
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),
