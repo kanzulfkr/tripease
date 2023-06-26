@@ -119,11 +119,12 @@ class _PaymentPageHotelState extends State<PaymentPageHotel> {
       await orderProv.postOrderHotel(order);
       debugPrint('ID ORDER :${orderProv.data.hotelOrderId}');
       if (context.mounted) {
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => const VirtualAccountPage(),
           ),
+          (route) => false,
         );
       }
     } else if (paymentType == 'Minimarket' && paymentId != 0) {

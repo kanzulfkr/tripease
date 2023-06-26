@@ -42,8 +42,8 @@ class _RegisterPageState extends State<RegisterPage> {
               Stack(
                 children: [
                   SizedBox(
-                    height: 200.h,
-                    width: double.maxFinite.w,
+                    height: 200,
+                    width: double.maxFinite,
                     child: Image.asset(
                       'assets/images/around-the-world.png',
                       scale: 1,
@@ -52,30 +52,30 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   Column(
                     children: [
-                      SizedBox(height: 180.h),
+                      const SizedBox(height: 180),
                       Container(
                         // height: 615.h,
-                        width: double.infinity.w,
-                        padding: EdgeInsets.all(20.sp),
-                        decoration: BoxDecoration(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(25.r),
+                            top: Radius.circular(25),
                           ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Daftar',
                               style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w600,
-                                color: const Color.fromRGBO(0, 128, 255, 1),
-                                letterSpacing: 0.15.sp,
+                                color: Color.fromRGBO(0, 128, 255, 1),
+                                letterSpacing: 0.15,
                               ),
                             ),
-                            SizedBox(height: 12.h),
+                            const SizedBox(height: 12),
                             Form(
                                 key: _formKey,
                                 child: Column(
@@ -84,10 +84,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                     Text(
                                       'Nama Lengkap',
                                       style: GoogleFonts.openSans(
-                                          fontSize: 14.sp,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
@@ -98,42 +98,41 @@ class _RegisterPageState extends State<RegisterPage> {
                                         }
                                         return null;
                                       },
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(5.r),
+                                            Radius.circular(5),
                                           ),
                                         ),
                                         prefixIcon: Padding(
                                           padding: EdgeInsets.only(
-                                              left: 8.0.sp,
-                                              right: 8.0.sp,
-                                              bottom: 5.0.sp),
-                                          child: const Icon(Icons.person),
+                                              left: 8.0,
+                                              right: 8.0,
+                                              bottom: 5.0),
+                                          child: Icon(Icons.person),
                                         ),
                                         prefixIconConstraints: BoxConstraints(
-                                            minHeight: 8.h, minWidth: 8.w),
+                                            minHeight: 8, minWidth: 8),
                                         hintText: 'Budi Sanjaya',
                                         hintStyle: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: const Color.fromRGBO(
+                                            fontSize: 12,
+                                            color: Color.fromRGBO(
                                                 139, 146, 156, 1)),
                                         helperStyle: TextStyle(
-                                          fontSize: 10.sp,
-                                          color: const Color.fromRGBO(
-                                              0, 128, 255, 1),
-                                          letterSpacing: 0.15.sp,
+                                          fontSize: 10,
+                                          color: Color.fromRGBO(0, 128, 255, 1),
+                                          letterSpacing: 0.15,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     Text(
                                       'Email',
                                       style: GoogleFonts.openSans(
-                                          fontSize: 14.sp,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
@@ -147,42 +146,41 @@ class _RegisterPageState extends State<RegisterPage> {
                                         }
                                         return null;
                                       },
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(5.r),
+                                            Radius.circular(5),
                                           ),
                                         ),
                                         prefixIcon: Padding(
                                           padding: EdgeInsets.only(
-                                              left: 8.0.sp,
-                                              right: 8.0.sp,
-                                              bottom: 5.0.sp),
-                                          child: const Icon(Icons.person),
+                                              left: 8.0,
+                                              right: 8.0,
+                                              bottom: 5.0),
+                                          child: Icon(Icons.person),
                                         ),
                                         prefixIconConstraints: BoxConstraints(
-                                            minHeight: 8.h, minWidth: 8.w),
+                                            minHeight: 8, minWidth: 8),
                                         hintText: 'yourname@email.com',
                                         hintStyle: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: const Color.fromRGBO(
+                                            fontSize: 12,
+                                            color: Color.fromRGBO(
                                                 139, 146, 156, 1)),
                                         helperStyle: TextStyle(
-                                          fontSize: 10.sp,
-                                          color: const Color.fromRGBO(
-                                              0, 128, 255, 1),
-                                          letterSpacing: 0.15.sp,
+                                          fontSize: 10,
+                                          color: Color.fromRGBO(0, 128, 255, 1),
+                                          letterSpacing: 0.15,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     Text(
                                       'Nomor Telepon',
                                       style: GoogleFonts.openSans(
-                                          fontSize: 14.sp,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
@@ -195,43 +193,42 @@ class _RegisterPageState extends State<RegisterPage> {
                                         }
                                         return null;
                                       },
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(5.r),
+                                            Radius.circular(5),
                                           ),
                                         ),
                                         prefixIcon: Padding(
                                           padding: EdgeInsets.only(
-                                              left: 8.0.sp,
-                                              right: 8.0.sp,
-                                              bottom: 5.0.sp),
+                                              left: 8.0,
+                                              right: 8.0,
+                                              bottom: 5.0),
                                           child: Icon(
                                               Icons.phone_android_outlined),
                                         ),
                                         prefixIconConstraints: BoxConstraints(
-                                            minHeight: 8.h, minWidth: 8.w),
+                                            minHeight: 8, minWidth: 8),
                                         hintText: '+6212345678 atau 0812345678',
                                         hintStyle: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: const Color.fromRGBO(
+                                            fontSize: 12,
+                                            color: Color.fromRGBO(
                                                 139, 146, 156, 1)),
                                         helperStyle: TextStyle(
-                                          fontSize: 10.sp,
-                                          color: const Color.fromRGBO(
-                                              0, 128, 255, 1),
-                                          letterSpacing: 0.15.sp,
+                                          fontSize: 10,
+                                          color: Color.fromRGBO(0, 128, 255, 1),
+                                          letterSpacing: 0.15,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     Text(
                                       'Kata Sandi',
                                       style: GoogleFonts.openSans(
-                                          fontSize: 14.sp,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
@@ -247,20 +244,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                       },
                                       obscureText: !_isVisible,
                                       decoration: InputDecoration(
-                                        border: OutlineInputBorder(
+                                        border: const OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(5.r),
+                                            Radius.circular(5),
                                           ),
                                         ),
-                                        prefixIcon: Padding(
+                                        prefixIcon: const Padding(
                                           padding: EdgeInsets.only(
-                                              left: 8.0.sp,
-                                              right: 8.0.sp,
-                                              bottom: 5.0.sp),
-                                          child: const Icon(Icons.lock),
+                                              left: 8.0,
+                                              right: 8.0,
+                                              bottom: 5.0),
+                                          child: Icon(Icons.lock),
                                         ),
                                         prefixIconConstraints:
-                                            BoxConstraints(minHeight: 0.h),
+                                            const BoxConstraints(minHeight: 0),
                                         suffixIcon: IconButton(
                                           onPressed: () {
                                             setState(() {
@@ -278,21 +275,21 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 ),
                                         ),
                                         hintText: 'Masukkan Kata Sandi',
-                                        hintStyle: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: const Color.fromRGBO(
-                                              139, 146, 156, 1),
+                                        hintStyle: const TextStyle(
+                                          fontSize: 12,
+                                          color:
+                                              Color.fromRGBO(139, 146, 156, 1),
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     Text(
                                       'Konfirmasi Kata Sandi',
                                       style: GoogleFonts.openSans(
-                                          fontSize: 14.sp,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                     TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
@@ -311,20 +308,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                       },
                                       obscureText: !_isVisible,
                                       decoration: InputDecoration(
-                                        border: OutlineInputBorder(
+                                        border: const OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(5.r),
+                                            Radius.circular(5),
                                           ),
                                         ),
-                                        prefixIcon: Padding(
+                                        prefixIcon: const Padding(
                                           padding: EdgeInsets.only(
-                                              left: 8.0.sp,
-                                              right: 8.0.sp,
-                                              bottom: 5.0.sp),
-                                          child: const Icon(Icons.lock),
+                                              left: 8.0,
+                                              right: 8.0,
+                                              bottom: 5.0),
+                                          child: Icon(Icons.lock),
                                         ),
                                         prefixIconConstraints:
-                                            BoxConstraints(minHeight: 0.h),
+                                            const BoxConstraints(minHeight: 0),
                                         suffixIcon: IconButton(
                                           onPressed: () {
                                             setState(() {
@@ -342,27 +339,27 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 ),
                                         ),
                                         hintText: 'Masukkan Ulang Kata Sandi',
-                                        hintStyle: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: const Color.fromRGBO(
-                                              139, 146, 156, 1),
+                                        hintStyle: const TextStyle(
+                                          fontSize: 12,
+                                          color:
+                                              Color.fromRGBO(139, 146, 156, 1),
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 12.h),
+                                    const SizedBox(height: 12),
                                   ],
                                 )),
-                            Row(
+                            const Row(
                               children: [
-                                const Icon(Icons.lock_outline),
-                                SizedBox(width: 5.w),
+                                Icon(Icons.lock_outline),
+                                SizedBox(width: 5),
                                 Text(
                                   'Kami akan melindungi data anda.',
-                                  style: TextStyle(fontSize: 10.sp),
+                                  style: TextStyle(fontSize: 10),
                                 )
                               ],
                             ),
-                            SizedBox(height: 12.h),
+                            const SizedBox(height: 12),
                             GestureDetector(
                               onTap: () async {
                                 String email = _emailController.text;
@@ -413,35 +410,35 @@ class _RegisterPageState extends State<RegisterPage> {
                                 }
                               },
                               child: Container(
-                                height: 40.h,
+                                height: 40,
                                 width: double.maxFinite,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(0, 128, 255, 1),
+                                decoration: const BoxDecoration(
+                                  color: Color.fromRGBO(0, 128, 255, 1),
                                   borderRadius: BorderRadius.all(
-                                    Radius.circular(5.r),
+                                    Radius.circular(5),
                                   ),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'Daftar',
                                     style: TextStyle(
-                                        fontSize: 14.sp,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.white,
-                                        letterSpacing: 0.0125.sp),
+                                        letterSpacing: 0.0125),
                                   ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 26.h),
+                            const SizedBox(height: 26),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'Sudah memiliki Akun?',
                                   style: TextStyle(
-                                    fontSize: 12.sp,
-                                    letterSpacing: 0.0125.sp,
+                                    fontSize: 12,
+                                    letterSpacing: 0.0125,
                                   ),
                                 ),
                                 TextButton(
@@ -454,13 +451,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ),
                                     );
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Masuk sekarang',
                                     style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color:
-                                          const Color.fromRGBO(0, 128, 255, 1),
-                                      letterSpacing: 0.0125.sp,
+                                      fontSize: 12,
+                                      color: Color.fromRGBO(0, 128, 255, 1),
+                                      letterSpacing: 0.0125,
                                     ),
                                   ),
                                 )

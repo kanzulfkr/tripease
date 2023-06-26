@@ -27,7 +27,7 @@ class HotelSeenModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
       );
 
@@ -109,11 +109,11 @@ class Hotel {
         hotelImage: json["hotel_image"] == null
             ? []
             : List<HotelImage>.from(
-                json["hotel_image"]!.map((x) => HotelImage.fromJson(x))),
+                json["hotel_image"].map((x) => HotelImage.fromJson(x))),
         hotelFacilities: json["hotel_facilities"] == null
             ? []
-            : List<HotelFacility>.from(json["hotel_facilities"]!
-                .map((x) => HotelFacility.fromJson(x))),
+            : List<HotelFacility>.from(
+                json["hotel_facilities"].map((x) => HotelFacility.fromJson(x))),
         hotelPolicy: json["hotel_policy"] == null
             ? null
             : HotelPolicy.fromJson(json["hotel_policy"]),
@@ -222,9 +222,9 @@ class HotelPolicy {
         isCheckOutOverdue: json["is_check_out_overdue"],
         isBreakfast: json["is_breakfast"],
         timeBreakfastStart:
-            timeBreakfastStartValues.map[json["time_breakfast_start"]]!,
+            timeBreakfastStartValues.map[json["time_breakfast_start"]],
         timeBreakfastEnd:
-            timeBreakfastEndValues.map[json["time_breakfast_end"]]!,
+            timeBreakfastEndValues.map[json["time_breakfast_end"]],
         isSmoking: json["is_smoking"],
         isPet: json["is_pet"],
       );
