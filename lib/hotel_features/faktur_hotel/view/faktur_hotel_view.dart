@@ -196,7 +196,10 @@ class _FakturHotelState extends State<FakturHotel> {
                                             "h.png" &&
                                         patchOrderProv.data.hotel
                                                 ?.hotelImage?[0].imageUrl !=
-                                            "c.jpg"
+                                            "c.jpg" &&
+                                        patchOrderProv.data.hotel
+                                                ?.hotelImage?[0].imageUrl !=
+                                            "m.jpg"
                                     ? Image.network(
                                         patchOrderProv.data.hotel
                                                 ?.hotelImage?[0].imageUrl
