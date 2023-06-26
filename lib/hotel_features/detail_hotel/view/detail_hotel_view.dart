@@ -13,7 +13,6 @@ import '../../detail_kamar/viewmodel/hotel_room_detail_provider.dart';
 import '../../hotel_home/viewmodel/search_hotel_provider.dart';
 import '../model/detail_hotel_model.dart';
 import '../viewmodel/detail_hotel_provider.dart';
-import '../viewmodel/detail_hotel_view_model.dart';
 
 class DetailView extends StatefulWidget {
   const DetailView({super.key});
@@ -24,7 +23,6 @@ class DetailView extends StatefulWidget {
 
 class _DetailViewState extends State<DetailView> {
   final formatter = NumberFormat.simpleCurrency(locale: 'id_ID');
-  int _currentSlide = 0;
   @override
   void initState() {
     super.initState();
@@ -55,9 +53,7 @@ class _DetailViewState extends State<DetailView> {
                     autoPlay: true,
                     viewportFraction: 1.0,
                     onPageChanged: (index, _) {
-                      setState(() {
-                        _currentSlide = index;
-                      });
+                      setState(() {});
                     },
                   ),
                   itemBuilder: (BuildContext context, int index, _) {
@@ -74,7 +70,13 @@ class _DetailViewState extends State<DetailView> {
                                     null &&
                                 detailHotelProv.detailHotel.hotelImage?[index]
                                         .imageUrl !=
-                                    "h.png"
+                                    "h.png" &&
+                                detailHotelProv.detailHotel.hotelImage?[index]
+                                        .imageUrl !=
+                                    "c.jpg" &&
+                                detailHotelProv.detailHotel.hotelImage?[index]
+                                        .imageUrl !=
+                                    "m.jpg"
                             ? Image.network(
                                 detailHotelProv.detailHotel.hotelImage?[index]
                                         .imageUrl ??

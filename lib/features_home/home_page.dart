@@ -25,35 +25,35 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(70),
         child: AppBar(
           backgroundColor: const Color.fromRGBO(0, 128, 255, 1),
           actions: [
             IconButton(
-              padding: EdgeInsets.only(top: 12, bottom: 8),
+              padding: const EdgeInsets.only(top: 12, bottom: 8),
               icon: const Icon(Icons.notifications),
               onPressed: () {
                 // Add your notification button action here
               },
             ),
-            SizedBox(
+            const SizedBox(
               width: 30.25,
             ),
             IconButton(
-              padding: EdgeInsets.only(top: 12, bottom: 8),
+              padding: const EdgeInsets.only(top: 12, bottom: 8),
               icon: const Icon(Icons.chat),
               onPressed: () {
                 // Add your chat button action here
               },
             ),
-            SizedBox(
+            const SizedBox(
               width: 18.96,
             ),
           ],
           title: PreferredSize(
-            preferredSize: Size.fromHeight(48.0),
+            preferredSize: const Size.fromHeight(48.0),
             child: Padding(
-              padding: EdgeInsets.only(top: 12, right: 19.75),
+              padding: const EdgeInsets.only(top: 12, right: 19.75),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Pencarian',
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: EdgeInsets.symmetric(vertical: 4),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 4),
                   prefixIcon: const Icon(Icons.search),
                 ),
               ),
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: Row(
               children: [
                 InkWell(
@@ -94,9 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     height: 40,
                     width: 160,
-                    padding: EdgeInsets.symmetric(horizontal: 32.5),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(51, 153, 255, 1),
+                    padding: const EdgeInsets.symmetric(horizontal: 32.5),
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(51, 153, 255, 1),
                       borderRadius: BorderRadius.horizontal(
                         left: Radius.circular(8),
                       ),
@@ -127,21 +127,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     height: 40,
                     width: 160,
-                    padding: EdgeInsets.symmetric(horizontal: 36.5),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 143, 51, 1),
+                    padding: const EdgeInsets.symmetric(horizontal: 36.5),
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(255, 143, 51, 1),
                       borderRadius: BorderRadius.horizontal(
                         right: Radius.circular(8),
                       ),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.apartment_outlined,
                           color: Colors.black,
                         ),
-                        SizedBox(width: 59, child: const Text('Hotel'))
+                        SizedBox(width: 59, child: Text('Hotel'))
                       ],
                     ),
                   ),
@@ -152,8 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
           popUpNotification
               ? Container(
                   height: 79,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(255, 231, 153, 1),
                     borderRadius: BorderRadius.circular(8),
@@ -212,7 +213,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               : const SizedBox(),
           Padding(
-            padding: EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
+            padding:
+                const EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
             child: Text(
               'Anda baru saja melihat',
               style: GoogleFonts.openSans(
@@ -221,9 +223,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          YouJustSaw(),
+          const YouJustSaw(),
           Padding(
-            padding: EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
+            padding:
+                const EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
             child: Text(
               'Hotel pilihan untuk anda',
               style: GoogleFonts.openSans(
@@ -232,9 +235,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          ForYou(),
+          const ForYou(),
           Padding(
-            padding: EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
+            padding:
+                const EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 8),
             child: Text(
               'Anda baru saja mencari',
               style: GoogleFonts.openSans(

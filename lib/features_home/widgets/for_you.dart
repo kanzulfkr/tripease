@@ -78,7 +78,10 @@ class _ForYouState extends State<ForYou> {
                                     "string" &&
                                 hotelRecommendProv.hotelRecommend[index]
                                         .hotelImage?[0].imageUrl !=
-                                    "c.jpg"
+                                    "c.jpg" &&
+                                hotelRecommendProv.hotelRecommend[index]
+                                        .hotelImage?[0].imageUrl !=
+                                    "m.jpg"
                             ? Image.network(
                                 hotelRecommendProv.hotelRecommend[index]
                                     .hotelImage![0].imageUrl!,

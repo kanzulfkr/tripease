@@ -33,7 +33,6 @@ class _ListHotelViewState extends State<ListHotelView> {
 
   void _showDateBottomSheet(BuildContext context) {
     final now = DateTime.now().subtract(const Duration(days: 1));
-    final currentYear = now.year.toString();
     final dateProvider = Provider.of<DateProvider>(context, listen: false);
     showModalBottomSheet(
       context: context,
@@ -205,13 +204,6 @@ class _ListHotelViewState extends State<ListHotelView> {
   }
 
   // final ListHotelViewModel _viewModel = ListHotelViewModel();
-  final PopUpViewModel _vModel = PopUpViewModel();
-  SfRangeValues _values = SfRangeValues(0, 10000000);
-  late TextEditingController _minValueController =
-      TextEditingController(text: _values.start.toStringAsFixed(0));
-  late TextEditingController _maxValueController =
-      TextEditingController(text: _values.end.toStringAsFixed(0));
-  double _rating = 0;
 
   @override
   void initState() {
@@ -691,33 +683,33 @@ class _ListHotelViewState extends State<ListHotelView> {
                               }
                               // Function
                             },
-                            items: <DropdownMenuItem<SortingOptions>>[
+                            items: const <DropdownMenuItem<SortingOptions>>[
                               DropdownMenuItem<SortingOptions>(
                                   value: SortingOptions.empty,
-                                  child: Container(
+                                  child: SizedBox(
                                       width: double.infinity,
                                       child: Text('Pilih'))),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.recommended,
-                                child: Container(
+                                child: SizedBox(
                                     width: double.infinity,
                                     child: Text('Rekomendasi')),
                               ),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.asc,
-                                child: Container(
+                                child: SizedBox(
                                     width: double.infinity,
                                     child: Text('Harga Terendah')),
                               ),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.desc,
-                                child: Container(
+                                child: SizedBox(
                                     width: double.infinity,
                                     child: Text('Harga Tertinggi')),
                               ),
                               DropdownMenuItem<SortingOptions>(
                                 value: SortingOptions.rating,
-                                child: Container(
+                                child: SizedBox(
                                     width: double.infinity,
                                     child: Text('Kelas Hotel')),
                               ),
@@ -868,35 +860,50 @@ class _ListHotelViewState extends State<ListHotelView> {
                                     ),
                                   ),
 
-                                  SizedBox(
-                                    height: 150.h,
-                                    width: 141.h,
-                                    child: searchProvider.hotel.isNotEmpty &&
-                                            searchProvider
-                                                    .hotel[index].hotelImage !=
-                                                null &&
-                                            searchProvider.hotel[index]
-                                                .hotelImage!.isNotEmpty &&
-                                            searchProvider.hotel[index]
-                                                    .hotelImage![0].imageUrl !=
-                                                null &&
-                                            searchProvider.hotel[index]
-                                                    .hotelImage![0].imageUrl !=
-                                                "h.png" &&
-                                            searchProvider.hotel[index]
-                                                    .hotelImage![0].imageUrl !=
-                                                "string" &&
-                                            searchProvider.hotel[index]
-                                                    .hotelImage![0].imageUrl !=
-                                                "c.jpg"
-                                        ? Image.network(
-                                            searchProvider.hotel[index]
-                                                .hotelImage![0].imageUrl!,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Image.asset(
-                                            'assets/images/hotel1.jpeg',
-                                            fit: BoxFit.fill),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 150.h,
+                                      width: 141.h,
+                                      child: searchProvider.hotel.isNotEmpty &&
+                                              searchProvider.hotel[index]
+                                                      .hotelImage !=
+                                                  null &&
+                                              searchProvider.hotel[index]
+                                                  .hotelImage!.isNotEmpty &&
+                                              searchProvider
+                                                      .hotel[index]
+                                                      .hotelImage![0]
+                                                      .imageUrl !=
+                                                  null &&
+                                              searchProvider
+                                                      .hotel[index]
+                                                      .hotelImage![0]
+                                                      .imageUrl !=
+                                                  "h.png" &&
+                                              searchProvider
+                                                      .hotel[index]
+                                                      .hotelImage![0]
+                                                      .imageUrl !=
+                                                  "string" &&
+                                              searchProvider
+                                                      .hotel[index]
+                                                      .hotelImage![0]
+                                                      .imageUrl !=
+                                                  "c.jpg" &&
+                                              searchProvider
+                                                      .hotel[index]
+                                                      .hotelImage![0]
+                                                      .imageUrl !=
+                                                  "m.jpg"
+                                          ? Image.network(
+                                              searchProvider.hotel[index]
+                                                  .hotelImage![0].imageUrl!,
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.asset(
+                                              'assets/images/hotel1.jpeg',
+                                              fit: BoxFit.fill),
+                                    ),
                                   ),
                                   // Container(
                                   //   height: 150.h,

@@ -60,18 +60,14 @@ class _FakturHotelState extends State<FakturHotel> {
                         version: QrVersions.auto,
                         size: 256,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            '${patchOrderProv.data.ticketOrderCode}',
-                            style: TextStyle(
-                              fontFamily: 'Open Sans',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              letterSpacing: 0.025,
-                            ),
-                          )
-                        ],
+                      Text(
+                        '${patchOrderProv.data.ticketOrderCode}',
+                        style: TextStyle(
+                          fontFamily: 'Open Sans',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.sp,
+                          letterSpacing: 0.025,
+                        ),
                       ),
                       SizedBox(
                         height: 12.h,
@@ -185,29 +181,34 @@ class _FakturHotelState extends State<FakturHotel> {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              width: 150.w,
-                              height: 140.h,
-                              child: patchOrderProv.data.hotel?.hotelImage?[0]
-                                              .imageUrl !=
-                                          "string" &&
-                                      patchOrderProv.data.hotel?.hotelImage?[0]
-                                              .imageUrl !=
-                                          null &&
-                                      patchOrderProv.data.hotel?.hotelImage?[0]
-                                              .imageUrl !=
-                                          "h.png" &&
-                                      patchOrderProv.data.hotel?.hotelImage?[0]
-                                              .imageUrl !=
-                                          "c.jpg"
-                                  ? Image.network(
-                                      patchOrderProv.data.hotel?.hotelImage?[0]
-                                              .imageUrl
-                                              .toString() ??
-                                          '',
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.asset('assets/images/hotel1.jpeg'),
+                            Expanded(
+                              child: SizedBox(
+                                width: 150.w,
+                                height: 150.h,
+                                child: patchOrderProv.data.hotel?.hotelImage?[0]
+                                                .imageUrl !=
+                                            "string" &&
+                                        patchOrderProv.data.hotel
+                                                ?.hotelImage?[0].imageUrl !=
+                                            null &&
+                                        patchOrderProv.data.hotel
+                                                ?.hotelImage?[0].imageUrl !=
+                                            "h.png" &&
+                                        patchOrderProv.data.hotel
+                                                ?.hotelImage?[0].imageUrl !=
+                                            "c.jpg" &&
+                                        patchOrderProv.data.hotel
+                                                ?.hotelImage?[0].imageUrl !=
+                                            "m.jpg"
+                                    ? Image.network(
+                                        patchOrderProv.data.hotel
+                                                ?.hotelImage?[0].imageUrl
+                                                .toString() ??
+                                            '',
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset('assets/images/hotel1.jpeg'),
+                              ),
                             ),
                           ],
                         ),
